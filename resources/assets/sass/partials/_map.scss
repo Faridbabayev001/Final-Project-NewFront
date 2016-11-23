@@ -1,0 +1,67 @@
+#map{
+  height: 600px;
+  #infoMap{
+    width: 100%;
+    height: 600px;
+  }
+  #searchBoxDrag{
+    top:7%;
+    left: 2%;
+    width: 230px;
+    height: 250px;
+    background-color:rgba(52,73,94,0.9);
+    z-index: 999;
+    position: absolute;
+    color: #efefef;
+     cursor: move;
+    ul{
+        clear: both;
+        padding-left: 25px;
+        li{
+            list-style: none;
+            padding-top: 17px;
+            select{
+                border:0px;
+                width: 180px;
+                height: 35px;
+                color: grey;
+            }
+            label{
+                margin-bottom: 0px;
+            }
+        }
+    }
+
+    p{
+        padding: 10px;
+        clear: both;
+    }
+}
+// Map-da Load gorunmesi
+.openLoad{
+  width: 60px;
+  position: absolute;
+  top: 390px;
+  z-index: 2;
+  left: 655px;
+  }
+  .closeLoad{
+    display: none;
+  }
+// Map Infowindow
+.infow-content img {
+	float: left;
+  margin: 0px;
+  margin-right: 10px;
+}
+.infow-title {
+	font-size: 16px;
+	font-weight: 700;
+  padding: 0px;
+}
+.InfoMap p{
+    padding-right: 25px;
+    padding-top: 5px;
+    text-align: justify;
+  }
+}

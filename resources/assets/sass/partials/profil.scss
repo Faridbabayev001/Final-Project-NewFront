@@ -1,0 +1,185 @@
+#breadcrumb{
+  .nav-tabs{
+    background-color: $main-bg-color;
+    border: none;
+    a{
+      color: white;
+      border-radius: 0;
+      border: none;
+      margin-right: 0;
+      font-size: 15px;
+      &:hover{
+        background: #475E6C;
+        border-radius: 0
+      }
+    }
+    li{
+      margin-bottom: 0;
+      &.active{
+        a{
+          background: #475E6C;
+        }
+      }
+    }
+  }
+}
+
+#profil{
+    min-height: 100%;
+    .tab-content{
+      margin-top: 25px;
+      h2{
+        display: inline-block;
+        margin-bottom: 0;
+      }
+      i{
+        width: 30px;
+      }
+      #profil-view{
+        i.fa-pencil-square-o{
+          color: $main-bg-color;
+          transition: all .3s ease;
+          &:hover{
+            color: $istek-color;
+          }
+        }
+      }
+      p{
+        font-size: 17px;
+      }
+      .profil-avatar{
+        img{
+          border-radius: 100%;
+          object-fit: cover;
+          height: 210px;
+          width: 210px;
+        }
+      }
+    }
+    #profil-isteklerim{
+      font-size: 13px;
+      .profil-isteklerim-status{
+        i.fa-check-circle-o{
+          color: $succes-color;
+        }
+        i.fa-times-circle-o{
+          color: $danger-color;
+        }
+        i.fa-clock-o{
+          color: $warning-color;
+        }
+      }
+      .profil-isteklerim-photo{
+        img{
+          height: 50px;
+        }
+      }
+      .profil-isteklerim-action{
+        a.action-edit{
+          text-decoration: none;
+          background-color: $warning-color;
+          color: white;
+          padding: 2px;
+          margin-right: 3px;
+          &:hover{
+            background-color: darken($warning-color, 10%);
+          }
+        }
+
+        a.action-delete{
+          text-decoration: none;
+          background-color: $danger-color;
+          color: white;
+          padding: 2px;
+          &:hover{
+            background-color: darken($danger-color, 10%);
+          }
+        }
+      }
+    }
+    #profil-desteklerim{
+      font-size: 13px;
+      .profil-desteklerim-status{
+        i.fa-check-circle-o{
+          color: $succes-color;
+        }
+        i.fa-times-circle-o{
+          color: $danger-color;
+        }
+        i.fa-clock-o{
+          color: $warning-color;
+        }
+      }
+      .profil-desteklerim-photo{
+        img{
+          height: 50px;
+        }
+      }
+      .profil-desteklerim-action{
+        a.action-edit{
+          text-decoration: none;
+          background-color: $warning-color;
+          color: white;
+          padding: 2px;
+          margin-right: 3px;
+          &:hover{
+            background-color: darken($warning-color, 10%);
+          }
+        }
+
+        a.action-delete{
+          text-decoration: none;
+          background-color: $danger-color;
+          color: white;
+          padding: 2px;
+          &:hover{
+            background-color: darken($danger-color, 10%);
+          }
+        }
+      }
+    }
+    #profil-notification{
+      .notification-block{
+        margin-bottom: 10px;
+        border-bottom: 1px solid $contact-text-color;
+        box-shadow: 3px 3px 5px #888888;
+        background-color: #ECEFF1;
+        transition: all .3s ease;
+        &:hover{
+          background-color: darken($contact-text-color, 1%);
+        }
+        .notification-block-href{
+          color: $text-color;
+          text-decoration: none;
+          &:hover{
+            background-color: #475e6c;
+          }
+          img{
+            margin-bottom: 10px;
+            margin-top: 10px;
+          }
+          .profil-notification-title{
+            margin-top: 10px;
+          }
+        }
+      }
+      img{
+        height: 100px;
+        width: 100px;
+        object-fit: cover;
+        border-radius: 100%;
+      }
+      .profil-notification-full{
+        a{
+          background-color: $common-blue-color;
+          text-decoration: none;
+          color: white;
+          transition: all .3s ease;
+          border-radius: 0;
+          &:hover{
+            background-color: darken($common-blue-color, 5%);
+          }
+        }
+      }
+    }
+}
