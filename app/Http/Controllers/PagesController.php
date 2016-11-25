@@ -74,6 +74,11 @@ class PagesController extends Controller
 
       return view('pages.single',compact('single','diff'));
     }
+
+    public function profil()
+    {
+      return view('pages.profil');
+    }
 // Haqqimizda ve elaqe sehifesi hazir olmadqindan muveqqeti olaraq 503 sehifesine gedir
     public function about()
     {

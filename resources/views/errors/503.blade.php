@@ -41,7 +41,7 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">Bu sehife hele tam hazir deyil &#9785</div>
+                <div class="title">404 Page Not Found &#9785</div>
             </div>
         </div>
     </body>

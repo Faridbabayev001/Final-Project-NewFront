@@ -13,7 +13,18 @@
       </div>
     </div>
   </div>
+  {{-- Google+ ve Facebook datalari Session ile gelir --}}
+  @if (Session::has('user') && Session::has('email'))
+   <?php $name = Session::get('user');?>
+   <?php $username = Session::get('user');?>
+   <?php $email = Session::get('email');?>
 
+@else
+   <?php $name = old('name');?>
+   <?php $username = old('username');?>
+   <?php $email = old('email');?>
+
+@endif
   <section id="register">
   <div class="container">
     <div class="row">
@@ -23,7 +34,7 @@
           <div class="col-lg-6">
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
               <label for="name">Ad, Soyad</label>
-              <input type="text" name="name" class="form-control">
+              <input type="text" name="name" class="form-control" value="{{$name}}">
               @if ($errors->has('name'))
                   <span class="help-block">
                       <strong>{{ $errors->first('name') }}</strong>
@@ -32,7 +43,7 @@
             </div>
             <div class="form-group{{$errors->has('username') ? ' has-error ' : ''}}">
               <label for="name">İstifadəçi adı</label>
-              <input type="text" name="username" class="form-control">
+              <input type="text" name="username" class="form-control" value="{{$username}}">
               @if ($errors->has('username'))
                   <span class="help-block">
                       <strong>{{ $errors->first('username') }}</strong>
@@ -63,7 +74,7 @@
             </div>
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
               <label for="email">Email</label>
-              <input type="email" name="email" class="form-control">
+              <input type="email" name="email" class="form-control" value="{{$email}}">
               @if ($errors->has('email'))
                   <span class="help-block">
                       <strong>{{ $errors->first('email') }}</strong>
@@ -74,8 +85,8 @@
           <div class="col-lg-6">
             <div class="form-group{{ $errors->has('city') ? ' has-error' : '' }}">
               <label for="city">Şəhər/Rayon</label>
-              <input type="text" class="hidden" name="city" value="Bakı">
-              <select class="form-control" name="city">
+              <input type="text" id="city" class="hidden" name="city" value="Bakı">
+              <select id="CitySelectOption" class="form-control" name="city">
                            <option value="Bakı">Bakı</option>
                            <option value="Abşeron">Abşeron</option>
                            <option value="Ağdam">Ağdam</option>
@@ -161,7 +172,7 @@
             </div>
             <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
               <label for="password">Təkrar Şifrə</label>
-              <input type="password" name="password" class="form-control" placeholder="Password">
+              <input type="password" name="password_confirmation" class="form-control" placeholder="Password">
               @if ($errors->has('password_confirmation'))
                   <span class="help-block">
                       <strong>{{ $errors->first('password_confirmation') }}</strong>

@@ -244,7 +244,6 @@
 </section>
   {{-- <script src="{{url('/js/InfoBubble.js')}}" charset="utf-8"></script>
   <script src="{{url('/js/AxajSearchMap.js')}}" charset="utf-8"></script> --}}
-  <script src="{{url('/js/vendor/jquery-ui.js')}}"></script>
 <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAanmTrOlQYWRepobnwqSO1E2SOoHYMRBA&callback=Mydata&language=az" async defer></script>
 @endsection

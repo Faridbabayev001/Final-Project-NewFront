@@ -62,7 +62,7 @@ class AuthController extends Controller
           'phone' => 'required',
           'email' => 'required|email|max:255|unique:users',
           'password' => 'required|min:6|confirmed',
-          'password_confirmation' => 'required|min:6|confirmed',
+          // 'password_confirmation' => 'required|min:6|confirmed',
         ]);
     }
 
@@ -99,7 +99,7 @@ class AuthController extends Controller
 
         $this->activationService->sendActivationMail($user);
 
-        return redirect('/login')->with('status', 'Biz sizə aktivasiya linki yolladıq. Zəhmət olmasa Email adresinizi yoxlayın');
+        return redirect('/')->with('status', 'Biz sizə aktivasiya linki yolladıq. Zəhmət olmasa Email adresinizi yoxlayın');
     }
 
     public function authenticated(Request $request, $user)

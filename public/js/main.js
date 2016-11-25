@@ -36,11 +36,18 @@ $('#operator-numbers').change(function(){
  var op_num = $(this).val();
 $('#operator').attr('value',op_num);
 return false;
+});
+
+$('#CitySelectOption').change(function(){
+ var city_option = $(this).val();
+$('#city').attr('value',city_option);
+return false;
+});
 //-----------------------------For Register End -------------------------------------------
 
-//------------------------------
+//------------------------------For searchBoxDrag -----------------------------------------
 $('#searchBoxDrag').draggable({
           containment: '#InfoMap'
       });
 });
-});
+//------------------------------For searchBoxDrag End -------------------------------------
