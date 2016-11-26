@@ -1,10 +1,9 @@
 @extends('pages.layout')
 
-@section('title')
-  Bumeranq.org | Qeydiyyat
-@endsection
+@section('title','Qeydiyyat')
 
-@section('container')
+
+@section('content')
 
   <div id="breadcrumb">
     <div class="container">

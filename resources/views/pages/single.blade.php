@@ -1,10 +1,10 @@
 @extends('pages.layout')
-
-@section('container')
+@section('title','Ətraflı')
+@section('content')
   <div id="breadcrumb">
   <div class="container">
      <div class="row">
-        <h1 class="text-center">{{$single->title}}</h1>
+        <h1 class="text-left">{{$single->title}}</h1>
     </div>
   </div>
 </div>
@@ -22,7 +22,7 @@
                 {{$diff->m}} ay {{$diff->d}} gün
             @endif
           </div>
-          <img src="{{url('/uploads/'.$single->image)}}" class="img-responsive" alt="" />
+          <img src="{{url('/image/'.$single->image)}}" class="img-responsive" alt="" />
           <div class="single-img-location">
             <i class="fa fa-map-marker"></i> {{$single->location}}
           </div>

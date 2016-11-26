@@ -1,10 +1,8 @@
 @extends('pages.layout')
 
-@section('title')
-  Bumeranq.org | Profil
-@endsection
+@section('title','Profil')
 
-@section('container')
+@section('content')
   <div id="breadcrumb">
   <div class="container">
      <div class="row">
