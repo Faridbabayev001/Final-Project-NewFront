@@ -1,10 +1,8 @@
 @extends('pages.layout')
 
-@section('title')
-  Bumeranq.org | Ana Səhifə
-@endsection
+@section('title','Ana Səhifə')
 
-@section('container')
+@section('content')
   <section id="map">
   <div class="container-fluid">
     <div class="row">
@@ -63,18 +61,48 @@
         </div>
         <!-- News block -->
         @foreach ($datas as $data)
-          @if($data->status=='1' && $data->type_id=='1')
+          @if($data->status=='1' && $data->type_id=='2')
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0 thumbnail">
               <div class="news-block">
                 <div class="news-image col-lg-12 padding0">
                   <div class="news-type news-istek">
                     İstək
                   </div>
-                  <a href="{{url('/single/'.$data->id)}}"><img src="{{url('/uploads/'.$data->image)}}" alt="İstək image" /></a>
+                  <a href="{{url('/single/'.$data->id)}}"><img src="{{url('/image/'.$data->image)}}" alt="İstək image" /></a>
                 </div>
                 <div class="news-content col-lg-12 padding0">
                   <div class="news-title">
-                    <a href="single.html">{{$data->title}}</a>
+                    <a href="{{url('/single/'.$data->id)}}">{{$data->title}}</a>
+                  </div>
+                  <div class="news-location col-lg-12">
+                    <p><i class="fa fa-map-marker"></i>{{$data->location}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          @endif
+        @endforeach
+      </div>
+
+      <div class="news-right col-lg-6 col-md-6 col-sm-12 col-xs-12 padding0">
+        <div class="col-lg-12 news-type-title">
+          <h1>DƏSTƏKLƏR</h1>
+          <hr>
+        </div>
+        <!-- News block -->
+        @foreach ($datas as $data)
+          @if($data->status=='1' && $data->type_id=='1')
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0 thumbnail">
+              <div class="news-block">
+                <div class="news-image col-lg-12 padding0">
+                  <div class="news-type news-istek">
+                    Dəstək
+                  </div>
+                  <a href="{{url('/single/'.$data->id)}}"><img src="{{url('/image/'.$data->image)}}" alt="İstək image" /></a>
+                </div>
+                <div class="news-content col-lg-12 padding0">
+                  <div class="news-title">
+                    <a href="{{url('/single/'.$data->id)}}">{{$data->title}}</a>
                   </div>
                   <div class="news-location col-lg-12">
                     <p><i class="fa fa-map-marker"></i>{{$data->location}}</p>
@@ -85,165 +113,14 @@
           @endif
         @endforeach
         <!-- News block end -->
-
-        <!-- News block -->
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0 thumbnail">
-          <div class="news-block">
-            <div class="news-image col-lg-12 padding0">
-              <div class="news-type news-istek">
-                İstək
-              </div>
-              <a href="single.html"><img src="{{url('/images/a.jpg')}}" alt="İstək image" /></a>
-            </div>
-            <div class="news-content col-lg-12 padding0">
-              <div class="news-title">
-                <a href="single.html">Web developer lazımdı təcili</a>
-              </div>
-              <div class="news-location col-lg-12">
-                <p><i class="fa fa-map-marker"></i> Neftçala, Azərbaycan</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- News block end -->
-
-        <!-- News block -->
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0 thumbnail">
-          <div class="news-block">
-            <div class="news-image col-lg-12 padding0">
-              <div class="news-type news-istek">
-                İstək
-              </div>
-              <a href="single.html"><img src="{{url('/images/a.jpg')}}" alt="İstək image" /></a>
-            </div>
-            <div class="news-content col-lg-12 padding0">
-              <div class="news-title">
-                <a href="single.html">Web developer lazımdı təcili</a>
-              </div>
-              <div class="news-location col-lg-12">
-                <p><i class="fa fa-map-marker"></i> Neftçala, Azərbaycan</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- News block end -->
-
-        <!-- News block -->
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0 thumbnail">
-          <div class="news-block">
-            <div class="news-image col-lg-12 padding0">
-              <div class="news-type news-istek">
-                İstək
-              </div>
-              <a href="single.html"><img src="{{url('/images/a.jpg')}}" alt="İstək image" /></a>
-            </div>
-            <div class="news-content col-lg-12 padding0">
-              <div class="news-title">
-                <a href="single.html">Web developer lazımdı təcili</a>
-              </div>
-              <div class="news-location col-lg-12">
-                <p><i class="fa fa-map-marker"></i> Neftçala, Azərbaycan</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- News block end -->
-      </div>
-
-      <div class="news-right col-lg-6 col-md-6 col-sm-12 col-xs-12 padding0">
-        <div class="col-lg-12 news-type-title">
-          <h1>DƏSTƏKLƏR</h1>
-          <hr>
-        </div>
-        <!-- News block -->
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0 thumbnail">
-          <div class="news-block">
-            <div class="news-image col-lg-12 padding0">
-              <div class="news-type news-destek">
-                Dəstək
-              </div>
-              <a href="single.html"><img src="{{url('/images/a.jpg')}}" alt="İstək image" /></a>
-            </div>
-            <div class="news-content col-lg-12 padding0">
-              <div class="news-title">
-                <a href="single.html">Web developer lazımdı təcili</a>
-              </div>
-              <div class="news-location col-lg-12">
-                <p><i class="fa fa-map-marker"></i> Neftçala, Azərbaycan</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- News block end -->
-
-        <!-- News block -->
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0 thumbnail">
-          <div class="news-block">
-            <div class="news-image col-lg-12 padding0">
-              <div class="news-type news-destek">
-                Dəstək
-              </div>
-              <a href="single.html"><img src="{{url('/images/a.jpg')}}" alt="İstək image" /></a>
-            </div>
-            <div class="news-content col-lg-12 padding0">
-              <div class="news-title">
-                <a href="single.html">Web developer lazımdı təcili</a>
-              </div>
-              <div class="news-location col-lg-12">
-                <p><i class="fa fa-map-marker"></i> Neftçala, Azərbaycan</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- News block end -->
-
-        <!-- News block -->
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0 thumbnail">
-          <div class="news-block">
-            <div class="news-image col-lg-12 padding0">
-              <div class="news-type news-destek">
-                Dəstək
-              </div>
-              <a href="single.html"><img src="{{url('/images/a.jpg')}}" alt="İstək image" /></a>
-            </div>
-            <div class="news-content col-lg-12 padding0">
-              <div class="news-title">
-                <a href="single.html">Web developer lazımdı təcili</a>
-              </div>
-              <div class="news-location col-lg-12">
-                <p><i class="fa fa-map-marker"></i> Neftçala, Azərbaycan</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- News block end -->
-
-        <!-- News block -->
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0 thumbnail">
-          <div class="news-block">
-            <div class="news-image col-lg-12 padding0">
-              <div class="news-type news-destek">
-                Dəstək
-              </div>
-              <a href="single.html"><img src="{{url('/images/a.jpg')}}" alt="İstək image" /></a>
-            </div>
-            <div class="news-content col-lg-12 padding0">
-              <div class="news-title">
-                <a href="single.html">Web developer lazımdı təcili</a>
-              </div>
-              <div class="news-location col-lg-12">
-                <p><i class="fa fa-map-marker"></i> Neftçala, Azərbaycan</p>
-              </div>
-            </div>
-          </div>
-        </div>
-        <!-- News block end -->
       </div>
     </div>
   </div>
 </section>
-  {{-- <script src="{{url('/js/InfoBubble.js')}}" charset="utf-8"></script>
-  <script src="{{url('/js/AxajSearchMap.js')}}" charset="utf-8"></script> --}}
-<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAanmTrOlQYWRepobnwqSO1E2SOoHYMRBA&callback=Mydata&language=az" async defer></script>
+
+@endsection
+@section('scripts')
+  <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAanmTrOlQYWRepobnwqSO1E2SOoHYMRBA&callback=Mydata&language=az" async defer></script>
+
 @endsection

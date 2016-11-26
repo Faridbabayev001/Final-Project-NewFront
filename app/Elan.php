@@ -9,7 +9,7 @@ class Elan extends Model
   protected $fillable=['title','status','view','user_id','image','about','type_id','phone','lat','lng','name','org','nov','email','location','deadline'];  // lat lng elave etmeli
    protected $table='els';
 
-    public function nese()
+    public function elan_type()
     {
        return $this->belongsTo('App\Elantype','type_id');
     }

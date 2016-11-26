@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="_token" content="{!!csrf_token()!!}">
-  <title>@yield('title')</title>
+  <title>Bumerang.org | @yield('title')</title>
   <link rel="stylesheet" href="{{url('/css/style.css')}}" media="screen" title="no title">
 </head>
 <body>
@@ -141,19 +141,21 @@
         <li><a {{Request::is('/') ? "class=active" : ''}} href="{{url('/')}}" class=""><i class="fa fa-home"></i> ANA SƏHİFƏ</a></li>
         <li><a {{Request::is('/Haqqımızda') ? "class=active" : ''}} href="{{url('/Haqqımızda')}}"><i class="fa fa-info-circle"></i> HAQQIMIZDA</a></li>
         <li><a {{Request::is('/Əlaqə') ? "class=active" : ''}} href="{{url('/Əlaqə')}}"><i class="fa fa-phone"></i> ƏLAQƏ</a></li>
-        <li class="hidden-lg hidden-md hidden-xs"><a href="istek-add.html"><i class="fa fa-plus"></i>İSTƏK ƏLAVƏ ET</a></li>
-        <li class="hidden-lg hidden-md hidden-xs"><a href="destek-add.html"><i class="fa fa-plus"></i>DƏSTƏK ƏLAVƏ ET</a></li>
+        <li class="hidden-lg hidden-md hidden-xs"><a href="{{url('/istek-add')}}"><i class="fa fa-plus"></i>İSTƏK ƏLAVƏ ET</a></li>
+        <li class="hidden-lg hidden-md hidden-xs"><a href="{{url('/destek-add')}}"><i class="fa fa-plus"></i>DƏSTƏK ƏLAVƏ ET</a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right navbar-right-nav hidden-sm">
-        <li class="navbar-istek-elave-et"><a href="istek-add.html"><i class="fa fa-plus"></i>İSTƏK ƏLAVƏ ET</a></li>
-        <li class="navbar-destek-elave-et"><a href="destek-add.html"><i class="fa fa-plus"></i>DƏSTƏK ƏLAVƏ ET</a></li>
+        <li class="navbar-istek-elave-et"><a href="{{url('/istek-add')}}"><i class="fa fa-plus"></i>İSTƏK ƏLAVƏ ET</a></li>
+        <li class="navbar-destek-elave-et"><a href="{{url('/destek-add')}}"><i class="fa fa-plus"></i>DƏSTƏK ƏLAVƏ ET</a></li>
       </ul>
     </div>
   </div>
 </nav>
 </section>
-@yield('container')
+            {{-- content  yield--}}
+@yield('content')
+
 <section id="footer">
 <div class="container">
   <div class="row">
@@ -171,6 +173,6 @@
 <script src="{{url('/js/vendor/jquery-ui.js')}}"></script>
 <script src="{{url('/js/vendor/bootstrap.min.js')}}"></script>
 <script src="{{url('/js/InfoBubble.js')}}" charset="utf-8"></script>
-<script src="{{url('/js/AjaxSearchMap.js')}}" charset="utf-8"></script>
-<script src="{{url('/js/main.js')}}"></script>
+<script src="{{url('/js/AjaxSearchMap.js')}}" charset="utf-8"></script><script src="{{url('/js/main.js')}}"></script>
+  @yield('scripts')
 </html>

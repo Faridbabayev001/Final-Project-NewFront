@@ -100,7 +100,7 @@ function Mydata(data){
                title: data[i]['title'],
                content:"<div id='infow'>" +
                '<div class="infow-content">' +
-               "<a href='/single/"+data[i]['id']+"'><img src='uploads/"+data[i]['image']+"'height='127' width='140'></a>" +
+               "<a href='/single/"+data[i]['id']+"'><img src='image/"+data[i]['image']+"'height='127' width='140'></a>" +
                "<p>"+about+"</p>"+
                '</div>' +
                '</div>',

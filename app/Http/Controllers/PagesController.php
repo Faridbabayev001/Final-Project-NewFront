@@ -79,7 +79,8 @@ class PagesController extends Controller
     {
       return view('pages.profil');
     }
-// Haqqimizda ve elaqe sehifesi hazir olmadqindan muveqqeti olaraq 503 sehifesine gedir
+
+    // Haqqimizda ve elaqe sehifesi hazir olmadqindan muveqqeti olaraq 503 sehifesine gedir
     public function about()
     {
       return view('errors.503');
