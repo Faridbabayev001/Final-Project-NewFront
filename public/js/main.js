@@ -51,3 +51,30 @@ $('#searchBoxDrag').draggable({
       });
 });
 //------------------------------For searchBoxDrag End -------------------------------------
+//------------------------------For Login Ajax --------------------------------------------
+$('#SubmitLogin').submit(function(event) {
+  event.preventDefault();
+  var Login = $.ajax({
+    url: '/login',
+    type: 'POST',
+    dataType: 'json',
+    headers:{
+    'X-CSRF-TOKEN':$('meta[name="_token"]').attr('content')
+  },
+    data: {
+      email: $('#email').val(),
+      password: $('#pass').val()
+    },
+    success: function(data){
+
+    },
+    error:function(data){
+      var errors = data.responseJSON;
+      console.log(errors);
+    }
+  })
+  Login.done(function(data) {
+    location.reload();
+  })
+});
+//------------------------------For Login Ajax End ----------------------------------------

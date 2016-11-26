@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <meta name="_token" content="{!!csrf_token()!!}">
   <title>@yield('title')</title>
   <link rel="stylesheet" href="{{url('/css/style.css')}}" media="screen" title="no title">
 </head>
@@ -94,20 +95,20 @@
                   <span>YA DA</span>
                 </div>
                 <div class="col-lg-12 padding0 contact-login-form">
-                  <form class="" action="{{ url('/login') }}" method="POST">
+                  <form id="SubmitLogin" class="ModalLogin" action="" method="POST">
                     {{csrf_field()}}
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
-                      <input type="email" name="email" class="form-control email-placeholder-change">
+                      <input id="email" type="email" name="email" class="form-control email-placeholder-change">
                     </div>
 
                     <div class="input-group">
                       <span class="input-group-addon"><i class="fa fa-key"></i></span>
-                      <input type="password" name="password" class="form-control" placeholder="Şifrə">
+                      <input id="pass" type="password" name="password" class="form-control" placeholder="Şifrə">
                     </div>
 
                         <div class="col-lg-12 padding0">
-                          <input type="submit" class="btn btn-default pull-right" value="Daxil ol">
+                          <input  type="submit" class="btn btn-default pull-right" value="Daxil ol">
                         </div>
                   </form>
                 </div>
