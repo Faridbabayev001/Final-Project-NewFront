@@ -26,12 +26,12 @@ class User extends Authenticatable
     public function city()
     {
       return $this->belongsTo('App\City');
-    }
+    } 
 
 
     public function elanlar()
     {
-      return $this->hasMany('App\Elan','user_id');  //yeniii
+      return $this->hasMany('App\Elan','user_id');
     }
 
     public function qarsiliqlar()
