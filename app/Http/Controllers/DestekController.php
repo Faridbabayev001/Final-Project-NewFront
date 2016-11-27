@@ -30,29 +30,35 @@ class DestekController extends Controller
       'nov' => 'required',
 ]);
 
-  Session::flash('destek_add' , "Dəstəyiniz uğurla əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
-  $direction='images';
+  $direction='image';
   $filetype=$req->file('image')->getClientOriginalExtension();
-  $filename=time().'.'.$filetype;
-  $req->file('image')->move(public_path('image'),$filename);
-
-  $data = [
-        'type_id'=>'1',
-        'title'=>$req->title,
-        'view' => '0',
-        'about'=>$req->about,
-        'location'=>$req->location,
-        'lat'=>$req->lat,
-        'lng'=>$req->lng,
-        'name'=>$req->name,
-        'phone'=>$req->phone,
-        'email'=>$req->email,
-        'image'=>$filename,
-        'org'=>$req->org,
-        'nov'=>$req->nov
-      ];
-
-    Auth::user()->elanlar()->create($data);
-    return redirect('/destek-add');
+  if ($filetype=='jpg' || $filetype=='jpeg' || $filetype=='png') {
+    $filename=time().'.'.$filetype;
+    $req->file('image')->move(public_path('image'),$filename);
+    Session::flash('destekadded' , "İstəyiniz uğurla əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
+    $data = [
+          'type_id'=>'2',
+          'title'=>$req->title,
+          'view' => '0',
+          'about'=>$req->about,
+          'location'=>$req->location,
+          'lat'=>$req->lat,
+          'lng'=>$req->lng,
+          'name'=>$req->name,
+          'phone'=>$req->phone,
+          'email'=>$req->email,
+          'image'=>$filename,
+          'org'=>$req->org,
+          'nov'=>$req->nov,
+          'deadline'=>$req->date
+        ];
+     Auth::user()->elanlar()->create($data);
+       return redirect('/destek-add');
+  }
+   else
+    {
+      Session::flash('imageerror' , "Xahiş olunur şəkli düzgün seçəsiniz.");
+     return redirect('/destek-add');
+   }
   }
 }
