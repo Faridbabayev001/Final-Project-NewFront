@@ -45,5 +45,9 @@ Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name(
 //<=================Auth and User Routes End ===========>
 
 //<=================Admin Routes ===========>
-
+Route::get('/alfagen/login','AdminController@index');
+Route::get('/Istək-list','AdminController@istek_list');
+Route::get('/Dəstək-list','AdminController@destek_list');
+Route::get('/activate/{id}','AdminController@activate');
+Route::get('/deactivate/{id}','AdminController@deactivate');
 //<=================Admin Routes ===========>
