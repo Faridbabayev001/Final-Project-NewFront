@@ -6,8 +6,8 @@
   <div id="breadcrumb">
   <div class="container">
      <div class="row">
-        <h1 class="text-center">Profilim</h1>
-        <div class="col-lg-9 col-lg-offset-3">
+        <h1 class="text-left">Profilim</h1>
+        <div class="col-lg-9 col-lg-offset-1">
           <ul class="nav nav-tabs">
             <li class="active"><a data-toggle="tab" href="#profil-view">Profil görünüşü</a></li>
             <li><a data-toggle="tab" href="#profil-isteklerim">İstəklərim</a></li>
@@ -59,6 +59,7 @@
                 </thead>
                 <tbody>
                   <tr>
+                    
                     <td class="profil-isteklerim-status" title="Dərc olunub"><i class="fa fa-check-circle-o fa-2x"></i></td>
                     <td>25 Noyabr 2016</td>
                     <td>Web developer lazımdı təcili </td>
@@ -70,7 +71,7 @@
                     </td>
                   </tr>
                 </tbody>
-                <tbody>
+                {{-- <tbody>
                   <tr>
                     <td class="profil-isteklerim-status" title="Dərc olunmayıb"><i class="fa fa-times-circle-o fa-2x"></i></td>
                     <td class="profil-isteklerim-deadline">Vaxt Bitib !</td>
@@ -95,7 +96,7 @@
                       <a href="#" class="btn action-delete"><i class="fa fa-trash"></i></a>
                     </td>
                   </tr>
-                </tbody>
+                </tbody> --}}
               </table>
             </div>
           </div>
