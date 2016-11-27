@@ -21,14 +21,6 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
-
-
-    public function city()
-    {
-      return $this->belongsTo('App\City');
-    } 
-
-
     public function elanlar()
     {
       return $this->hasMany('App\Elan','user_id');

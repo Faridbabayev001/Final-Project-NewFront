@@ -13,12 +13,14 @@ class CreateQarsiliqsTable extends Migration
     public function up()
     {
         Schema::create('qarsiliqs', function (Blueprint $table) {
-            $table->increments('id');
-            $table->integer('user_id');
-            $table->integer('elan_id')->unsigned();
-            $table->foreign('elan_id')->references('id')->on('els');
-            $table->text('about');
-            $table->timestamps();
+          $table->increments('id');
+          $table->integer('user_id');
+          $table->integer('elan_id')->unsigned();
+          $table->text('description');
+          $table->boolean('status');
+          $table->boolean('feedback');
+          $table->boolean('notification');
+          $table->timestamps();
         });
     }
 
