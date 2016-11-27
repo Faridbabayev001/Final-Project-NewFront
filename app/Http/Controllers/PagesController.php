@@ -75,9 +75,10 @@ class PagesController extends Controller
       return view('pages.single',compact('single','diff'));
     }
 
+    //<================= METHHOD FOR PROFIL ================>
     public function profil()
-    {
-      return view('pages.profil');
+    {  $istek_all=Elan::all();
+      return view('pages.profil',compact('$istek_all'));
     }
 
     // Haqqimizda ve elaqe sehifesi hazir olmadqindan muveqqeti olaraq 503 sehifesine gedir
