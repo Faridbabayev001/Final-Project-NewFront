@@ -46,7 +46,7 @@ class IstekController extends Controller
            'lat'=>$req->lat,
            'lng'=>$req->lng,
            'name'=>$req->name,
-           'phone'=>$req->phone,
+           'phone'=>'+994'.$req->operator.$req->phone,
            'email'=>$req->email,
            'image'=>$filename,
            'org'=>$req->org,

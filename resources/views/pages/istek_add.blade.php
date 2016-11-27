@@ -100,17 +100,17 @@
               <label for="operator">Əlaqə nömrəsi</label>
               <div class="input-group">
                   <div class="input-group-addon">
-                      <input type="hidden" name="operator" value="55">
+                      <input id="operator" type="hidden" name="operator" value="{{substr(Auth::user()->phone,4,2) == '55' ? '55' : substr(Auth::user()->phone,4,2) }}">
                       +994
-                          <select name="operator-numbers">
-                                <option>55</option>
-                                <option>51</option>
-                                <option>50</option>
-                                <option>70</option>
-                                <option>77</option>
+                          <select id="operator-numbers" name="operator-numbers">
+                            <option {{substr(Auth::user()->phone,4,2) == '55' ? 'selected' : '' }}>55</option>
+                            <option {{substr(Auth::user()->phone,4,2) == '51' ? 'selected' : '' }}>51</option>
+                            <option {{substr(Auth::user()->phone,4,2) == '50' ? 'selected' : '' }}>50</option>
+                            <option {{substr(Auth::user()->phone,4,2) == '70' ? 'selected' : '' }}>70</option>
+                            <option {{substr(Auth::user()->phone,4,2) == '77' ? 'selected' : '' }}>77</option>
                           </select>
                       </div>
-                <input type="text" class="form-control" name="phone" value="{{Auth::user()->phone}}" maxlength="7">
+                <input type="text" class="form-control" name="phone" value="{{substr(Auth::user()->phone,6)}}" maxlength="7">
                 @if ($errors->has('phone'))
                     <span class="help-block">
                       <strong>Boşluq buraxmayın</strong>

@@ -77,14 +77,14 @@ class PagesController extends Controller
 
     //<================= METHHOD FOR PROFIL ================>
     public function profil()
-    {  $istek_all=Elan::all();
-      return view('pages.profil',compact('$istek_all'));
+    {  $Elan_all=Elan::all();
+      return view('pages.profil',compact('Elan_all'));
     }
 
     // Haqqimizda ve elaqe sehifesi hazir olmadqindan muveqqeti olaraq 503 sehifesine gedir
     public function about()
     {
-      return view('errors.503');
+      return view('pages.about_us');
     }
 
     public function contact()

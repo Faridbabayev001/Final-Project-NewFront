@@ -13,7 +13,7 @@
                        <label> Şəhər/region :</label>
                        <input id="Loc" type="text" class="hidden" name="keyword" value="all">
                        <select class="Test" id="acar">
-                         <option name="location" value="all">Hamisi</option>
+                         <option name="location" value="all">Hamısı</option>
                          @foreach ($datas as $data)
                            @if ($data->status == 1)
                              <option name="location" value="{{$data->location}}">{{$data->location}}</option>
@@ -22,10 +22,10 @@
                        </select>
                    </li>
                      <li>
-                       <label> Istek/Destek :</label>
+                       <label> Istək/Dəstək :</label>
                        <input id="Type" type="text" class="hidden" name="city" value="all">
                        <select class="Test" id="seher">
-                         <option  name="type" value="all">Hamisi</option>
+                         <option  name="type" value="all">Hamısı</option>
                          <option name="type" value="1">Destek</option>
                          <option name="type" value="2">Istek</option>
                        </select>
@@ -34,7 +34,7 @@
                        <label> Nov :</label><br>
                        <input id="Nov" type="text" class="hidden" name="category" value="all">
                        <select class="Test" id="kategory">
-                         <option  name="nov" value="all">Hamisi</option>
+                         <option  name="nov" value="all">Hamısı</option>
                          @foreach ($datas as $data)
                            @if ($data->status == 1)
                              <option name="nov" value="{{$data->nov}}">{{$data->nov}}</option>
@@ -95,7 +95,7 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0 thumbnail">
               <div class="news-block">
                 <div class="news-image col-lg-12 padding0">
-                  <div class="news-type news-istek">
+                  <div class="news-type news-destek">
                     Dəstək
                   </div>
                   <a href="{{url('/single/'.$data->id)}}"><img src="{{url('/image/'.$data->image)}}" alt="İstək image" /></a>

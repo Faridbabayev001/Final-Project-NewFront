@@ -37,7 +37,7 @@ class DestekController extends Controller
     $req->file('image')->move(public_path('image'),$filename);
     Session::flash('destekadded' , "İstəyiniz uğurla əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
     $data = [
-          'type_id'=>'2',
+          'type_id'=>'1',
           'title'=>$req->title,
           'view' => '0',
           'about'=>$req->about,
@@ -45,7 +45,7 @@ class DestekController extends Controller
           'lat'=>$req->lat,
           'lng'=>$req->lng,
           'name'=>$req->name,
-          'phone'=>$req->phone,
+          'phone'=>'+994'.$req->operator.$req->phone,
           'email'=>$req->email,
           'image'=>$filename,
           'org'=>$req->org,
