@@ -21,7 +21,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="{{url('/alfagen/login')}}">Admin Panel</a>
+                <a class="navbar-brand" href="{{url('/alfagen')}}">Admin Panel</a>
             </div>
 
             <ul class="nav navbar-top-links navbar-right">
@@ -45,7 +45,7 @@
                 <ul class="nav" id="main-menu">
 
                     <li>
-                        <a href="{{url('/alfagen/login')}}"><i class="fa fa-dashboard"></i> Umumi list</a>
+                        <a href="{{url('/alfagen')}}"><i class="fa fa-dashboard"></i> Umumi list</a>
                     </li>
 
 
