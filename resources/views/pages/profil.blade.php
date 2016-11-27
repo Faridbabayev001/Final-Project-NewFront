@@ -72,7 +72,7 @@
                         <td class="profil-isteklerim-status" title="{{$derc_status}}"><i class="{{$derc_icon}}"></i></td>
                         <td>{{$istekler->deadline}}</td>
                         <td>{{$istekler->title}}</td>
-                        <td>{{$istekler->about}}</td>
+                        <td>{{substr($istekler->about,0,365)}}...</td>
                         <td class="profil-isteklerim-photo"><img src="{{url('/image/'.$istekler->image)}}" class="img-responsive" alt="News image"></td>
                         <td class="profil-isteklerim-action">
                           <a href="#" class="btn action-edit"><i class="fa fa-pencil-square"></i></a>
@@ -113,7 +113,7 @@
                     <td class="profil-desteklerim-status" title="{{$derc_status}}"><i class="{{$derc_icon}}"></i></td>
                     <td>{{$destekler->deadline}}</td>
                     <td>{{$destekler->title}}</td>
-                    <td>{{$destekler->about}}</td>
+                    <td>{{substr($destekler->about,365)}}...</td>
                     <td class="profil-desteklerim-photo"><img src="{{url('/image/'.$destekler->image)}}" class="img-responsive" alt="News image"></td>
                     <td class="profil-desteklerim-action">
                       <a href="#" class="btn action-edit"><i class="fa fa-pencil-square"></i></a>
