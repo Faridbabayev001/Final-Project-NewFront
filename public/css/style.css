@@ -8327,6 +8327,9 @@ span.special-destek {
 #about-us {
   height: 100%; }
 
+#breadcrumb h1 {
+  margin-left: 2.2%; }
+
 #breadcrumb .nav-tabs {
   background-color: #28353D;
   border: none; }

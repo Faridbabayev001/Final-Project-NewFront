@@ -7,7 +7,7 @@
   <div class="container">
      <div class="row">
         <h1 class="text-left">Profilim</h1>
-        <div class="col-lg-9 col-lg-offset-1">
+        <div class="col-lg-9">
           <ul class="nav nav-tabs">
             <li {{Request::is('Profil') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-view">Profil görünüşü</a></li>
             <li {{Request::is('Istekler') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-isteklerim">İstəklərim</a></li>
@@ -25,6 +25,8 @@
     <div class="row">
       <div class="col-lg-9 col-lg-offset-2">
         <div class="tab-content">
+          {{-- <================== PROFIL PART==================> --}}
+
           <div id="profil-view" class="tab-pane fade in {{Request::is('Profil') ? "active" : ''}}">
             <div class="col-lg-3 col-md-2 col-sm-2 col-xs-4 col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-4 padding0 profil-avatar">
               <img src="{{url('/uploads/prof.png')}}" alt="Avatar">
@@ -44,6 +46,11 @@
               <p><i class="fa fa-map-marker"></i> {{Auth::user()->city}}</p>
             </div>
           </div>
+          {{-- <================== PROFIL PART END ==================> --}}
+
+
+          {{-- <================== ISTEKLERIM PART==================> --}}
+
           <div id="profil-isteklerim" class="tab-pane fade {{Request::is('Istekler') ? "in active" : ''}}">
             {{-- <div class="table-responsive"> --}}
               <table class="table">
@@ -85,6 +92,11 @@
               </table>
             {{-- </div> --}}
           </div>
+          {{-- <================== ISTEKLERIM PART END ==================> --}}
+
+
+          {{-- <================== DESTEKLERIM PART ==================> --}}
+
           <div id="profil-desteklerim" class="tab-pane fade {{Request::is('Destekler') ? "in active" : ''}}">
             {{-- <div class="table-responsive"> --}}
               <table class="table">
@@ -126,44 +138,35 @@
               </table>
             {{-- </div> --}}
           </div>
+          {{-- <================== DESTERKLERIM PART END ==================> --}}
+
+
+          {{-- <================== NOTIFICATION PART==================> --}}
+
           <div id="profil-notification" class="tab-pane fade in {{Request::is('Bildirişlər') ? " active" : ''}}">
             <div class="col-lg-12 padding0 notification-block">
               <a href="#" class="notification-block-href">
-                <div class="col-lg-2">
-                    <img class="center-block" src="{{url('/images/n2.jpg')}}" alt="">
-                </div>
-                <div class="col-lg-9">
-                  <p class="profil-notification-title"><span class="special-istek">Araz Abdullayev</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !</p>
-                  <p class="profil-notification-desc">Salam, Mən pulsuz developer olaraq işləyə bilərəm. Zəhmət olmasa qəbul edin. Emailim: arazzz@gmail.com. Bundan başqa...</p>
-                  <p class="profil-notification-full pull-right"><a href="#" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
-                </div>
-              </a>
-            </div>
-            <div class="col-lg-12 padding0 notification-block">
-              <a href="#" class="notification-block-href">
-                <div class="col-lg-2">
-                    <img class="center-block" src="{{url('/images/n2.jpg')}}" alt="">
-                </div>
-                <div class="col-lg-9">
-                  <p class="profil-notification-title"><span class="special-istek">Araz Abdullayev</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !</p>
-                  <p class="profil-notification-desc">Salam, Mən pulsuz developer olaraq işləyə bilərəm. Zəhmət olmasa qəbul edin. Emailim: arazzz@gmail.com. Bundan başqa...</p>
-                  <p class="profil-notification-full pull-right"><a href="#" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
-                </div>
-              </a>
-            </div>
-            <div class="col-lg-12 padding0 notification-block">
-              <a href="#" class="notification-block-href">
-                <div class="col-lg-2">
-                    <img class="center-block" src="{{url('/images/n2.jpg')}}" alt="">
-                </div>
-                <div class="col-lg-9">
-                  <p class="profil-notification-title"><span class="special-istek">Araz Abdullayev</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !</p>
-                  <p class="profil-notification-desc">Salam, Mən pulsuz developer olaraq işləyə bilərəm. Zəhmət olmasa qəbul edin. Emailim: arazzz@gmail.com. Bundan başqa...</p>
-                  <p class="profil-notification-full pull-right"><a href="#" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
-                </div>
+                @foreach($noti_message as $notification_message)
+                  <div class="col-lg-2">
+                      <img class="center-block" src="{{url('/image/'.$notification_message->avatar)}}">
+                  </div>
+                  <div class="col-lg-9">
+                    <p class="profil-notification-title">
+                        @if($notification_message->type_id==2)
+                          <span class="special-istek">{{$notification_message->name}}</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !
+                        @elseif($notification_message->type_id==1)
+                            <span class="special-destek">{{$notification_message->name}}</span> adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
+                        @endif
+                    </p>
+                    <p class="profil-notification-desc">{{$notification_message->description}}</p>
+                    <p class="profil-notification-full pull-right"><a href="#" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
+                  </div>
+                @endforeach
               </a>
             </div>
           </div>
+          {{-- <================== NOTIFICATION PART END ==================> --}}
+
         </div>
       </div>
     </div>
