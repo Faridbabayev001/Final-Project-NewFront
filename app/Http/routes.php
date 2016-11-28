@@ -37,6 +37,12 @@ Route::post('/destek-add','DestekController@destek_add');
 //<=================Destek Routes End ================>
 
 
+//<==================Nofification Routes ==================>
+Route::post('/notification/{id}','PagesController@notification_count');
+Route::get('/Bildirişlər','PagesController@profil');
+Route::get('/Bildiriş/{id}','PagesController@notication_single');
+//<=================Nofification Routes End ================>
+
 
 //<=================Auth and User Routes ===========>
 Route::auth();

@@ -29,7 +29,7 @@ $.ajax({
   },
   success: function Mydatas(data){
     if (data =="") {
-      document.location.href='/';
+      // document.location.href='/';
     }else{
       Mydata(data);
 

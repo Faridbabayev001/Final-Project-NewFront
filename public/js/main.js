@@ -31,6 +31,7 @@ $(document).ready(function(){
 ==========================================================================================
 ==========================================================================================*/
 
+
 // ----------------------------For Register-----------------------------------------------
 $('#operator-numbers').change(function(){
  var op_num = $(this).val();
@@ -45,12 +46,23 @@ return false;
 });
 //-----------------------------For Register End -------------------------------------------
 
+//-----------------------------For destek button  -------------------------------------------
+$(".destek-ol-message").hide();
+    $(".destek-ol-button").click(function(){
+        $(".destek-ol-message").slideToggle();
+
+    });
+ //-----------------------------For destek button  End-------------------------------------------
+ 
+
 //------------------------------For searchBoxDrag -----------------------------------------
 $('#searchBoxDrag').draggable({
           containment: '#InfoMap'
       });
 });
 //------------------------------For searchBoxDrag End -------------------------------------
+
+
 //------------------------------For Login Ajax --------------------------------------------
 $('#SubmitLogin').submit(function(event) {
   event.preventDefault();
@@ -78,6 +90,8 @@ $('#SubmitLogin').submit(function(event) {
   })
 });
 //------------------------------For Login Ajax End ----------------------------------------
+
+
 // ----------------------------For Map in destek_add and istek_add pages-----------------------------------------------
 function initAutocomplete() {
 

@@ -1,4 +1,7 @@
 #breadcrumb{
+  h1{
+    margin-left:2.2%;
+  }
   .nav-tabs{
     background-color: $main-bg-color;
     border: none;
@@ -74,6 +77,9 @@
           height: 50px;
         }
       }
+      .profil-isteklerim-subText{
+        width:200px;
+      }
       .profil-isteklerim-action{
         a.action-edit{
           text-decoration: none;
@@ -114,6 +120,9 @@
         img{
           height: 50px;
         }
+      }
+      .profil-desteklerim-subText{
+        width: 200px;
       }
       .profil-desteklerim-action{
         a.action-edit{
