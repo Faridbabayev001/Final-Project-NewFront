@@ -36,7 +36,7 @@ class IstekController extends Controller
    if ($filetype=='jpg' || $filetype=='jpeg' || $filetype=='png') {
      $filename=time().'.'.$filetype;
      $req->file('image')->move(public_path('image'),$filename);
-     Session::flash('istekadded' , "İstəyiniz uğurla əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
+     Session::flash('istekadded' , "İstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
      $data = [
            'type_id'=>'2',
            'title'=>$req->title,
