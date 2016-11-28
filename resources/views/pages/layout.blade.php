@@ -40,8 +40,9 @@ use App\Qarsiliq;
 
             $noti_image = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
                       ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-                      ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id')
+                      ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.id')
                       ->orderBy('created_at', 'desc')
+                       ->where('els.user_id', '=', Auth::user()->id)
                       ->take(3)
                       ->get();
 
@@ -51,8 +52,9 @@ use App\Qarsiliq;
               <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-bell"></i> <span class="contact-auth-notification-number">{{count($noti)}}</span></a>
               <ul class="dropdown-menu contact-auth-notification" role="menu">
                 @foreach($noti_image as $key => $notification_image)
+                  @if($notification_image->id != Auth::user()->id)
                     <li>
-                      <a href="#">
+                      <a href="{{url('/Bildiriş/'.$notification_image->id)}}">
                         <img src="{{url('/image/'.$notification_image->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
                           <p>
                         @if($notification_image->type_id==2)
@@ -64,6 +66,10 @@ use App\Qarsiliq;
                         </p>
                       </a>
                     </li>
+                  @else
+
+                  @endif
+
                 @endforeach
                   <li>
                     <a href="{{url('/Bildirişlər')}}">

@@ -76,12 +76,13 @@ class PagesController extends Controller
 
 
     //<================= METHHOD FOR NOTIFICATION ================>
-      public function notification(Request $request,Qarsiliq $qarsiliq,$id)
+      public function notification_count(Request $request,Qarsiliq $qarsiliq,$id)
       {
           $qarsiliq->elan_id = $id;
           $qarsiliq->user_id = Auth::user()->id;
           $qarsiliq->description = $request->description;
           $qarsiliq->notification =1;
+          $qarsiliq->status =1;
           $qarsiliq->save();
           return back();
       }
@@ -89,9 +90,43 @@ class PagesController extends Controller
     public function profil()
     {
       $Elan_all=Elan::all();
-      return view('pages.profil',compact('Elan_all'));
+      $noti_message = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
+                ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+                ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.description','qarsiliqs.notification','qarsiliqs.id')
+                ->where([
+                      // ['qarsiliqs.id', '=', $id],
+                      ['els.user_id', '=', Auth::user()->id]
+                  ])
+                ->orderBy('created_at', 'desc')
+                ->get();
+                // foreach ($noti_image as $key => $notification_image) {
+                //        $id=$notification_image['elan_id'];
+                //         $qarsiliqs=Qarsiliq::find($var);
+                //     }
+                //     $qarsiliqs->notification = 0;
+                //     $qarsiliqs->update();
+      // dd($noti_image);
+      return view('pages.profil',compact('Elan_all','noti_message'));
     }
 
+
+    //<================= METHHOD FOR NOFICATION_SINGLE ================>
+    public function notication_single($id)
+    {
+        $notication_single=Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
+              ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+              ->select('users.name','users.avatar','els.type_id','qarsiliqs.description','qarsiliqs.id','qarsiliqs.status')
+              ->where([
+                    ['qarsiliqs.id', '=', $id],
+                    ['els.user_id', '=', Auth::user()->id]
+                ])->get();
+          foreach ($notication_single as $notication_single) {
+              $notication_single->status=0;
+              $notication_single->update();
+          }
+
+       return view('pages.notification_single',compact('notication_single'));
+    }
     // Haqqimizda ve elaqe sehifesi hazir olmadqindan muveqqeti olaraq 503 sehifesine gedir
     public function about()
     {
