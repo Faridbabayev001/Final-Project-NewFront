@@ -19,18 +19,17 @@ class CreateElsTable extends Migration
            $table->foreign('type_id')->references('id')->on('elantypes');
            $table->string('title');
            $table->boolean('status');
-           $table->integer('view');
            $table->text('about');
            $table->string('location');
-           $table->string('lat');  // yeniii
-           $table->string('lng'); //yeniii
-           $table->string('name');  //yeniii
-           $table->integer('phone');  //yeniii
-           $table->string('email'); //yenii
+           $table->string('lat');
+           $table->string('lng');
+           $table->string('name');
+           $table->string('phone');
+           $table->string('email');
            $table->string('image');
-           $table->string('org');  //yenii
-           $table->string('nov'); //yeniii
-           $table->date('deadline'); //yeniii
+           $table->string('org');
+           $table->string('nov');
+           $table->date('deadline');
            $table->timestamps();
         });
     }

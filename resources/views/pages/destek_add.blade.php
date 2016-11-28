@@ -155,7 +155,7 @@
     </div>
   </section>
 @elseif(Auth::guest())
-  <h1 class="text-center">login</h1>
+  <h1 class="text-center">stək elavə etmek isteyirsinizsə qeydiyyatdan kecin</h1>
 @endif
 
 @endsection

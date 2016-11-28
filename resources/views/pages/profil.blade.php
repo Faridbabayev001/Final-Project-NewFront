@@ -12,7 +12,7 @@
             <li {{Request::is('Profil') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-view">Profil görünüşü</a></li>
             <li {{Request::is('Istekler') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-isteklerim">İstəklərim</a></li>
             <li {{Request::is('Destekler') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-desteklerim">Dəstəklərim</a></li>
-            <li><a data-toggle="tab" href="#profil-notification">Bildirişlər</a></li>
+            <li {{Request::is('Bildirişlər') ? " class=active" : ''}}><a data-toggle="tab" href="#profil-notification">Bildirişlər</a></li>
             <li><a data-toggle="tab" href="#profil-settings">Tənzimləmələr</a></li>
           </ul>
         </div>
@@ -45,7 +45,7 @@
             </div>
           </div>
           <div id="profil-isteklerim" class="tab-pane fade {{Request::is('Istekler') ? "in active" : ''}}">
-            <div class="table-responsive">
+            {{-- <div class="table-responsive"> --}}
               <table class="table">
                 <thead>
                   <tr>
@@ -72,7 +72,7 @@
                         <td class="profil-isteklerim-status" title="{{$derc_status}}"><i class="{{$derc_icon}}"></i></td>
                         <td>{{$istekler->deadline}}</td>
                         <td>{{$istekler->title}}</td>
-                        <td>{{substr($istekler->about,0,365)}}...</td>
+                        <td class="profil-isteklerim-subText">{{substr($istekler->about,0,100)}}...</td>
                         <td class="profil-isteklerim-photo"><img src="{{url('/image/'.$istekler->image)}}" class="img-responsive" alt="News image"></td>
                         <td class="profil-isteklerim-action">
                           <a href="#" class="btn action-edit"><i class="fa fa-pencil-square"></i></a>
@@ -83,10 +83,10 @@
                       @endif
                     @endforeach
               </table>
-            </div>
+            {{-- </div> --}}
           </div>
           <div id="profil-desteklerim" class="tab-pane fade {{Request::is('Destekler') ? "in active" : ''}}">
-            <div class="table-responsive">
+            {{-- <div class="table-responsive"> --}}
               <table class="table">
                 <thead>
                   <tr>
@@ -113,7 +113,7 @@
                     <td class="profil-desteklerim-status" title="{{$derc_status}}"><i class="{{$derc_icon}}"></i></td>
                     <td>{{$destekler->deadline}}</td>
                     <td>{{$destekler->title}}</td>
-                    <td>{{substr($destekler->about,365)}}...</td>
+                    <td class="profil-desteklerim-subText">{{substr($destekler->about,0,100)}}...</td>
                     <td class="profil-desteklerim-photo"><img src="{{url('/image/'.$destekler->image)}}" class="img-responsive" alt="News image"></td>
                     <td class="profil-desteklerim-action">
                       <a href="#" class="btn action-edit"><i class="fa fa-pencil-square"></i></a>
@@ -124,9 +124,9 @@
                   @endif
                 @endforeach
               </table>
-            </div>
+            {{-- </div> --}}
           </div>
-          <div id="profil-notification" class="tab-pane fade in">
+          <div id="profil-notification" class="tab-pane fade in {{Request::is('Bildirişlər') ? " active" : ''}}">
             <div class="col-lg-12 padding0 notification-block">
               <a href="#" class="notification-block-href">
                 <div class="col-lg-2">

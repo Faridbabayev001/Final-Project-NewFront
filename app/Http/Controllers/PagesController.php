@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use App\City;
 use App\Elan;
 use App\User;
 use App\Contact;
@@ -14,7 +13,7 @@ use Auth;
 use DateTime;
 use Session;
 use Mail;
-
+use App\Qarsiliq;
 class PagesController extends Controller
 {
     public function index(Request $request)
@@ -75,9 +74,21 @@ class PagesController extends Controller
       return view('pages.single',compact('single','diff'));
     }
 
+
+    //<================= METHHOD FOR NOTIFICATION ================>
+      public function notification(Request $request,Qarsiliq $qarsiliq,$id)
+      {
+          $qarsiliq->elan_id = $id;
+          $qarsiliq->user_id = Auth::user()->id;
+          $qarsiliq->description = $request->description;
+          $qarsiliq->notification =1;
+          $qarsiliq->save();
+          return back();
+      }
     //<================= METHHOD FOR PROFIL ================>
     public function profil()
-    {  $Elan_all=Elan::all();
+    {
+      $Elan_all=Elan::all();
       return view('pages.profil',compact('Elan_all'));
     }
 

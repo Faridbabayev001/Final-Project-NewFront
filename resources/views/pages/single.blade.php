@@ -40,11 +40,29 @@
             {{$single->about}}
           </p>
         </div>
-        <div class="single-support">
-          <p class="text-center">
-            <a href="#" class="btn"><i class="fa fa-check"></i> DƏSTƏK OLMAQ İSTƏYİRƏM</a>
-          </p>
-        </div>
+        @if(Auth::user())
+          @if(Auth::user()->id != $single->user_id)
+            <div class="single-support">
+              <p class="text-center">
+                <a class="btn btn-success destek-ol-button" role="button"><i class="fa fa-check"></i> DƏSTƏK OLMAQ İSTƏYİRƏM</a>
+                  <div class="alert alert-success destek-ol-message">
+                      <form class="" action="{{url('/notification/'.$single->id)}}" method="post">
+                        {{csrf_field()}}
+                          <label for="">Aciqlama</label>
+                          <input type="text" name="description" class="form-control">
+                          <input type="submit" name="send" class="pull-right btn-success" value="Gonder">
+                      </form>
+                  </div>
+              </p>
+            </div>
+        @endif
+
+        @elseif(Auth::guest())
+                    <div class="alert alert-success">
+                        Destek olmaq ucun qeydiyyatdan kecin zehmet olmazsa :)
+                      </div>
+        @endif
+
       </div>
     </div>
   </div>

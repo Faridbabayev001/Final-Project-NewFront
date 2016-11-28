@@ -39,7 +39,6 @@ class DestekController extends Controller
     $data = [
           'type_id'=>'1',
           'title'=>$req->title,
-          'view' => '0',
           'about'=>$req->about,
           'location'=>$req->location,
           'lat'=>$req->lat,
