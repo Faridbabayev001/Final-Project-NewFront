@@ -156,7 +156,7 @@
   </div>
   </section>
 @elseif(Auth::guest())
-  <h1 class="text-center">login</h1>
+  <h1 class="text-center">İstək elavə etmek isteyirsinizsə <a class="register-color" href="{{url('/Qeydiyyat')}}">qeydiyyatdan</a> kecin</h1>
 @endif
 
 @endsection

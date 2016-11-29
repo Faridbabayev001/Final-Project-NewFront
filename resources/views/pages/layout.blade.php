@@ -52,7 +52,7 @@ use App\Qarsiliq;
               <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-bell"></i> <span class="contact-auth-notification-number">{{count($noti)}}</span></a>
               <ul class="dropdown-menu contact-auth-notification" role="menu">
                 @foreach($noti_image as $key => $notification_image)
-                  @if($notification_image->id != Auth::user()->id)
+                  @if($notification_image->user_id != Auth::user()->id)
                     <li>
                       <a href="{{url('/Bildiriş/'.$notification_image->id)}}">
                         <img src="{{url('/image/'.$notification_image->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
@@ -81,7 +81,7 @@ use App\Qarsiliq;
           <li class="dropdown">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Xoş gəldiniz, {{Auth::user()->username}} <span class="caret"></span></a>
               <ul class="dropdown-menu contact-profil-menu" role="menu">
-                  <li><a href="{{url('/Profil')}}"><img src="{{url('/uploads/prof.png')}}" class="img-responsive center-block" alt="Avatar"/></a></li>
+                  <li><a href="{{url('/Profil')}}"><img src="{{url('/images/prof.png')}}" class="img-responsive center-block" alt="Avatar"/></a></li>
                   <li><a href="{{url('/Profil')}}"><i class="fa fa-btn fa-user"></i> Profilim</a></li>
                   <li><a href="{{url('/Istekler')}}"><i class="fa fa-btn fa-map-marker"></i> İstəklərim</a></li>
                   <li><a href="{{url('/Destekler')}}"><i class="fa fa-btn fa-support"></i> Dəstəklərim</a></li>
@@ -120,18 +120,18 @@ use App\Qarsiliq;
                 <div class="col-lg-12 padding0 contact-login-form">
                   <form id="SubmitLogin" class="ModalLogin" action="" method="POST">
                     {{csrf_field()}}
-                    <div class="input-group">
+                    <div id="EmailGroup" class="input-group">
                       <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                       <input id="email" type="email" name="email" class="form-control email-placeholder-change">
                     </div>
-
-                    <div class="input-group">
+                      <strong id="EmailError" class="text-danger"></strong>
+                    <div id="PasswordGroup" class="input-group">
                       <span class="input-group-addon"><i class="fa fa-key"></i></span>
                       <input id="pass" type="password" name="password" class="form-control" placeholder="Şifrə">
                     </div>
-
+                    <strong id="PasswordError" class="text-danger"></strong>
                         <div class="col-lg-12 padding0">
-                          <input  type="submit" class="btn btn-default pull-right" value="Daxil ol">
+                          <input id="submit"  type="submit" class="btn btn-default pull-right" value="Daxil ol">
                         </div>
                   </form>
                 </div>

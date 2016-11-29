@@ -53,7 +53,7 @@ $(".destek-ol-message").hide();
 
     });
  //-----------------------------For destek button  End-------------------------------------------
- 
+
 
 //------------------------------For searchBoxDrag -----------------------------------------
 $('#searchBoxDrag').draggable({
@@ -65,6 +65,10 @@ $('#searchBoxDrag').draggable({
 
 //------------------------------For Login Ajax --------------------------------------------
 $('#SubmitLogin').submit(function(event) {
+  $('#EmailGroup').removeClass('has-error')
+  $('#PasswordGroup').removeClass('has-error')
+  $('#EmailError').html('');
+  $('#PasswordError').html('');
   event.preventDefault();
   var Login = $.ajax({
     url: '/login',
@@ -80,9 +84,24 @@ $('#SubmitLogin').submit(function(event) {
     success: function(data){
 
     },
+    beforeSend:function(){
+      $('#submit').val('Loading..');
+    },
+    complete:function(){
+      $('#submit').val('Daxil ol');
+    },
     error:function(data){
       var errors = data.responseJSON;
-      console.log(errors);
+      if (errors['email'] == 'The email field is required.') {
+        var ForEmailError = 'Emaili boş buraxmayın';
+        $('#EmailGroup').addClass('has-error')
+      }
+      if (errors['password'] == 'The password field is required.') {
+        var ForPasswordError = 'Şifreni boş buraxmayın';
+        $('#PasswordGroup').addClass('has-error')
+      }
+      $('#EmailError').html(ForEmailError);
+      $('#PasswordError').html(ForPasswordError);
     }
   })
   Login.done(function(data) {
@@ -90,7 +109,6 @@ $('#SubmitLogin').submit(function(event) {
   })
 });
 //------------------------------For Login Ajax End ----------------------------------------
-
 
 // ----------------------------For Map in destek_add and istek_add pages-----------------------------------------------
 function initAutocomplete() {

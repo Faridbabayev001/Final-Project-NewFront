@@ -30,18 +30,6 @@
                          <option name="type" value="2">Istek</option>
                        </select>
                      </li>
-                     <li>
-                       <label> Nov :</label><br>
-                       <input id="Nov" type="text" class="hidden" name="category" value="all">
-                       <select class="Test" id="kategory">
-                         <option  name="nov" value="all">Hamısı</option>
-                         @foreach ($datas as $data)
-                           @if ($data->status == 1)
-                             <option name="nov" value="{{$data->nov}}">{{$data->nov}}</option>
-                           @endif
-                         @endforeach
-                       </select>
-                   </li>
                  </ul>
            </form>
            </div>

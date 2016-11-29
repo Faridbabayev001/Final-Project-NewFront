@@ -8,7 +8,7 @@ use App\Http\Requests;
 
 use App\Elan;
 use App\User;
-use App\Contact;
+// use App\Contact;
 use Auth;
 use DateTime;
 use Session;
@@ -33,14 +33,12 @@ class PagesController extends Controller
     if ($request->ajax()) {
       $ElanLocation = $request->ElanLocation;
       $ElanType = $request->ElanType;
-      $ElanNov = $request->ElanNov;
       $datalar=Elan::all();
-        if ($ElanLocation =="all" && $ElanType =="all" && $ElanNov =="all") {
+        if ($ElanLocation =="all" && $ElanType =="all") {
           $datalar=Elan::all();
-        }else if($ElanLocation !=="all" || $ElanType !=="all" || $ElanNov !=="all"){
+        }else if($ElanLocation !=="all" || $ElanType !=="all"){
           $datalar=Elan::where('location',$ElanLocation)
           ->orWhere('type_id',$ElanType)
-          ->orWhere('nov',$ElanNov)
           ->get();
         }
       return $datalar;
@@ -127,7 +125,6 @@ class PagesController extends Controller
 
        return view('pages.notification_single',compact('notication_single'));
     }
-    // Haqqimizda ve elaqe sehifesi hazir olmadqindan muveqqeti olaraq 503 sehifesine gedir
     public function about()
     {
       return view('pages.about_us');
@@ -135,6 +132,26 @@ class PagesController extends Controller
 
     public function contact()
     {
-      return view('errors.503');
+      return view('pages.contact_us');
+    }
+
+    public function contact_send(Request $request)
+    {
+      $this->validate($request, [
+         'name' => 'required',
+         'email' => 'required',
+         'message' => 'required',
+      ]);
+      $data=[
+        'name' => $request->name,
+        'email' => $request->email,
+        'contactMessage' => $request->message,
+      ];
+      Mail::send('pages.contact_us_mail',$data, function($message) use ($data){
+        $message->from($data['email']);
+        $message->to('farid.b@code.edu.az');
+      });
+      Session::flash('send', 'İsmarıcınız müvəffəqiyyətlə göndərildi.');
+      return back();
     }
 }

@@ -9,11 +9,6 @@ $(document).ready(function() {
     $('#Type').attr('value',ElType);
     return false;
   });
-  $('#kategory').change(function(){
-    var ElNov = $(this).val();
-    $('#Nov').attr('value',ElNov);
-    return false;
-  });
 var markers = [];
 $.ajax({
   url: document.location.href,
@@ -25,7 +20,6 @@ $.ajax({
   data: {
     ElanLocation : $('#Loc').val(),
     ElanType : $('#Type').val(),
-    ElanNov : $('#Nov').val(),
   },
   success: function Mydatas(data){
     if (data =="") {
@@ -128,7 +122,7 @@ function Mydata(data){
              arrowPosition: 50,
              backgroundClassName: 'InfoMap',
              arrowStyle: 2,
-             closeSrc: '/images/closeIcon.png',
+             closeSrc: '/images/close_icon.png',
            });
             function manyInfo(mark, infoBubble2) {
             infoBubble2.setContent(mark.content);

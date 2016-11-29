@@ -16,6 +16,7 @@ Route::get('/','PagesController@index');
 Route::get('/Qeydiyyat','PagesController@register');
 Route::get('/Haqqımızda','PagesController@about');
 Route::get('/Əlaqə','PagesController@contact');
+Route::post('/Əlaqə','PagesController@contact_send');
 Route::get('/Profil','PagesController@profil');
 Route::get('/Istekler','PagesController@profil');
 Route::get('/Destekler','PagesController@profil');
