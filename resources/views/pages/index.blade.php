@@ -10,7 +10,7 @@
             <form id="mapSearch" class="form-inline" method="get">
                  <ul>
                    <li>
-                       <label> Şəhər/region :</label>
+                       <label> Şəhər / region</label>
                        <input id="Loc" type="text" class="hidden" name="keyword" value="all">
                        <select class="Test" id="acar">
                          <option name="location" value="all">Hamısı</option>
@@ -84,12 +84,12 @@
                        </select>
                    </li>
                      <li>
-                       <label> Istək/Dəstək :</label>
+                       <label> İstək / Dəstək</label>
                        <input id="Type" type="text" class="hidden" name="city" value="all">
                        <select class="Test" id="seher">
                          <option  name="type" value="all">Hamısı</option>
-                         <option name="type" value="1">Destek</option>
-                         <option name="type" value="2">Istek</option>
+                         <option name="type" value="1">Dəstək</option>
+                         <option name="type" value="2">İstək</option>
                        </select>
                      </li>
                  </ul>
@@ -125,7 +125,7 @@
                     <a href="{{url('/single/'.$data->id)}}">{{$data->title}}</a>
                   </div>
                   <div class="news-location col-lg-12">
-                    <p><i class="fa fa-map-marker"></i>{{$data->location}}</p>
+                    <p><i class="fa fa-map-marker"></i> {{$data->location}}</p>
                   </div>
                 </div>
               </div>
@@ -155,7 +155,7 @@
                     <a href="{{url('/single/'.$data->id)}}">{{$data->title}}</a>
                   </div>
                   <div class="news-location col-lg-12">
-                    <p><i class="fa fa-map-marker"></i>{{$data->location}}</p>
+                    <p><i class="fa fa-map-marker"></i> {{$data->location}}</p>
                   </div>
                 </div>
               </div>

@@ -6,14 +6,16 @@
   <div id="breadcrumb">
   <div class="container">
      <div class="row">
-        <h1 class="text-center">Bizimlə Əlaqə</h1>
+        <div class="col-lg-12">
+          <h1 class="text-left">Bizimlə Əlaqə</h1>
+        </div>
     </div>
   </div>
 </div>
 <section id="contact-us">
   <div class="container">
     <div class="row">
-      <div class="col-lg-7 col-lg-offset-4 about-us-form">
+      <div class="col-lg-7 col-lg-offset-3 about-us-form">
         <form action="{{url('/Əlaqə')}}" method="post">
           {{csrf_field()}}
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
