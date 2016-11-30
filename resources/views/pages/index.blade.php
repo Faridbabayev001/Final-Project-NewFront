@@ -109,6 +109,7 @@
           <h1>İSTƏKLƏR</h1>
           <hr>
         </div>
+     
         <!-- News block -->
         @foreach ($datas as $data)
           @if($data->status=='1' && $data->type_id=='2')
@@ -118,7 +119,7 @@
                   <div class="news-type news-istek">
                     İstək
                   </div>
-                  <a href="{{url('/single/'.$data->id)}}"><img src="{{url('/image/'.$data->image)}}" alt="İstək image" /></a>
+                  <a href="{{url('/single/'.$data->id)}}"><img src="{{url('/image/' .$data->shekiller[0]->imageName)}}" alt="İstək image" /></a>
                 </div>
                 <div class="news-content col-lg-12 padding0">
                   <div class="news-title">
@@ -148,7 +149,7 @@
                   <div class="news-type news-destek">
                     Dəstək
                   </div>
-                  <a href="{{url('/single/'.$data->id)}}"><img src="{{url('/image/'.$data->image)}}" alt="İstək image" /></a>
+                  <a href="{{url('/single/'.$data->id)}}"><img src="{{url('/image/'.$data->shekiller[0]->imageName)}}" alt="İstək image" /></a>
                 </div>
                 <div class="news-content col-lg-12 padding0">
                   <div class="news-title">

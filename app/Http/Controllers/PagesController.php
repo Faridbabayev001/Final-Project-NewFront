@@ -14,6 +14,7 @@ use DateTime;
 use Session;
 use Mail;
 use App\Qarsiliq;
+use App\Photo;
 class PagesController extends Controller
 {
     public function index(Request $request)
