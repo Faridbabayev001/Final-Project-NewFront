@@ -8,7 +8,9 @@
   <div id="breadcrumb">
     <div class="container">
        <div class="row">
-          <h1 class="text-center">Qeydiyyat</h1>
+         <div class="col-lg-12">
+           <h1 class="text-left">Qeydiyyat</h1>
+         </div>
       </div>
     </div>
   </div>
@@ -27,7 +29,12 @@
   <section id="register">
   <div class="container">
     <div class="row">
-      <div class="col-lg-10 col-lg-offset-1">
+      <div class="col-lg-12 padding0">
+        @if (Session::has('warning'))
+        <div class="alert alert-danger" role="alert">{{Session::get('warning')}}</div>
+        @elseif (Session::has('status'))
+        <div class="alert alert-success" role="alert">{{Session::get('status')}}</div>
+        @endif
         <form action="{{ url('/register') }}" method="post">
           {{csrf_field()}}
           <div class="col-lg-6">

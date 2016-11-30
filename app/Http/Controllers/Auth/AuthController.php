@@ -99,7 +99,7 @@ class AuthController extends Controller
 
         $this->activationService->sendActivationMail($user);
 
-        return redirect('/')->with('status', 'Biz sizə aktivasiya linki yolladıq. Zəhmət olmasa Email adresinizi yoxlayın');
+        return redirect('/Qeydiyyat')->with('status', 'Biz sizə aktivasiya linki yolladıq. Zəhmət olmasa Email adresinizi yoxlayın');
     }
 
     public function authenticated(Request $request, $user)
@@ -107,7 +107,7 @@ class AuthController extends Controller
         if (!$user->activated) {
             $this->activationService->sendActivationMail($user);
             auth()->logout();
-            return back()->with('warning',"Hesabınızı təsdiqləməlisiniz. Biz sizə aktivasiya kodu yollamışıq, zəhmət olmasa email adresinizi yoxlayın.");
+            return back()->with('warning',"Aktivasiya linki emailinizə göndərildi. Hesabınızı aktivləşdirdikdən sonra giriş edə bilərsiniz.");
         }
         return redirect()->intended($this->redirectPath());
     }

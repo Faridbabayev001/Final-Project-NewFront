@@ -6,7 +6,9 @@
   <div id="breadcrumb">
   <div class="container">
      <div class="row">
-        <h1 class="text-left">Profilim</h1>
+        <div class="col-lg-12">
+          <h1 class="text-left">Profilim</h1>
+        </div>
         <div class="col-lg-9">
           <ul class="nav nav-tabs">
             <li {{Request::is('Profil') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-view">Profil görünüşü</a></li>
@@ -23,7 +25,7 @@
 <section id="profil">
   <div class="container">
     <div class="row">
-      <div class="col-lg-9 col-lg-offset-2">
+      <div class="col-lg-12">
         <div class="tab-content">
           {{-- <================== PROFIL PART==================> --}}
 

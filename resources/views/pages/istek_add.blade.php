@@ -5,7 +5,9 @@
 <div id="breadcrumb">
 <div class="container">
    <div class="row">
-      <h1 class="text-left">Yeni İstək</h1>
+     <div class="col-lg-12">
+       <h1 class="text-left">Yeni İstək</h1>
+     </div>
   </div>
 </div>
 </div>
@@ -30,7 +32,7 @@
           <div class="col-lg-6">
             <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
               <label for="name">Başlıq</label>
-              <input type="text" name="title" class="form-control" value="{{ old('title') }}">
+              <input type="text" name="title" class="form-control" maxlength="33" value="{{ old('title') }}">
               @if ($errors->has('title'))
                  <span class="help-block">
                    <strong>Boşluq buraxmayın</strong>
@@ -156,7 +158,11 @@
   </div>
   </section>
 @elseif(Auth::guest())
-  <h1 class="text-center">İstək elavə etmek isteyirsinizsə <a class="register-color" href="{{url('/Qeydiyyat')}}">qeydiyyatdan</a> kecin</h1>
+  <section id="add">
+    <div class="alert alert-danger">
+      <h1 class="text-center">İstək əlavə etmək üçün <a href="{{url('/Qeydiyyat')}}" class="register-color">qeydiyyatdan</a> keçməyiniz tələb olunur.</h1>
+    </div>
+  </section>
 @endif
 
 @endsection

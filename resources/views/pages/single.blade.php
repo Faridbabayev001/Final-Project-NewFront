@@ -4,7 +4,9 @@
   <div id="breadcrumb">
   <div class="container">
      <div class="row">
-        <h1 class="text-left">{{$single->title}}</h1>
+       <div class="col-lg-12">
+         <h1 class="text-left">{{$single->title}}</h1>
+       </div>
     </div>
   </div>
 </div>
@@ -30,7 +32,7 @@
       </div>
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="single-social">
-          <ul class="list-inline text-center">
+          <ul class="list-inline">
             <li class="single-social-facebook"><a href="#"><i class="fa fa-facebook"></i> PAYLAŞ</a></li>
             <li class="single-social-google"><a href="#"><i class="fa fa-google-plus"></i> PAYLAŞ</a></li>
           </ul>
@@ -44,7 +46,11 @@
           @if(Auth::user()->id != $single->user_id)
             <div class="single-support">
               <p class="text-center">
-                <a class="btn btn-success destek-ol-button" role="button"><i class="fa fa-check"></i> DƏSTƏK OLMAQ İSTƏYİRƏM</a>
+                @if ($single->type_id == 2)
+                  <a class="btn destek-ol-button" role="button"><i class="fa fa-check"></i> DƏSTƏK OLMAQ İSTƏYİRƏM</a>
+                  @else
+                  <a class="btn destek-ol-button" role="button"><i class="fa fa-check"></i> DƏSTƏKDƏN YARARLANMAQ İSTƏYİRƏM</a>
+                @endif
                   <div class="alert alert-success destek-ol-message">
                       <form class="" action="{{url('/notification/'.$single->id)}}" method="post">
                         {{csrf_field()}}
@@ -58,9 +64,22 @@
         @endif
 
         @elseif(Auth::guest())
-                    <div class="alert alert-success">
-                        Destek olmaq ucun qeydiyyatdan kecin zehmet olmazsa :)
-                      </div>
+          <div class="single-support">
+            <p class="text-center">
+              @if ($single->type_id == 2)
+                <a class="btn destek-ol-button" role="button"><i class="fa fa-check"></i> DƏSTƏK OLMAQ İSTƏYİRƏM</a>
+                @else
+                <a class="btn destek-ol-button" role="button"><i class="fa fa-check"></i> DƏSTƏKDƏN YARARLANMAQ İSTƏYİRƏM</a>
+              @endif
+            </p>
+          </div>
+          <div class="alert alert-danger destek-ol-message">
+            @if ($single->type_id == 2)
+              <h5 class="text-center">Dəstək olmaq üçün <a href="/Qeydiyyat" class="register-color">qeydiyyatdan</a> keçməyiniz tələb olunur</h5>
+              @else
+              <h5 class="text-center">Dəstəkdən yararlanmaq üçün <a href="/Qeydiyyat" class="register-color">qeydiyyatdan</a> keçməyiniz tələb olunur</h5>
+            @endif
+          </div>
         @endif
 
       </div>

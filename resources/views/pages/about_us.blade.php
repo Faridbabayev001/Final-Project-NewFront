@@ -6,7 +6,9 @@
   <div id="breadcrumb">
   <div class="container">
      <div class="row">
-        <h1 class="text-left">Haqqımızda</h1>
+       <div class="col-lg-12">
+         <h1>Haqqımızda</h1>
+       </div>
     </div>
   </div>
 </div>
