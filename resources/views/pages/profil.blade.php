@@ -85,7 +85,7 @@
                         <td>{{$istekler->deadline}}</td>
                         <td>{{$istekler->title}}</td>
                         <td class="profil-isteklerim-subText">{{substr($istekler->about,0,100)}}...</td>
-                        <td class="profil-isteklerim-photo"><img src="{{url('/image/'.$istekler->image)}}" class="img-responsive" alt="News image"></td>
+                        <td class="profil-isteklerim-photo"><img src="{{url('/image/'.$istekler->shekiller[0]->imageName)}}" class="img-responsive" alt="News image"></td>
                         <td class="profil-isteklerim-action">
                           <a href="{{url('/istek-edit/'.$istekler->id)}}" class="btn action-edit"><i class="fa fa-pencil-square"></i></a>
                           <a href="{{url('/istek-delete/'.$istekler->id)}}" class="btn action-delete"><i class="fa fa-trash"></i></a>
@@ -131,7 +131,7 @@
                     <td>{{$destekler->deadline}}</td>
                     <td>{{$destekler->title}}</td>
                     <td class="profil-desteklerim-subText">{{substr($destekler->about,0,100)}}...</td>
-                    <td class="profil-desteklerim-photo"><img src="{{url('/image/'.$destekler->image)}}" class="img-responsive" alt="News image"></td>
+                    <td class="profil-desteklerim-photo"><img src="{{url('/image/'.$destekler->shekiller[0]->imageName)}}" class="img-responsivse" alt="News image"></td>
                     <td class="profil-desteklerim-action">
                       <a href="#" class="btn action-edit"><i class="fa fa-pencil-square"></i></a>
                       <a href="#" class="btn action-delete"><i class="fa fa-trash"></i></a>
