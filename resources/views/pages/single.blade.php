@@ -44,7 +44,11 @@
           @if(Auth::user()->id != $single->user_id)
             <div class="single-support">
               <p class="text-center">
-                <a class="btn btn-success destek-ol-button" role="button"><i class="fa fa-check"></i> DƏSTƏK OLMAQ İSTƏYİRƏM</a>
+                @if ($single->type_id == 2)
+                  <a class="btn btn-success destek-ol-button" role="button"><i class="fa fa-check"></i> DƏSTƏK OLMAQ İSTƏYİRƏM</a>
+                @elseif ($single->type_id == 1)
+                  <a class="btn btn-success destek-ol-button" role="button"><i class="fa fa-check"></i> DƏSTƏKDƏN YARARLANMAQ İSTƏYİRƏM</a>
+                @endif
                   <div class="alert alert-success destek-ol-message">
                       <form class="" action="{{url('/notification/'.$single->id)}}" method="post">
                         {{csrf_field()}}

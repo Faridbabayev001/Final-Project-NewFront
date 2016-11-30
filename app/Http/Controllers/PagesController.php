@@ -36,11 +36,14 @@ class PagesController extends Controller
       $datalar=Elan::all();
         if ($ElanLocation =="all" && $ElanType =="all") {
           $datalar=Elan::all();
-        }else if($ElanLocation !=="all" || $ElanType !=="all"){
-          $datalar=Elan::where('location',$ElanLocation)
-          ->orWhere('type_id',$ElanType)
-          ->get();
-        }
+        }else if($ElanLocation !=="all" && $ElanType !=="all"){
+          $datalar=Elan::where([
+            ['location','LIKE','%'.$ElanLocation.'%'],
+            ['type_id','LIKE','%'.$ElanType.'%']
+        ])->get();
+      }else if ($ElanLocation !=="all") {
+        $datalar = Elan::where('location','LIKE','%'.$ElanLocation.'%')->get();
+      }
       return $datalar;
     };
       return view('pages.index',compact('datas'));

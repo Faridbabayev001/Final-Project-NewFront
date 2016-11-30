@@ -14,11 +14,73 @@
                        <input id="Loc" type="text" class="hidden" name="keyword" value="all">
                        <select class="Test" id="acar">
                          <option name="location" value="all">Hamısı</option>
-                         @foreach ($datas as $data)
-                           @if ($data->status == 1)
-                             <option name="location" value="{{$data->location}}">{{$data->location}}</option>
-                           @endif
-                         @endforeach
+                         <option value="Bakı">Bakı</option>
+                         <option value="Abşeron">Abşeron</option>
+                         <option value="Ağdam">Ağdam</option>
+                         <option value="Ağdaş">Ağdaş</option>
+                         <option value="Avalueabədi">Ağcabədi</option>
+                         <option value="Ağstafa">Ağstafa</option>
+                         <option value="Ağsu">Ağsu</option>
+                         <option value="Astara">Astara</option>
+                         <option value="Babək">Babək</option>
+                         <option value="Balakən">Balakən</option>
+                         <option value="Bərdə">Bərdə</option>
+                         <option value="Beyləqan">Beyləqan</option>
+                         <option value="Biləsuvar">Biləsuvar</option>
+                         <option value="Cəbrayıl">Cəbrayıl</option>
+                         <option value="Cəlilabad">Cəlilabad</option>
+                         <option value="Culfa">Culfa</option>
+                         <option value="Daşkəsən">Daşkəsən</option>
+                         <option value="Füzuli">Füzuli</option>
+                         <option value="Gədəbəy">Gədəbəy</option>
+                         <option value="Goranboy">Goranboy</option>
+                         <option value="Göyçay">Göyçay</option>
+                         <option value="Göygöl">Göygöl</option>
+                         <option value="Hacıqabul">Hacıqabul</option>
+                         <option value="Xaçmaz">Xaçmaz</option>
+                         <option value="Xızı">Xızı</option>
+                         <option value="Xocalı">Xocalı</option>
+                         <option value="Xocavənd">Xocavənd</option>
+                         <option value="İmişli">İmişli</option>
+                         <option value="İsmayıllı">İsmayıllı</option>
+                         <option value="Kəlbəcər">Kəlbəcər</option>
+                         <option value="Kəngərli">Kəngərli</option>
+                         <option value="Kürdəmir">Kürdəmir</option>
+                         <option value="Qəbələ">Qəbələ</option>
+                         <option value="Qax">Qax</option>
+                         <option value="Qazax">Qazax</option>
+                         <option value="Qobustan">Qobustan</option>
+                         <option value="Quba">Quba</option>
+                         <option value="Qubadlı">Qubadlı</option>
+                         <option value="Qusar">Qusar</option>
+                         <option value="Laçın">Laçın</option>
+                         <option value="Lənkəran">Lənkəran</option>
+                         <option value="Lerik">Lerik</option>
+                         <option value="Masallı">Masallı</option>
+                         <option value="Neftçala">Neftçala</option>
+                         <option value="Oğuz">Oğuz</option>
+                         <option value="Ordubad">Ordubad</option>
+                         <option value="Saatlı">Saatlı</option>
+                         <option value="Sabirabad">Sabirabad</option>
+                         <option value="Sədərək">Sədərək</option>
+                         <option value="Salyan">Salyan</option>
+                         <option value="Samux">Samux</option>
+                         <option value="Şabran">Şabran</option>
+                         <option value="Şahbuz">Şahbuz</option>
+                         <option value="Şəki">Şəki</option>
+                         <option value="Şamaxı">Şamaxı</option>
+                         <option value="Şəmkir">Şəmkir</option>
+                         <option value="Şərur">Şərur</option>
+                         <option value="Şuşa">Şuşa</option>
+                         <option value="Siyəzən">Siyəzən</option>
+                         <option value="Tərtər">Tərtər</option>
+                         <option value="Tovuz">Tovuz</option>
+                         <option value="Ucar">Ucar</option>
+                         <option value="Yardımlı">Yardımlı</option>
+                         <option value="Yevlax">Yevlax</option>
+                         <option value="Zəngilan">Zəngilan</option>
+                         <option value="Zaqatala">Zaqatala</option>
+                         <option value="Zərdab">Zərdab</option>
                        </select>
                    </li>
                      <li>

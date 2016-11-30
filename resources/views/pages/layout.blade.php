@@ -11,6 +11,7 @@ use App\Qarsiliq;
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <meta name="_token" content="{!!csrf_token()!!}">
   <title>Bumerang.org | @yield('title')</title>
+  <link rel="icon" href="{{url('/images/logo.png')}}" type="image/png" >
   <link rel="stylesheet" href="{{url('/css/style.css')}}" media="screen" title="no title">
 </head>
 <body>

@@ -80,6 +80,7 @@ class AuthController extends Controller
           'phone' => '+994'.$data['operator'].$data['phone'],
           'city' => $data['city'],
           'email' => $data['email'],
+          'avatar' => 'prof.png',
           'password' => bcrypt($data['password'])
         ]);
     }
