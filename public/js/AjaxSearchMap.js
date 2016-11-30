@@ -49,9 +49,9 @@ $.ajax({
       data: {
         ElanLocation : $('#Loc').val(),
         ElanType : $('#Type').val(),
-        ElanNov : $('#Nov').val(),
       },
       success:function Mydatas(data){
+        console.log(data);
         Mydata(data);
       },
       beforeSend:function(){

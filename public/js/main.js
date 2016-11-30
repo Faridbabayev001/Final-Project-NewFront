@@ -85,7 +85,7 @@ $('#SubmitLogin').submit(function(event) {
 
     },
     beforeSend:function(){
-      $('#submit').val('Loading..');
+      $('#submit').val('...');
     },
     complete:function(){
       $('#submit').val('Daxil ol');

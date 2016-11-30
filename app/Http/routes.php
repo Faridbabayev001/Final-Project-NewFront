@@ -28,6 +28,9 @@ Route::get('/single/{id}','PagesController@single');
 //<==================Istek Routes ==================>
 Route::get('/istek-add','IstekController@show');
 Route::post('/istek-add','IstekController@istek_add');
+Route::get('/istek-edit/{id}','IstekController@istek_edit');
+Route::get('/istek-delete/{id}','IstekController@istek_delete');
+Route::patch('/istek-edit/{id}','IstekController@istek_update');
 //<=================Istek Routes End ================>
 
 

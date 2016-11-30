@@ -54,6 +54,9 @@
           {{-- <================== ISTEKLERIM PART==================> --}}
 
           <div id="profil-isteklerim" class="tab-pane fade {{Request::is('Istekler') ? "in active" : ''}}">
+            @if (Session::has('istek_edited'))
+                <div class="alert alert-success" role="alert">{{Session::get('istek_edited')}}</div>
+              @endif
             {{-- <div class="table-responsive"> --}}
               <table class="table">
                 <thead>
@@ -68,8 +71,8 @@
                 </thead>
                     @foreach ($Elan_all as $istekler)
                       <tbody>
-                        <tr>
                       @if ($istekler->user_id == Auth::user()->id && $istekler->type_id == '2')
+                      <tr>
                         @php
                           $derc_status = 'Dərc olunmayıb';
                           $derc_icon = 'fa fa-times-circle-o fa-2x';
@@ -84,8 +87,8 @@
                         <td class="profil-isteklerim-subText">{{substr($istekler->about,0,100)}}...</td>
                         <td class="profil-isteklerim-photo"><img src="{{url('/image/'.$istekler->image)}}" class="img-responsive" alt="News image"></td>
                         <td class="profil-isteklerim-action">
-                          <a href="#" class="btn action-edit"><i class="fa fa-pencil-square"></i></a>
-                          <a href="#" class="btn action-delete"><i class="fa fa-trash"></i></a>
+                          <a href="{{url('/istek-edit/'.$istekler->id)}}" class="btn action-edit"><i class="fa fa-pencil-square"></i></a>
+                          <a href="{{url('/istek-delete/'.$istekler->id)}}" class="btn action-delete"><i class="fa fa-trash"></i></a>
                         </td>
                       </tr>
                     </tbody>
