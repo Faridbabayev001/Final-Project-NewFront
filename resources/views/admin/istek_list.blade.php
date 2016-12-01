@@ -44,7 +44,7 @@
                                   <td>{{$istek->name}}</td>
                                   <td>{{$istek->phone}}</td>
                                   <td>{{$istek->email}}</td>
-                                  <td><img style="width:50px; height:50px" src="{{url('image/'.$istek->image)}}"/></td>
+                                  <td><img style="width:50px; height:50px" src="{{url('image/'.$istek->shekiller[0]->imageName)}}"/></td>
                                   <td>{{$istek->org}}</td>
                                   <td>{{$istek->nov}}</td>
                               </tr>
@@ -61,7 +61,7 @@
                                       {{$istek->about}}
                                     </div>
                                     <div class="modal-footer">
-                                       <img class="img-responsive " src="{{url('image/'.$istek->image)}}"/>
+                                       <img class="img-responsive " src="{{url('image/'.$istek->shekiller[0]->imageName)}}"/>
                                     </div>
                                   </div>
                                 </div>

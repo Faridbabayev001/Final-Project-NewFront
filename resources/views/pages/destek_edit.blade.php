@@ -1,37 +1,39 @@
 @extends('pages.layout')
-@section('title','Destek')
+
+@section('title','Istək_redaktə')
+
 @section('content')
+
   <div id="breadcrumb">
   <div class="container">
      <div class="row">
-       <div class="col-lg-12">
-         <h1 class="text-left">Yeni Dəstək</h1>
-       </div>
+        <h1 class="text-left">Redaktə</h1>
     </div>
   </div>
-</div>
-@if(Auth::user())
-  <section id="add">
+  </div>
+  @if(Auth::user())
+    <section id="add">
     <div class="container">
       <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
           <div id="map"></div>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-          @if (Session::has('destekadded'))
-            <div class="alert alert-success" role="alert">{{Session::get('destekadded')}}</div>
+          @if (Session::has('destek_edited'))
+            <div class="alert alert-success" role="alert">{{Session::get('destek_edited')}}</div>
           @endif
           @if (Session::has('imageerror'))
             <div class="alert alert-danger" role="alert">{{Session::get('imageerror')}}</div>
           @endif
 
-          <form action="{{url('/destek-add')}}" method="post" enctype="multipart/form-data">
+          <form action="{{url('/destek-edit/'.$destek_edit->id)}}" method="POST" enctype="multipart/form-data">
             {{csrf_field()}}
+            {{ method_field('PATCH')}}
             {{-- <=================title input ================> --}}
             <div class="col-lg-6">
               <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
                 <label for="name">Başlıq</label>
-                <input type="text" name="title" class="form-control" maxlength="33" value="{{ old('title') }}">
+                <input type="text" name="title" class="form-control" value="{{$destek_edit->title}}">
                 @if ($errors->has('title'))
                    <span class="help-block">
                      <strong>Boşluq buraxmayın</strong>
@@ -42,9 +44,9 @@
               {{-- <=================location input ================> --}}
               <div class="form-group{{ $errors->has('location') || $errors->has('lat') && $errors->has('lng')? ' has-error' : '' }}">
                 <label for="name">Ünvan</label>
-                   <input type="hidden" id="lat" name="lat">
-                    <input type="hidden" id="lng" name="lng">
-                <input type="text" name="location" class="form-control" id="adress" placeholder="">
+                   <input type="hidden" id="lat" name="lat" value="{{$destek_edit->lat}}">
+                    <input type="hidden" id="lng" name="lng" value="{{$destek_edit->lng}}">
+                <input type="text" name="location" class="form-control" id="adress" placeholder="" value="{{$destek_edit->location}}">
                 @if ($errors->has('location'))
                     <span class="help-block">
                       <strong>Boşluq buraxmayın</strong>
@@ -59,13 +61,13 @@
               {{-- <=================organization input ================> --}}
               <div class="form-group">
                 <label for="name">Təşkilat adı</label>
-                <input type="text" name="org" class="form-control" value="{{ old('org') }}">
+                <input type="text" name="org" class="form-control" value="{{$destek_edit->org}}">
               </div>
 
               {{-- <=================About input ================> --}}
               <div class="form-group{{ $errors->has('about') ? ' has-error' : '' }}">
                 <label for="name">Açıqlama</label>
-                <textarea name="about" class="form-control" rows="6" cols="80">{{ old('about') }}</textarea>
+                <textarea name="about" class="form-control" rows="6" cols="80">{{$destek_edit->about}}</textarea>
                 @if ($errors->has('about'))
                     <span class="help-block">
                       <strong>Boşluq buraxmayın</strong>
@@ -75,7 +77,7 @@
             {{-- <=================image input ================> --}}
               <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                 <label for="email">Şəkil</label>
-                <input type="file" name="image[]" class="form-control" value="{{ old('image') }}" multiple>
+                <input type="file" name="image" class="form-control" value="{{$destek_edit->image}}">
                 @if ($errors->has('image'))
                     <span class="help-block">
                       <strong>Boşluq buraxmayın</strong>
@@ -104,11 +106,11 @@
                         <input id="operator" type="hidden" name="operator" value="{{substr(Auth::user()->phone,4,2) == '55' ? '55' : substr(Auth::user()->phone,4,2) }}">
                         +994
                             <select id="operator-numbers" name="operator-numbers">
-                                  <option {{substr(Auth::user()->phone,4,2) == '55' ? 'selected' : '' }}>55</option>
-                                  <option {{substr(Auth::user()->phone,4,2) == '51' ? 'selected' : '' }}>51</option>
-                                  <option {{substr(Auth::user()->phone,4,2) == '50' ? 'selected' : '' }}>50</option>
-                                  <option {{substr(Auth::user()->phone,4,2) == '70' ? 'selected' : '' }}>70</option>
-                                  <option {{substr(Auth::user()->phone,4,2) == '77' ? 'selected' : '' }}>77</option>
+                              <option {{substr(Auth::user()->phone,4,2) == '55' ? 'selected' : '' }}>55</option>
+                              <option {{substr(Auth::user()->phone,4,2) == '51' ? 'selected' : '' }}>51</option>
+                              <option {{substr(Auth::user()->phone,4,2) == '50' ? 'selected' : '' }}>50</option>
+                              <option {{substr(Auth::user()->phone,4,2) == '70' ? 'selected' : '' }}>70</option>
+                              <option {{substr(Auth::user()->phone,4,2) == '77' ? 'selected' : '' }}>77</option>
                             </select>
                         </div>
                   <input type="text" class="form-control" name="phone" value="{{substr(Auth::user()->phone,6)}}" maxlength="7">
@@ -134,7 +136,7 @@
               {{-- <=================Nov input ================> --}}
               <div class="form-group{{ $errors->has('nov') ? ' has-error' : '' }}">
                 <label for="password">Növ</label>
-                <input type="text" name="nov" class="form-control" value="{{ old('nov') }}">
+                <input type="text" name="nov" class="form-control" value="{{$destek_edit->nov}}">
                 @if ($errors->has('nov'))
                     <span class="help-block">
                       <strong>Boşluq buraxmayın</strong>
@@ -145,7 +147,7 @@
               {{-- <=================Date input ================> --}}
               <div class="form-group">
                 <label for="date">İstəyin müddəti</label>
-                <input type="date" name="date" class="form-control" id="date" value="{{ old('date') }}">
+                <input type="date" name="date" class="form-control" id="date" value="{{$destek_edit->deadline}}">
               </div>
               <div class="form-group text-center">
                 <input type="submit" class="btn" value="GÖNDƏR">
@@ -155,17 +157,11 @@
         </div>
       </div>
     </div>
-  </section>
-@elseif(Auth::guest())
-  <section id="add">
-    <div class="alert alert-danger">
-      <h1 class="text-center">Dəstək əlavə etmək üçün <a href="{{url('/Qeydiyyat')}}" class="register-color">qeydiyyatdan</a> keçməyiniz tələb olunur.</h1>
-    </div>
-  </section>
-@endif
+    </section>
+  @endif
 
-@endsection
-@section('scripts')
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAanmTrOlQYWRepobnwqSO1E2SOoHYMRBA&libraries=places&callback=initAutocomplete&language=az"
-         async defer></script>
+  @endsection
+  @section('scripts')
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAanmTrOlQYWRepobnwqSO1E2SOoHYMRBA&libraries=places&callback=initAutocomplete&language=az"
+           async defer></script>
 @endsection

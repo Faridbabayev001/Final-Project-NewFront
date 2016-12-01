@@ -26,7 +26,7 @@
           <div class="alert alert-danger" role="alert">{{Session::get('imageerror')}}</div>
         @endif
 
-        <form action="{{url('/istek-add')}}" method="post" enctype="multipart/form-data">
+        <form id="forUploadImages" action="{{url('/istek-add')}}" method="post" enctype="multipart/form-data">
           {{csrf_field()}}
           {{-- <=================title input ================> --}}
           <div class="col-lg-6">
@@ -76,7 +76,7 @@
           {{-- <=================image input ================> --}}
             <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
               <label for="email">Şəkil</label>
-              <input type="file" name="image" class="form-control" value="{{ old('image') }}">
+              <input type="file" name="image[]" class="form-control" value="{{ old('image') }}" multiple>
               @if ($errors->has('image'))
                   <span class="help-block">
                     <strong>Boşluq buraxmayın</strong>

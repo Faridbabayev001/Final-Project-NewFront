@@ -43,7 +43,7 @@
                                   <td>{{$destek->name}}</td>
                                   <td>{{$destek->phone}}</td>
                                   <td>{{$destek->email}}</td>
-                                  <td><img style="width:50px; height:50px" src="{{url('image/'.$destek->image)}}"/></td>
+                                  <td><img style="width:50px; height:50px" src="{{url('image/'.$destek->shekiller[0]->imageName)}}"/></td>
                                   <td>{{$destek->org}}</td>
                                   <td>{{$destek->nov}}</td>
                             </tr>
@@ -60,7 +60,7 @@
                                     {{$destek->about}}
                                   </div>
                                   <div class="modal-footer">
-                                     <img class="img-responsive " src="{{url('image/'.$destek->image)}}"/>
+                                     <img class="img-responsive " src="{{url('image/'.$destek->shekiller[0]->imageName)}}"/>
                                   </div>
                                 </div>
                               </div>

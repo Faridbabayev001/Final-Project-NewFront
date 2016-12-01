@@ -17,6 +17,8 @@ Route::get('/Qeydiyyat','PagesController@register');
 Route::get('/Haqqımızda','PagesController@about');
 Route::get('/Əlaqə','PagesController@contact');
 Route::post('/Əlaqə','PagesController@contact_send');
+Route::get('/Tənzimləmələr','PagesController@profil');
+Route::post('/Tənzimləmələr','PagesController@settings');
 Route::get('/Profil','PagesController@profil');
 Route::get('/Istekler','PagesController@profil');
 Route::get('/Destekler','PagesController@profil');
@@ -31,6 +33,9 @@ Route::post('/istek-add','IstekController@istek_add');
 Route::get('/istek-edit/{id}','IstekController@istek_edit');
 Route::get('/istek-delete/{id}','IstekController@istek_delete');
 Route::patch('/istek-edit/{id}','IstekController@istek_update');
+//special for ajax by - Gunel :)
+Route::post('/add_file_change','IstekController@only_pic');
+Route::post('/pic_delete','IstekController@pic_delete');
 //<=================Istek Routes End ================>
 
 
@@ -38,6 +43,8 @@ Route::patch('/istek-edit/{id}','IstekController@istek_update');
 //<==================Destek Routes ==================>
 Route::get('/destek-add','DestekController@show');
 Route::post('/destek-add','DestekController@destek_add');
+Route::get('/destek-edit/{id}','DestekController@destek_edit');
+Route::patch('/destek-edit/{id}','DestekController@destek_update');
 //<=================Destek Routes End ================>
 
 

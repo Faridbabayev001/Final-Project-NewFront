@@ -10,7 +10,7 @@
     </div>
   </div>
 </div>
-
+{{-- {{dd($single->shekiller[0)}} --}}
 <section id="single">
   <div class="container">
     <div class="row">
@@ -24,7 +24,7 @@
                 {{$diff->m}} ay {{$diff->d}} gün
             @endif
           </div>
-          <img src="{{url('/image/'.$single->image)}}" class="img-responsive" alt="" />
+          <img src="{{url('/image/'.$single->shekiller[0]->imageName)}}" class="img-responsive" alt="" />
           <div class="single-img-location">
             <i class="fa fa-map-marker"></i> {{$single->location}}
           </div>
