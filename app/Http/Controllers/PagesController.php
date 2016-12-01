@@ -8,7 +8,6 @@ use App\Http\Requests;
 
 use App\Elan;
 use App\User;
-// use App\Contact;
 use Auth;
 use DateTime;
 use Session;
@@ -128,6 +127,25 @@ class PagesController extends Controller
           }
 
        return view('pages.notification_single',compact('notication_single'));
+    }
+    public function settings(Request $request)
+    {
+      $this->validate($request, [
+         'username' => 'required',
+         'name' => 'required',
+         'email' => 'required',
+         'phone' => 'required',
+         'city' => 'required',
+      ]);
+      $data = [
+            'username' => Auth::user()->username,
+            'name' => $request['name'],
+            'phone' => '+994'.$request['operator'].$request['phone'],
+            'email' => $request['email'],
+            'city' => $request['city']
+        ];
+        Auth::user()->update($data);
+      return back();
     }
     public function about()
     {

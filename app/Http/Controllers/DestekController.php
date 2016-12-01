@@ -86,4 +86,53 @@ class DestekController extends Controller
   //     Session::flash('imageerror' , "Xahiş olunur şəkli düzgün seçəsiniz.");
    // }
   }
+
+  public function destek_edit($id)
+  {
+    $destek_edit = Elan::find($id);
+    return view('pages.destek_edit',compact('destek_edit'));
+  }
+
+  public function destek_update(Request $req,$id)
+  {
+    $this->validate($req, [
+    'title' => 'required',
+        'about' => 'required',
+        'location' => 'required',
+        'lat' => 'required',
+        'lng' => 'required',
+        'name' => 'required',
+        'phone' => 'required',
+        'email' => 'required',
+        'nov' => 'required',
+]);
+   if ($req->image == '') {
+      $image = Elan::find($id);
+      $photoname = $image->image;
+    }
+    else{
+    // image upload
+    $phototype=$req->file('image')->getClientOriginalExtension();
+    $photoname=time().'.'.$phototype;
+    $req->file('image')->move(public_path('image'),$photoname);
+
+    }
+   Session::flash('destek_edited' , "İstəyiniz uğurla dəyişdirildi və yoxlamadan keçəndən sonra dərc olunacaq.");
+   $destek_update = Elan::find($id);
+   $destek_update->title = $req->title;
+   $destek_update->location = $req->location;
+   $destek_update->lat = $req->lat;
+   $destek_update->lng = $req->lng;
+   $destek_update->about = $req->about;
+   $destek_update->image = $photoname;
+   $destek_update->name = $req->name;
+   $destek_update->email = $req->email;
+   $destek_update->org = $req->org;
+   $destek_update->nov = $req->nov;
+   $destek_update->deadline = $req->date;
+   $destek_update->phone = $req->phone;
+   $destek_update->status = 0;
+   $destek_update->update();
+   return redirect("/destek-edit/$destek_update->id");
+  }
 }
