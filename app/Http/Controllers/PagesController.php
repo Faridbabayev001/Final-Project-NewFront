@@ -36,13 +36,22 @@ class PagesController extends Controller
       $datalar=Elan::all();
         if ($ElanLocation =="all" && $ElanType =="all") {
           $datalar=Elan::all();
+          foreach ($datalar as $key => $value) {
+            $datalar[$key]['image'] = $value->shekiller[0]->imageName;
+          }
         }else if($ElanLocation !=="all" && $ElanType !=="all"){
           $datalar=Elan::where([
             ['location','LIKE','%'.$ElanLocation.'%'],
             ['type_id','LIKE','%'.$ElanType.'%']
         ])->get();
+        foreach ($datalar as $key => $value) {
+          $datalar[$key]['image'] = $value->shekiller[0]->imageName;
+        }
       }else if ($ElanLocation !=="all") {
         $datalar = Elan::where('location','LIKE','%'.$ElanLocation.'%')->get();
+        foreach ($datalar as $key => $value) {
+          $datalar[$key]['image'] = $value->shekiller[0]->imageName;
+        }
       }
       return $datalar;
     };

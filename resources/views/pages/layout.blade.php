@@ -40,9 +40,13 @@ use App\Qarsiliq;
           @php
             $noti = Elan::join('users', 'users.id', '=', 'els.user_id')
                       ->join('qarsiliqs', 'qarsiliqs.elan_id', '=', 'els.id')
-                      ->select('els.type_id','users.name','users.avatar','qarsiliqs.notification','qarsiliqs.id')
-                       ->where('els.user_id', '=', Auth::user()->id)
-                      ->get();
+                      ->select('els.type_id','users.name','users.avatar','qarsiliqs.notification','qarsiliqs.id','qarsiliqs.status')
+                      //  ->where('els.user_id', '=', Auth::user()->id)
+                       ->where([
+                             ['qarsiliqs.status', '=', 1],
+                             ['els.user_id', '=', Auth::user()->id]
+                         ])->get();
+                      // ->get();
 
             $noti_image = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
                       ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
@@ -55,7 +59,13 @@ use App\Qarsiliq;
           @endphp
           <ul class="list-inline pull-right contact-auth">
           <li class="dropdown">
-              <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-bell"></i> <span class="contact-auth-notification-number">{{count($noti)}}</span></a>
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-bell"></i>
+                <?php if(count($noti) != 0){ ?>
+                 <span class="contact-auth-notification-number">
+                   {{count($noti)}}
+                 </span>
+                 <?php } ?>
+               </a>
               <ul class="dropdown-menu contact-auth-notification" role="menu">
                 @foreach($noti_image as $key => $notification_image)
                   @if($notification_image->user_id != Auth::user()->id)

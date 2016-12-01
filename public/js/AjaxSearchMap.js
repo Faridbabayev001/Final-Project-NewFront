@@ -25,7 +25,6 @@ $.ajax({
     if (data =="") {
       // document.location.href='/';
     }else{
-      console.log(data);
       Mydata(data);
 
     }

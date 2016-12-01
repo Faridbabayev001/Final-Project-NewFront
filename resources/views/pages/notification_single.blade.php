@@ -16,13 +16,13 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-          <img src="/images/avatar.png" alt="">
+          <img src="{{url('/images/'.$notication_single->avatar)}}" alt="">
         </div>
         <div class="col-lg-9 col-md-8 col-sm-6 col-xs-12">
           <h3 class="not-single-title">
             @if($notication_single->type_id==2)
               <span class="special-istek">{{$notication_single->name}}</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !
-            @elseif($notification_message->type_id==1)
+            @elseif($notication_single->type_id==1)
                 <span class="special-destek">{{$notication_single->name}}</span> adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
             @endif
           </h3>
