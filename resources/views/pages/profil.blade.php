@@ -153,16 +153,16 @@
               <a href="#" class="notification-block-href">
                 @foreach($noti_message as $notification_message)
                   <div class="col-lg-2">
-                      <img class="center-block" src="{{url('/image/'.$notification_message->avatar)}}">
+                      <img src="{{url('/image/'.$notification_message->avatar)}}">
                   </div>
                   <div class="col-lg-9">
-                    <p class="profil-notification-title">
+                    <h4 class="profil-notification-title">
                         @if($notification_message->type_id==2)
                           <span class="special-istek">{{$notification_message->name}}</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !
                         @elseif($notification_message->type_id==1)
                             <span class="special-destek">{{$notification_message->name}}</span> adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
                         @endif
-                    </p>
+                    </h4>
                     <p class="profil-notification-desc">{{$notification_message->description}}</p>
                     <p class="profil-notification-full pull-right"><a href="#" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
                   </div>

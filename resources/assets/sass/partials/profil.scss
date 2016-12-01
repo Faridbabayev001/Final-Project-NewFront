@@ -151,12 +151,7 @@
       .notification-block{
         margin-bottom: 10px;
         border-bottom: 1px solid $contact-text-color;
-        box-shadow: 3px 3px 5px #888888;
-        background-color: #ECEFF1;
         transition: all .3s ease;
-        &:hover{
-          background-color: darken($contact-text-color, 1%);
-        }
         .notification-block-href{
           color: $text-color;
           text-decoration: none;
@@ -169,6 +164,7 @@
           }
           .profil-notification-title{
             margin-top: 10px;
+            font-weight: 700;
           }
         }
       }

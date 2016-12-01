@@ -92,4 +92,23 @@
       }
     }
   }
+  .destek-ol-message{
+    border-radius: 0;
+    border: none;
+    textarea{
+      border-radius: 0;
+      &:focus{
+        box-shadow: none;
+        border: 1px solid $succes-color;
+      }
+    }
+    input[name="send"]{
+      color: white;
+      background-color: $common-blue-color;
+      margin-top: 20px;
+      padding: 10px 20px;
+      border-radius: 0;
+      border: none;
+    }
+  }
 }

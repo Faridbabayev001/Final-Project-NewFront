@@ -54,9 +54,10 @@
                   <div class="alert alert-success destek-ol-message">
                       <form class="" action="{{url('/notification/'.$single->id)}}" method="post">
                         {{csrf_field()}}
-                          <label for="">Aciqlama</label>
-                          <input type="text" name="description" class="form-control">
-                          <input type="submit" name="send" class="pull-right btn-success" value="Gonder">
+                          <label for=""><h4>Açıqlama</h4></label>
+                          <textarea name="description" rows="8" cols="80" class="form-control"></textarea>
+                          <input type="submit" name="send" class="pull-right btn" value="Göndər">
+                          <div class="clear-fix"></div>
                       </form>
                   </div>
               </p>
