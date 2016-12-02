@@ -256,10 +256,10 @@
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <p>
-              <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                <label for="email">Email:</label>
-                <input class="form-control" type="text" name="email" value="{{Auth::user()->email}}">
-                @if ($errors->has('email'))
+              <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
+                <label for="avatar">Şəkil:</label>
+                <input class="form-control" type="text" name="avatar">
+                @if ($errors->has('avatar'))
                     <span class="help-block">
                       <strong>Boşluq buraxmayın</strong>
                     </span>
