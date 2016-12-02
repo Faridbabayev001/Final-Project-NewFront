@@ -96,14 +96,18 @@
                     <div id="{{$istekler->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                       <div class="modal-dialog modal-sm">
                         <div class="modal-content">
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                              <span aria-hidden="true">&times;</span>
-                            </button>
-                            <h4></h4>
-                          <div class="modal-body">
-                            <a href="{{url('/istek-delete/'.$istekler->id)}}" class="btn action-delete"><i class="fa fa-trash"></i></a>
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <h4 class="modal-title text-center" id="myModalLabel">Əminsinizmi?</h4>
+                            </div>
+                            <div class="modal-body text-center">
+                              <button class="btn btn-primary" type="button" class="close" data-dismiss="modal" aria-label="Close">Xeyir
+                              </button>
+                              <a href="{{url('/istek-delete/'.$istekler->id)}}" class="btn btn-danger">Bəli</a>
+                            </div>
                           </div>
-                        </div>
                       </div>
                     </div>
                     {{-- For Delete Button Modal END--}}
@@ -157,14 +161,18 @@
                 <div id="{{$destekler->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                   <div class="modal-dialog modal-sm">
                     <div class="modal-content">
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                          <span aria-hidden="true">&times;</span>
-                        </button>
-                        <h4></h4>
-                      <div class="modal-body">
-                        <a href="{{url('/destek-delete/'.$destekler->id)}}" class="btn action-delete"><i class="fa fa-trash"></i></a>
+                        <div class="modal-header">
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                          </button>
+                          <h4 class="modal-title text-center" id="myModalLabel">Əminsinizmi?</h4>
+                        </div>
+                        <div class="modal-body text-center">
+                          <button class="btn btn-primary" type="button" class="close" data-dismiss="modal" aria-label="Close">Xeyir
+                          </button>
+                          <a href="{{url('/istek-delete/'.$destekler->id)}}" class="btn btn-danger">Bəli</a>
+                        </div>
                       </div>
-                    </div>
                   </div>
                 </div>
                 {{-- For Delete Button Modal END--}}
@@ -180,7 +188,6 @@
 
           <div id="profil-notification" class="tab-pane fade in {{Request::is('Bildirişlər') ? " active" : ''}}">
             <div class="col-lg-12 padding0 notification-block">
-              <a href="#" class="notification-block-href">
                 @foreach($noti_message as $notification_message)
                   <div class="col-lg-2">
                       <img src="{{url('/image/'.$notification_message->avatar)}}">
@@ -194,10 +201,9 @@
                         @endif
                     </h4>
                     <p class="profil-notification-desc">{{$notification_message->description}}</p>
-                    <p class="profil-notification-full pull-right"><a href="#" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
+                    <p class="profil-notification-full pull-right"><a href="{{url('/Bildiriş/'.$notification_message->id)}}" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
                   </div>
                 @endforeach
-              </a>
             </div>
           </div>
           {{-- <================== NOTIFICATION PART END ==================> --}}

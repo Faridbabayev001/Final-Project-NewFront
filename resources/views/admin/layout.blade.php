@@ -64,9 +64,9 @@
                             </li>
                     </li>
 
-                    <li>
+                    {{-- <li>
                         <a href="{{url('userlist')}}"><i class="fa fa-table"></i> User List</a>
-                    </li>
+                    </li> --}}
 
                 </ul>
 

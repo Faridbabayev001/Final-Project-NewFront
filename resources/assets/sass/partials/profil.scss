@@ -102,6 +102,9 @@
           }
         }
       }
+      .modal-content{
+        margin-top: 254px;
+      }
     }
     #profil-desteklerim{
       font-size: 13px;
@@ -145,6 +148,9 @@
             background-color: darken($danger-color, 10%);
           }
         }
+      }
+      .modal-content{
+        margin-top: 254px;
       }
     }
     #profil-notification{

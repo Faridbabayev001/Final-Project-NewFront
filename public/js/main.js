@@ -41,7 +41,7 @@ $("#uploadAjax").change(function(e) {
     var total = imgs+added;
     if(total > 5) {
         alert('Maximum sekil sayi 5-dir');
-    } 
+    }
          // console.log(new FormData($('#upload_file')))
    else {
     var formData = new FormData();
@@ -76,7 +76,7 @@ $("#uploadAjax").change(function(e) {
     .always(function() {
       console.log("complete");
     });
-    
+
 
 
       $(e.originalEvent.srcElement.files).each(function () {
@@ -84,7 +84,7 @@ $("#uploadAjax").change(function(e) {
           $(".images_").append('<input id="picsArray" type="hidden" imagename="'+file[0].name+'" name="picsArray['+file[0].name+']" value="1">');
           var img = document.createElement("img");
           var reader = new FileReader();
-          
+
           reader.onload = function(e) {
               img.src = e.target.result;
               img.className = 'im_';
@@ -143,7 +143,7 @@ $("#uploadAjax").change(function(e) {
   //     .always(function() {
   //       console.log("complete");
   //     });
-      
+
     })
 // ----------------------------ISTEK EDIT WHEN CLICKING X ON PIC END-----------------------------------------------
 
@@ -217,6 +217,8 @@ $('#SubmitLogin').submit(function(event) {
       if (errors['password'] == 'The password field is required.') {
         var ForPasswordError = 'Şifreni boş buraxmayın';
         $('#PasswordGroup').addClass('has-error')
+      }else {
+         location.reload();
       }
       $('#EmailError').html(ForEmailError);
       $('#PasswordError').html(ForPasswordError);
