@@ -214,7 +214,7 @@
             <img src="{{url('/images/'.Auth::user()->avatar)}}" class="center-block" alt="Avatar">
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <form action="Tənzimləmələr" method="post">
+            <form action="{{url('/Tənzimləmələr')}}" method="post">
               {{csrf_field()}}
               <p>
                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -258,7 +258,7 @@
             <p>
               <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
                 <label for="avatar">Şəkil:</label>
-                <input class="form-control" type="text" name="avatar">
+                <input class="form-control" type="file" name="avatar">
                 @if ($errors->has('avatar'))
                     <span class="help-block">
                       <strong>Boşluq buraxmayın</strong>

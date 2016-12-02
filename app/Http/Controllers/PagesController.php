@@ -147,19 +147,36 @@ class PagesController extends Controller
       $this->validate($request, [
          'username' => 'required',
          'name' => 'required',
-         'email' => 'required',
          'phone' => 'required',
          'city' => 'required',
       ]);
-      $data = [
-            'username' => Auth::user()->username,
-            'name' => $request['name'],
-            'phone' => '+994'.$request['operator'].$request['phone'],
-            'email' => $request['email'],
-            'city' => $request['city']
+      if ($request->avatar == '') {
+        return true;
+        $imagea = Elan::find(Auth::user()->id);
+        $photoname = $images->image;
+        $data = [
+          'username' => Auth::user()->username,
+          'name' => $request['name'],
+          'phone' => '+994'.$request['operator'].$request['phone'],
+          'avatar' => $photoname,
+          'city' => $request['city']
         ];
-        Auth::user()->update($data);
-      return back();
+      }else {
+        $filetype=$request->file('avatar')->getClientOriginalExtension();
+        $filename=time().'.'.$filetype;
+        $request->file('avatar')->move(public_path('image/'),$filename);
+        $data = [
+          'username' => Auth::user()->username,
+          'name' => $request['name'],
+          'phone' => '+994'.$request['operator'].$request['phone'],
+          'avatar' => $filename,
+          'city' => $request['city']
+        ];
+      }
+      var_dump($data);
+        dd($data);
+        // Auth::user()->update($data);
+      // return back();
     }
     public function about()
     {
