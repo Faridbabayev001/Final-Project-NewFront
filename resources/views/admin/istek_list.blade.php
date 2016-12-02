@@ -39,7 +39,7 @@
                                     <td><a class="btn btn-warning" href="{{url('/deactivate/'.$istek->id)}}">Deaktivləşdir</a></td>
                                   @endif
                                   <td>{{$istek->title}}</td>
-                                  <td><a href="#" data-toggle="modal" data-target="#{{$istek->id}}">{{substr($istek->about, 0,10)}}</a></td>
+                                  <td><a href="#" data-toggle="modal" data-target="#{{$istek->id}}">{{substr($istek->about,0,10)}}</a></td>
                                   <td>{{substr($istek->location, 0,10)}}</td>
                                   <td>{{$istek->name}}</td>
                                   <td>{{$istek->phone}}</td>

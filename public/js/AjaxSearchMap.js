@@ -87,7 +87,7 @@ function Mydata(data){
                src="/images/red-icon.png";
              };
              var MyData =data[i]['about'];
-             var about = MyData.substring(0,160);
+             var about = MyData.substring(0,140);
              marker = new google.maps.Marker({
                position: new google.maps.LatLng(data[i]['lat'],data[i]['lng']),
                map: map,
@@ -96,6 +96,7 @@ function Mydata(data){
                '<div class="infow-content">' +
                "<a href='/single/"+data[i]['id']+"'><img src='image/"+data[i]['image']+"'height='127' width='140'></a>" +
                "<p>"+about+"</p>"+
+               "<p class='pull-right'><a href='#' class='btn btn-primary'>Ətraflı</a></p>"+
                '</div>' +
                '</div>',
                animation: google.maps.Animation.DROP,
@@ -122,11 +123,13 @@ function Mydata(data){
              arrowPosition: 50,
              backgroundClassName: 'InfoMap',
              arrowStyle: 2,
-             closeSrc: '/images/close_icon.png',
+             closeSrc: '/images/icon.png',
            });
             function manyInfo(mark, infoBubble2) {
             infoBubble2.setContent(mark.content);
+            $('.InfoMap').parent().prev().css('top', '-4px');
             $('.InfoMap').parent().prev().css('width', '20px');
+            $('.InfoMap').parent().prev().css('right', '0px');
             infoBubble2.open(map, mark);
             marker.addListener('closeclick', function() {
                 infoBubble2.setMarker(null);
