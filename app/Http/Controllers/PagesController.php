@@ -33,7 +33,7 @@ class PagesController extends Controller
     if ($request->ajax()) {
       $ElanLocation = $request->ElanLocation;
       $ElanType = $request->ElanType;
-      $datalar=Elan::all();
+      // $datalar=Elan::all();
         if ($ElanLocation =="all" && $ElanType =="all") {
           $datalar=Elan::all();
           foreach ($datalar as $key => $value) {
@@ -49,6 +49,11 @@ class PagesController extends Controller
         }
       }else if ($ElanLocation !=="all") {
         $datalar = Elan::where('location','LIKE','%'.$ElanLocation.'%')->get();
+        foreach ($datalar as $key => $value) {
+          $datalar[$key]['image'] = $value->shekiller[0]->imageName;
+        }
+      }else if ($ElanLocation =="all" && $ElanType !=="all") {
+        $datalar = Elan::where('type_id','=',$ElanType)->get();
         foreach ($datalar as $key => $value) {
           $datalar[$key]['image'] = $value->shekiller[0]->imageName;
         }

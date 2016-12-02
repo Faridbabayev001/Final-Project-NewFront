@@ -95,8 +95,10 @@ function Mydata(data){
                content:"<div id='infow'>" +
                '<div class="infow-content">' +
                "<a href='/single/"+data[i]['id']+"'><img src='image/"+data[i]['image']+"'height='127' width='140'></a>" +
+               '<div class="infoBubble-desc">' +
                "<p>"+about+"</p>"+
-               "<p class='pull-right'><a href='#' class='btn btn-primary'>Ətraflı</a></p>"+
+               '</div>' +
+               "<p class='pull-right '><a href='/single/"+data[i]['id']+"' class='btn infoBubble-button'>Ətraflı</a></p>"+
                '</div>' +
                '</div>',
                animation: google.maps.Animation.DROP,
@@ -127,9 +129,7 @@ function Mydata(data){
            });
             function manyInfo(mark, infoBubble2) {
             infoBubble2.setContent(mark.content);
-            $('.InfoMap').parent().prev().css('top', '-4px');
-            $('.InfoMap').parent().prev().css('width', '20px');
-            $('.InfoMap').parent().prev().css('right', '0px');
+            $('.InfoMap').parent().prev().addClass('InfoBubble-close');
             infoBubble2.open(map, mark);
             marker.addListener('closeclick', function() {
                 infoBubble2.setMarker(null);
