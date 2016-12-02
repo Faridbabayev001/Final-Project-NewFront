@@ -166,6 +166,8 @@ class PagesController extends Controller
       return view('pages.contact_us');
     }
 
+    //<================= METHHOD FOR CONTACT SEND ================>
+
     public function contact_send(Request $request)
     {
       $this->validate($request, [
@@ -184,5 +186,21 @@ class PagesController extends Controller
       });
       Session::flash('send', 'İsmarıcınız müvəffəqiyyətlə göndərildi.');
       return back();
+    }
+
+    //<================= METHHOD FOR ISTEK_LIST ================>
+
+    public function istek_list()
+    {
+      $datas=Elan::orderBy('created_at','desc')->get();
+
+      return view('pages.istek_list', compact('datas'));
+    }
+
+    //<================= METHHOD FOR DESTEK_LIST ================>
+    public function destek_list()
+    {
+      $datas=Elan::orderBy('created_at','desc')->get();
+      return view('pages.destek_list', compact('datas'));
     }
 }
