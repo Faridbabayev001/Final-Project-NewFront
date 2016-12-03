@@ -75,7 +75,7 @@
             {{-- <=================image input ================> --}}
               <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                 <label for="email">Şəkil</label>
-                <input type="file" name="image[]" class="form-control" value="{{ old('image') }}" multiple>
+                <input id="forLimitFile" type="file" name="image[]" class="form-control" value="{{ old('image') }}" multiple>
                 @if ($errors->has('image'))
                     <span class="help-block">
                       <strong>Boşluq buraxmayın</strong>
