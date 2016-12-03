@@ -29,7 +29,6 @@ class IstekController extends Controller
          'name' => 'required',
          'phone' => 'required',
          'email' => 'required',
-         // 'image' => 'required',
          'nov' => 'required',
     ]);
 
@@ -39,7 +38,6 @@ class IstekController extends Controller
      $pic_name = array();
      foreach ($files as $file) {
        $filetype=$file->getClientOriginalExtension();
-       // echo "$filetype";
        if($filetype=='jpg' || $filetype=='jpeg' || $filetype=='png'){
         array_push($pic_name, $filetype);
        }
@@ -48,10 +46,7 @@ class IstekController extends Controller
           return redirect('/istek-add');
        }
      }
-     // $filetype=='jpg' || $filetype=='jpeg' || $filetype=='png'
-       // if (in_array(needle, haystack)) {
-         // $filename=time().'.'.$filetype;
-         // $req->file('image')->move(public_path('image'),$filename);
+  
          Session::flash('istekadded' , "İstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
          $data = [
                'type_id'=>'2',
@@ -63,7 +58,6 @@ class IstekController extends Controller
                'name'=>$req->name,
                'phone'=>'+994'.$req->operator.$req->phone,
                'email'=>$req->email,
-               // 'image'=>$filename,
                'org'=>$req->org,
                'nov'=>$req->nov,
                'deadline'=>$req->date
@@ -80,12 +74,6 @@ class IstekController extends Controller
       }
 
             return redirect('/istek-add');
-      //  }
-      // else
-      //   {
-      //      Session::flash('imageerror' , "Xahiş olunur şəkili düzgun yükləyəsiniz.");
-      //     return redirect('/istek-add');
-      //    }
   }
 
 
@@ -115,6 +103,8 @@ class IstekController extends Controller
             $data = new Photo;
             $data->imageName = $file_name;          
             $hamsi->save($data);
+            return json_encode($file_name);
+          
 
           }        
 
@@ -129,6 +119,7 @@ class IstekController extends Controller
                 if($status == 0) {
                   unlink('image/'.$pic);
                   Photo::where('imageName', $pic)->delete();
+                  echo "he";
                 }
               }
             }
@@ -154,17 +145,7 @@ class IstekController extends Controller
     ]);
 
         $this->delete_edited_pics($req->input('picsArray'));
-       // if ($req->image == '') {
-       //    $image = Elan::find($id);
-       //    $photoname = $image->image;
-       //  }
-       //  else{
-       //  // image upload
-       //  $phototype=$req->file('image')->getClientOriginalExtension();
-       //  $photoname=time().'.'.$phototype;
-       //  $req->file('image')->move(public_path('image'),$photoname);
 
-       //  }
        Session::flash('istek_edited' , "İstəyiniz uğurla dəyişdirildi və yoxlamadan keçəndən sonra dərc olunacaq.");
        $istek_update = Elan::find($id);
        $istek_update->title = $req->title;
@@ -172,7 +153,6 @@ class IstekController extends Controller
        $istek_update->lat = $req->lat;
        $istek_update->lng = $req->lng;
        $istek_update->about = $req->about;
-       // $istek_update->image = $photoname;
        $istek_update->name = $req->name;
        $istek_update->email = $req->email;
        $istek_update->org = $req->org;
@@ -186,10 +166,13 @@ class IstekController extends Controller
 
 
   //<================= METHHOD FOR ISTEK_EDIT ================>
-   public function istek_delete($id)
+   public function istek_delete($id)//updated
    {
      $istek_delete=Elan::find($id);
-     unlink('image/'.$istek_delete->image);
+     $istek_delete->shekiller();
+     foreach ($istek_delete->shekiller as $val) {
+         unlink('image/'.$val->imageName);
+     }
      $istek_delete->delete();
      return back();
    }

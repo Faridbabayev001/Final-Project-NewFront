@@ -42,107 +42,84 @@ $("#uploadAjax").change(function(e) {
     if(total > 5) {
         alert('Maximum sekil sayi 5-dir');
     }
-         // console.log(new FormData($('#upload_file')))
    else {
-    var formData = new FormData();
-    var istek_id = $('#forPicsAjax').val();
-    formData.append('file', $(this)[0].files[0]);
-    formData.append('istek_id', istek_id);
-    // console.log($(this)[0].files[0]);
-    //ajax
-    $.ajax({
-      url: '/add_file_change',
-      type: 'post',
-      dataType: 'json',
-      cache: false,
-      contentType: false,
-      processData: false,
-      headers:{
-    'X-CSRF-TOKEN':$('meta[name="_token"]').attr('content')
-  },
-      data: formData,
+      var formData = new FormData();
+      var istek_id = $('#forPicsAjax').val();
+      formData.append('file', $(this)[0].files[0]);
+      formData.append('istek_id', istek_id);
 
-      success:function(data)
-      {
-        console.log(data);
-      }
-    })
-    .done(function() {
-      console.log("success");
-    })
-    .fail(function() {
-      console.log("error");
-    })
-    .always(function() {
-      console.log("complete");
-    });
+      $.ajax({
+        url: '/add_file_change',
+        type: 'post',
+        dataType: 'json',
+        cache: false,
+        contentType: false,
+        processData: false,
+        headers:{
+      'X-CSRF-TOKEN':$('meta[name="_token"]').attr('content')
+        },
+        data: formData,
 
+        success:function(file_name)
+        {
+          $(e.originalEvent.srcElement.files).each(function () {
 
+            var file = $(this);
+            $(".images_").append('<input id="picsArray" type="hidden" imagename="'+file[0].name+'" name="picsArray['+file_name+']" value="1">');
+            var img = document.createElement("img");
+            var reader = new FileReader();
 
-      $(e.originalEvent.srcElement.files).each(function () {
-          var file = $(this);
-          $(".images_").append('<input id="picsArray" type="hidden" imagename="'+file[0].name+'" name="picsArray['+file[0].name+']" value="1">');
-          var img = document.createElement("img");
-          var reader = new FileReader();
-
-          reader.onload = function(e) {
-              img.src = e.target.result;
-              img.className = 'im_';
-              img.setAttribute("imagename", file[0].name);
-          }
-          reader.readAsDataURL(file[0]);
-          $("#uploadAjax").after('<div class="img-wrap"  imagename="'+file[0].name+'"></div>');
-          $(".img-wrap[imagename='"+file[0].name+"']").append('<span class="close"  imagename="'+file[0].name+'">&times;</span>');
-          $(".img-wrap[imagename='"+file[0].name+"']").append(img);
-
-
-        });
+            reader.onload = function(e) {
+                img.src = e.target.result;
+                img.className = 'im_';
+                img.setAttribute("imagename", file[0].name);
+            }
+            console.log(file[0].name)
+            reader.readAsDataURL(file[0]);
+          $("#afterImage").after('<div class="img-wrap"  imagename="'+file[0].name+'"></div>');
+            $(".img-wrap[imagename='"+file[0].name+"']").append('<span class="close"  imagename="'+file[0].name+'">&times;</span>');
+            $(".img-wrap[imagename='"+file[0].name+"']").append(img);
+          })
+        }
+      })
     }
-
-    });
+  });
 
 // ----------------------------ISTEK EDIT CHOOSE FILE END-----------------------------------------------
+
+
+
+// ----------------------------UPLOAD FILE LIMIT-----------------------------------------------
+
+  $('#forLimitFile').change(function(e){
+    var length = e.originalEvent.srcElement.files.length;
+      if(length > 5)
+          alert('5-den cox şekil secmeyin');
+  });
+
+  $('form').submit(function(){
+    console.log(length);
+      if(length >5){
+        alert("yeniden secin");
+          return false;
+      }
+  });
+
+// ----------------------------UPLOAD FILE LIMIT END-----------------------------------------------
 
 
 
 // ----------------------------ISTEK EDIT WHEN CLICKING X ON PIC-----------------------------------------------
 
 
-  $('.close').on('click', function(){
-
+  $(document).on('click', '.close', function(){
       var name = $(this).attr('imagename');
-
+      console.log(name);
       $(".img-wrap[imagename='"+name+"']").remove();
       $("input[imagename='"+name+"']").val(0);
 
-      var formData = new FormData();
       var array = $('.picsArray');
-      // console.log(array)
-      // formData.append('div', $(this)[0].div[0]);
-      // formData.append('array', array);
-  //     var istek_id = $('#forPicsAjax').val();
-  //     console.log(istek_id)
-  //     $.ajax({
-  //       url: '/pic_delete',
-  //       type: 'post',
-  //       dataType: 'json',
-  //       cache: false,
-  //       contentType: false,
-  //       processData: false,
-  //        headers:{
-  //   'X-CSRF-TOKEN':$('meta[name="_token"]').attr('content')
-  // },
-  //       data: formData,
-  //     })
-  //     .done(function() {
-  //       console.log("success");
-  //     })
-  //     .fail(function() {
-  //       console.log("error");
-  //     })
-  //     .always(function() {
-  //       console.log("complete");
-  //     });
+      var formData = new FormData();
 
     })
 // ----------------------------ISTEK EDIT WHEN CLICKING X ON PIC END-----------------------------------------------
