@@ -3,7 +3,30 @@
 @section('title','Istək_redaktə')
 
 @section('content')
-
+<style type="text/css">
+  img{
+    width: 60px;
+    height: 60px;
+    float: left;
+    margin-left: 5px;
+  }
+  .img-wrap {
+    display:inline-block;
+    position: relative;
+    /*margin-top: 20px;*/
+    float: left;
+  }
+  .img-wrap .close {
+    color:red;
+    cursor: ;
+    position: absolute;
+    top: 2px;
+    right: 4px;
+    z-index: 100;
+    opacity:1 !important;
+    font-size: 20px !important;
+}
+</style>
   <div id="breadcrumb">
   <div class="container">
      <div class="row">
@@ -75,15 +98,35 @@
                 @endif
               </div>
             {{-- <=================image input ================> --}}
-              <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                <label for="email">Şəkil</label>
-                <input type="file" name="image" class="form-control" value="{{$destek_edit->image}}">
-                @if ($errors->has('image'))
-                    <span class="help-block">
-                      <strong>Boşluq buraxmayın</strong>
-                    </span>
-                @endif
-              </div>
+              
+              <div id="afterImage" class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+              <label for="email">Şəkil</label>
+              <input id="uploadAjax" type="file" name="image" class="form-control" value="{{$destek_edit->image}}">
+              @if ($errors->has('image'))
+                  <span class="help-block">
+                    <strong>Boşluq buraxmayın</strong>
+                  </span>
+              @endif
+            </div>
+            {{-- image show from DB --}}
+           @foreach($destek_edit->shekiller as $pic)
+                <div class="img-wrap" imagename="{{$pic->imageName}}">
+                    <span class="close"  imagename="{{$pic->imageName}}">&times;</span>
+                  <img class="im_" imagename="{{$pic->imageName}}" src="{{url('/image/'.$pic->imageName)}}" alt="İstək image" />
+                  </div>
+            @endforeach
+
+            {{-- els id for ajax image upload --}}
+            <input type="hidden" id="forPicsAjax" value="{{$destek_edit->id}}">
+
+                <div class="images_">
+                @foreach($destek_edit->shekiller as $pic)
+                    <input class="picsArray" imagename="{{$pic->imageName}}"  type="hidden" name="picsArray[{{$pic->imageName}}]" value="1" >
+                 @endforeach
+                </div>
+            
+
+
             </div>
             <div class="col-lg-6">
 

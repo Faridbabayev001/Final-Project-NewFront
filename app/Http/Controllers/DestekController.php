@@ -16,6 +16,50 @@ class DestekController extends Controller
   {
     return view('pages.destek_add');
   }
+
+   //<================= METHHOD FOR SAVING IMG WITH AJAX ================>
+
+   public function only_pic(Request $req)////////yeni func
+        {
+
+          if ($req->ajax()) {
+            $fileName = $req->file->getClientOriginalName();
+            $file = $_FILES['file'];
+            $istek_id = $_POST['istek_id']; 
+            $file['istek_id'] = $istek_id;
+
+            $file_name =date('ygmis').'.'.$fileName;
+      
+            $req->file->move(public_path('image'), $file_name);
+            $sekil = Elan::find($istek_id);
+            $hamsi = $sekil->shekiller();
+            $data = new Photo;
+            $data->imageName = $file_name;          
+            $hamsi->save($data);
+            return json_encode($file_name);
+          
+
+          }        
+
+        }
+
+
+    //<============ METHHOD FOR DELETING X PRESSED IMGS FROM EDITING=======>
+
+        public function delete_edited_pics($pics) {
+          if(!$pics) return false;
+            foreach ($pics as $pic=>$status) {
+              if(file_exists('image/'.$pic)){
+                if($status == 0) {
+                  unlink('image/'.$pic);
+                  Photo::where('imageName', $pic)->delete();
+                  echo "he";
+                }
+              }
+            }
+        }
+
+
   public function destek_add(Request $req)
   {
     $this->validate($req, [
@@ -27,16 +71,8 @@ class DestekController extends Controller
       'name' => 'required',
       'phone' => 'required',
       'email' => 'required',
-      // 'image' => 'required',
       'nov' => 'required',
 ]);
-
-  // $direction='image';
-  // $filetype=$req->file('image')->getClientOriginalExtension();
-  // if ($filetype=='jpg' || $filetype=='jpeg' || $filetype=='png') {
-  //   $filename=time().'.'.$filetype;
-  //   $req->file('image')->move(public_path('image'),$filename);
-  //   Session::flash('destekadded' , "İstəyiniz uğurla əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
 
      $files = $req->file('image');
      $pic_name = array();
@@ -62,12 +98,10 @@ class DestekController extends Controller
           'name'=>$req->name,
           'phone'=>'+994'.$req->operator.$req->phone,
           'email'=>$req->email,
-          // 'image'=>$filename,
           'org'=>$req->org,
           'nov'=>$req->nov,
           'deadline'=>$req->date
         ];
-     // Auth::user()->elanlar()->create($data);
 
         $insert_pic_id = Auth::user()->elanlar()->create($data)->shekiller();
           $files = $req->file('image');
@@ -80,11 +114,6 @@ class DestekController extends Controller
             $insert_pic_id->save($data);
           }
        return redirect('/destek-add');
-  // }
-  //  else
-  //   {
-  //     Session::flash('imageerror' , "Xahiş olunur şəkli düzgün seçəsiniz.");
-   // }
   }
 
   public function destek_edit($id)
@@ -106,17 +135,9 @@ class DestekController extends Controller
         'email' => 'required',
         'nov' => 'required',
 ]);
-   if ($req->image == '') {
-      $image = Elan::find($id);
-      $photoname = $image->image;
-    }
-    else{
-    // image upload
-    $phototype=$req->file('image')->getClientOriginalExtension();
-    $photoname=time().'.'.$phototype;
-    $req->file('image')->move(public_path('image'),$photoname);
 
-    }
+    $this->delete_edited_pics($req->input('picsArray'));
+
    Session::flash('destek_edited' , "İstəyiniz uğurla dəyişdirildi və yoxlamadan keçəndən sonra dərc olunacaq.");
    $destek_update = Elan::find($id);
    $destek_update->title = $req->title;
@@ -124,7 +145,6 @@ class DestekController extends Controller
    $destek_update->lat = $req->lat;
    $destek_update->lng = $req->lng;
    $destek_update->about = $req->about;
-   $destek_update->image = $photoname;
    $destek_update->name = $req->name;
    $destek_update->email = $req->email;
    $destek_update->org = $req->org;
@@ -135,4 +155,17 @@ class DestekController extends Controller
    $destek_update->update();
    return redirect("/destek-edit/$destek_update->id");
   }
+
+
+  //<================= METHHOD FOR ISTEK_EDIT ================>
+   public function destek_delete($id)//updated
+   {
+     $destek_delete=Elan::find($id);
+     $destek_delete->shekiller();
+     foreach ($destek_delete->shekiller as $val) {
+         unlink('image/'.$val->imageName);
+     }
+     $destek_delete->delete();
+     return back();
+   }
 }

@@ -99,7 +99,7 @@
               @endif
             </div>
           {{-- <=================image input ================> --}}
-            <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+            <div id="afterImage" class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
               <label for="email">Şəkil</label>
               <input id="uploadAjax" type="file" name="image" class="form-control" value="{{$istek_edit->image}}">
               @if ($errors->has('image'))
@@ -110,7 +110,7 @@
             </div>
             {{-- image show from DB --}}
            @foreach($istek_edit->shekiller as $pic)
-                <div class="img-wrap"  imagename="{{$pic->imageName}}">
+                <div class="img-wrap" imagename="{{$pic->imageName}}">
                     <span class="close"  imagename="{{$pic->imageName}}">&times;</span>
                   <img class="im_" imagename="{{$pic->imageName}}" src="{{url('/image/'.$pic->imageName)}}" alt="İstək image" />
                   </div>
