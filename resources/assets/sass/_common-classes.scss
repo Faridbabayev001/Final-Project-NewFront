@@ -15,7 +15,6 @@
     text-decoration: none !important;
 }
 
-
 span.special-istek{
   font-weight: 700 !important;
   color: $istek-color !important;
@@ -24,4 +23,25 @@ span.special-istek{
 span.special-destek{
   font-weight: 700 !important;
   color: $destek-color !important;
+}
+.infoBubble-button{
+  background-color: $common-blue-color;
+  border: none;
+  border-radius: 0px;
+  font-size: 13px;
+  color: white;
+  text-decoration: none;
+  transition: all .3s ease;
+  &:hover{
+    background-color: darken($common-blue-color, 5%);
+    color: white;
+  }
+}
+.infoBubble-desc{
+  height: 80px;
+}
+.InfoBubble-close{
+  width: 20px;
+  top: -20px !important;
+  right: 0px !important;
 }
