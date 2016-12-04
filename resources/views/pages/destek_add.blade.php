@@ -19,7 +19,7 @@
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
           @if (Session::has('destek_add'))
-            <div class="alert alert-success" role="alert">{{Session::get('destekadded')}}</div>
+            <div class="alert alert-success" role="alert">{{Session::get('destek_add')}}</div>
           @endif
           @if (Session::has('imageerror'))
             <div class="alert alert-danger" role="alert">{{Session::get('imageerror')}}</div>
