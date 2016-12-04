@@ -25,7 +25,7 @@ class IstekController extends Controller
          $this->validate($req, [
              'title' => 'required',
              'about' => 'required',
-             'location' => 'required',
+             'location' =>'required',
              'lat' => 'required',
              'lng' => 'required',
              'name' => 'required',
