@@ -22,6 +22,7 @@ Route::post('/Tənzimləmələr','PagesController@settings');
 Route::get('/Profil','PagesController@profil');
 Route::get('/Istekler','PagesController@profil');
 Route::get('/Destekler','PagesController@profil');
+Route::get('/Tənzimləmələr','PagesController@profil');
 Route::get('/single/{id}','PagesController@single');
 //<=================Page Routes End ================>
 

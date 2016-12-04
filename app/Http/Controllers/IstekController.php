@@ -41,7 +41,8 @@ class IstekController extends Controller
      $pic_name = array();
      foreach ($files as $file) {
        $filetype=$file->getClientOriginalExtension();
-       if($filetype=='jpg' || $filetype=='jpeg' || $filetype=='png'){
+       $lowered = strtolower($filetype);
+       if($lowered=='jpg' || $lowered=='jpeg' || $lowered=='png'){
         array_push($pic_name, $filetype);
        }
        else{
