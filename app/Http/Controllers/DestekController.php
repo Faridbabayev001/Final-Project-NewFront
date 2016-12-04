@@ -62,19 +62,24 @@ class DestekController extends Controller
 
   public function destek_add(Request $req)
   {
-    Session::flash('destek_add' , "İstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
-
-    $this->validate($req, [
-      'title' => 'required',
-      'about' => 'required',
-      'location' => 'required',
-      'lat' => 'required',
-      'lng' => 'required',
-      'name' => 'required',
-      'phone' => 'required',
-      'email' => 'required',
-      'nov' => 'required',
-]);
+     if($req->file('image')[0]==null){
+       Session::flash('imageerror' , "Xahiş olunur şəkil seçin.");
+    
+          $this->validate($req, [
+            'title' => 'required',
+            'about' => 'required',
+            'location' => 'required',
+            'lat' => 'required',
+            'lng' => 'required',
+            'image'=> 'required',
+            'name' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'nov' => 'required',
+            'date' => 'required'
+        ]);
+          return redirect('/destek_add');
+  }
 
      $files = $req->file('image');
      $pic_name = array();
@@ -115,6 +120,7 @@ class DestekController extends Controller
             $data->imageName = $file_name;
             $insert_pic_id->save($data);
           }
+      Session::flash('destek_add' , "İstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
        return redirect('/destek-add');
   }
 

@@ -89,12 +89,28 @@ $("#uploadAjax").change(function(e) {
 
 
 
-// ----------------------------UPLOAD FILE LIMIT-----------------------------------------------
+// ----------------------------UPLOAD FILE LIMIT AND SHOWING-----------------------------------------------
 
   $('#forLimitFile').change(function(e){
     var length = e.originalEvent.srcElement.files.length;
       if(length > 5)
           alert('5-den cox şekil secmeyin');
+        else{
+          $('#viewImage').empty();
+           $(e.originalEvent.srcElement.files).each(function () {
+          var file = $(this);
+          var img = document.createElement("img");
+          var reader = new FileReader();
+          
+          reader.onload = function(e) {
+              img.src = e.target.result;
+              // img.className = 'im_';
+          }
+          reader.readAsDataURL(file[0]);
+          $("#viewImage").append('<div class="img-wrap"  imagename="'+file[0].name+'"></div>');
+          $(".img-wrap[imagename='"+file[0].name+"']").append(img);
+        });
+      }
   });
 
   $('form').submit(function(){
