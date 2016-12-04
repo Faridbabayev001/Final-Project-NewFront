@@ -91,8 +91,12 @@
                          <option name="type" value="1">Dəstək</option>
                          <option name="type" value="2">İstək</option>
                        </select>
+
                      </li>
                  </ul>
+                 <div class="search-error-desc">
+                   <p class="infoMessage text-center"></p>
+                 </div>
            </form>
            </div>
       <img class="Load openLoad closeLoad" src="{{url('images/info-loading.gif')}}">
