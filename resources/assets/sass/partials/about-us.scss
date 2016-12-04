@@ -18,14 +18,11 @@
 
   .about-us-team{
     margin-top: 25px;
+
     .about-us-team-block{
       border: 1px solid #f2f2f2;
       transition: all .3s ease;
-      width: 24%;
-      margin-right: 15px;
-      &:last-child{
-        margin-right: 0;
-      }
+      margin-bottom: 20px;
       &:hover{
         background-color: #f2f2f2;
       }
@@ -36,6 +33,9 @@
         height: 300px;
         width: 100%;
       }
+    }
+    .about-us-team-social{
+      position: absolute;
     }
     .about-us-team-details{
       padding: 15px;
