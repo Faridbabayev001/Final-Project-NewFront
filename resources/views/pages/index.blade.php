@@ -137,6 +137,10 @@
             </div>
           @endif
         @endforeach
+
+        <div class="col-lg-12 news-all-isteks-button">
+          <a href="/İstək-list" class="btn pull-right">Bütün istəklər <i class="fa fa-angle-right"></i></a>
+        </div>
       </div>
 
       <div class="news-right col-lg-6 col-md-6 col-sm-12 col-xs-12 padding0">
