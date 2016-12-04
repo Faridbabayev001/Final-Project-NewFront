@@ -1,8 +1,8 @@
 @extends('pages.layout')
-@section('title','Destek')
+@section('title','Dəstək əlavə et')
 @section('content')
 <style type="text/css">
-  img{
+  form img{
     width: 60px;
     height: 60px;
     margin-left: 5px;
@@ -70,7 +70,7 @@
               {{-- <=================organization input ================> --}}
               <div class="form-group">
                 <label for="name">Təşkilat adı</label>
-                <input type="text" name="org" class="form-control" value="{{ old('org') }}">
+                <input type="text" name="org" class="form-control" placeholder="Yoxdursa boş buraxın" value="{{ old('org') }}">
               </div>
 
               {{-- <=================About input ================> --}}
@@ -86,7 +86,8 @@
             {{-- <=================image input ================> --}}
               <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                 <label for="email">Şəkil<SPAN> *</SPAN></label>
-                <input id="forLimitFile" type="file" name="image[]" class="form-control" value="{{ old('image') }}" multiple>
+                <a class="forImg form-control btn btn-default">Şəkil Seç</a>
+                <input id="forLimitFile" type="file" name="image[]" class="imgInput hidden form-control" value="{{ old('image') }}" multiple>
                 <p>Eyni anda bir və ya bir neçə şəkil seçə bilərsiz</p>
                 @if ($errors->has('image'))
                     <span class="help-block">
@@ -150,7 +151,7 @@
               {{-- <=================Nov input ================> --}}
               <div class="form-group{{ $errors->has('nov') ? ' has-error' : '' }}">
                 <label for="password">Növ<SPAN> *</SPAN></label>
-                <input type="text" name="nov" class="form-control" value="{{ old('nov') }}">
+                <input type="text" name="nov" class="form-control" placeholder="Məsələn: Təhsil, texnologiya və s." value="{{ old('nov') }}">
                 @if ($errors->has('nov'))
                     <span class="help-block">
                       <strong>Boşluq buraxmayın</strong>

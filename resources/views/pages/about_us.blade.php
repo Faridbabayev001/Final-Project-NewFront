@@ -23,12 +23,19 @@
         </p>
         <p class="about-us-desc">
           <span class="about-us-istek">İstək əlavə et:</span> Bu bölümdə yaşadığınız yerdə sizə lazım olan bir ehitaycı daxil edirsiniz.
-          Bu bölümdə sizdən istəyiniz barədə ətraflı və düzgün məlumat (əlaqə məlumatları, düzgün şəkil, dəqiq ünvan, və s.) xahiş olunur.
+          Sizdən istəyiniz barədə ətraflı və düzgün məlumat yerləşdirməyiniz (əlaqə məlumatları, düzgün şəkil, dəqiq ünvan, və s.) xahiş olunur.
           İstək əlavə etmək üçün Bumeranq.org'a üzv olmağınz kifayətdir. Əlavə etdiyiniz istək moderasiyadan keçdikdən sonra xəritədə
           və istəklər bölməsində hamıya açıq şəkildə görünəcək. Sizin şəxsi informasiyalarını. Bundan sonra sizə kimsə dəstək verərsə
           həmin dəstəkçinin qısa məlumatları və dəstək açıqlaması sizə bildiriş şəklində görünəcək və yalnız siz qəbul etdikdən sonra
           sizin şəxsi məlumatlarınız (Ad, telefon və s.) həmin dəstəkçiyə göndəriləcək. Bu barədə Bumeranq.org portalı sizin şəxsi
           informasiyalarınızın 3-cü bir şəxs tərəfindən görülməyəcəyinə zəmanət verir.
+        </p>
+
+        <p class="about-us-desc">
+          <span class="about-us-destek">Dəstək əlavə et:</span> Bu bölümdə fərd və yaxud təşkilat olaraq dəstək yerləşdirilməsi mümkündür.
+          Qaydalar istək əlavə et bölməsində olduğu kimi qalır. Dəstək yerləşdirilib moderasiyadan keçdikdən sonra dəstəyə ehtiyacı olan
+          fərd yaxud təşkilat Bumeranq.org'a üzv olduqdan sonra yerləşdirilən dəstəyə müraciət göndərə bilər. Gizlilik prinsipi eyni olaraq qalır və
+          sizin informasiyalarınız siz qəbul etmədiyiniz müddətdə digər bir fərd yaxud təşkilata ötürülmür.
         </p>
       </div>
 
@@ -36,43 +43,51 @@
         <h1 class="text-center">Komandamız</h1>
         <hr>
 
-        <div class="col-lg-3 padding0 about-us-team-block">
-          <div class="about-us-team-img">
-            <img src="/image/lala.jpeg" class="img-responsive" alt="team image">
-          </div>
-          <div class="about-us-team-details">
-            <h3 class="about-us-team-details-title">Lalə Məmmədova</h3>
-            <p class="about-us-team-details-desc">BDU - Computer Science</p>
-          </div>
-        </div>
-
-        <div class="col-lg-3 padding0 about-us-team-block">
-          <div class="about-us-team-img">
-            <img src="/image/farid.jpg" class="img-responsive" alt="team image">
-          </div>
-          <div class="about-us-team-details">
-            <h3 class="about-us-team-details-title">Fərid Babayev</h3>
-            <p class="about-us-team-details-desc">AzTU - Computer Engineering</p>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 about-us-team-wrapper">
+          <div class="about-us-team-block">
+            <div class="about-us-team-img">
+              <img src="/image/lala.jpeg" class="img-responsive" alt="team image">
+            </div>
+            <div class="about-us-team-details">
+              <h3 class="about-us-team-details-title">Lalə Məmmədova</h3>
+              <p class="about-us-team-details-desc">BDU - Computer Science</p>
+            </div>
           </div>
         </div>
 
-        <div class="col-lg-3 padding0 about-us-team-block">
-          <div class="about-us-team-img">
-            <img src="/image/naseh.jpg" class="img-responsive" alt="team image">
-          </div>
-          <div class="about-us-team-details">
-            <h3 class="about-us-team-details-title">Naseh Bədəlov</h3>
-            <p class="about-us-team-details-desc">QU - Industrial Engineering</p>
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 about-us-team-wrapper">
+          <div class="about-us-team-block">
+            <div class="about-us-team-img">
+              <img src="/image/farid.jpg" class="img-responsive" alt="team image">
+            </div>
+            <div class="about-us-team-details">
+              <h3 class="about-us-team-details-title">Fərid Babayev</h3>
+              <p class="about-us-team-details-desc">AzTU - Computer Engineering</p>
+            </div>
           </div>
         </div>
 
-        <div class="col-lg-3 padding0 about-us-team-block">
-          <div class="about-us-team-img">
-            <img src="/image/gunel.jpg" class="img-responsive" alt="team image">
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 about-us-team-wrapper">
+          <div class="about-us-team-block">
+            <div class="about-us-team-img">
+              <img src="/image/naseh.jpg" class="img-responsive" alt="team image">
+            </div>
+            <div class="about-us-team-details">
+              <h3 class="about-us-team-details-title">Naseh Bədəlov</h3>
+              <p class="about-us-team-details-desc">QU - Industrial Engineering</p>
+            </div>
           </div>
-          <div class="about-us-team-details">
-            <h3 class="about-us-team-details-title">Günel İsmayılova</h3>
-            <p class="about-us-team-details-desc">ADNSU - Computer Engineering</p>
+        </div>
+
+        <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 about-us-team-wrapper">
+          <div class="about-us-team-block">
+            <div class="about-us-team-img">
+              <img src="/image/gunel.jpg" class="img-responsive" alt="team image">
+            </div>
+            <div class="about-us-team-details">
+              <h3 class="about-us-team-details-title">Günel İsmayılova</h3>
+              <p class="about-us-team-details-desc">ADNSU - Computer Engineering</p>
+            </div>
           </div>
         </div>
       </div>

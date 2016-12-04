@@ -2,7 +2,7 @@
 @section('title','Istek_redaktə')
 @section('content')
 <style type="text/css">
-  img{
+ form img{
     width: 60px;
     height: 60px;
     float: left;
@@ -43,8 +43,8 @@
         <div id="map"></div>
       </div>
       <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-        @if (Session::has('istekadded'))
-          <div class="alert alert-success" role="alert">{{Session::get('istekadded')}}</div>
+        @if (Session::has('istek_edited'))
+          <div class="alert alert-success" role="alert">{{Session::get('istek_edited')}}</div>
         @endif
         @if (Session::has('imageerror'))
           <div class="alert alert-danger" role="alert">{{Session::get('imageerror')}}</div>
@@ -101,7 +101,8 @@
           {{-- <=================image input ================> --}}
             <div id="afterImage" class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
               <label for="email">Şəkil</label>
-              <input id="uploadAjax" type="file" name="image" class="form-control" value="{{$istek_edit->image}}">
+              <a class="forImg form-control btn btn-default">Şəkil Seç</a>
+              <input id="uploadAjax" type="file" name="image" class="hidden imgInput form-control" value="{{$istek_edit->image}}">
               @if ($errors->has('image'))
                   <span class="help-block">
                     <strong>Boşluq buraxmayın</strong>

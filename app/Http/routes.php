@@ -22,6 +22,7 @@ Route::post('/Tənzimləmələr','PagesController@settings');
 Route::get('/Profil','PagesController@profil');
 Route::get('/Istekler','PagesController@profil');
 Route::get('/Destekler','PagesController@profil');
+Route::get('/Tənzimləmələr','PagesController@profil');
 Route::get('/single/{id}','PagesController@single');
 //<=================Page Routes End ================>
 
@@ -45,6 +46,7 @@ Route::post('/pic_delete','IstekController@pic_delete');
 Route::get('/destek-add','DestekController@show');
 Route::post('/destek-add','DestekController@destek_add');
 Route::get('/destek-edit/{id}','DestekController@destek_edit');
+Route::patch('/destek-edit/{id}','DestekController@destek_update');
 Route::get('/istek-list','PagesController@istek_list');
 //<=================Destek Routes End ================>
 
@@ -70,7 +72,7 @@ Route::get('/alfagen','AdminController@index');
 Route::get('/alfagen/login', 'AdminController@login');
 Route::post('/alfagen/postLogin', 'AdminController@postLogin');
 Route::get('/alfagen/logout', 'AdminController@logout');
-Route::get('/Istək-list','AdminController@istek_list');
+Route::get('/İstək-list','AdminController@istek_list');
 Route::get('/Dəstək-list','AdminController@destek_list');
 Route::get('/activate/{id}','AdminController@activate');
 Route::get('/deactivate/{id}','AdminController@deactivate');

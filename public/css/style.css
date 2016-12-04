@@ -8235,6 +8235,14 @@ span.special-destek {
           width: 180px;
           height: 35px;
           color: grey; }
+    #map #searchBoxDrag .search-error-desc {
+      height: 48px;
+      width: 100%;
+      background: #d26260;
+      display: none;
+      opacity: 0.9; }
+      #map #searchBoxDrag .search-error-desc .infoMessage {
+        padding: 15px; }
     #map #searchBoxDrag p {
       clear: both; }
   #map .openLoad {
@@ -8309,10 +8317,35 @@ span.special-destek {
     border-radius: 0 !important;
     padding-right: 10px !important; }
   #news .news-type-title {
-    padding-left: 0px; }
+    padding-left: 0px;
+    padding-right: 10px; }
     #news .news-type-title h1 {
       font-weight: 700;
       margin-bottom: -20px; }
+  #news .news-all-isteks-button {
+    padding-right: 10px; }
+    #news .news-all-isteks-button a {
+      background-color: #0AA699;
+      color: white;
+      border: none;
+      border-radius: 0;
+      transition: all .3s ease; }
+      #news .news-all-isteks-button a:hover {
+        background-color: #098e83; }
+    #news .news-all-isteks-button i {
+      padding-left: 5px; }
+  #news .news-all-desteks-button {
+    padding-right: 10px; }
+    #news .news-all-desteks-button a {
+      background-color: #F35958;
+      color: white;
+      border: none;
+      border-radius: 0;
+      transition: all .3s ease; }
+      #news .news-all-desteks-button a:hover {
+        background-color: #f14140; }
+    #news .news-all-desteks-button i {
+      padding-left: 5px; }
 
 #single {
   margin-top: 30px;
@@ -8339,7 +8372,8 @@ span.special-destek {
         padding-right: 5px; }
     #single .single-img img {
       height: 400px;
-      object-fit: cover; }
+      object-fit: cover;
+      width: 100%; }
   #single .single-social .single-social-facebook {
     background-color: #3B5998;
     margin-right: 10px;
@@ -8418,24 +8452,26 @@ span.special-destek {
     margin-bottom: 20px; }
   #about-us span.about-us-istek {
     color: #0AA699;
-    font-size: 20px; }
+    font-size: 20px;
+    font-weight: 700; }
   #about-us span.about-us-destek {
-    color: #F35958; }
+    color: #F35958;
+    font-size: 20px;
+    font-weight: 700; }
   #about-us .about-us-team {
     margin-top: 25px; }
     #about-us .about-us-team .about-us-team-block {
       border: 1px solid #f2f2f2;
       transition: all .3s ease;
-      width: 24%;
-      margin-right: 15px; }
-      #about-us .about-us-team .about-us-team-block:last-child {
-        margin-right: 0; }
+      margin-bottom: 20px; }
       #about-us .about-us-team .about-us-team-block:hover {
         background-color: #f2f2f2; }
     #about-us .about-us-team .about-us-team-img img {
       object-fit: cover;
       height: 300px;
       width: 100%; }
+    #about-us .about-us-team .about-us-team-social {
+      position: absolute; }
     #about-us .about-us-team .about-us-team-details {
       padding: 15px;
       padding-bottom: 0; }
@@ -8925,7 +8961,7 @@ span.special-destek {
   #add select[name='operator-numbers'] {
     height: 26px; }
   #add input[type='submit'] {
-    margin-top: 33px;
+    margin-top: 23px;
     padding-left: 30px;
     padding-right: 30px;
     background-color: #0090D9;
@@ -8934,7 +8970,11 @@ span.special-destek {
     #add input[type='submit']:hover {
       background-color: #006ea6; }
   #add textarea {
+    height: 118px;
     border-radius: 0; }
+    #add textarea:focus {
+      border: 1px solid #28353D;
+      box-shadow: none; }
 
 #notification-single {
   padding-top: 50px;

@@ -210,11 +210,17 @@
 
           {{-- <================== TENZIMLEMELER PART==================> --}}
         <div id="profil-settings" class="tab-pane fade in {{Request::is('Tənzimləmələr') ? " active" : ''}}">
+        @if (Session::has('imageerror'))
+          <div class="alert alert-warning" role="alert">{{Session::get('imageerror')}}</div>
+        @endif
+        @if (Session::has('added'))
+          <div class="alert alert-success" role="alert">{{Session::get('added')}}</div>
+        @endif
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 profil-avatar">
-            <img src="{{url('/images/'.Auth::user()->avatar)}}" class="center-block" alt="Avatar">
+            <img src="{{url('/image/'.Auth::user()->avatar)}}" class="center-block" alt="Avatar">
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <form action="{{url('/Tənzimləmələr')}}" method="post">
+            <form action="{{url('/Tənzimləmələr')}}" method="post" enctype="multipart/form-data">
               {{csrf_field()}}
               <p>
                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -257,8 +263,10 @@
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <p>
               <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
-                <label for="avatar">Şəkil:</label>
-                <input class="form-control" type="file" name="avatar">
+
+                <label for="file">Şəkil:</label>
+                <a class="forImg form-control btn btn-default">Şəkil Seç</a>
+                <input class="imgInput form-control hidden" type="file" name="avatar">
                 @if ($errors->has('avatar'))
                     <span class="help-block">
                       <strong>Boşluq buraxmayın</strong>

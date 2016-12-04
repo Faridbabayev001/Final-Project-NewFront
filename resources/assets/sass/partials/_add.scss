@@ -34,7 +34,7 @@
     height: 26px;
   }
   input[type='submit']{
-    margin-top: 33px;
+    margin-top: 23px;
     padding-left: 30px;
     padding-right: 30px;
     background-color: $common-blue-color;
@@ -45,6 +45,11 @@
     }
   }
   textarea{
+    height: 118px;
     border-radius: 0;
+    &:focus{
+      border: 1px solid $main-bg-color;
+      box-shadow: none;
+    }
   }
 }
