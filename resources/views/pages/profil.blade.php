@@ -263,8 +263,10 @@
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <p>
               <div class="form-group{{ $errors->has('avatar') ? ' has-error' : '' }}">
-                <label for="avatar">Şəkil:</label>
-                <input class="form-control" type="file" name="avatar">
+
+                <label for="file">Şəkil:</label>
+                <a class="forImg form-control btn btn-default">Şəkil Seç</a>
+                <input class="imgInput form-control hidden" type="file" name="avatar">
                 @if ($errors->has('avatar'))
                     <span class="help-block">
                       <strong>Boşluq buraxmayın</strong>

@@ -86,7 +86,8 @@
             {{-- <=================image input ================> --}}
               <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
                 <label for="email">Şəkil<SPAN> *</SPAN></label>
-                <input id="forLimitFile" type="file" name="image[]" class="form-control" value="{{ old('image') }}" multiple>
+                <a class="forImg form-control btn btn-default">Şəkil Seç</a>
+                <input id="forLimitFile" type="file" name="image[]" class="imgInput hidden form-control" value="{{ old('image') }}" multiple>
                 <p>Eyni anda bir və ya bir neçə şəkil seçə bilərsiz</p>
                 @if ($errors->has('image'))
                     <span class="help-block">
