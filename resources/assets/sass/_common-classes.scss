@@ -32,13 +32,14 @@ span.special-destek{
   color: white;
   text-decoration: none;
   transition: all .3s ease;
+  padding: 2px 12px;
   &:hover{
     background-color: darken($common-blue-color, 5%);
     color: white;
   }
 }
 .infoBubble-desc{
-  height: 80px;
+  height: 91px;
 }
 .InfoBubble-close{
   width: 20px;

@@ -31,6 +31,51 @@
           informasiyalarınızın 3-cü bir şəxs tərəfindən görülməyəcəyinə zəmanət verir.
         </p>
       </div>
+
+      <div class="col-lg-12 about-us-team">
+        <h1 class="text-center">Komandamız</h1>
+        <hr>
+
+        <div class="col-lg-3 padding0 about-us-team-block">
+          <div class="about-us-team-img">
+            <img src="/image/lala.jpeg" class="img-responsive" alt="team image">
+          </div>
+          <div class="about-us-team-details">
+            <h3 class="about-us-team-details-title">Lalə Məmmədova</h3>
+            <p class="about-us-team-details-desc">BDU - Computer Science</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 padding0 about-us-team-block">
+          <div class="about-us-team-img">
+            <img src="/image/farid.jpg" class="img-responsive" alt="team image">
+          </div>
+          <div class="about-us-team-details">
+            <h3 class="about-us-team-details-title">Fərid Babayev</h3>
+            <p class="about-us-team-details-desc">AzTU - Computer Engineering</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 padding0 about-us-team-block">
+          <div class="about-us-team-img">
+            <img src="/image/naseh.jpg" class="img-responsive" alt="team image">
+          </div>
+          <div class="about-us-team-details">
+            <h3 class="about-us-team-details-title">Naseh Bədəlov</h3>
+            <p class="about-us-team-details-desc">QU - Industrial Engineering</p>
+          </div>
+        </div>
+
+        <div class="col-lg-3 padding0 about-us-team-block">
+          <div class="about-us-team-img">
+            <img src="/image/gunel.jpg" class="img-responsive" alt="team image">
+          </div>
+          <div class="about-us-team-details">
+            <h3 class="about-us-team-details-title">Günel İsmayılova</h3>
+            <p class="about-us-team-details-desc">ADNSU - Computer Engineering</p>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
