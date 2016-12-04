@@ -33,7 +33,6 @@ class PagesController extends Controller
     if ($request->ajax()) {
       $ElanLocation = $request->ElanLocation;
       $ElanType = $request->ElanType;
-      // $datalar=Elan::all();
         if ($ElanLocation =="all" && $ElanType =="all") {
           $datalar=Elan::all();
           foreach ($datalar as $key => $value) {
@@ -57,6 +56,8 @@ class PagesController extends Controller
         foreach ($datalar as $key => $value) {
           $datalar[$key]['image'] = $value->shekiller[0]->imageName;
         }
+      }else if (!empty($datalar)) {
+        $datalar = 'ok';
       }
       return $datalar;
     };

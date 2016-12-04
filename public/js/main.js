@@ -2,7 +2,6 @@ $(document).ready(function(){
 
 //----------------------------MAP HEIGHT FOR WINDOW SIZE----------------------------------
     var windowHeightCalc = $('body').height()-150;
-    console.log('body height:' + windowHeightCalc);
     $('#InfoMap').css({
       width: '100%',
       height: windowHeightCalc
@@ -110,7 +109,7 @@ $("#uploadAjax").change(function(e) {
           var file = $(this);
           var img = document.createElement("img");
           var reader = new FileReader();
-          
+
           reader.onload = function(e) {
               img.src = e.target.result;
               // img.className = 'im_';

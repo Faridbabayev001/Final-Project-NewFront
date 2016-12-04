@@ -50,6 +50,16 @@
             }
         }
     }
+    .search-error-desc{
+      height: 48px;
+      width: 100%;
+      background: #d26260;
+      display: none;
+      opacity: 0.9;
+      .infoMessage{
+        padding: 15px;
+      }
+    }
 
     p{
         // padding: 10px;

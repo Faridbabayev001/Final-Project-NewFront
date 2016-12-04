@@ -91,8 +91,12 @@
                          <option name="type" value="1">Dəstək</option>
                          <option name="type" value="2">İstək</option>
                        </select>
+
                      </li>
                  </ul>
+                 <div class="search-error-desc">
+                   <p class="infoMessage text-center"></p>
+                 </div>
            </form>
            </div>
       <img class="Load openLoad closeLoad" src="{{url('images/info-loading.gif')}}">
@@ -133,6 +137,10 @@
             </div>
           @endif
         @endforeach
+
+        <div class="col-lg-12 news-all-isteks-button">
+          <a href="/İstək-list" class="btn pull-right">Bütün istəklər <i class="fa fa-angle-right"></i></a>
+        </div>
       </div>
 
       <div class="news-right col-lg-6 col-md-6 col-sm-12 col-xs-12 padding0">
