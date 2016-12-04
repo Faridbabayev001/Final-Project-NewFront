@@ -48,7 +48,6 @@ Route::post('/destek-add','DestekController@destek_add');
 Route::get('/destek-edit/{id}','DestekController@destek_edit');
 Route::patch('/destek-edit/{id}','DestekController@destek_update');
 Route::get('/istek-list','PagesController@istek_list');
-Route::get('/destek-list','PagesController@destek_list');
 //<=================Destek Routes End ================>
 
 
@@ -56,6 +55,8 @@ Route::get('/destek-list','PagesController@destek_list');
 Route::post('/notification/{id}','PagesController@notification_count');
 Route::get('/Bildirişlər','PagesController@profil');
 Route::get('/Bildiriş/{id}','PagesController@notication_single');
+Route::get('/accept','PagesController@accept');
+Route::get('/refusal/{id}','PagesController@refusal');
 //<=================Nofification Routes End ================>
 
 
