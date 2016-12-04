@@ -2,7 +2,7 @@
 @section('title','İstək əlavə et')
 @section('content')
 <style type="text/css">
-  img{
+  form img{
     width: 60px;
     height: 60px;
     margin-left: 5px;

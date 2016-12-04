@@ -152,35 +152,49 @@ class PagesController extends Controller
 
     public function settings(Request $request)
     {
+      // dd('sss');
+      // dd($request['avatar']);
       $this->validate($request, [
-         'username' => 'required',
          'name' => 'required',
          'phone' => 'required',
-         'city' => 'required',
+         // 'avatar' => 'required',
+         'city' => 'required'
       ]);
       if ($request->avatar == '') {
-        return true;
-        $imagea = Elan::find(Auth::user()->id);
-        $photoname = $images->image;
+        // return true;
+        $profil_image = Auth::user()->avatar;
         $data = [
           'username' => Auth::user()->username,
           'name' => $request['name'],
           'phone' => '+994'.$request['operator'].$request['phone'],
-          'avatar' => $photoname,
+          'avatar' => $profil_image,
           'city' => $request['city']
         ];
+        Auth::user()->update($data);
       }else {
         $filetype=$request->file('avatar')->getClientOriginalExtension();
-        $filename=time().'.'.$filetype;
-        $request->file('avatar')->move(public_path('image/'),$filename);
-        $data = [
-          'username' => Auth::user()->username,
-          'name' => $request['name'],
-          'phone' => '+994'.$request['operator'].$request['phone'],
-          'avatar' => $filename,
-          'city' => $request['city']
-        ];
+        $img_name = $request->file('avatar')->getCLientOriginalName();
+        $lowered = strtolower($filetype);
+        // dd($img_name);
+          if($lowered=='jpg' || $lowered=='jpeg' || $lowered=='png'){
+
+            $filename=date('ygmis').'.'.$img_name; 
+            $request->file('avatar')->move(public_path('image/'),$filename);
+            $data = [
+              'username' => Auth::user()->username,
+              'name' => $request['name'],
+              'phone' => '+994'.$request['operator'].$request['phone'],
+              'avatar' => $filename,
+              'city' => $request['city']
+            ];
+             Auth::user()->update($data);
+        }else{
+              Session::flash('imageerror' , "Xahiş olunur şəkili düzgun yükləyəsiniz.");
+          return redirect('/Tənzimləmələr');
+        }
       }
+       Session::flash('added' , "Məlumatlarınız yeniləndi.");
+        return redirect('/Tənzimləmələr');
     }
 
     //<================= METHHOD FOR ABOUT US  ================>
