@@ -1,6 +1,17 @@
 @extends('pages.layout')
 @section('title','Destek')
 @section('content')
+<style type="text/css">
+  img{
+    width: 60px;
+    height: 60px;
+    margin-left: 5px;
+    float: left
+  }
+  form span{
+    color:red;
+  }
+</style>
   <div id="breadcrumb">
   <div class="container">
      <div class="row">
@@ -30,7 +41,7 @@
             {{-- <=================title input ================> --}}
             <div class="col-lg-6">
               <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
-                <label for="name">Başlıq</label>
+                <label for="name">Başlıq<SPAN> *</SPAN></label>
                 <input type="text" name="title" class="form-control" maxlength="33" value="{{ old('title') }}">
                 @if ($errors->has('title'))
                    <span class="help-block">
@@ -41,7 +52,7 @@
 
               {{-- <=================location input ================> --}}
               <div class="form-group{{ $errors->has('location') || $errors->has('lat') && $errors->has('lng')? ' has-error' : '' }}">
-                <label for="name">Ünvan</label>
+                <label for="name">Ünvan<SPAN> *</SPAN></label>
                    <input type="hidden" id="lat" name="lat">
                     <input type="hidden" id="lng" name="lng">
                 <input type="text" name="location" class="form-control" id="adress" placeholder="">
@@ -64,7 +75,7 @@
 
               {{-- <=================About input ================> --}}
               <div class="form-group{{ $errors->has('about') ? ' has-error' : '' }}">
-                <label for="name">Açıqlama</label>
+                <label for="name">Açıqlama<SPAN> *</SPAN></label>
                 <textarea name="about" class="form-control" rows="6" cols="80">{{ old('about') }}</textarea>
                 @if ($errors->has('about'))
                     <span class="help-block">
@@ -74,20 +85,25 @@
               </div>
             {{-- <=================image input ================> --}}
               <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                <label for="email">Şəkil</label>
+                <label for="email">Şəkil<SPAN> *</SPAN></label>
                 <input id="forLimitFile" type="file" name="image[]" class="form-control" value="{{ old('image') }}" multiple>
+                <p>Eyni anda bir və ya bir neçə şəkil seçə bilərsiz</p>
                 @if ($errors->has('image'))
                     <span class="help-block">
                       <strong>Boşluq buraxmayın</strong>
                     </span>
                 @endif
               </div>
+
+            {{-- for showing uploaded image --}}
+            <div id="viewImage"></div>
+
             </div>
             <div class="col-lg-6">
 
               {{-- <=================Name input ================> --}}
               <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                <label for="city">Ad, Soyad</label>
+                <label for="city">Ad, Soyad<SPAN> *</SPAN></label>
                 <input type="text" class="form-control" name="name" value="{{Auth::user()->name}}">
                 @if ($errors->has('name'))
                     <span class="help-block">
@@ -98,7 +114,7 @@
 
               {{-- <=================Phone input ================> --}}
               <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                <label for="operator">Əlaqə nömrəsi</label>
+                <label for="operator">Əlaqə nömrəsi<SPAN> *</SPAN></label>
                 <div class="input-group">
                     <div class="input-group-addon">
                         <input id="operator" type="hidden" name="operator" value="{{substr(Auth::user()->phone,4,2) == '55' ? '55' : substr(Auth::user()->phone,4,2) }}">
@@ -122,7 +138,7 @@
 
               {{-- <=================Email input ================> --}}
               <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                <label for="password">Email</label>
+                <label for="password">Email<SPAN> *</SPAN></label>
                 <input type="email" name="email" class="form-control" placeholder="Email" value="{{Auth::user()->email}}">
                 @if ($errors->has('email'))
                   <span class="help-block">
@@ -133,7 +149,7 @@
 
               {{-- <=================Nov input ================> --}}
               <div class="form-group{{ $errors->has('nov') ? ' has-error' : '' }}">
-                <label for="password">Növ</label>
+                <label for="password">Növ<SPAN> *</SPAN></label>
                 <input type="text" name="nov" class="form-control" value="{{ old('nov') }}">
                 @if ($errors->has('nov'))
                     <span class="help-block">
@@ -143,9 +159,14 @@
               </div>
 
               {{-- <=================Date input ================> --}}
-              <div class="form-group">
-                <label for="date">İstəyin müddəti</label>
+              <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
+                <label for="date">İstəyin müddəti<SPAN> *</SPAN></label>
                 <input type="date" name="date" class="form-control" id="date" value="{{ old('date') }}">
+                @if ($errors->has('date'))
+                    <span class="help-block">
+                      <strong>Tarix seçin</strong>
+                    </span>
+                @endif
               </div>
               <div class="form-group text-center">
                 <input type="submit" class="btn" value="GÖNDƏR">

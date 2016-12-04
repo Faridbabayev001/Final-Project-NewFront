@@ -20,19 +20,22 @@ class IstekController extends Controller
   //<================= METHHOD FOR ISTEK_ADD PAGE ================>
     public function istek_add(Request $req)
     {
-     $this->validate($req, [
-     'title' => 'required',
-         'about' => 'required',
-         'location' => 'required',
-         'lat' => 'required',
-         'lng' => 'required',
-         'name' => 'required',
-         'phone' => 'required',
-         'email' => 'required',
-         'nov' => 'required',
-    ]);
-
-
+     if($req->file('image')[0]==null){
+       Session::flash('imageerror' , "Xahiş olunur şəkil seçin.");
+         $this->validate($req, [
+             'title' => 'required',
+             'about' => 'required',
+             'location' => 'required',
+             'lat' => 'required',
+             'lng' => 'required',
+             'name' => 'required',
+             'phone' => 'required',
+             'email' => 'required',
+             'nov' => 'required',
+             'date' => 'required'
+        ]);
+          return redirect('/istek-add');
+     }
 
      $files = $req->file('image');
      $pic_name = array();
