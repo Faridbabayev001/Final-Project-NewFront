@@ -1,6 +1,7 @@
 #about-us{
   margin-top: 50px;
-  height: 100%;
+  margin-bottom: 50px;
+  min-height: 100%;
   .about-us-desc{
     font-size: 18px;
     margin-bottom: 20px;
@@ -13,5 +14,40 @@
 
   span.about-us-destek{
     color: $destek-color;
+  }
+
+  .about-us-team{
+    margin-top: 25px;
+    .about-us-team-block{
+      border: 1px solid #f2f2f2;
+      transition: all .3s ease;
+      width: 24%;
+      margin-right: 15px;
+      &:last-child{
+        margin-right: 0;
+      }
+      &:hover{
+        background-color: #f2f2f2;
+      }
+    }
+    .about-us-team-img{
+      img{
+        object-fit: cover;
+        height: 300px;
+        width: 100%;
+      }
+    }
+    .about-us-team-details{
+      padding: 15px;
+      padding-bottom: 0;
+    }
+    .about-us-team-details-title{
+      font-size: 24px;
+      font-weight: 700;
+      margin-top: 0px;
+    }
+    .about-us-team-details-desc{
+      font-size: 14px;
+    }
   }
 }

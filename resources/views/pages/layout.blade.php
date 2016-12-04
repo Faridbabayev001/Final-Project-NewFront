@@ -212,6 +212,7 @@ use App\Qarsiliq;
 <script src="{{url('/js/vendor/jquery-ui.js')}}"></script>
 <script src="{{url('/js/vendor/bootstrap.min.js')}}"></script>
 <script src="{{url('/js/InfoBubble.js')}}" charset="utf-8"></script>
-<script src="{{url('/js/AjaxSearchMap.js')}}" charset="utf-8"></script><script src="{{url('/js/main.js')}}"></script>
+<script src="{{url('/js/AjaxSearchMap.js')}}" charset="utf-8"></script>
+<script src="{{url('/js/main.js')}}"></script>
   @yield('scripts')
 </html>

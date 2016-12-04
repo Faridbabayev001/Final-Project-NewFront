@@ -96,7 +96,7 @@
            </form>
            </div>
       <img class="Load openLoad closeLoad" src="{{url('images/info-loading.gif')}}">
-      <div id="InfoMap" style="width: 100%;height: 600px;">
+      <div id="InfoMap">
       </div>
     </div>
   </div>
@@ -109,7 +109,7 @@
           <h1>İSTƏKLƏR</h1>
           <hr>
         </div>
-     
+
         <!-- News block -->
         @foreach ($datas as $data)
           @if($data->status=='1' && $data->type_id=='2')

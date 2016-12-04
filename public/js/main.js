@@ -1,5 +1,14 @@
 $(document).ready(function(){
 
+//----------------------------MAP HEIGHT FOR WINDOW SIZE----------------------------------
+    var windowHeightCalc = $('body').height()-150;
+    console.log('body height:' + windowHeightCalc);
+    $('#InfoMap').css({
+      width: '100%',
+      height: windowHeightCalc
+    });
+//----------------------------MAP HEIGH FOR WINDOW SIZE END-------------------------------
+
 //----------------------------EMAIL PLACEHOLDER CHANGE------------------------------------
 /*========================================================================================
 ==========================================================================================
