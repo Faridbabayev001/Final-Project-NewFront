@@ -175,8 +175,17 @@ class PagesController extends Controller
         $filetype=$request->file('avatar')->getClientOriginalExtension();
         $img_name = $request->file('avatar')->getCLientOriginalName();
         $lowered = strtolower($filetype);
-        // dd($img_name);
+
           if($lowered=='jpg' || $lowered=='jpeg' || $lowered=='png'){
+
+            $avatar_del = Auth::user()->avatar;
+            if($avatar_del=="prof.png"){
+              echo "hello";
+            }
+            else if(file_exists('image/'.$avatar_del)){
+                echo "no";
+              unlink('image/'.$avatar_del);
+            }
 
             $filename=date('ygmis').'.'.$img_name; 
             $request->file('avatar')->move(public_path('image/'),$filename);
@@ -187,11 +196,13 @@ class PagesController extends Controller
               'avatar' => $filename,
               'city' => $request['city']
             ];
+
              Auth::user()->update($data);
-        }else{
-              Session::flash('imageerror' , "Xahiş olunur şəkili düzgun yükləyəsiniz.");
-          return redirect('/Tənzimləmələr');
-        }
+          }else{
+                Session::flash('imageerror' , "Xahiş olunur şəkili düzgun yükləyəsiniz.");
+            return redirect('/Tənzimləmələr');
+          }
+         
       }
        Session::flash('added' , "Məlumatlarınız yeniləndi.");
         return redirect('/Tənzimləmələr');

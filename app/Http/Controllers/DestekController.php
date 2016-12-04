@@ -62,49 +62,38 @@ class DestekController extends Controller
 
   public function destek_add(Request $req)
   {
-    Session::flash('destek_add' , "Dəstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
 
-    $this->validate($req, [
-      'title' => 'required',
-      'about' => 'required',
-      'location' => 'required',
-      'lat' => 'required',
-      'lng' => 'required',
-      'name' => 'required',
-      'phone' => 'required',
-      'email' => 'required',
-      'nov' => 'required',
-]);
+        $this->validate($req, [
+          'title' => 'required',
+          'about' => 'required',
+          'location' => 'required',
+          'lat' => 'required',
+          'lng' => 'required',
+          'image'=> 'required',
+          'name' => 'required',
+          'phone' => 'required',
+          'email' => 'required',
+          'nov' => 'required',
+          'date' => 'required'
+      ]);
+
      if($req->file('image')[0]==null){
        Session::flash('imageerror' , "Xahiş olunur şəkil seçin.");
-
-          $this->validate($req, [
-            'title' => 'required',
-            'about' => 'required',
-            'location' => 'required',
-            'lat' => 'required',
-            'lng' => 'required',
-            'image'=> 'required',
-            'name' => 'required',
-            'phone' => 'required',
-            'email' => 'required',
-            'nov' => 'required',
-            'date' => 'required'
-        ]);
-          return redirect('/destek_add');
-  }
+          return back();
+      }
   
      $files = $req->file('image');
      $pic_name = array();
      foreach ($files as $file) {
        $filetype=$file->getClientOriginalExtension();
-       // echo "$filetype";
-       if($filetype=='jpg' || $filetype=='jpeg' || $filetype=='png'){
+       $lowered = strtolower($filetype); 
+
+       if($lowered=='jpg' || $lowered=='jpeg' || $lowered=='png'){
           array_push($pic_name, $filetype);
        }
        else{
          Session::flash('imageerror' , "Xahiş olunur şəkili düzgun yükləyəsiniz.");
-          return redirect('/istek-add');
+          return back();
        }
      }
 
@@ -127,13 +116,13 @@ class DestekController extends Controller
           $files = $req->file('image');
 
           foreach ($files as $file) {
-            $file_name =  time().$file->getClientOriginalName();
+            $file_name =  date('ygmis').'.'.$file->getClientOriginalName();
             $file->move(public_path('image'),$file_name);
             $data = new Photo;
             $data->imageName = $file_name;
             $insert_pic_id->save($data);
           }
-      Session::flash('destek_add' , "İstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
+      Session::flash('destek_add' , "Dəstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
        return redirect('/destek-add');
   }
 
@@ -146,7 +135,7 @@ class DestekController extends Controller
   public function destek_update(Request $req,$id)
   {
     $this->validate($req, [
-    'title' => 'required',
+       'title' => 'required',
         'about' => 'required',
         'location' => 'required',
         'lat' => 'required',
@@ -154,12 +143,12 @@ class DestekController extends Controller
         'name' => 'required',
         'phone' => 'required',
         'email' => 'required',
-        'nov' => 'required',
-]);
+        'nov' => 'required'
+    ]);
 
     $this->delete_edited_pics($req->input('picsArray'));
 
-   Session::flash('destek_edited' , "İstəyiniz uğurla dəyişdirildi və yoxlamadan keçəndən sonra dərc olunacaq.");
+   Session::flash('destek_edited' , "Dəstəyiniz uğurla dəyişdirildi və yoxlamadan keçəndən sonra dərc olunacaq.");
    $destek_update = Elan::find($id);
    $destek_update->title = $req->title;
    $destek_update->location = $req->location;
