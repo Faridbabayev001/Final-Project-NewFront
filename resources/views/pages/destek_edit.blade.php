@@ -4,7 +4,7 @@
 
 @section('content')
 <style type="text/css">
-  img{
+  form img{
     width: 60px;
     height: 60px;
     float: left;
@@ -101,7 +101,8 @@
               
               <div id="afterImage" class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
               <label for="email">Şəkil</label>
-              <input id="uploadAjax" type="file" name="image" class="form-control" value="{{$destek_edit->image}}">
+              <a class="forImg form-control btn btn-default">Şəkil Seç</a>
+              <input id="uploadAjax" type="file" name="image" class="hidden imgInput form-control" value="{{$destek_edit->image}}">
               @if ($errors->has('image'))
                   <span class="help-block">
                     <strong>Boşluq buraxmayın</strong>

@@ -139,7 +139,7 @@
         @endforeach
 
         <div class="col-lg-12 news-all-isteks-button">
-          <a href="/İstək-list" class="btn pull-right">Bütün istəklər <i class="fa fa-angle-right"></i></a>
+          <a href="/istek-list" class="btn pull-right">Bütün istəklər <i class="fa fa-angle-right"></i></a>
         </div>
       </div>
 
@@ -172,6 +172,9 @@
           @endif
         @endforeach
         <!-- News block end -->
+        <div class="col-lg-12 news-all-desteks-button">
+          <a href="/istek-list" class="btn pull-right">Bütün dəstəklər <i class="fa fa-angle-right"></i></a>
+        </div>
       </div>
     </div>
   </div>
