@@ -18,7 +18,7 @@
           <div id="map"></div>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
-          @if (Session::has('destekadded'))
+          @if (Session::has('destek_add'))
             <div class="alert alert-success" role="alert">{{Session::get('destekadded')}}</div>
           @endif
           @if (Session::has('imageerror'))

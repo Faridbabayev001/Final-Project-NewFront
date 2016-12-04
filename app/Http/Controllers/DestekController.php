@@ -62,6 +62,8 @@ class DestekController extends Controller
 
   public function destek_add(Request $req)
   {
+    Session::flash('destek_add' , "İstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
+
     $this->validate($req, [
       'title' => 'required',
       'about' => 'required',
