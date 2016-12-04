@@ -30,11 +30,26 @@
           </div>
         </div>
       </div>
+      @php
+        $url = 'http://13.94.234.172:88/single/'.$single->id;
+      @endphp
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="single-social">
           <ul class="list-inline">
-            <li class="single-social-facebook"><a href="#"><i class="fa fa-facebook"></i> PAYLAŞ</a></li>
-            <li class="single-social-google"><a href="#"><i class="fa fa-google-plus"></i> PAYLAŞ</a></li>
+              <li class="single-social-facebook faceBook">
+                <div class="social-buttons">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}" target="_blank">
+                  <i class="fa fa-facebook"></i> PAYLAŞ
+                </a>
+              </div>
+              </li>
+            <li  class="single-social-google" >
+              <div class="social-buttons">
+                <a href="https://plus.google.com/share?url={{ $url }}">
+                  <i class="fa fa-google-plus"></i> PAYLAŞ
+                </a>
+              </div>
+            </li>
           </ul>
         </div>
         <div class="single-content">
