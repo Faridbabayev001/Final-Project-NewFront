@@ -22,12 +22,10 @@ $.ajax({
     ElanType : $('#Type').val(),
   },
   success: function Mydatas(data){
-    if (data =="") {
-      // document.location.href='/';
-    }else{
-      Mydata(data);
+    $('search-error-desc').hide('3000')
 
-    }
+    Mydata(data);
+
   },
   beforeSend:function(){
     $('.Load').removeClass('closeLoad');
@@ -51,8 +49,15 @@ $.ajax({
         ElanType : $('#Type').val(),
       },
       success:function Mydatas(data){
-        console.log(data);
-        Mydata(data);
+          if (data.length ==0) {
+            $('.search-error-desc').fadeIn('2000');
+            $('.infoMessage').text('İstəyinizə uyğun nəticə tapılmadı')
+            Mydata(data);
+          }else {
+            $('.search-error-desc').fadeOut('2000')
+            $('.infoMessage').text('')
+            Mydata(data);
+          }
       },
       beforeSend:function(){
         $('.Load').removeClass('closeLoad');

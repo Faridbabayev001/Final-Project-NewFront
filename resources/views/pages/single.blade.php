@@ -30,11 +30,26 @@
           </div>
         </div>
       </div>
+      @php
+        $url = 'http://13.94.234.172:88/single/'.$single->id;
+      @endphp
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="single-social">
           <ul class="list-inline">
-            <li class="single-social-facebook"><a href="#"><i class="fa fa-facebook"></i> PAYLAŞ</a></li>
-            <li class="single-social-google"><a href="#"><i class="fa fa-google-plus"></i> PAYLAŞ</a></li>
+              <li class="single-social-facebook faceBook">
+                <div class="social-buttons">
+                <a href="https://www.facebook.com/sharer/sharer.php?u={{ $url }}" target="_blank">
+                  <i class="fa fa-facebook"></i> PAYLAŞ
+                </a>
+              </div>
+              </li>
+            <li  class="single-social-google" >
+              <div class="social-buttons">
+                <a href="https://plus.google.com/share?url={{ $url }}">
+                  <i class="fa fa-google-plus"></i> PAYLAŞ
+                </a>
+              </div>
+            </li>
           </ul>
         </div>
         <div class="single-content">
@@ -43,15 +58,23 @@
           </p>
         </div>
         @if(Auth::user())
+
           @if(Auth::user()->id != $single->user_id)
             <div class="single-support">
               <p class="text-center">
                 @if ($single->type_id == 2)
+                  @if (Session::has('description_destek'))
+                    <div class="alert alert-success" role="alert">{{Session::get('description_destek')}}</div>
+                  @endif
                   <a class="btn destek-ol-button" role="button"><i class="fa fa-check"></i> DƏSTƏK OLMAQ İSTƏYİRƏM</a>
                   @else
+                    @if (Session::has('description_istek'))
+                      <div class="alert alert-success" role="alert">{{Session::get('description_istek')}}</div>
+                    @endif
                   <a class="btn destek-ol-button" role="button"><i class="fa fa-check"></i> DƏSTƏKDƏN YARARLANMAQ İSTƏYİRƏM</a>
                 @endif
                   <div class="alert alert-success destek-ol-message">
+
                       <form class="" action="{{url('/notification/'.$single->id)}}" method="post">
                         {{csrf_field()}}
                           <label for=""><h4>Açıqlama</h4></label>

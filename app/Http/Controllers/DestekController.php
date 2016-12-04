@@ -19,27 +19,27 @@ class DestekController extends Controller
 
    //<================= METHHOD FOR SAVING IMG WITH AJAX ================>
 
-   public function only_pic(Request $req)////////yeni func
+   public function only_pic(Request $req)
         {
 
           if ($req->ajax()) {
             $fileName = $req->file->getClientOriginalName();
             $file = $_FILES['file'];
-            $istek_id = $_POST['istek_id']; 
+            $istek_id = $_POST['istek_id'];
             $file['istek_id'] = $istek_id;
 
             $file_name =date('ygmis').'.'.$fileName;
-      
+
             $req->file->move(public_path('image'), $file_name);
             $sekil = Elan::find($istek_id);
             $hamsi = $sekil->shekiller();
             $data = new Photo;
-            $data->imageName = $file_name;          
+            $data->imageName = $file_name;
             $hamsi->save($data);
             return json_encode($file_name);
-          
 
-          }        
+
+          }
 
         }
 
@@ -62,6 +62,8 @@ class DestekController extends Controller
 
   public function destek_add(Request $req)
   {
+    Session::flash('destek_add' , "Dəstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
+
     $this->validate($req, [
       'title' => 'required',
       'about' => 'required',
@@ -73,7 +75,25 @@ class DestekController extends Controller
       'email' => 'required',
       'nov' => 'required',
 ]);
+     if($req->file('image')[0]==null){
+       Session::flash('imageerror' , "Xahiş olunur şəkil seçin.");
 
+          $this->validate($req, [
+            'title' => 'required',
+            'about' => 'required',
+            'location' => 'required',
+            'lat' => 'required',
+            'lng' => 'required',
+            'image'=> 'required',
+            'name' => 'required',
+            'phone' => 'required',
+            'email' => 'required',
+            'nov' => 'required',
+            'date' => 'required'
+        ]);
+          return redirect('/destek_add');
+  }
+  
      $files = $req->file('image');
      $pic_name = array();
      foreach ($files as $file) {
@@ -113,6 +133,7 @@ class DestekController extends Controller
             $data->imageName = $file_name;
             $insert_pic_id->save($data);
           }
+      Session::flash('destek_add' , "İstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
        return redirect('/destek-add');
   }
 

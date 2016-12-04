@@ -20,20 +20,23 @@ class IstekController extends Controller
   //<================= METHHOD FOR ISTEK_ADD PAGE ================>
     public function istek_add(Request $req)
     {
-     $this->validate($req, [
-     'title' => 'required',
-         'about' => 'required',
-         'location' => 'required',
-         'lat' => 'required',
-         'lng' => 'required',
-         'name' => 'required',
-         'phone' => 'required',
-         'email' => 'required',
-         'nov' => 'required',
-    ]);
+     if($req->file('image')[0]==null){
+       Session::flash('imageerror' , "Xahiş olunur şəkil seçin.");
+         $this->validate($req, [
+             'title' => 'required',
+             'about' => 'required',
+             'location' => 'required',
+             'lat' => 'required',
+             'lng' => 'required',
+             'name' => 'required',
+             'phone' => 'required',
+             'email' => 'required',
+             'nov' => 'required',
+             'date' => 'required'
+        ]);
+          return redirect('/istek-add');
+     }
 
-
-   
      $files = $req->file('image');
      $pic_name = array();
      foreach ($files as $file) {
@@ -46,7 +49,7 @@ class IstekController extends Controller
           return redirect('/istek-add');
        }
      }
-  
+
          Session::flash('istekadded' , "İstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
          $data = [
                'type_id'=>'2',
@@ -86,27 +89,27 @@ class IstekController extends Controller
 
   //<================= METHHOD FOR SAVING IMG WITH AJAX ================>
 
-   public function only_pic(Request $req)////////yeni func
+   public function only_pic(Request $req)
         {
 
           if ($req->ajax()) {
             $fileName = $req->file->getClientOriginalName();
             $file = $_FILES['file'];
-            $istek_id = $_POST['istek_id']; 
+            $istek_id = $_POST['istek_id'];
             $file['istek_id'] = $istek_id;
 
             $file_name =date('ygmis').'.'.$fileName;
-      
+
             $req->file->move(public_path('image'), $file_name);
             $sekil = Elan::find($istek_id);
             $hamsi = $sekil->shekiller();
             $data = new Photo;
-            $data->imageName = $file_name;          
+            $data->imageName = $file_name;
             $hamsi->save($data);
             return json_encode($file_name);
-          
 
-          }        
+
+          }
 
         }
 

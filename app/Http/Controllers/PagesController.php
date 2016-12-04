@@ -33,7 +33,6 @@ class PagesController extends Controller
     if ($request->ajax()) {
       $ElanLocation = $request->ElanLocation;
       $ElanType = $request->ElanType;
-      // $datalar=Elan::all();
         if ($ElanLocation =="all" && $ElanType =="all") {
           $datalar=Elan::all();
           foreach ($datalar as $key => $value) {
@@ -57,16 +56,24 @@ class PagesController extends Controller
         foreach ($datalar as $key => $value) {
           $datalar[$key]['image'] = $value->shekiller[0]->imageName;
         }
+      }else if (!empty($datalar)) {
+        $datalar = 'ok';
       }
       return $datalar;
     };
       return view('pages.index',compact('datas'));
     }
 
+
+    //<================= METHHOD FOR REGİSTER ===========>
+
     public function register()
     {
       return view('pages.register');
     }
+
+    //<================= METHHOD FOR SİNGLE PAGE  ================>
+
     public function single($id)
     {
       $single = Elan::find($id);
@@ -90,9 +97,11 @@ class PagesController extends Controller
     }
 
 
-    //<================= METHHOD FOR NOTIFICATION ================>
+    //<================= METHHOD FOR NOTIFICATION COUNT ================>
+
       public function notification_count(Request $request,Qarsiliq $qarsiliq,$id)
-      {
+      {   Session::flash('description_destek' , "Dəstəyiniz uğurla  gönderildi. ");
+
           $qarsiliq->elan_id = $id;
           $qarsiliq->user_id = Auth::user()->id;
           $qarsiliq->description = $request->description;
@@ -101,6 +110,8 @@ class PagesController extends Controller
           $qarsiliq->save();
           return back();
       }
+
+
     //<================= METHHOD FOR PROFIL ================>
     public function profil()
     {
@@ -109,18 +120,10 @@ class PagesController extends Controller
                 ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
                 ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.description','qarsiliqs.notification','qarsiliqs.id')
                 ->where([
-                      // ['qarsiliqs.id', '=', $id],
                       ['els.user_id', '=', Auth::user()->id]
                   ])
                 ->orderBy('created_at', 'desc')
                 ->get();
-                // foreach ($noti_image as $key => $notification_image) {
-                //        $id=$notification_image['elan_id'];
-                //         $qarsiliqs=Qarsiliq::find($var);
-                //     }
-                //     $qarsiliqs->notification = 0;
-                //     $qarsiliqs->update();
-      // dd($noti_image);
       return view('pages.profil',compact('Elan_all','noti_message'));
     }
 
@@ -128,6 +131,7 @@ class PagesController extends Controller
     //<================= METHHOD FOR NOFICATION_SINGLE ================>
     public function notication_single($id)
     {
+
         $notication_single=Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
               ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
               ->select('users.name','users.avatar','els.type_id','qarsiliqs.description','qarsiliqs.id','qarsiliqs.status')
@@ -142,6 +146,10 @@ class PagesController extends Controller
 
        return view('pages.notification_single',compact('notication_single'));
     }
+
+
+    //<================= METHHOD FOR SETTİNGS ================>
+
     public function settings(Request $request)
     {
       $this->validate($request, [
@@ -173,20 +181,25 @@ class PagesController extends Controller
           'city' => $request['city']
         ];
       }
-      var_dump($data);
-        dd($data);
-        // Auth::user()->update($data);
-      // return back();
     }
+
+    //<================= METHHOD FOR ABOUT US  ================>
+
     public function about()
     {
       return view('pages.about_us');
     }
 
+
+    //<================= METHHOD FOR CONTACT PAGE ================>
+
     public function contact()
     {
       return view('pages.contact_us');
     }
+
+
+    //<================= METHHOD FOR CONTACT_SEND MESSAGE ================>
 
     public function contact_send(Request $request)
     {
@@ -206,5 +219,21 @@ class PagesController extends Controller
       });
       Session::flash('send', 'İsmarıcınız müvəffəqiyyətlə göndərildi.');
       return back();
+    }
+
+    //<================= METHHOD FOR ISTEK_LIST ================>
+
+    public function istek_list()
+    {
+      $datas=Elan::orderBy('created_at','desc')->get();
+
+      return view('pages.istek_list', compact('datas'));
+    }
+
+    //<================= METHHOD FOR DESTEK_LIST ================>
+    public function destek_list()
+    {
+      $datas=Elan::orderBy('created_at','desc')->get();
+      return view('pages.destek_list', compact('datas'));
     }
 }

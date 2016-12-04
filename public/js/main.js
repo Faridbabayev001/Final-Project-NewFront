@@ -2,7 +2,6 @@ $(document).ready(function(){
 
 //----------------------------MAP HEIGHT FOR WINDOW SIZE----------------------------------
     var windowHeightCalc = $('body').height()-150;
-    console.log('body height:' + windowHeightCalc);
     $('#InfoMap').css({
       width: '100%',
       height: windowHeightCalc
@@ -98,12 +97,28 @@ $("#uploadAjax").change(function(e) {
 
 
 
-// ----------------------------UPLOAD FILE LIMIT-----------------------------------------------
+// ----------------------------UPLOAD FILE LIMIT AND SHOWING-----------------------------------------------
 
   $('#forLimitFile').change(function(e){
     var length = e.originalEvent.srcElement.files.length;
       if(length > 5)
           alert('5-den cox şekil secmeyin');
+        else{
+          $('#viewImage').empty();
+           $(e.originalEvent.srcElement.files).each(function () {
+          var file = $(this);
+          var img = document.createElement("img");
+          var reader = new FileReader();
+
+          reader.onload = function(e) {
+              img.src = e.target.result;
+              // img.className = 'im_';
+          }
+          reader.readAsDataURL(file[0]);
+          $("#viewImage").append('<div class="img-wrap"  imagename="'+file[0].name+'"></div>');
+          $(".img-wrap[imagename='"+file[0].name+"']").append(img);
+        });
+      }
   });
 
   $('form').submit(function(){
@@ -215,6 +230,31 @@ $('#SubmitLogin').submit(function(event) {
   })
 });
 //------------------------------For Login Ajax End ----------------------------------------
+
+//------------------------------For facebook share button window----------------------------------------
+var popupSize = {
+   width: 780,
+   height: 550
+};
+
+$(document).on('click', '.social-buttons > a', function(e){
+
+   var
+        verticalPos = Math.floor(($(window).width() - popupSize.width) / 2),
+        horisontalPos = Math.floor(($(window).height() - popupSize.height) / 2);
+
+   var popup = window.open($(this).prop('href'), 'social',
+        'width='+popupSize.width+',height='+popupSize.height+
+        ',left='+verticalPos+',top='+horisontalPos+
+        ',location=0,menubar=0,toolbar=0,status=0,scrollbars=1,resizable=1');
+
+   if (popup) {
+        popup.focus();
+        e.preventDefault();
+   }
+
+});
+//------------------------------For facebook share button window End ----------------------------------------
 
 // ----------------------------For Map in destek_add and istek_add pages-----------------------------------------------
 function initAutocomplete() {

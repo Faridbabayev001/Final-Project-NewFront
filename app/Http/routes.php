@@ -33,7 +33,8 @@ Route::post('/istek-add','IstekController@istek_add');
 Route::get('/istek-edit/{id}','IstekController@istek_edit');
 Route::get('/istek-delete/{id}','IstekController@istek_delete');
 Route::patch('/istek-edit/{id}','IstekController@istek_update');
-//special for ajax by - Gunel :)
+Route::get('/istek-list','PagesController@istek_list');
+
 Route::post('/add_file_change','IstekController@only_pic');
 Route::post('/pic_delete','IstekController@pic_delete');
 //<=================Istek Routes End ================>
@@ -44,7 +45,8 @@ Route::post('/pic_delete','IstekController@pic_delete');
 Route::get('/destek-add','DestekController@show');
 Route::post('/destek-add','DestekController@destek_add');
 Route::get('/destek-edit/{id}','DestekController@destek_edit');
-Route::patch('/destek-edit/{id}','DestekController@destek_update');
+Route::get('/istek-list','PagesController@istek_list');
+Route::get('/destek-list','PagesController@destek_list');
 //<=================Destek Routes End ================>
 
 
