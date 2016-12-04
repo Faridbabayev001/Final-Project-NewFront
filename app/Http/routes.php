@@ -47,7 +47,6 @@ Route::get('/destek-add','DestekController@show');
 Route::post('/destek-add','DestekController@destek_add');
 Route::get('/destek-edit/{id}','DestekController@destek_edit');
 Route::patch('/destek-edit/{id}','DestekController@destek_update');
-Route::get('/istek-list','PagesController@istek_list');
 Route::get('/destek-list','PagesController@destek_list');
 //<=================Destek Routes End ================>
 

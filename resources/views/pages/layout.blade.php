@@ -95,7 +95,7 @@ use App\Qarsiliq;
           <li class="dropdown">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Xoş gəldiniz, {{Auth::user()->name}} <span class="caret"></span></a>
               <ul class="dropdown-menu contact-profil-menu" role="menu">
-                  <li><a href="{{url('/Profil')}}"><img src="{{url('/images/prof.png')}}" class="img-responsive center-block" alt="Avatar"/></a></li>
+                  <li><a href="{{url('/Profil')}}"><img src="{{url('/image/'.Auth::user()->avatar)}}" class="img-responsive center-block" alt="Avatar"/></a></li>
                   <li><a href="{{url('/Profil')}}"><i class="fa fa-btn fa-user"></i> Profilim</a></li>
                   <li><a href="{{url('/Istekler')}}"><i class="fa fa-btn fa-map-marker"></i> İstəklərim</a></li>
                   <li><a href="{{url('/Destekler')}}"><i class="fa fa-btn fa-support"></i> Dəstəklərim</a></li>

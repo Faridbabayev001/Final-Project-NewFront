@@ -58,7 +58,7 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 about-us-team-wrapper">
           <div class="about-us-team-block">
             <div class="about-us-team-img">
-              <img src="/image/farid.jpg" class="img-responsive" alt="team image">
+              <img src="{{url('/images/farid.jpg')}}" class="img-responsive" alt="team image">
             </div>
             <div class="about-us-team-details">
               <h3 class="about-us-team-details-title">Fərid Babayev</h3>
@@ -70,7 +70,7 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 about-us-team-wrapper">
           <div class="about-us-team-block">
             <div class="about-us-team-img">
-              <img src="/image/naseh.jpg" class="img-responsive" alt="team image">
+              <img src="{{url('/images/naseh.jpg')}}" class="img-responsive" alt="team image">
             </div>
             <div class="about-us-team-details">
               <h3 class="about-us-team-details-title">Naseh Bədəlov</h3>
