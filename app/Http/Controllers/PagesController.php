@@ -101,6 +101,7 @@ class PagesController extends Controller
 
       public function notification_count(Request $request,Qarsiliq $qarsiliq,$id)
       {   Session::flash('description_destek' , "Dəstəyiniz uğurla  gönderildi. ");
+          Session::flash('description_istek' , "istəyiniz uğurla  gönderildi. ");
 
           $qarsiliq->elan_id = $id;
           $qarsiliq->user_id = Auth::user()->id;
@@ -134,7 +135,7 @@ class PagesController extends Controller
 
         $notication_single=Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
               ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-              ->select('users.name','users.avatar','els.type_id','qarsiliqs.description','qarsiliqs.id','qarsiliqs.status')
+              ->select('users.name','users.avatar','els.type_id','qarsiliqs.description','qarsiliqs.id','qarsiliqs.status','qarsiliqs.notification')
               ->where([
                     ['qarsiliqs.id', '=', $id],
                     ['els.user_id', '=', Auth::user()->id]
@@ -143,12 +144,12 @@ class PagesController extends Controller
               $notication_single->status=0;
               $notication_single->update();
           }
-
+          // dd($notication_single);
        return view('pages.notification_single',compact('notication_single'));
     }
 
 
-    //<================= METHHOD FOR SETTİNGS ================>
+    //<================= METHHOD FOR PROFİL UPDATE ================>
 
     public function settings(Request $request)
     {
@@ -260,5 +261,14 @@ class PagesController extends Controller
     {
       $datas=Elan::orderBy('created_at','desc')->get();
       return view('pages.destek_list', compact('datas'));
+    }
+
+    //<================= METHHOD FOR DELETE ISTEK OR DESTEK MESSSAGE ================>
+    public function refusal($id)
+    {
+        $qars=Qarsiliq::find($id);
+        $qars->notification=0;
+        $qars->update();
+       return back();
     }
 }

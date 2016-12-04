@@ -298,6 +298,16 @@
         color: $main-bg-color;
         background-color: white;
       }
+
+    }
+    .notification-seen{
+      color: white ;
+      background-color:$main-bg-color;
+
+      &:hover{
+        color: $main-bg-color;
+        background-color: white;
+      }
     }
     .notification-time{
       font-size: 10px;

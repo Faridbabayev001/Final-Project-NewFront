@@ -173,7 +173,7 @@ class IstekController extends Controller
    {
      $istek_delete=Elan::find($id);
      $istek_delete->shekiller();
-     foreach ($istek_delete->shekiller as $val) {
+     foreach ($istek_delete->shekiller as $val) { 
          unlink('image/'.$val->imageName);
      }
      $istek_delete->delete();

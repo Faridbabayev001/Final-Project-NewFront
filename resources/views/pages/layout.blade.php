@@ -48,7 +48,7 @@ use App\Qarsiliq;
 
             $noti_image = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
                       ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-                      ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.id')
+                      ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.id','qarsiliqs.status')
                       ->orderBy('created_at', 'desc')
                        ->where('els.user_id', '=', Auth::user()->id)
                       ->take(3)
@@ -68,18 +68,32 @@ use App\Qarsiliq;
                 @foreach($noti_image as $key => $notification_image)
                   @if($notification_image->user_id != Auth::user()->id)
                     <li>
-                      <a href="{{url('/Bildiriş/'.$notification_image->id)}}">
-                        <img src="{{url('/image/'.$notification_image->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
+                    @if($notification_image->status==0)
+                        <a href="{{url('/Bildiriş/'.$notification_image->id)}}" class="notification-seen">
+                          <img src="{{url('/image/'.$notification_image->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
                           <p>
-                        @if($notification_image->type_id==2)
-                            <span class="special-istek">{{$notification_image->name}}</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !
-                        @endif
-                        @if($notification_image->type_id==1)
-                          <span class="special-destek">{{$notification_image->name}}</span>  adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
-                        @endif
-                        </p>
-                      </a>
-                    </li>
+                            @if($notification_image->type_id==2)
+                              <span class="special-istek">{{$notification_image->name}}</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !
+                            @endif
+                            @if($notification_image->type_id==1)
+                              <span class="special-destek">{{$notification_image->name}}</span>  adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
+                            @endif
+                          </p>
+                        </a>
+                      @else
+                        <a href="{{url('/Bildiriş/'.$notification_image->id)}}">
+                          <img src="{{url('/image/'.$notification_image->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
+                          <p>
+                            @if($notification_image->type_id==2)
+                              <span class="special-istek">{{$notification_image->name}}</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !
+                            @endif
+                            @if($notification_image->type_id==1)
+                              <span class="special-destek">{{$notification_image->name}}</span>  adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
+                            @endif
+                          </p>
+                        </a>
+                    @endif
+                  </li>
                   @else
 
                   @endif
