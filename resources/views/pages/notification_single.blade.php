@@ -27,10 +27,20 @@
             @endif
           </h3>
           <h4 class="not-single-desc">{{$notication_single->description}}</h4>
-          <p class="pull-right">
-            <a href="#" class="btn not-accept"><i class="fa fa-check"></i> Qəbul et</a>
-            <a href="#" class="btn not-deny"><i class="fa fa-times"></i> İmtina et</a>
-          </p>
+          @if($notication_single->notification==0)
+              <div class="alert alert-danger" role="alert">
+              @if($notication_single->type_id==1)
+                Bu istək imtina edilib !
+              @elseif($notication_single->type_id==2)
+                Bu dəstək imtina edilib !
+              @endif
+            </div>
+          @elseif($notication_single->notification==1)
+            <p class="pull-right">
+                <a href="/accept/" class="btn not-accept"><i class="fa fa-check"></i> Qəbul et</a>
+                <a href="{{url('/refusal/'.$notication_single->id)}}" class="btn not-deny"><i class="fa fa-times"></i> İmtina et</a>
+            </p>
+          @endif
         </div>
       </div>
     </div>

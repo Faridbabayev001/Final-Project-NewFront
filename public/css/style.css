@@ -8809,6 +8809,12 @@ span.special-destek {
       #contact .contact-auth-notification a:hover {
         color: #28353D;
         background-color: white; }
+    #contact .contact-auth-notification .notification-seen {
+      color: white;
+      background-color: #28353D; }
+      #contact .contact-auth-notification .notification-seen:hover {
+        color: #28353D;
+        background-color: white; }
     #contact .contact-auth-notification .notification-time {
       font-size: 10px;
       font-style: italic; }
