@@ -1,5 +1,5 @@
 @extends('pages.layout')
-@section('title','Destek')
+@section('title','Dəstək əlavə et')
 @section('content')
 <style type="text/css">
   form img{
@@ -70,7 +70,7 @@
               {{-- <=================organization input ================> --}}
               <div class="form-group">
                 <label for="name">Təşkilat adı</label>
-                <input type="text" name="org" class="form-control" value="{{ old('org') }}">
+                <input type="text" name="org" class="form-control" placeholder="Yoxdursa boş buraxın" value="{{ old('org') }}">
               </div>
 
               {{-- <=================About input ================> --}}
@@ -150,7 +150,7 @@
               {{-- <=================Nov input ================> --}}
               <div class="form-group{{ $errors->has('nov') ? ' has-error' : '' }}">
                 <label for="password">Növ<SPAN> *</SPAN></label>
-                <input type="text" name="nov" class="form-control" value="{{ old('nov') }}">
+                <input type="text" name="nov" class="form-control" placeholder="Məsələn: Təhsil, texnologiya və s." value="{{ old('nov') }}">
                 @if ($errors->has('nov'))
                     <span class="help-block">
                       <strong>Boşluq buraxmayın</strong>
