@@ -41,12 +41,10 @@ use App\Qarsiliq;
             $noti = Elan::join('users', 'users.id', '=', 'els.user_id')
                       ->join('qarsiliqs', 'qarsiliqs.elan_id', '=', 'els.id')
                       ->select('els.type_id','users.name','users.avatar','qarsiliqs.notification','qarsiliqs.id','qarsiliqs.status')
-                      //  ->where('els.user_id', '=', Auth::user()->id)
                        ->where([
                              ['qarsiliqs.status', '=', 1],
                              ['els.user_id', '=', Auth::user()->id]
                          ])->get();
-                      // ->get();
 
             $noti_image = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
                       ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
@@ -95,7 +93,7 @@ use App\Qarsiliq;
               </ul>
           </li>
           <li class="dropdown">
-              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Xoş gəldiniz, {{Auth::user()->username}} <span class="caret"></span></a>
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">Xoş gəldiniz, {{Auth::user()->name}} <span class="caret"></span></a>
               <ul class="dropdown-menu contact-profil-menu" role="menu">
                   <li><a href="{{url('/Profil')}}"><img src="{{url('/images/prof.png')}}" class="img-responsive center-block" alt="Avatar"/></a></li>
                   <li><a href="{{url('/Profil')}}"><i class="fa fa-btn fa-user"></i> Profilim</a></li>
