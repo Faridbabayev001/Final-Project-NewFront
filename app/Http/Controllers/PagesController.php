@@ -18,7 +18,7 @@ class PagesController extends Controller
 {
     public function index(Request $request)
     {
-      $datas=Elan::orderBy('created_at','desc')->take(4)->get();
+      $datas=Elan::orderBy('created_at','desc')->take(5)->get();
       $datamaps=Elan::all();
       foreach ($datamaps as $check_date) {
       $dbdate=new DateTime($check_date->deadline);
@@ -188,7 +188,7 @@ class PagesController extends Controller
               unlink('image/'.$avatar_del);
             }
 
-            $filename=date('ygmis').'.'.$img_name; 
+            $filename=date('ygmis').'.'.$img_name;
             $request->file('avatar')->move(public_path('image/'),$filename);
             $data = [
               'username' => Auth::user()->username,
@@ -203,7 +203,7 @@ class PagesController extends Controller
                 Session::flash('imageerror' , "Xahiş olunur şəkili düzgun yükləyəsiniz.");
             return redirect('/Tənzimləmələr');
           }
-         
+
       }
        Session::flash('added' , "Məlumatlarınız yeniləndi.");
         return redirect('/Tənzimləmələr');
