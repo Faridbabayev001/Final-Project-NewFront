@@ -12,6 +12,9 @@
     </div>
   </div>
 </div>
+@if (Session::has('send'))
+  <div class="alert alert-success text-center" role="alert">{{Session::get('send')}}</div>
+@endif
 <section id="contact-us">
   <div class="container">
     <div class="row">
