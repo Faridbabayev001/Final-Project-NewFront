@@ -18,7 +18,7 @@ class PagesController extends Controller
 {
     public function index(Request $request)
     {
-      $datas=Elan::orderBy('created_at','desc')->take(4)->get();
+      $datas=Elan::orderBy('created_at','desc')->take(5)->get();
       $datamaps=Elan::all();
       foreach ($datamaps as $check_date) {
       $dbdate=new DateTime($check_date->deadline);

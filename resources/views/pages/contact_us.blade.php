@@ -12,10 +12,31 @@
     </div>
   </div>
 </div>
+@if (Session::has('send'))
+  <div class="alert alert-success text-center" role="alert">{{Session::get('send')}}</div>
+@endif
 <section id="contact-us">
   <div class="container">
     <div class="row">
-      <div class="col-lg-7 col-lg-offset-3 about-us-form">
+      <div class="col-lg-4">
+        <div class="col-lg-12 padding0">
+            <ul class="about-us-social-block list-inline col-lg-12 padding0">
+              <li class="col-lg-3"><img src="/images/contact-us-fb.png" class="img-responsive" alt="Facebook icon"></li>
+              <li class="col-lg-9"><a href="#"><h1>/Bumeranq.org</h1></a></li>
+            </ul>
+
+            <ul class="about-us-social-block list-inline col-lg-12 padding0">
+              <li class="col-lg-3"><img src="/images/contact-us-tw.png" class="img-responsive" alt="Twitter icon"></li>
+              <li class="col-lg-9"><a href="#"><h1>@Bumeranq.org</h1></a></li>
+            </ul>
+
+            <ul class="about-us-social-block list-inline col-lg-12 padding0">
+              <li class="col-lg-3"><img src="/images/contact-us-gp.png" class="img-responsive" alt="Twitter icon"></li>
+              <li class="col-lg-9"><a href="#"><h1>+Bumeranq.org</h1></a></li>
+            </ul>
+        </div>
+      </div>
+      <div class="col-lg-8 contact-us-form">
         <form action="{{url('/Əlaqə')}}" method="post">
           {{csrf_field()}}
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
@@ -45,7 +66,7 @@
               </span>
             @endif
           </div>
-          <input type="submit" class="btn" value="Göndər">
+          <input type="submit" class="btn pull-right" value="Göndər">
         </form>
       </div>
     </div>
