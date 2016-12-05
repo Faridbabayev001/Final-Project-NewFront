@@ -20,12 +20,10 @@ class IstekController extends Controller
   //<================= METHHOD FOR ISTEK_ADD PAGE ================>
     public function istek_add(Request $req)
     {
-     if($req->file('image')[0]==null){
-       Session::flash('imageerror' , "Xahiş olunur şəkil seçin.");
          $this->validate($req, [
              'title' => 'required',
              'about' => 'required',
-             'location' => 'required',
+             'location' =>'required',
              'lat' => 'required',
              'lng' => 'required',
              'name' => 'required',
@@ -34,7 +32,9 @@ class IstekController extends Controller
              'nov' => 'required',
              'date' => 'required'
         ]);
-          return redirect('/istek-add');
+     if($req->file('image')[0]==null){
+       Session::flash('imageerror' , "Xahiş olunur şəkil seçin.");
+       return back();
      }
 
      $files = $req->file('image');
@@ -51,7 +51,6 @@ class IstekController extends Controller
        }
      }
 
-         Session::flash('istekadded' , "İstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
          $data = [
                'type_id'=>'2',
                'title'=>$req->title,
@@ -70,14 +69,14 @@ class IstekController extends Controller
           $files = $req->file('image');
 
           foreach ($files as $file) {
-            $file_name =  time().$file->getClientOriginalName();
+            $file_name =  date('ygmis').'.'.$file->getClientOriginalName();
             $file->move(public_path('image'),$file_name);
             $data = new Photo;
             $data->imageName = $file_name;
             $insert_pic_id->save($data);
       }
-
-            return redirect('/istek-add');
+         Session::flash('istekadded' , "İstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
+           return redirect('/istek-add');
   }
 
 
@@ -146,7 +145,7 @@ class IstekController extends Controller
             'phone' => 'required',
             'email' => 'required',
             'nov' => 'required',
-    ]);
+      ]);
 
         $this->delete_edited_pics($req->input('picsArray'));
 
@@ -174,7 +173,7 @@ class IstekController extends Controller
    {
      $istek_delete=Elan::find($id);
      $istek_delete->shekiller();
-     foreach ($istek_delete->shekiller as $val) {
+     foreach ($istek_delete->shekiller as $val) { 
          unlink('image/'.$val->imageName);
      }
      $istek_delete->delete();

@@ -48,7 +48,7 @@ use App\Qarsiliq;
 
             $noti_image = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
                       ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-                      ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.id')
+                      ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.id','qarsiliqs.status')
                       ->orderBy('created_at', 'desc')
                        ->where('els.user_id', '=', Auth::user()->id)
                       ->take(3)
@@ -68,18 +68,32 @@ use App\Qarsiliq;
                 @foreach($noti_image as $key => $notification_image)
                   @if($notification_image->user_id != Auth::user()->id)
                     <li>
-                      <a href="{{url('/Bildiriş/'.$notification_image->id)}}">
-                        <img src="{{url('/image/'.$notification_image->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
+                    @if($notification_image->status==0)
+                        <a href="{{url('/Bildiriş/'.$notification_image->id)}}" class="notification-seen">
+                          <img src="{{url('/image/'.$notification_image->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
                           <p>
-                        @if($notification_image->type_id==2)
-                            <span class="special-istek">{{$notification_image->name}}</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !
-                        @endif
-                        @if($notification_image->type_id==1)
-                          <span class="special-destek">{{$notification_image->name}}</span>  adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
-                        @endif
-                        </p>
-                      </a>
-                    </li>
+                            @if($notification_image->type_id==2)
+                              <span class="special-istek">{{$notification_image->name}}</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !
+                            @endif
+                            @if($notification_image->type_id==1)
+                              <span class="special-destek">{{$notification_image->name}}</span>  adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
+                            @endif
+                          </p>
+                        </a>
+                      @else
+                        <a href="{{url('/Bildiriş/'.$notification_image->id)}}">
+                          <img src="{{url('/image/'.$notification_image->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
+                          <p>
+                            @if($notification_image->type_id==2)
+                              <span class="special-istek">{{$notification_image->name}}</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !
+                            @endif
+                            @if($notification_image->type_id==1)
+                              <span class="special-destek">{{$notification_image->name}}</span>  adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
+                            @endif
+                          </p>
+                        </a>
+                    @endif
+                  </li>
                   @else
 
                   @endif
@@ -95,7 +109,7 @@ use App\Qarsiliq;
           <li class="dropdown">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Xoş gəldiniz, {{Auth::user()->name}} <span class="caret"></span></a>
               <ul class="dropdown-menu contact-profil-menu" role="menu">
-                  <li><a href="{{url('/Profil')}}"><img src="{{url('/images/prof.png')}}" class="img-responsive center-block" alt="Avatar"/></a></li>
+                  <li><a href="{{url('/Profil')}}"><img src="{{url('/image/'.Auth::user()->avatar)}}" class="img-responsive center-block" alt="Avatar"/></a></li>
                   <li><a href="{{url('/Profil')}}"><i class="fa fa-btn fa-user"></i> Profilim</a></li>
                   <li><a href="{{url('/Istekler')}}"><i class="fa fa-btn fa-map-marker"></i> İstəklərim</a></li>
                   <li><a href="{{url('/Destekler')}}"><i class="fa fa-btn fa-support"></i> Dəstəklərim</a></li>

@@ -101,6 +101,7 @@ class PagesController extends Controller
 
       public function notification_count(Request $request,Qarsiliq $qarsiliq,$id)
       {   Session::flash('description_destek' , "Dəstəyiniz uğurla  gönderildi. ");
+          Session::flash('description_istek' , "istəyiniz uğurla  gönderildi. ");
 
           $qarsiliq->elan_id = $id;
           $qarsiliq->user_id = Auth::user()->id;
@@ -134,7 +135,7 @@ class PagesController extends Controller
 
         $notication_single=Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
               ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-              ->select('users.name','users.avatar','els.type_id','qarsiliqs.description','qarsiliqs.id','qarsiliqs.status')
+              ->select('users.name','users.avatar','els.type_id','qarsiliqs.description','qarsiliqs.id','qarsiliqs.status','qarsiliqs.notification')
               ->where([
                     ['qarsiliqs.id', '=', $id],
                     ['els.user_id', '=', Auth::user()->id]
@@ -143,12 +144,12 @@ class PagesController extends Controller
               $notication_single->status=0;
               $notication_single->update();
           }
-
+          // dd($notication_single);
        return view('pages.notification_single',compact('notication_single'));
     }
 
 
-    //<================= METHHOD FOR SETTİNGS ================>
+    //<================= METHHOD FOR PROFİL UPDATE ================>
 
     public function settings(Request $request)
     {
@@ -175,8 +176,17 @@ class PagesController extends Controller
         $filetype=$request->file('avatar')->getClientOriginalExtension();
         $img_name = $request->file('avatar')->getCLientOriginalName();
         $lowered = strtolower($filetype);
-        // dd($img_name);
+
           if($lowered=='jpg' || $lowered=='jpeg' || $lowered=='png'){
+
+            $avatar_del = Auth::user()->avatar;
+            if($avatar_del=="prof.png"){
+              echo "hello";
+            }
+            else if(file_exists('image/'.$avatar_del)){
+                echo "no";
+              unlink('image/'.$avatar_del);
+            }
 
             $filename=date('ygmis').'.'.$img_name; 
             $request->file('avatar')->move(public_path('image/'),$filename);
@@ -187,11 +197,13 @@ class PagesController extends Controller
               'avatar' => $filename,
               'city' => $request['city']
             ];
+
              Auth::user()->update($data);
-        }else{
-              Session::flash('imageerror' , "Xahiş olunur şəkili düzgun yükləyəsiniz.");
-          return redirect('/Tənzimləmələr');
-        }
+          }else{
+                Session::flash('imageerror' , "Xahiş olunur şəkili düzgun yükləyəsiniz.");
+            return redirect('/Tənzimləmələr');
+          }
+         
       }
        Session::flash('added' , "Məlumatlarınız yeniləndi.");
         return redirect('/Tənzimləmələr');
@@ -249,5 +261,14 @@ class PagesController extends Controller
     {
       $datas=Elan::orderBy('created_at','desc')->get();
       return view('pages.destek_list', compact('datas'));
+    }
+
+    //<================= METHHOD FOR DELETE ISTEK OR DESTEK MESSSAGE ================>
+    public function refusal($id)
+    {
+        $qars=Qarsiliq::find($id);
+        $qars->notification=0;
+        $qars->update();
+       return back();
     }
 }

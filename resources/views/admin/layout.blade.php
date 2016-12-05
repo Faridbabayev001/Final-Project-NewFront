@@ -60,10 +60,9 @@
                                 <a href="{{url('/Dəstək-list')}}"><i class="fa fa-qrcode"></i>Destek Siyahisi</a>
                             </li>
                             <li>
-                                <a href="{{url('/Istək-list')}}"><i class="fa fa-qrcode"></i>Istek Siyahisi</a>
+                                <a href="{{url('/İstək-list')}}"><i class="fa fa-qrcode"></i>Istek Siyahisi</a>
                             </li>
                     </li>
-
                     {{-- <li>
                         <a href="{{url('userlist')}}"><i class="fa fa-table"></i> User List</a>
                     </li> --}}
