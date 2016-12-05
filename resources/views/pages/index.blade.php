@@ -173,7 +173,7 @@
         @endforeach
         <!-- News block end -->
         <div class="col-lg-12 news-all-desteks-button">
-          <a href="/istek-list" class="btn pull-right">Bütün dəstəklər <i class="fa fa-angle-right"></i></a>
+          <a href="/destek-list" class="btn pull-right">Bütün dəstəklər <i class="fa fa-angle-right"></i></a>
         </div>
       </div>
     </div>
