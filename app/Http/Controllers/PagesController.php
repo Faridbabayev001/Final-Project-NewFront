@@ -188,7 +188,7 @@ class PagesController extends Controller
               unlink('image/'.$avatar_del);
             }
 
-            $filename=date('ygmis').'.'.$img_name; 
+            $filename=date('ygmis').'.'.$img_name;
             $request->file('avatar')->move(public_path('image/'),$filename);
             $data = [
               'username' => Auth::user()->username,
@@ -203,7 +203,7 @@ class PagesController extends Controller
                 Session::flash('imageerror' , "Xahiş olunur şəkili düzgun yükləyəsiniz.");
             return redirect('/Tənzimləmələr');
           }
-         
+
       }
        Session::flash('added' , "Məlumatlarınız yeniləndi.");
         return redirect('/Tənzimləmələr');
@@ -270,5 +270,11 @@ class PagesController extends Controller
         $qars->notification=0;
         $qars->update();
        return back();
+    }
+
+    //<================= METHHOD FOR ACCEPT ISTEK OR DESTEK MESSSAGE ================>
+    public function accept($id)
+    {
+      
     }
 }

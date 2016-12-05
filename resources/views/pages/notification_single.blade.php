@@ -37,7 +37,7 @@
             </div>
           @elseif($notication_single->notification==1)
             <p class="pull-right">
-                <a href="/accept/" class="btn not-accept"><i class="fa fa-check"></i> Qəbul et</a>
+                <a href="{{url('/accept/'.$notication_single->id)}}" class="btn not-accept"><i class="fa fa-check"></i> Qəbul et</a>
                 <a href="{{url('/refusal/'.$notication_single->id)}}" class="btn not-deny"><i class="fa fa-times"></i> İmtina et</a>
             </p>
           @endif
