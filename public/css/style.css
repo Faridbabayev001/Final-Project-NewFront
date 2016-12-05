@@ -8167,25 +8167,35 @@ span.special-destek {
 #contact-us {
   padding-top: 50px;
   min-height: 100%; }
-  #contact-us input {
+  #contact-us .contact-us-form input {
     height: 40px;
     border-radius: 0; }
-    #contact-us input:focus {
+    #contact-us .contact-us-form input:focus {
       border: 1px solid #28353D;
       box-shadow: none; }
-  #contact-us input[type='submit'] {
+  #contact-us .contact-us-form input[type='submit'] {
     color: white;
     background-color: #0090D9;
     transition: all .3s ease;
     padding-left: 10px;
     padding-right: 10px; }
-    #contact-us input[type='submit']:hover {
+    #contact-us .contact-us-form input[type='submit']:hover {
       background-color: #007fc0; }
-  #contact-us textarea {
+  #contact-us .contact-us-form textarea {
     border-radius: 0; }
-    #contact-us textarea:focus {
+    #contact-us .contact-us-form textarea:focus {
       border: 1px solid #28353D;
       box-shadow: none; }
+  #contact-us .about-us-social-block {
+    margin-bottom: 45px; }
+    #contact-us .about-us-social-block:first-child {
+      margin-top: 23px; }
+    #contact-us .about-us-social-block a {
+      text-decoration: none;
+      color: #595B57;
+      transition: all .3s ease; }
+      #contact-us .about-us-social-block a:hover {
+        color: #28353D; }
 
 #map {
   width: 100%;
