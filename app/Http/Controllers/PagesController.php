@@ -271,4 +271,10 @@ class PagesController extends Controller
         $qars->update();
        return back();
     }
+
+    //<================= METHHOD FOR ACCEPT ISTEK OR DESTEK MESSSAGE ================>
+    public function accept($id)
+    {
+      
+    }
 }
