@@ -153,12 +153,10 @@ class PagesController extends Controller
 
     public function settings(Request $request)
     {
-      // dd('sss');
-      // dd($request['avatar']);
+
       $this->validate($request, [
          'name' => 'required',
          'phone' => 'required',
-         // 'avatar' => 'required',
          'city' => 'required'
       ]);
       if ($request->avatar == '') {
@@ -200,7 +198,7 @@ class PagesController extends Controller
 
              Auth::user()->update($data);
           }else{
-                Session::flash('imageerror' , "Xahiş olunur şəkili düzgun yükləyəsiniz.");
+              Session::flash('imageerror' , "Xahiş olunur şəkili düzgun yükləyəsiniz.");
             return redirect('/Tənzimləmələr');
           }
 

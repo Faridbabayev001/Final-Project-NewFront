@@ -46,9 +46,10 @@
         @if (Session::has('istek_edited'))
           <div class="alert alert-success" role="alert">{{Session::get('istek_edited')}}</div>
         @endif
-        @if (Session::has('imageerror'))
+      {{--   @if (Session::has('imageerror'))
           <div class="alert alert-danger" role="alert">{{Session::get('imageerror')}}</div>
-        @endif
+        @endif --}}
+        <div id="ajaxErrorImage" class="aler alert-danger"></div>
 
         <form action="{{url('/istek-edit/'.$istek_edit->id)}}" method="POST" enctype="multipart/form-data">
           {{csrf_field()}}
@@ -111,7 +112,7 @@
             </div>
             {{-- image show from DB --}}
            @foreach($istek_edit->shekiller as $pic)
-                <div class="img-wrap" imagename="{{$pic->imageName}}">
+                <div class="img-wrap" imagename="{{$pic->imageName}}" data-remove="{{$pic->imageName}}">
                     <span class="close"  imagename="{{$pic->imageName}}">&times;</span>
                   <img class="im_" imagename="{{$pic->imageName}}" src="{{url('/image/'.$pic->imageName)}}" alt="İstək image" />
                   </div>

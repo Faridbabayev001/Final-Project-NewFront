@@ -93,41 +93,65 @@ class IstekController extends Controller
         {
 
           if ($req->ajax()) {
-            $fileName = $req->file->getClientOriginalName();
-            $file = $_FILES['file'];
-            $istek_id = $_POST['istek_id'];
-            $file['istek_id'] = $istek_id;
+            $file_type = $req->file->getClientOriginalExtension();
+            $lowered = strtolower($file_type);
 
-            $file_name =date('ygmis').'.'.$fileName;
+            if($lowered=='jpg' || $lowered=='jpeg' || $lowered=='png'){
+                $fileName = $req->file->getClientOriginalName();
+                $file = $_FILES['file'];
+                $istek_id = $_POST['istek_id'];
+                $file['istek_id'] = $istek_id;
+                $file_name =date('ygmis').'.'.$fileName;
+                $req->file->move(public_path('image'), $file_name);
+                $sekil = Elan::find($istek_id);
+                $hamsi = $sekil->shekiller();
+                $data = new Photo;
+                $data->imageName = $file_name;
+                $hamsi->save($data);
 
-            $req->file->move(public_path('image'), $file_name);
-            $sekil = Elan::find($istek_id);
-            $hamsi = $sekil->shekiller();
-            $data = new Photo;
-            $data->imageName = $file_name;
-            $hamsi->save($data);
-            return json_encode($file_name);
-
-
+                return json_encode($file_name);
+            }else{
+              $file_name="error";
+             return json_encode($file_name);
+            }
           }
 
         }
 
   //<============ METHHOD FOR DELETING X PRESSED IMGS FROM EDITING=======>
 
-        public function delete_edited_pics($pics) {
-          if(!$pics) return false;
-            foreach ($pics as $pic=>$status) {
-              if(file_exists('image/'.$pic)){
-                if($status == 0) {
-                  unlink('image/'.$pic);
-                  Photo::where('imageName', $pic)->delete();
-                  echo "he";
-                }
-              }
-            }
-        }
+        // public function delete_edited_pics($pics) {
+        //   if(!$pics) return false;
+        //     foreach ($pics as $pic=>$status) {
+        //       if(file_exists('image/'.$pic)){
+        //         if($status == 0) {
+        //           unlink('image/'.$pic);
+        //           Photo::where('imageName', $pic)->delete();
+        //           echo "he";
+        //         }
+        //       }
+        //     }
+        // }
 
+
+      public function deleteAjax(Request $req)
+      {
+        if($req->ajax()){
+          $name = $_POST['imagefile'];
+          $he = Photo::where('imageName',$name);
+          echo $he->count();
+          $im_length = $_POST['im_length'];
+          if($he->count()==1 && $im_length==1){
+            $img_error = "olmaz";
+            return json_encode($img_error);
+          }else{            
+            if(file_exists('image/'.$name)){
+                  unlink('image/'.$name);
+                  $he->delete();
+              }
+          }
+        }
+      }
   //<============ METHHOD FOR DELETING X PRESSED IMGS WITH AJAX=======>
 
 
@@ -147,7 +171,7 @@ class IstekController extends Controller
             'nov' => 'required',
       ]);
 
-        $this->delete_edited_pics($req->input('picsArray'));
+        // $this->delete_edited_pics($req->input('picsArray'));
 
        Session::flash('istek_edited' , "İstəyiniz uğurla dəyişdirildi və yoxlamadan keçəndən sonra dərc olunacaq.");
        $istek_update = Elan::find($id);

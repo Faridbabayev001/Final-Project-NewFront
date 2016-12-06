@@ -37,7 +37,8 @@ Route::patch('/istek-edit/{id}','IstekController@istek_update');
 Route::get('/istek-list','PagesController@istek_list');
 
 Route::post('/add_file_change','IstekController@only_pic');
-Route::post('/pic_delete','IstekController@pic_delete');
+// Route::post('/pic_delete','IstekController@pic_delete');
+Route::post('/deleteAjax','IstekController@deleteAjax');
 //<=================Istek Routes End ================>
 
 
