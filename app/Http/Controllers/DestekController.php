@@ -23,25 +23,28 @@ class DestekController extends Controller
         {
 
           if ($req->ajax()) {
-            $fileName = $req->file->getClientOriginalName();
-            $file = $_FILES['file'];
-            $istek_id = $_POST['istek_id'];
-            $file['istek_id'] = $istek_id;
+            $file_type = $req->file->getClientOriginalExtension();
+            $lowered = strtolower($file_type);
 
-            $file_name =date('ygmis').'.'.$fileName;
-
-            $req->file->move(public_path('image'), $file_name);
-            $sekil = Elan::find($istek_id);
-            $hamsi = $sekil->shekiller();
-            $data = new Photo;
-            $data->imageName = $file_name;
-            $hamsi->save($data);
-            return json_encode($file_name);
-
-
+            if($lowered=='jpg' || $lowered=='jpeg' || $lowered=='png'){
+                $fileName = $req->file->getClientOriginalName();
+                $file = $_FILES['file'];
+                $istek_id = $_POST['istek_id'];
+                $file['istek_id'] = $istek_id;
+                $file_name =date('ygmis').'.'.$fileName;
+                $req->file->move(public_path('image'), $file_name);
+                $sekil = Elan::find($istek_id);
+                $hamsi = $sekil->shekiller();
+                $data = new Photo;
+                $data->imageName = $file_name;
+                $hamsi->save($data);
+                return json_encode($file_name);
+              }else{
+                $file_name="error";
+                return json_encode($file_name);
+              }
           }
-
-        }
+      }
 
 
     //<============ METHHOD FOR DELETING X PRESSED IMGS FROM EDITING=======>
@@ -146,7 +149,7 @@ class DestekController extends Controller
         'nov' => 'required'
     ]);
 
-    $this->delete_edited_pics($req->input('picsArray'));
+    // $this->delete_edited_pics($req->input('picsArray'));
 
    Session::flash('destek_edited' , "Dəstəyiniz uğurla dəyişdirildi və yoxlamadan keçəndən sonra dərc olunacaq.");
    $destek_update = Elan::find($id);

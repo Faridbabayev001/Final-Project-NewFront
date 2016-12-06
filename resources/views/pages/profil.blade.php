@@ -216,8 +216,10 @@
         @if (Session::has('added'))
           <div class="alert alert-success" role="alert">{{Session::get('added')}}</div>
         @endif
+        <div id="ErrorImage" ></div>
+
           <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 padding0 profil-avatar">
-            <img src="{{url('/image/'.Auth::user()->avatar)}}" class="center-block" alt="Avatar">
+            <img src="{{url('/image/'.Auth::user()->avatar)}}" class="shoUploadedImg center-block" alt="Avatar">
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <form action="{{url('/Tənzimləmələr')}}" method="post" enctype="multipart/form-data">

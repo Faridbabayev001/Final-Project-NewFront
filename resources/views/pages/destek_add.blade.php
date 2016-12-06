@@ -36,6 +36,7 @@
           @if (Session::has('imageerror'))
             <div class="alert alert-danger" role="alert">{{Session::get('imageerror')}}</div>
           @endif
+        <div id="ajaxErrorImage" class="aler alert-danger"></div>
 
           <form action="{{url('/destek-add')}}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
