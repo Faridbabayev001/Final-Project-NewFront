@@ -335,7 +335,7 @@ $(document).on('click', '.social-buttons > a', function(e){
 
 // ----------------------------For Map in destek_add and istek_add pages-----------------------------------------------
 function initAutocomplete() {
-
+var MyLocation = document.getElementById('MyLocation')
   var map = new google.maps.Map(document.getElementById('map'), {
     center: {  lat: 40.100,lng: 47.500},
     zoom: 7,
@@ -355,8 +355,39 @@ function initAutocomplete() {
   map.addListener('bounds_changed', function() {
     searchBox.setBounds(map.getBounds());
   });
-
   var markers = [];
+  var geocoder = new google.maps.Geocoder;
+  MyLocation.addEventListener('click',function(){
+    if(navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(function(position) {
+                var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                map.setCenter(latlng);
+                map.setZoom(15);
+                var marker = new google.maps.Marker({
+                  position: latlng,
+                  map: map,
+                });
+                  geocodeLatLng(geocoder, map);
+                function geocodeLatLng(geocoder, map) {
+                  geocoder.geocode({'location': latlng}, function(results, status) {
+                    if (status === 'OK') {
+                      if (results[1]) {
+                        document.getElementById('adress').value = results[1].formatted_address;
+                        document.getElementById('lat').value = position.coords.latitude;
+                        document.getElementById('lng').value = position.coords.longitude;
+                      } else {
+                        window.alert('No results found');
+                      }
+                    } else {
+                      window.alert('Geocoder failed due to: ' + status);
+                    }
+                  });
+                }
+                markers.push(marker);
+            });
+        };
+  });
+
   // Listen for the event fired when the user selects a prediction and retrieve
   // more details for that place.
   searchBox.addListener('places_changed', function() {
@@ -395,14 +426,12 @@ function initAutocomplete() {
       if (place.geometry.viewport) {
         // Only geocodes have viewport.
         bounds.union(place.geometry.viewport);
-        console.log(place.vicinity)
           document.getElementById('lat').value = place.geometry.location.lat();
           document.getElementById('lng').value = place.geometry.location.lng();
 
 
       } else {
         bounds.extend(place.geometry.location);
-          console.log(place.formatted_address)
         document.getElementById('lat').value = place.geometry.location.lat();
         document.getElementById('lng').value = place.geometry.location.lng();
 

@@ -21,7 +21,9 @@ Route::get('/Tənzimləmələr','PagesController@profil');
 Route::post('/Tənzimləmələr','PagesController@settings');
 Route::get('/Profil','PagesController@profil');
 Route::get('/Istekler','PagesController@profil');
+Route::get('/istek-list','PagesController@istek_list');
 Route::get('/Destekler','PagesController@profil');
+Route::get('/destek-list','PagesController@destek_list');
 Route::get('/Tənzimləmələr','PagesController@profil');
 Route::get('/single/{id}','PagesController@single');
 //<=================Page Routes End ================>
@@ -34,8 +36,6 @@ Route::post('/istek-add','IstekController@istek_add');
 Route::get('/istek-edit/{id}','IstekController@istek_edit');
 Route::get('/istek-delete/{id}','IstekController@istek_delete');
 Route::patch('/istek-edit/{id}','IstekController@istek_update');
-Route::get('/istek-list','PagesController@istek_list');
-
 Route::post('/add_file_change','IstekController@only_pic');
 // Route::post('/pic_delete','IstekController@pic_delete');
 Route::post('/deleteAjax','IstekController@deleteAjax');
@@ -48,7 +48,6 @@ Route::get('/destek-add','DestekController@show');
 Route::post('/destek-add','DestekController@destek_add');
 Route::get('/destek-edit/{id}','DestekController@destek_edit');
 Route::patch('/destek-edit/{id}','DestekController@destek_update');
-Route::get('/destek-list','PagesController@destek_list');
 //<=================Destek Routes End ================>
 
 
@@ -58,6 +57,7 @@ Route::get('/Bildirişlər','PagesController@profil');
 Route::get('/Bildiriş/{id}','PagesController@notication_single');
 Route::get('/accept','PagesController@accept');
 Route::get('/refusal/{id}','PagesController@refusal');
+Route::get('/accept/{id}','PagesController@refusal');
 //<=================Nofification Routes End ================>
 
 
