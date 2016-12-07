@@ -16,7 +16,7 @@
     <div class="container">
       <div class="row">
         <div class="col-lg-3 col-md-4 col-sm-6 col-xs-12">
-          <img src="{{url('/images/'.$data_join->avatar)}}" alt="">
+          <img src="{{url('/image/'.$data_join->avatar)}}" alt="">
         </div>
         <div class="col-lg-9 col-md-8 col-sm-6 col-xs-12">
           <h3 class="not-single-title">
