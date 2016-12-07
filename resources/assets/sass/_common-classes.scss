@@ -14,7 +14,22 @@
     color: $common-blue-color !important;
     text-decoration: none !important;
 }
-
+.forImg{
+  border-radius: 0;
+  height: 40px;
+  line-height: 25px;
+  background: $main-bg-color;
+  color: white;
+  transition: all .3s ease;
+  &:focus{
+    border: 1px solid $main-bg-color;
+    box-shadow: none;
+  }
+  &:hover{
+    background-color: darken($main-bg-color, 5%);
+    color: white;
+  }
+}
 span.special-istek{
   font-weight: 700 !important;
   color: $istek-color !important;

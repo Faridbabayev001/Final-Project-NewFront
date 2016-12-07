@@ -90,7 +90,7 @@
               <label for="email">Şəkil <SPAN> *</SPAN></label>
               <a class="forImg form-control btn btn-default">Şəkil Seç</a>
               <input id="forLimitFile" type="file" name="image[]" class="imgInput hidden form-control" value="{{ old('image') }}" multiple>
-              <p>Eyni anda bir və ya bir neçə şəkil seçə bilərsiz</p>
+              <p>Eyni anda bir və ya bir neçə şəkil seçə bilərsiniz</p>
               @if ($errors->has('image'))
                   <span class="help-block">
                     <strong>Boşluq buraxmayın</strong>
@@ -182,7 +182,7 @@
 @elseif(Auth::guest())
   <section id="add">
     <div class="alert alert-danger">
-      <h1 class="text-center">İstək əlavə etmək üçün <a href="{{url('/Qeydiyyat')}}" class="register-color">qeydiyyatdan</a> keçməyiniz tələb olunur.</h1>
+      <h1 class="text-center">İstək əlavə etmək üçün <a href="#" data-toggle="modal" data-target="#contact-login-modal" class="register-color">daxil olun</a> ya da <a href="{{url('/Qeydiyyat')}}" class="register-color">qeydiyyatdan</a> keçməyiniz tələb olunur.</h1>
     </div>
   </section>
 @endif

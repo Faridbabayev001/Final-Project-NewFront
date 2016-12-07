@@ -90,7 +90,7 @@
                 <label for="email">Şəkil<SPAN> *</SPAN></label>
                 <a class="forImg form-control btn btn-default">Şəkil Seç</a>
                 <input id="forLimitFile" type="file" name="image[]" class="imgInput hidden form-control" value="{{ old('image') }}" multiple>
-                <p>Eyni anda bir və ya bir neçə şəkil seçə bilərsiz</p>
+                <p>Eyni anda bir və ya bir neçə şəkil seçə bilərsiniz</p>
                 @if ($errors->has('image'))
                     <span class="help-block">
                       <strong>Boşluq buraxmayın</strong>
