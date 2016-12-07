@@ -27,8 +27,8 @@
     <div class="row">
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
         <div id="map"></div>
+        <button id="MyLocation" class="btn" type="button" name="button">Məni Tap</button>
       </div>
-      <button id="MyLocation" type="button" name="button">Click</button>
       <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         @if (Session::has('istekadded'))
           <div class="alert alert-success" role="alert">{{Session::get('istekadded')}}</div>
@@ -36,6 +36,13 @@
         @if (Session::has('imageerror'))
           <div class="alert alert-danger" role="alert">{{Session::get('imageerror')}}</div>
         @endif
+        <div id="ajaxErrorImage"></div>
+
+              @if ($errors->has('about') || $errors->has('about') || $errors->has('lat') || $errors->has('lng') || $errors->has('nov') || $errors->has('date'))
+                  <span class="help-block">
+                    <div class="alert alert-danger"><p>Ulduz ilə işarəli xanaları boş saxlamayın.</p></div>
+                  </span>
+              @endif
 
         <form id="forUploadImages" action="{{url('/istek-add')}}" method="post" enctype="multipart/form-data">
           {{csrf_field()}}
@@ -44,11 +51,11 @@
             <div class="form-group{{ $errors->has('title') ? ' has-error' : '' }}">
               <label for="name">Başlıq<SPAN> *</SPAN></label>
               <input type="text" name="title" class="form-control" maxlength="33" value="{{ old('title') }}">
-              @if ($errors->has('title'))
+              {{-- @if ($errors->has('title'))
                  <span class="help-block">
                    <strong>Boşluq buraxmayın</strong>
                  </span>
-              @endif
+              @endif --}}
             </div>
 
             {{-- <=================location input ================> --}}
@@ -57,7 +64,7 @@
                  <input type="hidden" id="lat" name="lat">
                   <input type="hidden" id="lng" name="lng">
               <input type="text" name="location" class="form-control" id="adress" placeholder="">
-              @if ($errors->has('location'))
+            {{--   @if ($errors->has('location'))
                   <span class="help-block">
                     <strong>Boşluq buraxmayın</strong>
                   </span>
@@ -65,7 +72,7 @@
                   <span class="help-block">
                     <strong>Boşluq buraxmayın </strong>
                   </span>
-              @endif
+              @endif --}}
             </div>
 
             {{-- <=================organization input ================> --}}
@@ -78,23 +85,24 @@
             <div class="form-group{{ $errors->has('about') ? ' has-error' : '' }}">
               <label for="name">Açıqlama<SPAN> *</SPAN></label>
               <textarea name="about" class="form-control" rows="6" cols="80">{{ old('about') }}</textarea>
-              @if ($errors->has('about'))
+              {{-- @if ($errors->has('about'))
                   <span class="help-block">
                     <strong>Boşluq buraxmayın</strong>
                   </span>
-              @endif
+              @endif --}}
             </div>
           {{-- <=================image input ================> --}}
-            <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+            <div class="form-group{{ $errors->has('image[]') ? ' has-error' : '' }}">
               <label for="email">Şəkil <SPAN> *</SPAN></label>
               <a class="forImg form-control btn btn-default">Şəkil Seç</a>
               <input id="forLimitFile" type="file" name="image[]" class="imgInput hidden form-control" value="{{ old('image') }}" multiple>
-              <p>Eyni anda bir və ya bir neçə şəkil seçə bilərsiz</p>
-              @if ($errors->has('image'))
+              <p>Eyni anda bir və ya bir neçə şəkil seçə bilərsiniz</p>
+            {{--   @if ($errors->has('image'))
+>>>>>>> ad204cd3319f1dc290fb3d256edabf528599529c
                   <span class="help-block">
                     <strong>Boşluq buraxmayın</strong>
                   </span>
-              @endif
+              @endif --}}
             </div>
           {{-- for showing uploaded image --}}
           <div id="viewImage"></div>
@@ -106,11 +114,11 @@
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
               <label for="city">Ad, Soyad<SPAN> *</SPAN></label>
               <input type="text" class="form-control" name="name" value="{{Auth::user()->name}}">
-              @if ($errors->has('name'))
+             {{--  @if ($errors->has('name'))
                   <span class="help-block">
                     <strong>Boşluq buraxmayın</strong>
                   </span>
-              @endif
+              @endif --}}
             </div>
 
             {{-- <=================Phone input ================> --}}
@@ -129,11 +137,11 @@
                           </select>
                       </div>
                 <input type="text" class="form-control" name="phone" value="{{substr(Auth::user()->phone,6)}}" maxlength="7">
-                @if ($errors->has('phone'))
+               {{--  @if ($errors->has('phone'))
                     <span class="help-block">
                       <strong>Boşluq buraxmayın</strong>
                     </span>
-                @endif
+                @endif --}}
               </div>
             </div>
 
@@ -141,35 +149,35 @@
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
               <label for="password">Email<SPAN> *</SPAN></label>
               <input type="email" name="email" class="form-control" placeholder="Email" value="{{Auth::user()->email}}">
-              @if ($errors->has('email'))
+             {{--  @if ($errors->has('email'))
                 <span class="help-block">
                   <strong>Boşluq buraxmayın</strong>
                 </span>
-            @endif
+             @endif --}}
             </div>
 
             {{-- <=================Nov input ================> --}}
             <div class="form-group{{ $errors->has('nov') ? ' has-error' : '' }}">
               <label for="password">Növ<SPAN> *</SPAN></label>
               <input type="text" name="nov" class="form-control" placeholder="Məsələn: Təhsil, texnologiya və s." value="{{ old('nov') }}">
-              @if ($errors->has('nov'))
+              {{-- @if ($errors->has('nov'))
                   <span class="help-block">
                     <strong>Boşluq buraxmayın</strong>
                   </span>
-              @endif
+              @endif --}}
             </div>
 
             {{-- <=================Date input ================> --}}
             <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
               <label for="date">İstəyin müddəti<SPAN> *</SPAN></label>
               <input type="date" name="date" class="form-control" id="date" value="{{ old('date') }}">
-              @if ($errors->has('date'))
+             {{--  @if ($errors->has('date'))
                   <span class="help-block">
                     <strong>Tarix seçin</strong>
                   </span>
-              @endif
+              @endif --}}
             </div>
-            <div class="form-group text-center">
+            <div class="form-group text-right">
               <input type="submit" class="btn" value="GÖNDƏR">
             </div>
           </div>
@@ -181,7 +189,7 @@
 @elseif(Auth::guest())
   <section id="add">
     <div class="alert alert-danger">
-      <h1 class="text-center">İstək əlavə etmək üçün <a href="{{url('/Qeydiyyat')}}" class="register-color">qeydiyyatdan</a> keçməyiniz tələb olunur.</h1>
+      <h1 class="text-center">İstək əlavə etmək üçün <a href="#" data-toggle="modal" data-target="#contact-login-modal" class="register-color">daxil olun</a> ya da <a href="{{url('/Qeydiyyat')}}" class="register-color">qeydiyyatdan</a> keçməyiniz tələb olunur.</h1>
     </div>
   </section>
 @endif

@@ -173,14 +173,29 @@ class PagesController extends Controller
 
     //<================= METHHOD FOR PROFİL UPDATE ================>
 
+
+ public function imageType($name)
+      {
+        $file_type = strtolower($name->getClientOriginalExtension());
+        if($file_type =='jpg' || $file_type =='jpeg' || $file_type =='png'){   
+
+          if($name->getRealPath() && !@is_array(getimagesize($name->getRealPath()))){ 
+            return false;
+          }else{
+            return true;
+          }
+        }else{
+          return false;
+        }  
+      }
+
+
     public function settings(Request $request)
     {
-      // dd('sss');
-      // dd($request['avatar']);
+
       $this->validate($request, [
          'name' => 'required',
          'phone' => 'required',
-         // 'avatar' => 'required',
          'city' => 'required'
       ]);
       if ($request->avatar == '') {
@@ -195,34 +210,39 @@ class PagesController extends Controller
         ];
         Auth::user()->update($data);
       }else {
-        $filetype=$request->file('avatar')->getClientOriginalExtension();
-        $img_name = $request->file('avatar')->getCLientOriginalName();
-        $lowered = strtolower($filetype);
+        // $filetype=$request->file('avatar')->getClientOriginalExtension();
+        // $img_name = $request->file('avatar')->getCLientOriginalName();
+        // $lowered = strtolower($filetype);
 
-          if($lowered=='jpg' || $lowered=='jpeg' || $lowered=='png'){
+        //   if($lowered=='jpg' || $lowered=='jpeg' || $lowered=='png'){
 
-            $avatar_del = Auth::user()->avatar;
-            if($avatar_del=="prof.png"){
-              echo "hello";
-            }
-            else if(file_exists('image/'.$avatar_del)){
-                echo "no";
-              unlink('image/'.$avatar_del);
-            }
+          $check = $this->imageType($request->file('avatar'));
 
-            $filename=date('ygmis').'.'.$img_name;
-            $request->file('avatar')->move(public_path('image/'),$filename);
-            $data = [
-              'username' => Auth::user()->username,
-              'name' => $request['name'],
-              'phone' => '+994'.$request['operator'].$request['phone'],
-              'avatar' => $filename,
-              'city' => $request['city']
-            ];
+            if($check==true){
 
-             Auth::user()->update($data);
-          }else{
-                Session::flash('imageerror' , "Xahiş olunur şəkili düzgun yükləyəsiniz.");
+              $avatar_del = Auth::user()->avatar;
+              if($avatar_del=="prof.png"){
+                echo "hello";
+              }
+              else if(file_exists('image/'.$avatar_del)){
+                  echo "no";
+                unlink('image/'.$avatar_del);
+              }
+
+              $filename=date('ygmis').'.'.$img_name;
+              $request->file('avatar')->move(public_path('image/'),$filename);
+              $data = [
+                'username' => Auth::user()->username,
+                'name' => $request['name'],
+                'phone' => '+994'.$request['operator'].$request['phone'],
+                'avatar' => $filename,
+                'city' => $request['city']
+              ];
+
+               Auth::user()->update($data);
+          }
+          else{
+              Session::flash('imageerror' , "Xahiş olunur şəkili düzgun yükləyəsiniz.");
             return redirect('/Tənzimləmələr');
           }
 

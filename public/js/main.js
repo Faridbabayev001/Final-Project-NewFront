@@ -8,6 +8,17 @@ $(document).ready(function(){
     });
 //----------------------------MAP HEIGH FOR WINDOW SIZE END-------------------------------
 
+//----------------------------DROPDOWN SLIDE EFFECT---------------------------------------
+ $('.dropdown').on('show.bs.dropdown', function(e){
+   $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+ });
+
+ // ADD SLIDEUP ANIMATION TO DROPDOWN //
+ $('.dropdown').on('hide.bs.dropdown', function(e){
+   $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+ });
+//----------------------------DROPDOWN SLIDE EFFECT END----------------------------------
+
 //----------------------------EMAIL PLACEHOLDER CHANGE------------------------------------
 /*========================================================================================
 ==========================================================================================
@@ -51,7 +62,7 @@ $(document).ready(function(){
 ==========================================================================================
 ==========================================================================================*/
 
-// ----------------------------ISTEK EDIT CHOOSE FILE-----------------------------------------------
+// ----------------------------ISTEK DESTEK EDIT CHOOSE FILE-----------------------------------------------
 
 $("#uploadAjax").change(function(e) {
     e.preventDefault();
@@ -82,27 +93,33 @@ $("#uploadAjax").change(function(e) {
 
         success:function(file_name)
         {
-          $(e.originalEvent.srcElement.files).each(function () {
+          if(file_name != "error"){
 
-            var file = $(this);
-            $(".images_").append('<input id="picsArray" type="hidden" imagename="'+file[0].name+'" name="picsArray['+file_name+']" value="1">');
-            var img = document.createElement("img");
-            var reader = new FileReader();
+            $(e.originalEvent.srcElement.files).each(function () {
 
-            reader.onload = function(e) {
-                img.src = e.target.result;
-                img.className = 'im_';
-                img.setAttribute("imagename", file[0].name);
+              var file = $(this);
+              var img = document.createElement("img");
+              var reader = new FileReader();
+
+              reader.onload = function(e) {
+                  img.src = e.target.result;
+                  img.className = 'im_';
+                  img.setAttribute("imagename", file[0].name);
+
+              }
+
+              reader.readAsDataURL(file[0]);
+            $("#afterImage").after('<div class="img-wrap" imagename="'+file[0].name+'"></div>');
+              $(".img-wrap[imagename='"+file[0].name+"']").append('<span class="close" imagename="'+file_name+'">&times;</span>');
+              $(".img-wrap[imagename='"+file[0].name+"']").attr('data-remove', file_name).append(img);
+            })
+            }else{
+              $('#ajaxErrorImage').attr('class', 'alert alert-danger');
+              $('#ajaxErrorImage').append('<p style="padding:10px;">Düzgün şəkil seçin</p>');
             }
-            console.log(file[0].name)
-            reader.readAsDataURL(file[0]);
-          $("#afterImage").after('<div class="img-wrap"  imagename="'+file[0].name+'"></div>');
-            $(".img-wrap[imagename='"+file[0].name+"']").append('<span class="close"  imagename="'+file[0].name+'">&times;</span>');
-            $(".img-wrap[imagename='"+file[0].name+"']").append(img);
-          })
-        }
-      })
-    }
+          }
+      });
+    };
   });
 
 // ----------------------------ISTEK EDIT CHOOSE FILE END-----------------------------------------------
@@ -119,16 +136,22 @@ $("#uploadAjax").change(function(e) {
           $('#viewImage').empty();
            $(e.originalEvent.srcElement.files).each(function () {
           var file = $(this);
-          var img = document.createElement("img");
-          var reader = new FileReader();
+          var check = checkExtension(file[0].name).toLowerCase();
+            if(check=='jpg' || check=='jpeg' || check=='png'){
 
-          reader.onload = function(e) {
-              img.src = e.target.result;
-              // img.className = 'im_';
-          }
-          reader.readAsDataURL(file[0]);
-          $("#viewImage").append('<div class="img-wrap"  imagename="'+file[0].name+'"></div>');
-          $(".img-wrap[imagename='"+file[0].name+"']").append(img);
+                var img = document.createElement("img");
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    img.src = e.target.result;
+                }
+                reader.readAsDataURL(file[0]);
+                $("#viewImage").append('<div class="img-wrap"  imagename="'+file[0].name+'"></div>');
+                $(".img-wrap[imagename='"+file[0].name+"']").append(img);
+            } else{
+              $('#ajaxErrorImage').attr('class', 'alert alert-danger');
+              $('#ajaxErrorImage').append('<p>Düzgün şəkil seçin</p>');
+            }
+
         });
       }
   });
@@ -141,6 +164,12 @@ $("#uploadAjax").change(function(e) {
       }
   });
 
+
+    function checkExtension (name) {
+      var found = name.lastIndexOf('.') + 1;
+       return (found > 0 ? name.substr(found) : "");
+    }
+
 // ----------------------------UPLOAD FILE LIMIT END-----------------------------------------------
 
 
@@ -150,15 +179,61 @@ $("#uploadAjax").change(function(e) {
 
   $(document).on('click', '.close', function(){
       var name = $(this).attr('imagename');
-      console.log(name);
-      $(".img-wrap[imagename='"+name+"']").remove();
-      $("input[imagename='"+name+"']").val(0);
+      var im_length = $('.im_').length;
 
-      var array = $('.picsArray');
-      var formData = new FormData();
-
+        if($('.im_').length==1){
+          alert('1den az shekil olmaz')
+        }else{
+        var status = confirm("Are you sure you want to delete ?");
+          if(status==true)
+          {
+            $(".img-wrap[data-remove='"+name+"']").remove();
+            $("input[imagename='"+name+"']").val(0);
+            $.ajax({
+              url: '/deleteAjax',
+              type: 'POST',
+              dataType: 'json',
+              headers:{
+            'X-CSRF-TOKEN':$('meta[name="_token"]').attr('content')
+              },
+              data:
+              {"imagefile":name,
+              "im_length":im_length
+              },
+            success: function(img_error){
+                // $('#ajaxErrorImage').append('<p style="padding:10px;">Birdən az şəkil olmaz</p>');
+              }
+            })
+          }
+        }
     })
 // ----------------------------ISTEK EDIT WHEN CLICKING X ON PIC END-----------------------------------------------
+
+
+// ----------------------------SHOW PIC ON TENZIMLEMLER-----------------------------------------------
+
+    $('.imgInput').change(function(e){
+    var file = e.originalEvent.srcElement.files;
+    var check = checkExtension(file[0].name).toLowerCase();
+
+        if(check=='jpg' || check=='jpeg' || check=='png'){
+           $('.profil-avatar').empty();
+
+            var img = document.createElement("img");
+            var reader = new FileReader();
+            reader.onload = function(e) {
+              img.src = e.target.result;
+              img.className = 'center-block'
+            }
+            reader.readAsDataURL(file[0]);
+            $('.profil-avatar').append(img);
+          }else{
+             $('#ErrorImage').attr('class', 'alert alert-danger');
+             $('#ErrorImage').append('<p>Düzgün şəkil seçin</p>');
+            }
+
+    });
+// ----------------------------SHOW PIC ON TENZIMLEMLER END-----------------------------------------------
 
 
 

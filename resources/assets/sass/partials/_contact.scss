@@ -229,6 +229,7 @@
     padding-top: 0;
     padding-bottom: 0;
     background-color: $main-bg-color;
+    left: -9px;
     a{
       color: white;
       i{
@@ -245,7 +246,8 @@
       }
     }
     img{
-      height: 80px;
+      height: 100px;
+      width: 100px;
       border-radius: 100%;
       object-fit: cover;
       margin-top: 15px;
@@ -255,7 +257,7 @@
 
   .contact-auth-notification{
     width: 290px;
-    left: -81px;
+    left: -91px;
     border-radius: 0;
     border: 0;
     margin-top: 0;

@@ -130,7 +130,7 @@
                     <a href="{{url('/single/'.$data->id)}}">{{$data->title}}</a>
                   </div>
                   <div class="news-location col-lg-12">
-                    <p><i class="fa fa-map-marker"></i> {{$data->location}}</p>
+                    <p><i class="fa fa-map-marker"></i> {{strlen($data->location) > 45 ? substr($data->location,0,45).' ...' : $data->location}}</p>
                   </div>
                 </div>
               </div>
@@ -164,7 +164,7 @@
                     <a href="{{url('/single/'.$data->id)}}">{{$data->title}}</a>
                   </div>
                   <div class="news-location col-lg-12">
-                    <p><i class="fa fa-map-marker"></i> {{$data->location}}</p>
+                    <p><i class="fa fa-map-marker"></i> {{strlen($data->location) > 45 ? substr($data->location,0,45).' ...' : $data->location}}</p>
                   </div>
                 </div>
               </div>

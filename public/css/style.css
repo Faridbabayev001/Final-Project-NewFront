@@ -8135,6 +8135,20 @@ button.close {
   color: #0090D9 !important;
   text-decoration: none !important; }
 
+.forImg {
+  border-radius: 0;
+  height: 40px;
+  line-height: 25px;
+  background: #28353D;
+  color: white;
+  transition: all .3s ease; }
+  .forImg:focus {
+    border: 1px solid #28353D;
+    box-shadow: none; }
+  .forImg:hover {
+    background-color: #1e282e;
+    color: white; }
+
 span.special-istek {
   font-weight: 700 !important;
   color: #0AA699 !important; }
@@ -8592,7 +8606,7 @@ span.special-destek {
     #profil #profil-desteklerim .modal-content {
       margin-top: 254px; }
   #profil #profil-notification .notification-block {
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     border-bottom: 1px solid #E8E8E8;
     transition: all .3s ease; }
     #profil #profil-notification .notification-block .notification-block-href {
@@ -8647,6 +8661,34 @@ span.special-destek {
     border-radius: 0; }
     #profil #profil-ismariclar .profil-notification-full a:hover {
       background-color: #007fc0; }
+  #profil #profil-settings p {
+    font-size: 17px; }
+  #profil #profil-settings .input-group-addon {
+    border-radius: 0; }
+  #profil #profil-settings input[type='text'], #profil #profil-settings input[type='file'], #profil #profil-settings .forImg, #profil #profil-settings select#CitySelectOption {
+    border-radius: 0;
+    height: 40px; }
+    #profil #profil-settings input[type='text']:focus, #profil #profil-settings input[type='file']:focus, #profil #profil-settings .forImg:focus, #profil #profil-settings select#CitySelectOption:focus {
+      border: 1px solid #28353D;
+      box-shadow: none; }
+  #profil #profil-settings .forImg {
+    line-height: 25px; }
+  #profil #profil-settings input[type='submit'] {
+    height: 40px;
+    border: none;
+    border-radius: 0;
+    padding-left: 30px;
+    padding-right: 30px;
+    background-color: #0090D9;
+    color: white;
+    transition: all .3s ease; }
+    #profil #profil-settings input[type='submit']:hover {
+      background-color: #006ea6; }
+  #profil #profil-settings .profil-avatar img {
+    border-radius: 100%;
+    object-fit: cover;
+    height: 210px;
+    width: 210px; }
 
 #register {
   padding-top: 40px;
@@ -8831,7 +8873,8 @@ span.special-destek {
     margin-bottom: 0;
     padding-top: 0;
     padding-bottom: 0;
-    background-color: #28353D; }
+    background-color: #28353D;
+    left: -9px; }
     #contact .contact-profil-menu a {
       color: white; }
       #contact .contact-profil-menu a i {
@@ -8842,14 +8885,15 @@ span.special-destek {
     #contact .contact-profil-menu li:first-child a:hover {
       background: none; }
     #contact .contact-profil-menu img {
-      height: 80px;
+      height: 100px;
+      width: 100px;
       border-radius: 100%;
       object-fit: cover;
       margin-top: 15px;
       margin-bottom: 15px; }
   #contact .contact-auth-notification {
     width: 290px;
-    left: -81px;
+    left: -91px;
     border-radius: 0;
     border: 0;
     margin-top: 0;
@@ -8979,6 +9023,19 @@ span.special-destek {
     margin-top: 20px;
     height: 350px;
     width: 100%; }
+  #add #MyLocation {
+    position: absolute;
+    top: 20px;
+    background-color: #0090D9;
+    color: white;
+    border: none;
+    border-radius: 0;
+    padding: 10px 20px;
+    transition: all .3s ease; }
+    #add #MyLocation:focus {
+      border: none; }
+    #add #MyLocation:hover {
+      background-color: #007fc0; }
   #add .input-group-addon {
     height: 40px;
     font-size: 13px;
@@ -9002,6 +9059,7 @@ span.special-destek {
     margin-top: 23px;
     padding-left: 30px;
     padding-right: 30px;
+    margin-bottom: 25px;
     background-color: #0090D9;
     color: white;
     transition: all .3s ease; }
