@@ -27,8 +27,8 @@
       <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
           <div id="map"></div>
+          <button id="MyLocation" class="btn" type="button" name="button">Məni Tap</button>
         </div>
-        <button id="MyLocation" type="button" name="button">Click</button>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
           @if (Session::has('destek_add'))
             <div class="alert alert-success" role="alert">{{Session::get('destek_add')}}</div>
@@ -171,7 +171,7 @@
                     </span>
                 @endif
               </div>
-              <div class="form-group text-center">
+              <div class="form-group text-right">
                 <input type="submit" class="btn" value="GÖNDƏR">
               </div>
             </div>
