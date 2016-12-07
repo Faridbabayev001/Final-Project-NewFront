@@ -22,16 +22,16 @@ class IstekController extends Controller
     public function imageType($name)
     {
       $file_type = strtolower($name->getClientOriginalExtension());
-      if($file_type =='jpg' || $file_type =='jpeg' || $file_type =='png'){  
+      if($file_type =='jpg' || $file_type =='jpeg' || $file_type =='png'){
 
-        if($name->getRealPath() && !@is_array(getimagesize($name->getRealPath()))){ 
+        if($name->getRealPath() && !@is_array(getimagesize($name->getRealPath()))){
           return false;
         }else{
           return true;
         }
       }else{
         return false;
-      }  
+      }
     }
 
     public function istek_add(Request $req)
@@ -93,7 +93,7 @@ class IstekController extends Controller
            }
          Session::flash('istekadded' , "İstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
            return redirect('/istek-add');
-     
+
   }
 
 
@@ -101,7 +101,11 @@ class IstekController extends Controller
   public function istek_edit($id)
   {
     $istek_edit = Elan::find($id);
-    return view('pages.istek_edit',compact('istek_edit'));
+    if ($istek_edit) {
+      return view('pages.istek_edit',compact('istek_edit'));
+    }else {
+      return view('errors.503');
+    }
   }
 
   //<================= METHHOD FOR SAVING IMG WITH AJAX ================>
@@ -138,7 +142,7 @@ class IstekController extends Controller
 
   //<============ METHHOD FOR DELETING X PRESSED IMGS FROM EDITING=======>
 
- 
+
       public function deleteAjax(Request $req)
       {
         if($req->ajax()){
@@ -149,7 +153,7 @@ class IstekController extends Controller
           if($he->count()==1 && $im_length==1){
             $img_error = "olmaz";
             return json_encode($img_error);
-          }else{            
+          }else{
             if(file_exists('image/'.$name)){
                   unlink('image/'.$name);
                   $he->delete();
@@ -180,20 +184,24 @@ class IstekController extends Controller
 
        Session::flash('istek_edited' , "İstəyiniz uğurla dəyişdirildi və yoxlamadan keçəndən sonra dərc olunacaq.");
        $istek_update = Elan::find($id);
-       $istek_update->title = $req->title;
-       $istek_update->location = $req->location;
-       $istek_update->lat = $req->lat;
-       $istek_update->lng = $req->lng;
-       $istek_update->about = $req->about;
-       $istek_update->name = $req->name;
-       $istek_update->email = $req->email;
-       $istek_update->org = $req->org;
-       $istek_update->nov = $req->nov;
-       $istek_update->deadline = $req->date;
-       $istek_update->phone = $req->phone;
-       $istek_update->status = 0;
-       $istek_update->update();
-       return redirect("/istek-edit/$istek_update->id");
+       if ($istek_update) {
+         $istek_update->title = $req->title;
+         $istek_update->location = $req->location;
+         $istek_update->lat = $req->lat;
+         $istek_update->lng = $req->lng;
+         $istek_update->about = $req->about;
+         $istek_update->name = $req->name;
+         $istek_update->email = $req->email;
+         $istek_update->org = $req->org;
+         $istek_update->nov = $req->nov;
+         $istek_update->deadline = $req->date;
+         $istek_update->phone = $req->phone;
+         $istek_update->status = 0;
+         $istek_update->update();
+         return redirect("/istek-edit/$istek_update->id");
+       }else {
+         return view('errors.503');
+       }
   }
 
 
@@ -201,11 +209,15 @@ class IstekController extends Controller
    public function istek_delete($id)//updated
    {
      $istek_delete=Elan::find($id);
-     $istek_delete->shekiller();
-     foreach ($istek_delete->shekiller as $val) { 
+     if ($istek_delete) {
+       $istek_delete->shekiller();
+       foreach ($istek_delete->shekiller as $val) {
          unlink('image/'.$val->imageName);
+       }
+       $istek_delete->delete();
+       return back();
+     }else {
+       return view('errors.503');
      }
-     $istek_delete->delete();
-     return back();
    }
 }

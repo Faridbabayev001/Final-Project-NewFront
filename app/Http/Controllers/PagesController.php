@@ -77,23 +77,28 @@ class PagesController extends Controller
     public function single($id)
     {
       $single = Elan::find($id);
-        if ($single->status == 0) {
+      if ($single) {
+          if ($single->status == 0) {
+            return redirect('/');
+          }
+          $date = $single->deadline;
+          $dbdate=new DateTime($date);
+          $newdate=new DateTime('now');
+          $diff = date_diff($newdate,$dbdate);
+          if (!$diff->d== 0) {
+            $single->update();
+          }
+          elseif ($diff->d == 0 && $diff->m) {
+          $single->status = 0;
+          $single->save();
           return redirect('/');
         }
-        $date = $single->deadline;
-        $dbdate=new DateTime($date);
-        $newdate=new DateTime('now');
-        $diff = date_diff($newdate,$dbdate);
-        if (!$diff->d== 0) {
-          $single->update();
-        }
-        elseif ($diff->d == 0 && $diff->m) {
-        $single->status = 0;
-        $single->save();
-        return redirect('/');
+
+        return view('pages.single',compact('single','diff'));
+      }else {
+        return view('errors.503');
       }
 
-      return view('pages.single',compact('single','diff'));
     }
 
 
@@ -146,28 +151,15 @@ class PagesController extends Controller
                    ['qarsiliqs.id', '=', $id],
                    ['els.user_id', '=', Auth::user()->id]
                ])->get();
-         foreach ($notication_single as $notication_single) {
-             $notication_single->status=0;
-             $notication_single->update();
-         }
-
-
-        //  $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-        //            ->join('users', 'users.id', '=', 'els.user_id')
-        //            ->select('users.name','els.type_id','users.email','qarsiliqs.user_id','users.city','qarsiliqs.id','users.avatar','users.phone')
-        //            ->where([
-        //                  ['qarsiliqs.id', '=', $id],
-        //                  ['qarsiliqs.user_id', '=', Auth::user()->id]
-        //              ])->get();
-         //
-        //    // foreach ($data_join as $data_join) {
-        //    //     $data_join->data=0;
-        //    //     $data_join->update();
-        //    // }
-        //    $user_id=Qarsiliq::find($id);
-        //    $userId=$user_id->user_id;
-        //    // dd($data_join);
-      return view('pages.notification_single',compact('notication_single','data_join','userId'));
+        if ($notication_single) {
+          foreach ($notication_single as $notication_single) {
+            $notication_single->status=0;
+            $notication_single->update();
+          }
+          return view('pages.notification_single',compact('notication_single','data_join','userId'));
+        }else {
+          return view('errors.503');
+        }
     }
 
 
@@ -309,19 +301,27 @@ class PagesController extends Controller
     public function refusal($id)
     {
         $qars=Qarsiliq::find($id);
-        $qars->notification=0;
-        $qars->update();
-       return back();
+        if ($qars) {
+          $qars->notification=0;
+          $qars->update();
+          return back();
+        }else {
+          return view('errors.503');
+        }
     }
 
     //<================= METHHOD FOR ACCEPT ISTEK OR DESTEK MESSSAGE ================>
     public function accept($id)
     {
       $qars=Qarsiliq::find($id);
-      $qars->data=1;
-      $qars->data_status=1;
-      $qars->update();
-      return back();
+      if ($qars) {
+        $qars->data=1;
+        $qars->data_status=1;
+        $qars->update();
+        return back();
+      }else {
+        return view('errors.503');
+      }
     }
 
 
@@ -336,15 +336,15 @@ class PagesController extends Controller
                       ['qarsiliqs.id', '=', $id],
                       ['qarsiliqs.user_id', '=', Auth::user()->id]
                   ])->get();
-
+      if ($data_join) {
         foreach ($data_join as $data_join) {
-            $data_join->data_status=0;
-            $data_join->update();
+          $data_join->data_status=0;
+          $data_join->update();
         }
-        $user_id=Qarsiliq::find($id);
-        $userId=$user_id->user_id;
-        // dd($data_join);
         return view('pages.message',compact('data_join'));
+      }else {
+        return view('errors.503');
+      }
 
     }
 }

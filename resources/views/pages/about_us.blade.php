@@ -46,7 +46,7 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 about-us-team-wrapper">
           <div class="about-us-team-block">
             <div class="about-us-team-img">
-              <img src="/image/lala.jpg" class="img-responsive" alt="team image">
+              <img src="{{url('/images/lala.jpg')}}" class="img-responsive" alt="team image">
             </div>
             <div class="about-us-team-details">
               <h3 class="about-us-team-details-title">Lalə Məmmədova</h3>
@@ -82,7 +82,7 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 about-us-team-wrapper">
           <div class="about-us-team-block">
             <div class="about-us-team-img">
-              <img src="/image/gunel.jpeg" class="img-responsive" alt="team image">
+              <img src="{{url('/images/gunel.jpeg')}}" class="img-responsive" alt="team image">
             </div>
             <div class="about-us-team-details">
               <h3 class="about-us-team-details-title">Günel İsmayılova</h3>
