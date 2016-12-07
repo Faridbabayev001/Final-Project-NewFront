@@ -155,16 +155,16 @@ class PagesController extends Controller
  public function imageType($name)
       {
         $file_type = strtolower($name->getClientOriginalExtension());
-        if($file_type =='jpg' || $file_type =='jpeg' || $file_type =='png'){   
+        if($file_type =='jpg' || $file_type =='jpeg' || $file_type =='png'){
 
-          if($name->getRealPath() && !@is_array(getimagesize($name->getRealPath()))){ 
+          if($name->getRealPath() && !@is_array(getimagesize($name->getRealPath()))){
             return false;
           }else{
             return true;
           }
         }else{
           return false;
-        }  
+        }
       }
 
 
@@ -189,7 +189,7 @@ class PagesController extends Controller
         Auth::user()->update($data);
       }else {
         // $filetype=$request->file('avatar')->getClientOriginalExtension();
-        // $img_name = $request->file('avatar')->getCLientOriginalName();
+        $img_name = $request->file('avatar')->getCLientOriginalName();
         // $lowered = strtolower($filetype);
 
         //   if($lowered=='jpg' || $lowered=='jpeg' || $lowered=='png'){
@@ -295,6 +295,6 @@ class PagesController extends Controller
     //<================= METHHOD FOR ACCEPT ISTEK OR DESTEK MESSSAGE ================>
     public function accept($id)
     {
-      
+
     }
 }

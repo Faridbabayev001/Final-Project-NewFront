@@ -22,7 +22,8 @@ $.ajax({
     ElanType : $('#Type').val(),
   },
   success: function Mydatas(data){
-    $('search-error-desc').hide('3000')
+      $('.search-error-desc').hide('2000');
+      $('.infoMessage').text('')
 
     Mydata(data);
 
@@ -52,10 +53,19 @@ $.ajax({
           if (data.length ==0) {
             $('.search-error-desc').fadeIn('2000');
             $('.infoMessage').text('İstəyinizə uyğun nəticə tapılmadı')
+            $('.search-error-desc').css('background', '#F44336');
             Mydata(data);
           }else {
-            $('.search-error-desc').fadeOut('2000')
-            $('.infoMessage').text('')
+            var count = 0
+            for (var i = 0; i < data.length; i++) {
+              if (data[i]['status'] ==1) {
+                count++;
+              }
+            }
+            $('.search-error-desc').fadeIn('2000');
+
+            $('.infoMessage').text('İstəyinizə uyğun '+count+' nəticə tapıldi')
+            $('.search-error-desc').css('background', '#4CAF50');
             Mydata(data);
           }
       },

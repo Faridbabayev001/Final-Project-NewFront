@@ -1,17 +1,6 @@
 @extends('pages.layout')
 @section('title','Dəstək əlavə et')
 @section('content')
-<style type="text/css">
-  form img{
-    width: 60px;
-    height: 60px;
-    margin-left: 5px;
-    float: left
-  }
-  form span{
-    color:red;
-  }
-</style>
   <div id="breadcrumb">
   <div class="container">
      <div class="row">

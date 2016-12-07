@@ -37,34 +37,24 @@
         </div>
       </div>
       <div class="col-lg-8 contact-us-form">
+        @if ($errors->has('name') || $errors->has('email') || $errors->has('message'))
+        <span class="help-block">
+            <div class="alert alert-danger"><p>Ulduz ilə işarəli xanaları boş saxlamayın.</p></div>
+        </span>
+        @endif
         <form action="{{url('/Əlaqə')}}" method="post">
           {{csrf_field()}}
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-            <label for="name">Ad, Soyad:</label>
+            <label for="name">Ad, Soyad<SPAN> *</SPAN></label>
             <input type="text" name="name" class="form-control" id="name" value="{{old('name')}}">
-            @if ($errors->has('name'))
-              <span class="help-block">
-                  <strong>Boşluq buraxmayın</strong>
-              </span>
-            @endif
           </div>
           <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-            <label for="email">Email:</label>
+            <label for="email">Email<SPAN> *</SPAN></label>
             <input type="email" name="email" class="form-control" id="email" value="{{old('email')}}">
-            @if ($errors->has('email'))
-              <span class="help-block">
-                  <strong>Boşluq buraxmayın</strong>
-              </span>
-            @endif
           </div>
           <div class="form-group{{ $errors->has('message') ? ' has-error' : '' }}">
-            <label for="message">Mesaj:</label>
+            <label for="message">Mesaj<SPAN> *</SPAN></label>
             <textarea id="message" class="form-control" name="message" rows="8" cols="80">{{old('message')}}</textarea>
-            @if ($errors->has('message'))
-              <span class="help-block">
-                  <strong>Boşluq buraxmayın</strong>
-              </span>
-            @endif
           </div>
           <input type="submit" class="btn pull-right" value="Göndər">
         </form>

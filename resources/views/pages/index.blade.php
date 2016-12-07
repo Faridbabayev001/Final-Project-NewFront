@@ -3,6 +3,11 @@
 @section('title','Ana Səhifə')
 
 @section('content')
+  <style media="screen">
+    .Red{
+      background: green;
+    }
+  </style>
   <section id="map">
   <div class="container-fluid">
     <div class="row">
