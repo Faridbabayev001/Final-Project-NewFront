@@ -17,51 +17,23 @@ class DestekController extends Controller
     return view('pages.destek_add');
   }
 
-   //<================= METHHOD FOR SAVING IMG WITH AJAX ================>
 
-   public function only_pic(Request $req)
-        {
+////////////////////////////////checking uploaded file
 
-          if ($req->ajax()) {
-            $file_type = $req->file->getClientOriginalExtension();
-            $lowered = strtolower($file_type);
+  public function imageType($name)
+      {
+        $file_type = strtolower($name->getClientOriginalExtension());
+        if($file_type =='jpg' || $file_type =='jpeg' || $file_type =='png'){   
 
-            if($lowered=='jpg' || $lowered=='jpeg' || $lowered=='png'){
-                $fileName = $req->file->getClientOriginalName();
-                $file = $_FILES['file'];
-                $istek_id = $_POST['istek_id'];
-                $file['istek_id'] = $istek_id;
-                $file_name =date('ygmis').'.'.$fileName;
-                $req->file->move(public_path('image'), $file_name);
-                $sekil = Elan::find($istek_id);
-                $hamsi = $sekil->shekiller();
-                $data = new Photo;
-                $data->imageName = $file_name;
-                $hamsi->save($data);
-                return json_encode($file_name);
-              }else{
-                $file_name="error";
-                return json_encode($file_name);
-              }
+          if($name->getRealPath() && !@is_array(getimagesize($name->getRealPath()))){ 
+            return false;
+          }else{
+            return true;
           }
+        }else{
+          return false;
+        }  
       }
-
-
-    //<============ METHHOD FOR DELETING X PRESSED IMGS FROM EDITING=======>
-
-        public function delete_edited_pics($pics) {
-          if(!$pics) return false;
-            foreach ($pics as $pic=>$status) {
-              if(file_exists('image/'.$pic)){
-                if($status == 0) {
-                  unlink('image/'.$pic);
-                  Photo::where('imageName', $pic)->delete();
-                  echo "he";
-                }
-              }
-            }
-        }
-
 
   public function destek_add(Request $req)
   {
@@ -87,18 +59,17 @@ class DestekController extends Controller
   
      $files = $req->file('image');
      $pic_name = array();
-     foreach ($files as $file) {
-       $filetype=$file->getClientOriginalExtension();
-       $lowered = strtolower($filetype); 
 
-       if($lowered=='jpg' || $lowered=='jpeg' || $lowered=='png'){
-          array_push($pic_name, $filetype);
-       }
-       else{
-         Session::flash('imageerror' , "Xahiş olunur şəkili düzgun yükləyəsiniz.");
-          return back();
-       }
-     }
+     foreach ($files as $file) {
+      $check = $this->imageType($file);
+
+        if ($check==true) {
+          continue;
+        }else{
+          Session::flash('imageerror' , "Xahiş düzgün şəkil seçin.");
+             return redirect('/destek-add');
+        }
+      }
 
     $data = [
           'type_id'=>'1',
@@ -171,14 +142,14 @@ class DestekController extends Controller
 
 
   //<================= METHHOD FOR ISTEK_EDIT ================>
-   public function destek_delete($id)//updated
-   {
-     $destek_delete=Elan::find($id);
-     $destek_delete->shekiller();
-     foreach ($destek_delete->shekiller as $val) {
-         unlink('image/'.$val->imageName);
-     }
-     $destek_delete->delete();
-     return back();
-   }
+   // public function destek_delete($id)//updated
+   // {
+   //   $destek_delete=Elan::find($id);
+   //   $destek_delete->shekiller();
+   //   foreach ($destek_delete->shekiller as $val) {
+   //       unlink('image/'.$val->imageName);
+   //   }
+   //   $destek_delete->delete();
+   //   return back();
+   // }
 }
