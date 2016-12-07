@@ -87,7 +87,6 @@ $("#uploadAjax").change(function(e) {
             $(e.originalEvent.srcElement.files).each(function () {
 
               var file = $(this);
-              // $(".images_").append('<input id="picsArray" type="hidden" imagename="'+file[0].name+'" name="picsArray['+file_name+']" value="1">');
               var img = document.createElement("img");
               var reader = new FileReader();
 
@@ -104,11 +103,12 @@ $("#uploadAjax").change(function(e) {
               $(".img-wrap[imagename='"+file[0].name+"']").attr('data-remove', file_name).append(img);
             })
             }else{
+              $('#ajaxErrorImage').attr('class', 'alert alert-danger');
               $('#ajaxErrorImage').append('<p style="padding:10px;">Düzgün şəkil seçin</p>'); 
             }          
-        }
-      })
-    }
+          }
+      });
+    };
   });
 
 // ----------------------------ISTEK EDIT CHOOSE FILE END-----------------------------------------------
@@ -125,6 +125,7 @@ $("#uploadAjax").change(function(e) {
           $('#viewImage').empty();
            $(e.originalEvent.srcElement.files).each(function () {
           var file = $(this);
+          
           var check = checkExtension(file[0].name).toLowerCase(); 
             if(check=='jpg' || check=='jpeg' || check=='png'){
 
@@ -132,13 +133,13 @@ $("#uploadAjax").change(function(e) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
                     img.src = e.target.result;
-                    // img.className = 'im_';
                 }
                 reader.readAsDataURL(file[0]);
                 $("#viewImage").append('<div class="img-wrap"  imagename="'+file[0].name+'"></div>');
                 $(".img-wrap[imagename='"+file[0].name+"']").append(img);
             } else{
-              $('#ajaxErrorImage').append('<p style="padding:10px;">Düzgün şəkil seçin</p>'); 
+              $('#ajaxErrorImage').attr('class', 'alert alert-danger');
+              $('#ajaxErrorImage').append('<p>Düzgün şəkil seçin</p>'); 
             }     
 
         });
@@ -217,9 +218,8 @@ $("#uploadAjax").change(function(e) {
             reader.readAsDataURL(file[0]);
             $('.profil-avatar').append(img);
           }else{
-            console.log("ollmaz")
-            $('#ErrorImage').attr('class', 'alert alert-danger');
-              $('#ErrorImage').append('<p>Düzgün şəkil seçin</p>'); 
+             $('#ErrorImage').attr('class', 'alert alert-danger');
+             $('#ErrorImage').append('<p>Düzgün şəkil seçin</p>'); 
             }     
 
     });
