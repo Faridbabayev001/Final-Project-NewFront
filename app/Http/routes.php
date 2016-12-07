@@ -54,10 +54,11 @@ Route::patch('/destek-edit/{id}','DestekController@destek_update');
 //<==================Nofification Routes ==================>
 Route::post('/notification/{id}','PagesController@notification_count');
 Route::get('/Bildirişlər','PagesController@profil');
+Route::get('/message/{id}','PagesController@message');
 Route::get('/Bildiriş/{id}','PagesController@notication_single');
 Route::get('/accept','PagesController@accept');
 Route::get('/refusal/{id}','PagesController@refusal');
-Route::get('/accept/{id}','PagesController@refusal');
+Route::get('/accept/{id}','PagesController@accept');
 //<=================Nofification Routes End ================>
 
 
