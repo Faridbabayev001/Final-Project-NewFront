@@ -8,6 +8,17 @@ $(document).ready(function(){
     });
 //----------------------------MAP HEIGH FOR WINDOW SIZE END-------------------------------
 
+//----------------------------DROPDOWN SLIDE EFFECT---------------------------------------
+ $('.dropdown').on('show.bs.dropdown', function(e){
+   $(this).find('.dropdown-menu').first().stop(true, true).slideDown();
+ });
+
+ // ADD SLIDEUP ANIMATION TO DROPDOWN //
+ $('.dropdown').on('hide.bs.dropdown', function(e){
+   $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
+ });
+//----------------------------DROPDOWN SLIDE EFFECT END----------------------------------
+
 //----------------------------EMAIL PLACEHOLDER CHANGE------------------------------------
 /*========================================================================================
 ==========================================================================================
@@ -104,8 +115,8 @@ $("#uploadAjax").change(function(e) {
               $(".img-wrap[imagename='"+file[0].name+"']").attr('data-remove', file_name).append(img);
             })
             }else{
-              $('#ajaxErrorImage').append('<p style="padding:10px;">Düzgün şəkil seçin</p>'); 
-            }          
+              $('#ajaxErrorImage').append('<p style="padding:10px;">Düzgün şəkil seçin</p>');
+            }
         }
       })
     }
@@ -125,7 +136,7 @@ $("#uploadAjax").change(function(e) {
           $('#viewImage').empty();
            $(e.originalEvent.srcElement.files).each(function () {
           var file = $(this);
-          var check = checkExtension(file[0].name).toLowerCase(); 
+          var check = checkExtension(file[0].name).toLowerCase();
             if(check=='jpg' || check=='jpeg' || check=='png'){
 
                 var img = document.createElement("img");
@@ -138,8 +149,8 @@ $("#uploadAjax").change(function(e) {
                 $("#viewImage").append('<div class="img-wrap"  imagename="'+file[0].name+'"></div>');
                 $(".img-wrap[imagename='"+file[0].name+"']").append(img);
             } else{
-              $('#ajaxErrorImage').append('<p style="padding:10px;">Düzgün şəkil seçin</p>'); 
-            }     
+              $('#ajaxErrorImage').append('<p style="padding:10px;">Düzgün şəkil seçin</p>');
+            }
 
         });
       }
@@ -173,7 +184,7 @@ $("#uploadAjax").change(function(e) {
         if($('.im_').length==1){
           alert('1den az shekil olmaz')
         }else{
-        var status = confirm("Are you sure you want to delete ?");  
+        var status = confirm("Are you sure you want to delete ?");
           if(status==true)
           {
             $(".img-wrap[data-remove='"+name+"']").remove();
@@ -185,12 +196,12 @@ $("#uploadAjax").change(function(e) {
               headers:{
             'X-CSRF-TOKEN':$('meta[name="_token"]').attr('content')
               },
-              data: 
+              data:
               {"imagefile":name,
               "im_length":im_length
               },
             success: function(img_error){
-                // $('#ajaxErrorImage').append('<p style="padding:10px;">Birdən az şəkil olmaz</p>'); 
+                // $('#ajaxErrorImage').append('<p style="padding:10px;">Birdən az şəkil olmaz</p>');
               }
             })
           }
@@ -203,8 +214,8 @@ $("#uploadAjax").change(function(e) {
 
     $('.imgInput').change(function(e){
     var file = e.originalEvent.srcElement.files;
-    var check = checkExtension(file[0].name).toLowerCase(); 
-        
+    var check = checkExtension(file[0].name).toLowerCase();
+
         if(check=='jpg' || check=='jpeg' || check=='png'){
            $('.profil-avatar').empty();
 
@@ -219,8 +230,8 @@ $("#uploadAjax").change(function(e) {
           }else{
             console.log("ollmaz")
             $('#ErrorImage').attr('class', 'alert alert-danger');
-              $('#ErrorImage').append('<p>Düzgün şəkil seçin</p>'); 
-            }     
+              $('#ErrorImage').append('<p>Düzgün şəkil seçin</p>');
+            }
 
     });
 // ----------------------------SHOW PIC ON TENZIMLEMLER END-----------------------------------------------
