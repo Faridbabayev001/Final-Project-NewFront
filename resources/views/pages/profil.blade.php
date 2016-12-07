@@ -15,6 +15,7 @@
             <li {{Request::is('Istekler') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-isteklerim">İstəklərim</a></li>
             <li {{Request::is('Destekler') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-desteklerim">Dəstəklərim</a></li>
             <li {{Request::is('Bildirişlər') ? " class=active" : ''}}><a data-toggle="tab" href="#profil-notification">Bildirişlər</a></li>
+            <li {{Request::is('Ismarıclar') ? " class=active" : ''}}><a data-toggle="tab" href="#profil-ismariclar">Ismarıclar</a></li>
             <li {{Request::is('Tənzimləmələr') ? " class=active" : ''}}><a data-toggle="tab" href="#profil-settings">Tənzimləmələr</a></li>
           </ul>
         </div>
@@ -207,6 +208,31 @@
             </div>
           </div>
           {{-- <================== NOTIFICATION PART END ==================> --}}
+
+
+          {{-- <================== MESSAGE PART  ==================> --}}
+          <div id="profil-ismariclar" class="tab-pane fade in {{Request::is('Ismarıclar') ? " active" : ''}}">
+            <div class="col-lg-12 padding0 notification-block">
+                @foreach($data_join as $data_join)
+                  <div class="col-lg-2">
+                      <img src="{{url('/image/'.$data_join->avatar)}}">
+                  </div>
+                  <div class="col-lg-9">
+                    <h4 class="profil-notification-title">
+                      @if($data_join->type_id==2)
+                        <span class="special-istek">{{$data_join->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
+                      @endif
+                      @if($data_join->type_id==1)
+                        <span class="special-destek">{{$data_join->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
+                      @endif
+                    </h4>
+                    <p class="profil-notification-desc">{{$data_join->description}}</p>
+                    <p class="profil-notification-full pull-right"><a href="{{url('/message/'.$data_join->id)}}" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
+                  </div>
+                @endforeach
+            </div>
+          </div>
+
 
           {{-- <================== TENZIMLEMELER PART==================> --}}
         <div id="profil-settings" class="tab-pane fade in {{Request::is('Tənzimləmələr') ? " active" : ''}}">

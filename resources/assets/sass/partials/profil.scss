@@ -193,4 +193,44 @@
         }
       }
     }
+    #profil-ismariclar{
+      .notification-block{
+        margin-bottom: 10px;
+        border-bottom: 1px solid $contact-text-color;
+        transition: all .3s ease;
+        .notification-block-href{
+          color: $text-color;
+          text-decoration: none;
+          &:hover{
+            background-color: #475e6c;
+          }
+          img{
+            margin-bottom: 10px;
+            margin-top: 10px;
+          }
+          .profil-notification-title{
+            margin-top: 10px;
+            font-weight: 700;
+          }
+        }
+      }
+      img{
+        height: 100px;
+        width: 100px;
+        object-fit: cover;
+        border-radius: 100%;
+      }
+      .profil-notification-full{
+        a{
+          background-color: $common-blue-color;
+          text-decoration: none;
+          color: white;
+          transition: all .3s ease;
+          border-radius: 0;
+          &:hover{
+            background-color: darken($common-blue-color, 5%);
+          }
+        }
+      }
+    }
 }

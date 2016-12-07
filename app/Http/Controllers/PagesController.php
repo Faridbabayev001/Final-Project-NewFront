@@ -125,7 +125,13 @@ class PagesController extends Controller
                   ])
                 ->orderBy('created_at', 'desc')
                 ->get();
-      return view('pages.profil',compact('Elan_all','noti_message'));
+      $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+                ->join('users', 'users.id', '=', 'els.user_id')
+                ->select('users.name','els.type_id','users.email','qarsiliqs.user_id','users.city','qarsiliqs.id','users.avatar','users.phone','els.location')
+                ->where([
+                      ['qarsiliqs.user_id', '=', Auth::user()->id]
+                  ])->get();
+      return view('pages.profil',compact('Elan_all','noti_message','data_join'));
     }
 
 
@@ -133,19 +139,35 @@ class PagesController extends Controller
     public function notication_single($id)
     {
 
-        $notication_single=Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
-              ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-              ->select('users.name','users.avatar','els.type_id','qarsiliqs.description','qarsiliqs.id','qarsiliqs.status','qarsiliqs.notification')
-              ->where([
-                    ['qarsiliqs.id', '=', $id],
-                    ['els.user_id', '=', Auth::user()->id]
-                ])->get();
-          foreach ($notication_single as $notication_single) {
-              $notication_single->status=0;
-              $notication_single->update();
-          }
-          // dd($notication_single);
-       return view('pages.notification_single',compact('notication_single'));
+      $notication_single=Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
+             ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+             ->select('users.name','users.avatar','els.type_id','qarsiliqs.user_id','qarsiliqs.description','qarsiliqs.id','qarsiliqs.status','qarsiliqs.notification','qarsiliqs.data')
+             ->where([
+                   ['qarsiliqs.id', '=', $id],
+                   ['els.user_id', '=', Auth::user()->id]
+               ])->get();
+         foreach ($notication_single as $notication_single) {
+             $notication_single->status=0;
+             $notication_single->update();
+         }
+
+
+        //  $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+        //            ->join('users', 'users.id', '=', 'els.user_id')
+        //            ->select('users.name','els.type_id','users.email','qarsiliqs.user_id','users.city','qarsiliqs.id','users.avatar','users.phone')
+        //            ->where([
+        //                  ['qarsiliqs.id', '=', $id],
+        //                  ['qarsiliqs.user_id', '=', Auth::user()->id]
+        //              ])->get();
+         //
+        //    // foreach ($data_join as $data_join) {
+        //    //     $data_join->data=0;
+        //    //     $data_join->update();
+        //    // }
+        //    $user_id=Qarsiliq::find($id);
+        //    $userId=$user_id->user_id;
+        //    // dd($data_join);
+      return view('pages.notification_single',compact('notication_single','data_join','userId'));
     }
 
 
@@ -275,6 +297,39 @@ class PagesController extends Controller
     //<================= METHHOD FOR ACCEPT ISTEK OR DESTEK MESSSAGE ================>
     public function accept($id)
     {
-      
+      $qars=Qarsiliq::find($id);
+      $qars->data=1;
+      $qars->data_status=1;
+      $qars->update();
+      // $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+      //           ->join('users', 'users.id', '=', 'els.user_id')
+      //           ->select('users.name','els.type_id','users.email','users.city')
+      //           ->where('qarsiliqs.id','=',$id)
+      //           ->get();
+      return back();
+    }
+
+
+    //<================= METHHOD FOR MESSSAGE ================>
+
+    public function message($id)
+    {
+      $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+                ->join('users', 'users.id', '=', 'els.user_id')
+                ->select('users.name','els.type_id','users.email','qarsiliqs.user_id','users.city','qarsiliqs.id','users.avatar','users.phone','els.location')
+                ->where([
+                      ['qarsiliqs.id', '=', $id],
+                      ['qarsiliqs.user_id', '=', Auth::user()->id]
+                  ])->get();
+
+        foreach ($data_join as $data_join) {
+            $data_join->data_status=0;
+            $data_join->update();
+        }
+        $user_id=Qarsiliq::find($id);
+        $userId=$user_id->user_id;
+        // dd($data_join);
+        return view('pages.message',compact('data_join'));
+
     }
 }
