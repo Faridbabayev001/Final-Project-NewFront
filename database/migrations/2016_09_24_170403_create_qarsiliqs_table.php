@@ -21,6 +21,7 @@ class CreateQarsiliqsTable extends Migration
           $table->boolean('feedback');
           $table->boolean('notification');
           $table->boolean('data');
+          $table->boolean('data_status');
           $table->timestamps();
         });
     }
