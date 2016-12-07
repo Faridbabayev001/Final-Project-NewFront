@@ -187,8 +187,8 @@
           {{-- <================== NOTIFICATION PART==================> --}}
 
           <div id="profil-notification" class="tab-pane fade in {{Request::is('Bildirişlər') ? " active" : ''}}">
+            @foreach($noti_message as $notification_message)
             <div class="col-lg-12 padding0 notification-block">
-                @foreach($noti_message as $notification_message)
                   <div class="col-lg-2">
                       <img src="{{url('/image/'.$notification_message->avatar)}}">
                   </div>
@@ -203,8 +203,8 @@
                     <p class="profil-notification-desc">{{$notification_message->description}}</p>
                     <p class="profil-notification-full pull-right"><a href="{{url('/Bildiriş/'.$notification_message->id)}}" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
                   </div>
-                @endforeach
             </div>
+            @endforeach
           </div>
           {{-- <================== NOTIFICATION PART END ==================> --}}
 
@@ -355,9 +355,9 @@
               </div>
             </p>
           </div>
-          <div class="col-lg-3 col-md-6 col-xs-12 col-lg-offset-6 col-md-offset-6">
+          <div class="col-lg-12">
             <p>
-              <div class="form-group">
+              <div class="form-group pull-right">
                 <input class="btn" type="submit" name="submit" value="Göndər">
               </div>
             </p>

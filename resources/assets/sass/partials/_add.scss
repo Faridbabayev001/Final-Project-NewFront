@@ -8,6 +8,22 @@
     height: 350px;
     width: 100%;
   }
+  #MyLocation{
+    position: absolute;
+    top: 20px;
+    background-color: $common-blue-color;
+    color: white;
+    border: none;
+    border-radius: 0;
+    padding: 10px 20px;
+    transition: all .3s ease;
+    &:focus{
+      border: none;
+    }
+    &:hover{
+      background-color: darken($common-blue-color, 5%);
+    }
+  }
   .input-group-addon{
     height: 40px;
     font-size: 13px;
@@ -37,6 +53,7 @@
     margin-top: 23px;
     padding-left: 30px;
     padding-right: 30px;
+    margin-bottom: 25px;
     background-color: $common-blue-color;
     color: white;
     transition: all .3s ease;

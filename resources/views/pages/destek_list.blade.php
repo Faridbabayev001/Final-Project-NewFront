@@ -19,7 +19,7 @@
           <!-- News block -->
           @foreach ($datas as $data)
             @if($data->status=='1' && $data->type_id=='1')
-              <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12 padding0 thumbnail">
+              <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 padding0 thumbnail">
                 <div class="news-block">
                   <div class="news-image col-lg-12 padding0">
                     <div class="news-type news-destek">
@@ -32,7 +32,7 @@
                       <a href="{{url('/single/'.$data->id)}}">{{$data->title}}</a>
                     </div>
                     <div class="news-location col-lg-12">
-                      <p><i class="fa fa-map-marker"></i> {{$data->location}}</p>
+                      <p><i class="fa fa-map-marker"></i> {{strlen($data->location) > 45 ? substr($data->location,0,45).' ...' : $data->location}}</p>
                     </div>
                   </div>
                 </div>

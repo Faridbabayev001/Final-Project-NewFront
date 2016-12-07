@@ -27,8 +27,8 @@
     <div class="row">
       <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
         <div id="map"></div>
+        <button id="MyLocation" class="btn" type="button" name="button">Məni Tap</button>
       </div>
-      <button id="MyLocation" type="button" name="button">Click</button>
       <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
         @if (Session::has('istekadded'))
           <div class="alert alert-success" role="alert">{{Session::get('istekadded')}}</div>
@@ -96,8 +96,9 @@
               <label for="email">Şəkil <SPAN> *</SPAN></label>
               <a class="forImg form-control btn btn-default">Şəkil Seç</a>
               <input id="forLimitFile" type="file" name="image[]" class="imgInput hidden form-control" value="{{ old('image') }}" multiple>
-              <p>Eyni anda bir və ya bir neçə şəkil seçə bilərsiz</p>
+              <p>Eyni anda bir və ya bir neçə şəkil seçə bilərsiniz</p>
             {{--   @if ($errors->has('image'))
+>>>>>>> ad204cd3319f1dc290fb3d256edabf528599529c
                   <span class="help-block">
                     <strong>Boşluq buraxmayın</strong>
                   </span>
@@ -176,7 +177,7 @@
                   </span>
               @endif --}}
             </div>
-            <div class="form-group text-center">
+            <div class="form-group text-right">
               <input type="submit" class="btn" value="GÖNDƏR">
             </div>
           </div>
@@ -188,7 +189,7 @@
 @elseif(Auth::guest())
   <section id="add">
     <div class="alert alert-danger">
-      <h1 class="text-center">İstək əlavə etmək üçün <a href="{{url('/Qeydiyyat')}}" class="register-color">qeydiyyatdan</a> keçməyiniz tələb olunur.</h1>
+      <h1 class="text-center">İstək əlavə etmək üçün <a href="#" data-toggle="modal" data-target="#contact-login-modal" class="register-color">daxil olun</a> ya da <a href="{{url('/Qeydiyyat')}}" class="register-color">qeydiyyatdan</a> keçməyiniz tələb olunur.</h1>
     </div>
   </section>
 @endif
