@@ -39,20 +39,29 @@ use App\Qarsiliq;
           </ul>
         @else
           @php
-            $noti = Elan::join('users', 'users.id', '=', 'els.user_id')
-                      ->join('qarsiliqs', 'qarsiliqs.elan_id', '=', 'els.id')
-                      ->select('els.type_id','users.name','users.avatar','qarsiliqs.notification','qarsiliqs.id','qarsiliqs.status')
-                       ->where([
-                             ['qarsiliqs.status', '=', 1],
-                             ['els.user_id', '=', Auth::user()->id]
-                         ])->get();
-            $noti_image = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
-                      ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-                      ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.id','qarsiliqs.status')
-                      ->orderBy('created_at', 'desc')
-                       ->where('els.user_id', '=', Auth::user()->id)
-                      ->take(3)
-                      ->get();
+          $noti = Elan::join('users', 'users.id', '=', 'els.user_id')
+                    ->join('qarsiliqs', 'qarsiliqs.elan_id', '=', 'els.id')
+                    ->select('els.type_id','users.name','users.avatar','qarsiliqs.notification','qarsiliqs.id','qarsiliqs.status','qarsiliqs.data')
+                     ->where([
+                           ['qarsiliqs.status', '=', 1],
+                           ['els.user_id', '=', Auth::user()->id]
+                       ])
+                       ->orWhere('qarsiliqs.data_status', '=', 1)
+                       ->get();
+
+                       $noti_image = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
+                            ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+                            ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.user_id','qarsiliqs.id','qarsiliqs.status','qarsiliqs.data')
+                            ->orderBy('created_at', 'desc')
+                             ->where('els.user_id', '=', Auth::user()->id)
+                              ->orWhere('qarsiliqs.user_id', '=', Auth::user()->id)
+                            ->take(3)
+                             ->get();
+                             $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+                                  ->join('users', 'users.id', '=', 'els.user_id')
+                                  ->select('users.name','els.type_id','users.email','users.city','qarsiliqs.id','users.avatar')
+                                  ->where('qarsiliqs.user_id','=',Auth::user()->id)
+                                  ->get();
           @endphp
           <ul class="list-inline pull-right contact-auth">
           <li class="dropdown">
@@ -67,34 +76,60 @@ use App\Qarsiliq;
                 @foreach($noti_image as $key => $notification_image)
                   @if($notification_image->user_id != Auth::user()->id)
                     <li>
-                    @if($notification_image->status==0)
-                        <a href="{{url('/Bildiriş/'.$notification_image->id)}}" class="notification-seen">
-                          <img src="{{url('/image/'.$notification_image->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
+                      @if($notification_image->status==0)
+                             <a href="{{url('/Bildiriş/'.$notification_image->id)}}" class="notification-seen">
+                              <img src="{{url('/image/'.$notification_image->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
+                              <p>
+                                  @if($notification_image->type_id==2)
+                                    <span class="special-istek">{{$notification_image->name}}</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !
+                                  @endif
+                                  @if($notification_image->type_id==1)
+                                    <span class="special-destek">{{$notification_image->name}}</span>  adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
+                                  @endif
+                                </p>
+                            </a>
+                          @else
+                             <a href="{{url('/Bildiriş/'.$notification_image->id)}}">
+                            <img src="{{url('/image/'.$notification_image->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
+                               <p>
+                                @if($notification_image->type_id==2)
+                                  <span class="special-istek">{{$notification_image->name}}</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !
+                                @endif
+                                @if($notification_image->type_id==1)
+                                  <span class="special-destek">{{$notification_image->name}}</span>  adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
+                                @endif
+                               </p>
+                            </a>
+                    @endif
+                  </li>
+                @elseif($notification_image->user_id == Auth::user()->id)                   <li>
+                      @foreach($data_join as $key => $data_join)
+                        @if($notification_image->data_status==0)
+                      <a href="{{url('/message/'.$data_join->id)}}" class="notification-seen">
+                        <img src="{{url('/image/'.$data_join->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
                           <p>
-                            @if($notification_image->type_id==2)
-                              <span class="special-istek">{{$notification_image->name}}</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !
+                            @if($data_join->type_id==2)
+                              <span class="special-istek">{{$data_join->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
                             @endif
-                            @if($notification_image->type_id==1)
-                              <span class="special-destek">{{$notification_image->name}}</span>  adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
+                            @if($data_join->type_id==1)
+                              <span class="special-destek">{{$data_join->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
                             @endif
                           </p>
                         </a>
                       @else
-                        <a href="{{url('/Bildiriş/'.$notification_image->id)}}">
-                          <img src="{{url('/image/'.$notification_image->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
-                          <p>
-                            @if($notification_image->type_id==2)
-                              <span class="special-istek">{{$notification_image->name}}</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !
+                        <a href="{{url('/message/'.$data_join->id)}}">
+                          <img src="{{url('/image/'.$data_join->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
+                          <p>                             @if($data_join->type_id==2)
+                              <span class="special-istek">{{$data_join->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
                             @endif
-                            @if($notification_image->type_id==1)
-                              <span class="special-destek">{{$notification_image->name}}</span>  adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
+                            @if($data_join->type_id==1)
+                              <span class="special-destek">{{$data_join->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
                             @endif
                           </p>
                         </a>
                     @endif
-                  </li>
-                  @else
-
+                        @endforeach
+                     </li>
                   @endif
 
                 @endforeach
@@ -227,5 +262,3 @@ use App\Qarsiliq;
 <script src="{{url('/js/main.js')}}"></script>
   @yield('scripts')
 </html>
-Contact GitHub API Training Shop Blog About
-© 2016 GitHub, Inc. Terms Privacy Security Status Help
