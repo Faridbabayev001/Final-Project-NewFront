@@ -15,6 +15,7 @@
             <li {{Request::is('Istekler') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-isteklerim">İstəklərim</a></li>
             <li {{Request::is('Destekler') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-desteklerim">Dəstəklərim</a></li>
             <li {{Request::is('Bildirişlər') ? " class=active" : ''}}><a data-toggle="tab" href="#profil-notification">Bildirişlər</a></li>
+            <li {{Request::is('Ismarıclar') ? " class=active" : ''}}><a data-toggle="tab" href="#profil-ismariclar">Ismarıclar</a></li>
             <li {{Request::is('Tənzimləmələr') ? " class=active" : ''}}><a data-toggle="tab" href="#profil-settings">Tənzimləmələr</a></li>
           </ul>
         </div>
@@ -208,13 +209,43 @@
           </div>
           {{-- <================== NOTIFICATION PART END ==================> --}}
 
+
+          {{-- <================== MESSAGE PART  ==================> --}}
+          <div id="profil-ismariclar" class="tab-pane fade in {{Request::is('Ismarıclar') ? " active" : ''}}">
+            <div class="col-lg-12 padding0 notification-block">
+                @foreach($data_join as $data_join)
+                  <div class="col-lg-2">
+                      <img src="{{url('/image/'.$data_join->avatar)}}">
+                  </div>
+                  <div class="col-lg-9">
+                    <h4 class="profil-notification-title">
+                      @if($data_join->type_id==2)
+                        <span class="special-istek">{{$data_join->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
+                      @endif
+                      @if($data_join->type_id==1)
+                        <span class="special-destek">{{$data_join->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
+                      @endif
+                    </h4>
+                    <p class="profil-notification-desc">{{$data_join->description}}</p>
+                    <p class="profil-notification-full pull-right"><a href="{{url('/message/'.$data_join->id)}}" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
+                  </div>
+                @endforeach
+            </div>
+          </div>
+
+
           {{-- <================== TENZIMLEMELER PART==================> --}}
         <div id="profil-settings" class="tab-pane fade in {{Request::is('Tənzimləmələr') ? " active" : ''}}">
         @if (Session::has('imageerror'))
-          <div class="alert alert-warning" role="alert">{{Session::get('imageerror')}}</div>
+          <div class="alert alert-danger" role="alert">{{Session::get('imageerror')}}</div>
         @endif
         @if (Session::has('added'))
           <div class="alert alert-success" role="alert">{{Session::get('added')}}</div>
+        @endif
+        @if ($errors->has('name') || $errors->has('phone') || $errors->has('avatar'))
+        <span class="help-block">
+            <div class="alert alert-danger"><p>Ulduz ilə işarəli xanaları boş saxlamayın.</p></div>
+        </span>
         @endif
         <div id="ErrorImage" ></div>
 
@@ -226,20 +257,15 @@
               {{csrf_field()}}
               <p>
                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                <label for="email">Ad,Soyad:</label>
+                <label for="email">Ad,Soyad<SPAN> *</SPAN></label>
                 <input class="form-control" type="text" name="name" value="{{Auth::user()->name}}">
-                @if ($errors->has('name'))
-                    <span class="help-block">
-                      <strong>Boşluq buraxmayın</strong>
-                    </span>
-                @endif
               </div>
             </p>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
             <p>
               <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-                <label for="email">Əlaqə nömrəsi:</label>
+                <label for="email">Əlaqə nömrəsi<SPAN> *</SPAN></label>
                 <div class="input-group">
                     <div class="input-group-addon">
                         <input id="operator" type="hidden" name="operator" value="{{substr(Auth::user()->phone,4,2) == '55' ? '55' : substr(Auth::user()->phone,4,2) }}">
@@ -255,11 +281,6 @@
                   <input type="text" class="form-control" name="phone" maxlength="7" value="{{substr(Auth::user()->phone,6)}}">
                 </div>
               </div>
-              @if ($errors->has('phone'))
-                <span class="help-block">
-                  <strong>Boşluq buraxmayın</strong>
-                </span>
-              @endif
             </p>
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -269,11 +290,6 @@
                 <label for="file">Şəkil:</label>
                 <a class="forImg form-control btn btn-default">Şəkil Seç</a>
                 <input class="imgInput form-control hidden" type="file" name="avatar">
-                @if ($errors->has('avatar'))
-                    <span class="help-block">
-                      <strong>Boşluq buraxmayın</strong>
-                    </span>
-                @endif
               </div>
             </p>
           </div>

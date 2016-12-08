@@ -46,11 +46,11 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 about-us-team-wrapper">
           <div class="about-us-team-block">
             <div class="about-us-team-img">
-              <img src="/image/lala.jpeg" class="img-responsive" alt="team image">
+              <img src="{{url('/images/lala.jpg')}}" class="img-responsive" alt="team image">
             </div>
             <div class="about-us-team-details">
               <h3 class="about-us-team-details-title">Lalə Məmmədova</h3>
-              <p class="about-us-team-details-desc">BDU - Computer Science</p>
+              <p class="about-us-team-details-desc">BDU - Komputer elmləri</p>
             </div>
           </div>
         </div>
@@ -62,7 +62,7 @@
             </div>
             <div class="about-us-team-details">
               <h3 class="about-us-team-details-title">Fərid Babayev</h3>
-              <p class="about-us-team-details-desc">AzTU - Computer Engineering</p>
+              <p class="about-us-team-details-desc">AzTU - Komputer elmləri</p>
             </div>
           </div>
         </div>
@@ -74,7 +74,7 @@
             </div>
             <div class="about-us-team-details">
               <h3 class="about-us-team-details-title">Naseh Bədəlov</h3>
-              <p class="about-us-team-details-desc">QU - Industrial Engineering</p>
+              <p class="about-us-team-details-desc">QU - Sənaye mühəndisliyi</p>
             </div>
           </div>
         </div>
@@ -82,11 +82,11 @@
         <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12 about-us-team-wrapper">
           <div class="about-us-team-block">
             <div class="about-us-team-img">
-              <img src="/image/gunel.jpg" class="img-responsive" alt="team image">
+              <img src="{{url('/images/gunel.jpeg')}}" class="img-responsive" alt="team image">
             </div>
             <div class="about-us-team-details">
               <h3 class="about-us-team-details-title">Günel İsmayılova</h3>
-              <p class="about-us-team-details-desc">ADNSU - Computer Engineering</p>
+              <p class="about-us-team-details-desc">ADNSU - Komputer mühəndisliyi</p>
             </div>
           </div>
         </div>

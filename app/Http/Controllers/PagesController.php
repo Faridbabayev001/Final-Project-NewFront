@@ -77,23 +77,28 @@ class PagesController extends Controller
     public function single($id)
     {
       $single = Elan::find($id);
-        if ($single->status == 0) {
+      if ($single) {
+          if ($single->status == 0) {
+            return redirect('/');
+          }
+          $date = $single->deadline;
+          $dbdate=new DateTime($date);
+          $newdate=new DateTime('now');
+          $diff = date_diff($newdate,$dbdate);
+          if (!$diff->d== 0) {
+            $single->update();
+          }
+          elseif ($diff->d == 0 && $diff->m) {
+          $single->status = 0;
+          $single->save();
           return redirect('/');
         }
-        $date = $single->deadline;
-        $dbdate=new DateTime($date);
-        $newdate=new DateTime('now');
-        $diff = date_diff($newdate,$dbdate);
-        if (!$diff->d== 0) {
-          $single->update();
-        }
-        elseif ($diff->d == 0 && $diff->m) {
-        $single->status = 0;
-        $single->save();
-        return redirect('/');
+
+        return view('pages.single',compact('single','diff'));
+      }else {
+        return view('errors.503');
       }
 
-      return view('pages.single',compact('single','diff'));
     }
 
 
@@ -125,7 +130,13 @@ class PagesController extends Controller
                   ])
                 ->orderBy('created_at', 'desc')
                 ->get();
-      return view('pages.profil',compact('Elan_all','noti_message'));
+      $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+                ->join('users', 'users.id', '=', 'els.user_id')
+                ->select('users.name','els.type_id','users.email','qarsiliqs.user_id','users.city','qarsiliqs.id','users.avatar','users.phone','els.location')
+                ->where([
+                      ['qarsiliqs.user_id', '=', Auth::user()->id]
+                  ])->get();
+      return view('pages.profil',compact('Elan_all','noti_message','data_join'));
     }
 
 
@@ -133,19 +144,22 @@ class PagesController extends Controller
     public function notication_single($id)
     {
 
-        $notication_single=Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
-              ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-              ->select('users.name','users.avatar','els.type_id','qarsiliqs.description','qarsiliqs.id','qarsiliqs.status','qarsiliqs.notification')
-              ->where([
-                    ['qarsiliqs.id', '=', $id],
-                    ['els.user_id', '=', Auth::user()->id]
-                ])->get();
+      $notication_single=Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
+             ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+             ->select('users.name','users.avatar','els.type_id','qarsiliqs.user_id','qarsiliqs.description','qarsiliqs.id','qarsiliqs.status','qarsiliqs.notification','qarsiliqs.data')
+             ->where([
+                   ['qarsiliqs.id', '=', $id],
+                   ['els.user_id', '=', Auth::user()->id]
+               ])->get();
+        if ($notication_single) {
           foreach ($notication_single as $notication_single) {
-              $notication_single->status=0;
-              $notication_single->update();
+            $notication_single->status=0;
+            $notication_single->update();
           }
-          // dd($notication_single);
-       return view('pages.notification_single',compact('notication_single'));
+          return view('pages.notification_single',compact('notication_single','data_join','userId'));
+        }else {
+          return view('errors.503');
+        }
     }
 
 
@@ -155,16 +169,16 @@ class PagesController extends Controller
  public function imageType($name)
       {
         $file_type = strtolower($name->getClientOriginalExtension());
-        if($file_type =='jpg' || $file_type =='jpeg' || $file_type =='png'){   
+        if($file_type =='jpg' || $file_type =='jpeg' || $file_type =='png'){
 
-          if($name->getRealPath() && !@is_array(getimagesize($name->getRealPath()))){ 
+          if($name->getRealPath() && !@is_array(getimagesize($name->getRealPath()))){
             return false;
           }else{
             return true;
           }
         }else{
           return false;
-        }  
+        }
       }
 
 
@@ -189,7 +203,7 @@ class PagesController extends Controller
         Auth::user()->update($data);
       }else {
         // $filetype=$request->file('avatar')->getClientOriginalExtension();
-        // $img_name = $request->file('avatar')->getCLientOriginalName();
+        $img_name = $request->file('avatar')->getCLientOriginalName();
         // $lowered = strtolower($filetype);
 
         //   if($lowered=='jpg' || $lowered=='jpeg' || $lowered=='png'){
@@ -287,14 +301,50 @@ class PagesController extends Controller
     public function refusal($id)
     {
         $qars=Qarsiliq::find($id);
-        $qars->notification=0;
-        $qars->update();
-       return back();
+        if ($qars) {
+          $qars->notification=0;
+          $qars->update();
+          return back();
+        }else {
+          return view('errors.503');
+        }
     }
 
     //<================= METHHOD FOR ACCEPT ISTEK OR DESTEK MESSSAGE ================>
     public function accept($id)
     {
-      
+      $qars=Qarsiliq::find($id);
+      if ($qars) {
+        $qars->data=1;
+        $qars->data_status=1;
+        $qars->update();
+        return back();
+      }else {
+        return view('errors.503');
+      }
+    }
+
+
+    //<================= METHHOD FOR MESSSAGE ================>
+
+    public function message($id)
+    {
+      $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+                ->join('users', 'users.id', '=', 'els.user_id')
+                ->select('users.name','els.type_id','users.email','qarsiliqs.user_id','users.city','qarsiliqs.id','users.avatar','users.phone','els.location')
+                ->where([
+                      ['qarsiliqs.id', '=', $id],
+                      ['qarsiliqs.user_id', '=', Auth::user()->id]
+                  ])->get();
+      if ($data_join) {
+        foreach ($data_join as $data_join) {
+          $data_join->data_status=0;
+          $data_join->update();
+        }
+        return view('pages.message',compact('data_join'));
+      }else {
+        return view('errors.503');
+      }
+
     }
 }

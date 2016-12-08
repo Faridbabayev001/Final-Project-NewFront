@@ -22,9 +22,10 @@ $.ajax({
     ElanType : $('#Type').val(),
   },
   success: function Mydatas(data){
-    $('search-error-desc').hide('3000')
-
-    Mydata(data);
+      $('.search-error-desc').hide('2000');
+      $('.infoMessage').text('')
+      var count = data.length;
+    Mydata(data,count);
 
   },
   beforeSend:function(){
@@ -52,11 +53,21 @@ $.ajax({
           if (data.length ==0) {
             $('.search-error-desc').fadeIn('2000');
             $('.infoMessage').text('İstəyinizə uyğun nəticə tapılmadı')
+            $('.search-error-desc').css('background', '#F44336');
             Mydata(data);
           }else {
-            $('.search-error-desc').fadeOut('2000')
-            $('.infoMessage').text('')
-            Mydata(data);
+            var count = 0
+            for (var i = 0; i < data.length; i++) {
+              if (data[i]['status'] ==1) {
+                count++;
+              }
+            }
+            $('.search-error-desc').fadeIn('2000');
+
+            $('.infoMessage').text('İstəyinizə uyğun '+count+' nəticə tapıldi')
+            $('.search-error-desc').css('background', '#4CAF50');
+            var count = data.length;
+          Mydata(data,count);
           }
       },
       beforeSend:function(){
@@ -70,7 +81,7 @@ $.ajax({
 });
 
   //Index.blade.php Map function
-function Mydata(data){
+function Mydata(data,count){
   markers = [];
   var myLatlng = new google.maps.LatLng(40.300,48.800);
          var mapOptions = {
@@ -83,7 +94,7 @@ function Mydata(data){
          };
          var map = new google.maps.Map(document.getElementById('InfoMap'), mapOptions);
          var marker;
-         for ( i = 0; i < data.length; i++) {
+         for ( i = 0; i < count; i++) {
            if (data[i]['status'] == 1) {
              var src;
              if( (data[i]['type_id']) == 2) {

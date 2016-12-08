@@ -8178,6 +8178,30 @@ span.special-destek {
   top: -20px !important;
   right: 0px !important; }
 
+form img {
+  width: 60px;
+  height: 60px;
+  margin-left: 5px;
+  float: left; }
+
+form span {
+  color: red; }
+
+.img-wrap {
+  display: inline-block;
+  position: relative;
+  /*margin-top: 20px;*/
+  float: left; }
+
+.img-wrap .close {
+  color: red;
+  position: absolute;
+  top: 2px;
+  right: 4px;
+  z-index: 100;
+  opacity: 1 !important;
+  font-size: 20px !important; }
+
 #contact-us {
   padding-top: 50px;
   min-height: 100%; }
@@ -8632,6 +8656,34 @@ span.special-destek {
     transition: all .3s ease;
     border-radius: 0; }
     #profil #profil-notification .profil-notification-full a:hover {
+      background-color: #007fc0; }
+  #profil #profil-ismariclar .notification-block {
+    margin-bottom: 10px;
+    border-bottom: 1px solid #E8E8E8;
+    transition: all .3s ease; }
+    #profil #profil-ismariclar .notification-block .notification-block-href {
+      color: #595B57;
+      text-decoration: none; }
+      #profil #profil-ismariclar .notification-block .notification-block-href:hover {
+        background-color: #475e6c; }
+      #profil #profil-ismariclar .notification-block .notification-block-href img {
+        margin-bottom: 10px;
+        margin-top: 10px; }
+      #profil #profil-ismariclar .notification-block .notification-block-href .profil-notification-title {
+        margin-top: 10px;
+        font-weight: 700; }
+  #profil #profil-ismariclar img {
+    height: 100px;
+    width: 100px;
+    object-fit: cover;
+    border-radius: 100%; }
+  #profil #profil-ismariclar .profil-notification-full a {
+    background-color: #0090D9;
+    text-decoration: none;
+    color: white;
+    transition: all .3s ease;
+    border-radius: 0; }
+    #profil #profil-ismariclar .profil-notification-full a:hover {
       background-color: #007fc0; }
   #profil #profil-settings p {
     font-size: 17px; }

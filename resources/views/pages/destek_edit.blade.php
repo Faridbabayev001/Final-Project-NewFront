@@ -3,30 +3,6 @@
 @section('title','Istək_redaktə')
 
 @section('content')
-<style type="text/css">
-  form img{
-    width: 60px;
-    height: 60px;
-    float: left;
-    margin-left: 5px;
-  }
-  .img-wrap {
-    display:inline-block;
-    position: relative;
-    /*margin-top: 20px;*/
-    float: left;
-  }
-  .img-wrap .close {
-    color:red;
-    cursor: ;
-    position: absolute;
-    top: 2px;
-    right: 4px;
-    z-index: 100;
-    opacity:1 !important;
-    font-size: 20px !important;
-}
-</style>
   <div id="breadcrumb">
   <div class="container">
      <div class="row">
@@ -53,7 +29,7 @@
                 <div class="alert alert-danger"><p>Ulduz ilə işarəli xanaları boş saxlamayın.</p></div>
               </span>
           @endif
-  
+
           <form action="{{url('/destek-edit/'.$destek_edit->id)}}" method="POST" enctype="multipart/form-data">
             {{csrf_field()}}
             {{ method_field('PATCH')}}
@@ -83,10 +59,10 @@
               <div class="form-group{{ $errors->has('about') ? ' has-error' : '' }}">
                 <label for="name">Açıqlama<SPAN> *</SPAN></label>
                 <textarea name="about" class="form-control" rows="6" cols="80">{{$destek_edit->about}}</textarea>
- 
+
               </div>
             {{-- <=================image input ================> --}}
-              
+
               <div id="afterImage" class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
               <label for="email">Şəkil</label>
               <a class="forImg form-control btn btn-default">Şəkil Seç<SPAN> *</SPAN></a>
@@ -108,7 +84,7 @@
                     <input class="picsArray" imagename="{{$pic->imageName}}"  type="hidden" name="picsArray[{{$pic->imageName}}]" value="1" >
                  @endforeach
                 </div>
-            
+
 
 
             </div>
@@ -118,7 +94,7 @@
               <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                 <label for="city">Ad, Soyad<SPAN> *</SPAN></label>
                 <input type="text" class="form-control" name="name" value="{{Auth::user()->name}}">
- 
+
               </div>
 
               {{-- <=================Phone input ================> --}}
@@ -137,7 +113,7 @@
                             </select>
                         </div>
                   <input type="text" class="form-control" name="phone" value="{{substr(Auth::user()->phone,6)}}" maxlength="7">
- 
+
                 </div>
               </div>
 
@@ -145,14 +121,14 @@
               <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <label for="password">Email<SPAN> *</SPAN></label>
                 <input type="email" name="email" class="form-control" placeholder="Email" value="{{Auth::user()->email}}">
- 
+
               </div>
 
               {{-- <=================Nov input ================> --}}
               <div class="form-group{{ $errors->has('nov') ? ' has-error' : '' }}">
                 <label for="password">Növ<SPAN> *</SPAN></label>
                 <input type="text" name="nov" class="form-control" value="{{$destek_edit->nov}}">
- 
+
               </div>
 
               {{-- <=================Date input ================> --}}

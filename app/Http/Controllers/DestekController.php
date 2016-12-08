@@ -23,16 +23,16 @@ class DestekController extends Controller
   public function imageType($name)
       {
         $file_type = strtolower($name->getClientOriginalExtension());
-        if($file_type =='jpg' || $file_type =='jpeg' || $file_type =='png'){   
+        if($file_type =='jpg' || $file_type =='jpeg' || $file_type =='png'){
 
-          if($name->getRealPath() && !@is_array(getimagesize($name->getRealPath()))){ 
+          if($name->getRealPath() && !@is_array(getimagesize($name->getRealPath()))){
             return false;
           }else{
             return true;
           }
         }else{
           return false;
-        }  
+        }
       }
 
   public function destek_add(Request $req)
@@ -56,7 +56,7 @@ class DestekController extends Controller
        Session::flash('imageerror' , "Xahiş olunur şəkil seçin.");
           return back();
       }
-  
+
      $files = $req->file('image');
      $pic_name = array();
 
@@ -103,7 +103,11 @@ class DestekController extends Controller
   public function destek_edit($id)
   {
     $destek_edit = Elan::find($id);
-    return view('pages.destek_edit',compact('destek_edit'));
+    if ($destek_edit) {
+      return view('pages.destek_edit',compact('destek_edit'));
+    }else {
+      return view('errors.503');
+    }
   }
 
   public function destek_update(Request $req,$id)
