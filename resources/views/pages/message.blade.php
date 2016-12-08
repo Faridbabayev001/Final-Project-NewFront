@@ -22,9 +22,9 @@
           <div class="col-lg-9 col-md-8 col-sm-6 col-xs-12">
             <h3 class="not-single-title">
               @if($data_join->type_id==2)
-                <span class="special-istek">{{$data_join->name}}</span> adlı istifadəçi desteyinizi qəbul etdi !
+                <span class="special-istek">{{$data_join->name}}</span> adlı istifadəçi dəstəyinizi qəbul etdi !
               @elseif($data_join->type_id==1)
-                <span class="special-destek">{{$data_join->name}}</span> adlı istifadəçi isteyinizi qebul etdi
+                <span class="special-destek">{{$data_join->name}}</span> adlı istifadəçi istəyinizi qebul etdi
               @endif
             </h3>
             <h4 class="not-single-desc">Email: {{$data_join->email}}</h4>

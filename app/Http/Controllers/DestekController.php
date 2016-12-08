@@ -103,12 +103,14 @@ class DestekController extends Controller
   public function destek_edit($id)
   {
     $destek_edit = Elan::find($id);
+    if ($destek_edit) {
     if($destek_edit->user_id==Auth::user()->id){
-      if ($destek_edit) {
         return view('pages.destek_edit',compact('destek_edit'));
       }else {
         return view('errors.503');
       }
+    }else {
+      return view('errors.503');
     }
   }
 
