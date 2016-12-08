@@ -102,28 +102,29 @@ use App\Qarsiliq;
                             </a>
                     @endif
                   </li>
-                @elseif($notification_image->user_id == Auth::user()->id)                   <li>
-                      @foreach($data_join as $key => $data_join)
+                @elseif($notification_image->user_id == Auth::user()->id)
+                    <li>
+                      @foreach($data_join as $data_joins)
                         @if($notification_image->data_status==0)
-                      <a href="{{url('/message/'.$data_join->id)}}" class="notification-seen">
-                        <img src="{{url('/image/'.$data_join->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
+                      <a href="{{url('/message/'.$data_joins->id)}}" class="notification-seen">
+                        <img src="{{url('/image/'.$data_joins->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
                           <p>
-                            @if($data_join->type_id==2)
-                              <span class="special-istek">{{$data_join->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
+                            @if($data_joins->type_id==2)
+                              <span class="special-istek">{{$data_joins->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
                             @endif
-                            @if($data_join->type_id==1)
-                              <span class="special-destek">{{$data_join->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
+                            @if($data_joins->type_id==1)
+                              <span class="special-destek">{{$data_joins->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
                             @endif
                           </p>
                         </a>
                       @else
-                        <a href="{{url('/message/'.$data_join->id)}}">
-                          <img src="{{url('/image/'.$data_join->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
-                          <p>                             @if($data_join->type_id==2)
-                              <span class="special-istek">{{$data_join->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
+                        <a href="{{url('/message/'.$data_joins->id)}}">
+                          <img src="{{url('/image/'.$data_joins->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
+                          <p>                             @if($data_joins->type_id==2)
+                              <span class="special-istek">{{$data_joins->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
                             @endif
-                            @if($data_join->type_id==1)
-                              <span class="special-destek">{{$data_join->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
+                            @if($data_joins->type_id==1)
+                              <span class="special-destek">{{$data_joins->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
                             @endif
                           </p>
                         </a>
