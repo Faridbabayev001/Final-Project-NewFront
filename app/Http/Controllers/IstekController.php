@@ -100,10 +100,15 @@ class IstekController extends Controller
   //<================= METHHOD FOR ISTEK_EDIT ================>
   public function istek_edit($id)
   {
+
     $istek_edit = Elan::find($id);
-    if ($istek_edit) {
-      return view('pages.istek_edit',compact('istek_edit'));
-    }else {
+    if($istek_edit->user_id==Auth::user()->id){
+      if ($istek_edit) {
+        return view('pages.istek_edit',compact('istek_edit'));
+      }else {
+        return view('errors.503');
+      }
+    }else{
       return view('errors.503');
     }
   }
@@ -209,6 +214,7 @@ class IstekController extends Controller
    public function istek_delete($id)//updated
    {
      $istek_delete=Elan::find($id);
+    if($istek_edit->user_id==Auth::user()->id){
      if ($istek_delete) {
        $istek_delete->shekiller();
        foreach ($istek_delete->shekiller as $val) {
@@ -220,4 +226,5 @@ class IstekController extends Controller
        return view('errors.503');
      }
    }
+ }  
 }

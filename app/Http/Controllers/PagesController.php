@@ -105,8 +105,8 @@ class PagesController extends Controller
     //<================= METHHOD FOR NOTIFICATION COUNT ================>
 
       public function notification_count(Request $request,Qarsiliq $qarsiliq,$id)
-      {   Session::flash('description_destek' , "Dəstəyiniz uğurla  gönderildi. ");
-          Session::flash('description_istek' , "istəyiniz uğurla  gönderildi. ");
+      {   Session::flash('description_destek' , "Dəstəyiniz uğurla  gönderildi. Qəbul olunduğuzu zaman sizə bildiriş göndəriləck ");
+          Session::flash('description_istek' , "istəyiniz uğurla  gönderildi.Qəbul olunduğuzu zaman sizə bildiriş göndəriləck ");
 
           $qarsiliq->elan_id = $id;
           $qarsiliq->user_id = Auth::user()->id;
