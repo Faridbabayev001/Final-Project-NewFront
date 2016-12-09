@@ -117,7 +117,6 @@ use App\Qarsiliq;
               {{-- @endforeach --}}
              @endif
              </a>
->>>>>>> 6ad6c2ace916a45eef2d00656f77052eecc294c5
               <ul class="dropdown-menu contact-auth-notification" role="menu">
                 @foreach($noti_image as $key => $notification_image)
                   @if($notification_image->user_id != Auth::user()->id)
