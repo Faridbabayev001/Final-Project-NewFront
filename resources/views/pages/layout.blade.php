@@ -99,6 +99,25 @@ use App\Qarsiliq;
                 {{-- @endforeach --}}
                @endif
                </a>
+            <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-bell"></i>
+               @if(count($noti) != 0)
+                {{-- @foreach($data_join as $key => $data_joins) --}}
+                  {{-- @if($data_joins->user_id != Auth::user()->id) --}}
+                   <span class="contact-auth-notification-number">
+                     {{count($noti)}}
+                   </span>
+
+             {{-- @elseif($data_joins->user_id == Auth::user()->id) --}}
+             @elseif(count($noti_qars_user)!=0)
+                  <span class="contact-auth-notification-number">
+                    {{count($noti_qars_user)}}
+                  </span>
+                {{-- @endif --}}
+              {{-- @endif --}}
+              {{-- @endforeach --}}
+             @endif
+             </a>
+>>>>>>> 6ad6c2ace916a45eef2d00656f77052eecc294c5
               <ul class="dropdown-menu contact-auth-notification" role="menu">
                 @foreach($noti_image as $key => $notification_image)
                   @if($notification_image->user_id != Auth::user()->id)
