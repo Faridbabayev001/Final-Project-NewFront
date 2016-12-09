@@ -110,6 +110,17 @@ use App\Qarsiliq;
                          </span>
                        @endif
                      @endforeach
+                @elseif(count($noti_qars_user)!=0 && count($noti) == 0)
+                  <?php
+                     $count1=count($noti_qars_user);
+                   ?>
+                  @foreach($noti_qars_user as $key => $noti_qars_users)
+                    @if($noti_qars_users->user_id==Auth::user()->id)
+                      <span class="contact-auth-notification-number">
+                        {{$count1}}
+                      </span>
+                    @endif
+                  @endforeach
              @endif
                </a>
               <ul class="dropdown-menu contact-auth-notification" role="menu">
