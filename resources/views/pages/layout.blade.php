@@ -71,7 +71,7 @@ use App\Qarsiliq;
 
                $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
                     ->join('users', 'users.id', '=', 'els.user_id')
-                    ->select('users.name','els.type_id','users.email','users.city','qarsiliqs.id','users.avatar')
+                    ->select('users.name','els.type_id','users.email','users.city','qarsiliqs.id','users.avatar','qarsiliqs.data_status')
                     ->where([
                           ['qarsiliqs.data', '=', 1],
                           ['qarsiliqs.user_id','=',Auth::user()->id]
@@ -132,7 +132,7 @@ use App\Qarsiliq;
                 @elseif($notification_image->user_id == Auth::user()->id)
                     <li>
                       @foreach($data_join as $data_joins)
-                        @if($data_joins->data_status==1)
+                        @if($data_joins->data_status==0)
                           <a href="{{url('/message/'.$data_joins->id)}}" class="notification-seen">
                             <img src="{{url('/image/'.$data_joins->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
                               <p>
@@ -144,7 +144,7 @@ use App\Qarsiliq;
                                 @endif
                               </p>
                             </a>
-                      @else
+                      @elseif($data_joins->data_status==1)
                         <a href="{{url('/message/'.$data_joins->id)}}">
                           <img src="{{url('/image/'.$data_joins->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
                           <p>
