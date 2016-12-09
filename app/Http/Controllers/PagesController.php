@@ -313,6 +313,8 @@ class PagesController extends Controller
     //<================= METHHOD FOR ACCEPT ISTEK OR DESTEK MESSSAGE ================>
     public function accept($id)
     {
+      Session::flash('accept', 'İsmarıcınız müvəffəqiyyətlə göndərildi.');
+
       $qars=Qarsiliq::find($id);
       if ($qars) {
         $qars->data=1;
