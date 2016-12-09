@@ -71,7 +71,7 @@
             {{-- image show from DB --}}
            @foreach($destek_edit->shekiller as $pic)
                 <div class="img-wrap" imagename="{{$pic->imageName}}" data-remove="{{$pic->imageName}}">
-                    <span class="close"  imagename="{{$pic->imageName}}">&times;</span>
+                    <span class="closeImage"  imagename="{{$pic->imageName}}">&times;</span>
                   <img class="im_" imagename="{{$pic->imageName}}" src="{{url('/image/'.$pic->imageName)}}" alt="İstək image" />
                   </div>
             @endforeach

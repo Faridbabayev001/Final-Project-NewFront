@@ -24,7 +24,7 @@
               @if($data_join->type_id==2)
                 <span class="special-istek">{{$data_join->name}}</span> adlı istifadəçi dəstəyinizi qəbul etdi !
               @elseif($data_join->type_id==1)
-                <span class="special-destek">{{$data_join->name}}</span> adlı istifadəçi istəyinizi qebul etdi
+                <span class="special-destek">{{$data_join->name}}</span> adlı istifadəçi istəyinizi qəbul etdi
               @endif
             </h3>
             <h4 class="not-single-desc">Email: {{$data_join->email}}</h4>

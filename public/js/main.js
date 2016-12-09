@@ -110,7 +110,7 @@ $("#uploadAjax").change(function(e) {
 
               reader.readAsDataURL(file[0]);
             $("#afterImage").after('<div class="img-wrap" imagename="'+file[0].name+'"></div>');
-              $(".img-wrap[imagename='"+file[0].name+"']").append('<span class="close" imagename="'+file_name+'">&times;</span>');
+              $(".img-wrap[imagename='"+file[0].name+"']").append('<span class="closeImage" imagename="'+file_name+'">&times;</span>');
               $(".img-wrap[imagename='"+file[0].name+"']").attr('data-remove', file_name).append(img);
             })
             }else{
@@ -177,14 +177,14 @@ $("#uploadAjax").change(function(e) {
 // ----------------------------ISTEK EDIT WHEN CLICKING X ON PIC-----------------------------------------------
 
 
-  $(document).on('click', '.close', function(){
+  $(document).on('click', '.closeImage', function(){
       var name = $(this).attr('imagename');
       var im_length = $('.im_').length;
 
         if($('.im_').length==1){
           alert('1den az shekil olmaz')
         }else{
-        var status = confirm("Are you sure you want to delete ?");
+        var status = confirm("Silmək istədiyinizdən əminsinizmi?"); 
           if(status==true)
           {
             $(".img-wrap[data-remove='"+name+"']").remove();

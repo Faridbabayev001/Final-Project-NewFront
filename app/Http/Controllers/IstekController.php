@@ -215,7 +215,7 @@ class IstekController extends Controller
    {
      $istek_delete=Elan::find($id);
      if ($istek_delete) {
-    if($istek_edit->user_id==Auth::user()->id){
+    if($istek_delete->user_id==Auth::user()->id){
        $istek_delete->shekiller();
        foreach ($istek_delete->shekiller as $val) {
          unlink('image/'.$val->imageName);
