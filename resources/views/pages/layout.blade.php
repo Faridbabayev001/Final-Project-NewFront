@@ -56,9 +56,10 @@ use App\Qarsiliq;
               ->select('els.type_id','users.name','users.avatar','qarsiliqs.notification','qarsiliqs.user_id','qarsiliqs.id','qarsiliqs.status','qarsiliqs.data')
                ->where([
                      ['qarsiliqs.data', '=', 1],
-                     ['qarsiliqs.user_id', '=', Auth::user()->id]
+                     ['qarsiliqs.user_id', '=', Auth::user()->id],
+                     ['qarsiliqs.data_status', '=', 1]
                  ])
-                 ->orWhere('qarsiliqs.data_status', '=', 1)
+                //  ->orWhere('qarsiliqs.data_status', '=', 1)
                  ->get();
     //  dd($noti_qars_user);
          $noti_image = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
@@ -86,24 +87,30 @@ use App\Qarsiliq;
           <li class="dropdown">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">
                 <i class="fa fa-bell"></i>
-                 @if(count($noti) != 0)
+            @if(count($noti) != 0 && count($noti_qars_user)==0)
+                   <?php
+                    $count=count($noti);
+                    ?>
                    @foreach($noti as $key => $noties)
                      @if($noties->user_id==Auth::user()->id)
                        <span class="contact-auth-notification-number">
-                         {{count($noties)}}
+                         {{$count}}
                        </span>
                      @endif
                    @endforeach
 
-               @elseif(count($noti_qars_user)!=0)
-                 @foreach($noti_qars_user as $key => $noti_qars_users)
-                   @if($noti_qars_users->user_id==Auth::user()->id)
-                     <span class="contact-auth-notification-number">
-                       {{count($noti_qars_users)}}
-                     </span>
-                   @endif
-                 @endforeach
-               @endif
+                 @elseif(count($noti_qars_user)!=0 && count($noti) != 0)
+                     <?php
+                        $count1=count($noti_qars_user) + count($noti);
+                      ?>
+                     @foreach($noti_qars_user as $key => $noti_qars_users)
+                       @if($noti_qars_users->user_id==Auth::user()->id)
+                         <span class="contact-auth-notification-number">
+                           {{$count1}}
+                         </span>
+                       @endif
+                     @endforeach
+             @endif
                </a>
               <ul class="dropdown-menu contact-auth-notification" role="menu">
                 @foreach($noti_image as $key => $notification_image)
