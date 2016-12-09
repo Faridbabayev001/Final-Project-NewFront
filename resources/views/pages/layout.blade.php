@@ -43,23 +43,24 @@ use App\Qarsiliq;
           @php
           $noti = Elan::join('users', 'users.id', '=', 'els.user_id')
                     ->join('qarsiliqs', 'qarsiliqs.elan_id', '=', 'els.id')
-                    ->select('els.type_id','users.name','users.avatar','qarsiliqs.notification','qarsiliqs.id','qarsiliqs.status','qarsiliqs.data')
+                    ->select('els.type_id','users.name','els.user_id','qarsiliqs.notification','qarsiliqs.status','qarsiliqs.data')
                      ->where([
                            ['qarsiliqs.status', '=', 1],
                            ['els.user_id', '=', Auth::user()->id]
                        ])
                        ->get();
+                      //  dd($noti);
 
-    $noti_qars_user=Elan::join('users', 'users.id', '=', 'els.user_id')
+      $noti_qars_user=Elan::join('users', 'users.id', '=', 'els.user_id')
               ->join('qarsiliqs', 'qarsiliqs.elan_id', '=', 'els.id')
-              ->select('els.type_id','users.name','users.avatar','qarsiliqs.notification','qarsiliqs.id','qarsiliqs.status','qarsiliqs.data')
+              ->select('els.type_id','users.name','users.avatar','qarsiliqs.notification','qarsiliqs.user_id','qarsiliqs.id','qarsiliqs.status','qarsiliqs.data')
                ->where([
-                     ['qarsiliqs.status', '=', 1],
-                     ['els.user_id', '=', Auth::user()->id]
+                     ['qarsiliqs.data', '=', 1],
+                     ['qarsiliqs.user_id', '=', Auth::user()->id]
                  ])
                  ->orWhere('qarsiliqs.data_status', '=', 1)
                  ->get();
-
+    //  dd($noti_qars_user);
          $noti_image = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
               ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
               ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.user_id','qarsiliqs.id','qarsiliqs.status','qarsiliqs.data')
@@ -72,31 +73,36 @@ use App\Qarsiliq;
                $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
                     ->join('users', 'users.id', '=', 'els.user_id')
                     ->select('users.name','els.type_id','users.email','users.city','qarsiliqs.id','users.avatar','qarsiliqs.data_status')
+                    ->orderBy('id', 'desc')
                     ->where([
                           ['qarsiliqs.data', '=', 1],
                           ['qarsiliqs.user_id','=',Auth::user()->id]
                       ])
+                      ->take(3)
                     // ->where('qarsiliqs.user_id','=',Auth::user()->id)
                     ->get();
           @endphp
           <ul class="list-inline pull-right contact-auth">
           <li class="dropdown">
-              <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-bell"></i>
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                <i class="fa fa-bell"></i>
                  @if(count($noti) != 0)
-                  {{-- @foreach($data_join as $key => $data_joins) --}}
-                    {{-- @if($data_joins->user_id != Auth::user()->id) --}}
-                     <span class="contact-auth-notification-number">
-                       {{count($noti)}}
-                     </span>
+                   @foreach($noti as $key => $noties)
+                     @if($noties->user_id==Auth::user()->id)
+                       <span class="contact-auth-notification-number">
+                         {{count($noties)}}
+                       </span>
+                     @endif
+                   @endforeach
 
-               {{-- @elseif($data_joins->user_id == Auth::user()->id) --}}
                @elseif(count($noti_qars_user)!=0)
-                    <span class="contact-auth-notification-number">
-                      {{count($noti_qars_user)}}
-                    </span>
-                  {{-- @endif --}}
-                {{-- @endif --}}
-                {{-- @endforeach --}}
+                 @foreach($noti_qars_user as $key => $noti_qars_users)
+                   @if($noti_qars_users->user_id==Auth::user()->id)
+                     <span class="contact-auth-notification-number">
+                       {{count($noti_qars_users)}}
+                     </span>
+                   @endif
+                 @endforeach
                @endif
                </a>
               <ul class="dropdown-menu contact-auth-notification" role="menu">
