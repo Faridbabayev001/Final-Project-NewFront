@@ -68,14 +68,37 @@ use App\Qarsiliq;
                 ->orWhere('qarsiliqs.user_id', '=', Auth::user()->id)
               ->take(3)
                ->get();
+
                $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
                     ->join('users', 'users.id', '=', 'els.user_id')
                     ->select('users.name','els.type_id','users.email','users.city','qarsiliqs.id','users.avatar')
-                    ->where('qarsiliqs.user_id','=',Auth::user()->id)
+                    ->where([
+                          ['qarsiliqs.data', '=', 1],
+                          ['qarsiliqs.user_id','=',Auth::user()->id]
+                      ])
+                    // ->where('qarsiliqs.user_id','=',Auth::user()->id)
                     ->get();
           @endphp
           <ul class="list-inline pull-right contact-auth">
           <li class="dropdown">
+              <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-bell"></i>
+                 @if(count($noti) != 0)
+                  {{-- @foreach($data_join as $key => $data_joins) --}}
+                    {{-- @if($data_joins->user_id != Auth::user()->id) --}}
+                     <span class="contact-auth-notification-number">
+                       {{count($noti)}}
+                     </span>
+
+               {{-- @elseif($data_joins->user_id == Auth::user()->id) --}}
+               @elseif(count($noti_qars_user)!=0)
+                    <span class="contact-auth-notification-number">
+                      {{count($noti_qars_user)}}
+                    </span>
+                  {{-- @endif --}}
+                {{-- @endif --}}
+                {{-- @endforeach --}}
+               @endif
+               </a>
             <a href="#" data-toggle="dropdown" class="dropdown-toggle"><i class="fa fa-bell"></i>
                @if(count($noti) != 0)
                 {{-- @foreach($data_join as $key => $data_joins) --}}
@@ -94,6 +117,7 @@ use App\Qarsiliq;
               {{-- @endforeach --}}
              @endif
              </a>
+>>>>>>> 6ad6c2ace916a45eef2d00656f77052eecc294c5
               <ul class="dropdown-menu contact-auth-notification" role="menu">
                 @foreach($noti_image as $key => $notification_image)
                   @if($notification_image->user_id != Auth::user()->id)
@@ -127,22 +151,23 @@ use App\Qarsiliq;
                 @elseif($notification_image->user_id == Auth::user()->id)
                     <li>
                       @foreach($data_join as $data_joins)
-                        @if($notification_image->data_status==0)
-                      <a href="{{url('/message/'.$data_joins->id)}}" class="notification-seen">
-                        <img src="{{url('/image/'.$data_joins->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
-                          <p>
-                            @if($data_joins->type_id==2)
-                              <span class="special-istek">{{$data_joins->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
-                            @endif
-                            @if($data_joins->type_id==1)
-                              <span class="special-destek">{{$data_joins->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
-                            @endif
-                          </p>
-                        </a>
+                        @if($data_joins->data_status==1)
+                          <a href="{{url('/message/'.$data_joins->id)}}" class="notification-seen">
+                            <img src="{{url('/image/'.$data_joins->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
+                              <p>
+                                @if($data_joins->type_id==2)
+                                  <span class="special-istek">{{$data_joins->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
+                                @endif
+                                @if($data_joins->type_id==1)
+                                  <span class="special-destek">{{$data_joins->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
+                                @endif
+                              </p>
+                            </a>
                       @else
                         <a href="{{url('/message/'.$data_joins->id)}}">
                           <img src="{{url('/image/'.$data_joins->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
-                          <p>                             @if($data_joins->type_id==2)
+                          <p>
+                            @if($data_joins->type_id==2)
                               <span class="special-istek">{{$data_joins->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
                             @endif
                             @if($data_joins->type_id==1)
