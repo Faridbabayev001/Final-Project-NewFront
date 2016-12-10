@@ -1,6 +1,18 @@
 @extends('pages.layout')
 @section('title','Istek_redaktə')
 @section('content')
+
+
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span id="ModalClose" class="close">&times;</span>
+    <p></p>
+  </div>
+
+</div>
+
 <div id="breadcrumb">
 <div class="container">
    <div class="row">

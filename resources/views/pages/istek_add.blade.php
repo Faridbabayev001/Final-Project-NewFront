@@ -1,6 +1,17 @@
 @extends('pages.layout')
 @section('title','İstək əlavə et')
-@section('content')
+@section('content') 
+
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span id="ModalClose" class="close">&times;</span>
+    <p></p>
+  </div>
+
+</div>
+
 <div id="breadcrumb">
 <div class="container">
    <div class="row">
@@ -24,6 +35,9 @@
         @endif
         @if (Session::has('imageerror'))
           <div class="alert alert-danger" role="alert">{{Session::get('imageerror')}}</div>
+        @endif
+        @if (Session::has('dateerror'))
+          <div class="alert alert-danger" role="alert">{{Session::get('dateerror')}}</div>
         @endif
         <div id="ajaxErrorImage"></div>
 

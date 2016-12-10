@@ -36,7 +36,16 @@ class IstekController extends Controller
 
     public function istek_add(Request $req)
     {
+       $tarix = date('Y-m-d');
+       if(date_create($req->date) < date_create($tarix)){
+         Session::flash('dateerror' , "Zəhmət olmasa tarixi düzgün seçin.");
+         return back();    
+       }
 
+      if($req->file('image')[0]==null){
+       Session::flash('imageerror' , "Xahiş olunur şəkil seçin.");
+       return back();
+     }
          $this->validate($req, [
              'title' => 'required',
              'about' => 'required',
@@ -48,11 +57,8 @@ class IstekController extends Controller
              'email' => 'required',
              'nov' => 'required',
              'date' => 'required'
-        ]);
-     if($req->file('image')[0]==null){
-       Session::flash('imageerror' , "Xahiş olunur şəkil seçin.");
-       return back();
-     }
+        ]);      
+    
 
      $files = $req->file('image');
      $pic_name = array();
@@ -119,6 +125,11 @@ class IstekController extends Controller
         {
 
           if ($req->ajax()) {
+          
+          if($req->imgLength>5){
+            return false;
+          }
+
             $file_type = $req->file->getClientOriginalExtension();
             $lowered = strtolower($file_type);
 
@@ -214,11 +225,11 @@ class IstekController extends Controller
    public function istek_delete($id)//updated
    {
      $istek_delete=Elan::find($id);
-     if ($istek_delete) {
+   if ($istek_delete) {
     if($istek_delete->user_id==Auth::user()->id){
        $istek_delete->shekiller();
        foreach ($istek_delete->shekiller as $val) {
-         unlink('image/'.$val->imageName);
+         unlink('image/'.$val->imageName);  
        }
        $istek_delete->delete();
        return back();

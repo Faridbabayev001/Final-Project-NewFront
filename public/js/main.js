@@ -47,6 +47,17 @@ $(document).ready(function(){
 
 
 
+//----------------------------INPUT EVENTS ISTEK DESTEK ADD--------------------------------
+
+    // $('chekingImageDate').click(function(event) {
+    //    $("#forLimitFile").css("background-color", "pink");
+    //  });
+
+//----------------------------INPUT EVENTS ISTEK DESTEK ADD--------------------------------
+
+
+
+
 //----------------------------PROFIL CHOOSE FILE BUTTON DEYISHMEK--------------------------------
 
         $('.forImg').click(function() {
@@ -71,13 +82,17 @@ $("#uploadAjax").change(function(e) {
 
     var total = imgs+added;
     if(total > 5) {
-        alert('Maximum sekil sayi 5-dir');
+        // alert('Maximum sekil sayi 5-dir');
+        $('#myModal').css('display', 'block');
+          var texts = $('.modal-content').children('p');
+          texts.text('Ən çox 5 şəkil seçə bilərsiniz');
     }
    else {
       var formData = new FormData();
       var istek_id = $('#forPicsAjax').val();
       formData.append('file', $(this)[0].files[0]);
       formData.append('istek_id', istek_id);
+      formData.append('imgLength', total)
 
       $.ajax({
         url: '/add_file_change',
@@ -127,12 +142,15 @@ $("#uploadAjax").change(function(e) {
 
 
 // ----------------------------UPLOAD FILE LIMIT AND SHOWING-----------------------------------------------
-
+  var lengthForImg;
   $('#forLimitFile').change(function(e){
-    var length = e.originalEvent.srcElement.files.length;
-      if(length > 5)
-          alert('5-den cox şekil secmeyin');
-        else{
+    lengthForImg = e.originalEvent.srcElement.files.length;
+      if(lengthForImg > 5){
+          // alert('5-den cox şekil secmeyin');
+         $('#myModal').css('display', 'block');
+          var texts = $('.modal-content').children('p');
+          texts.text('Ən çox 5 şəkil seçə bilərsiniz');
+        }else{
           $('#viewImage').empty();
            $(e.originalEvent.srcElement.files).each(function () {
           var file = $(this);
@@ -156,14 +174,50 @@ $("#uploadAjax").change(function(e) {
       }
   });
 
-  $('form').submit(function(){
-    console.log(length);
-      if(length >5){
-        alert("yeniden secin");
-          return false;
-      }
-  });
+  $('#forUploadImages').submit(function(){
+  //   var dt = new Date();
+  //   var today = dt.getDate();
+  //   var month = dt.getMonth() + 1; 
+  //   var year = dt.getFullYear();
+  // console.log(year+'-'+month+'-'+today)   
 
+  var dat =  $('#date').val();
+
+     if(dat==''){
+          $('#myModal').css('display', 'block');
+          var texts = $('.modal-content').children('p');
+          texts.text('Zəhmət olmasa elanınıza bitmə tarixi daxil edin')
+        return false; 
+      } 
+
+    if(lengthForImg >5 || lengthForImg==undefined){
+      if(lengthForImg >5){
+        $('#myModal').css('display', 'block');
+          var texts = $('.modal-content').children('p');
+          texts.text('Zəhmət olmasa 5-dən artıq şəkil seçməyəsiniz')         
+      }
+      if(lengthForImg==undefined){        
+       $('#myModal').css('display', 'block');
+          var texts = $('.modal-content').children('p');
+          texts.text('Zəhmət olmasa ən azı bir şəkil seçin')
+      }
+     return false;
+    }
+  })
+
+    // window.onclick = function(event) {
+    //     if (event.target == $('#myModal')) {
+    //         $('#myModal').css('display', 'none');
+    //     }
+    // } bu niye ishlemir anlamiram
+
+
+/////molda-da x-a basanda
+  $('#ModalClose').click(function(event) {
+    var sh = $('.modal-content').children('p');
+      $('#myModal').css('display', 'none');
+   
+     });
 
     function checkExtension (name) {
       var found = name.lastIndexOf('.') + 1;
@@ -180,9 +234,18 @@ $("#uploadAjax").change(function(e) {
   $(document).on('click', '.closeImage', function(){
       var name = $(this).attr('imagename');
       var im_length = $('.im_').length;
+console.log(im_length)
+      // if(im_length==4){
+      //    $('#myModal').css('display', 'block');
+      //     var texts = $('.modal-content').children('p');
+      //     texts.text('Zəhmət olmasa 5-dən artıq şəkil seçməyəsiniz');
+      // }
 
         if($('.im_').length==1){
-          alert('1den az shekil olmaz')
+          // alert('1den az shekil olmaz')
+           $('#myModal').css('display', 'block');
+          var texts = $('.modal-content').children('p');
+          texts.text('Ən azı bir şəkil olmalıdır');
         }else{
         var status = confirm("Silmək istədiyinizdən əminsinizmi?");
           if(status==true)
