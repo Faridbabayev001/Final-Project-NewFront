@@ -37,6 +37,15 @@ class DestekController extends Controller
 
   public function destek_add(Request $req)
   {
+     if($req->file('image')[0]==null){
+       Session::flash('imageerror' , "Xahiş olunur şəkil seçin.");
+          return back();
+      }
+       $tarix = date('Y-m-d');
+       if(date_create($req->date) < date_create($tarix)){
+         Session::flash('dateerror' , "Zəhmət olmasa tarixi düzgün seçin.");
+         return back();    
+       }
 
         $this->validate($req, [
           'title' => 'required',
@@ -52,10 +61,6 @@ class DestekController extends Controller
           'date' => 'required'
       ]);
 
-     if($req->file('image')[0]==null){
-       Session::flash('imageerror' , "Xahiş olunur şəkil seçin.");
-          return back();
-      }
 
      $files = $req->file('image');
      $pic_name = array();
