@@ -247,7 +247,7 @@ console.log(im_length)
           var texts = $('.modal-content').children('p');
           texts.text('Ən azı bir şəkil olmalıdır');
         }else{
-        var status = confirm("Silmək istədiyinizdən əminsinizmi?"); 
+        var status = confirm("Silmək istədiyinizdən əminsinizmi?");
           if(status==true)
           {
             $(".img-wrap[data-remove='"+name+"']").remove();
