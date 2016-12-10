@@ -64,7 +64,6 @@ class PagesController extends Controller
       return view('pages.index',compact('datas'));
     }
 
-
     //<================= METHHOD FOR REGİSTER ===========>
 
     public function register()

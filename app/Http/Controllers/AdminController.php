@@ -3,12 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\Hash;
 use App\Http\Requests;
 
 use App\User;
 use App\Elan;
+use App\Admin;
 use Auth;
+
 
 class AdminController extends Controller
 {
@@ -20,7 +22,8 @@ class AdminController extends Controller
 
   public function postLogin(Request $request)
   {
-
+    $email = $request->email;
+    $password = md5($request->password);
     $validator= validator($request->all(), [
       'email' => 'required|min:3|max:100',
       'password' => 'required|min:3|max:100',
@@ -31,20 +34,31 @@ class AdminController extends Controller
                 ->withErrors($validator)
                 ->withInput();
     }
-    $details=['email' => $request->get('email'), 'password' => $request->get('password')];
-    if (auth()->guard('admin')->attempt($details) )
+    if (isset($_SESSION))
     {
-      return redirect('/alfagen');
+      $admins = Admin::all();
+      foreach ($admins as $admin) {
+        if ($admin->email == $email && $admin->password == $password) {
+          $_SESSION['admin'] = 'admin';
+          return redirect('/alfagen');
+        }else {
+          return redirect('/alfagen/login')
+                  ->withErrors(['errors' => 'Duzgun deyl!'])
+                  ->withInput();
+        }
+      }
     }
     else
     {
-      return redirect('/alfagen/login')
-              ->withErrors(['errors' => 'Duzgun deyl!'])
-              ->withInput();
+      session_start();
+      // return redirect('/alfagen/login')
+      //         ->withErrors(['errors' => 'Duzgun deyl!'])
+      //         ->withInput();
     }
   }
   public function logout()
     {
+      unset($_SESSION['admin']);
       auth()->guard('admin')->logout();
       return redirect('/alfagen/login');
     }

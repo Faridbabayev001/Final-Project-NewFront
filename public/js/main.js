@@ -184,7 +184,7 @@ $("#uploadAjax").change(function(e) {
         if($('.im_').length==1){
           alert('1den az shekil olmaz')
         }else{
-        var status = confirm("Silmək istədiyinizdən əminsinizmi?"); 
+        var status = confirm("Silmək istədiyinizdən əminsinizmi?");
           if(status==true)
           {
             $(".img-wrap[data-remove='"+name+"']").remove();

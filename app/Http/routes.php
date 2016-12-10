@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-
+session_start();
 //<==================Page Routes ==================>
 Route::get('/','PagesController@index');
 Route::get('/Qeydiyyat','PagesController@register');
@@ -69,14 +69,17 @@ Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name(
 //<=================Auth and User Routes End ===========>
 
 //<=================Admin Routes ===========>
-Route::group(['middleware' => 'admin'],function(){
-Route::get('/alfagen','AdminController@index');
 Route::get('/alfagen/login', 'AdminController@login');
 Route::post('/alfagen/postLogin', 'AdminController@postLogin');
-Route::get('/alfagen/logout', 'AdminController@logout');
-Route::get('/İstək-list','AdminController@istek_list');
-Route::get('/Dəstək-list','AdminController@destek_list');
-Route::get('/activate/{id}','AdminController@activate');
-Route::get('/deactivate/{id}','AdminController@deactivate');
-});
+
+if (isset($_SESSION['admin'])) {
+  Route::group(['middleware' => 'admin'],function(){
+    Route::get('/alfagen','AdminController@index');
+    Route::get('/alfagen/logout', 'AdminController@logout');
+    Route::get('/İstək-list','AdminController@istek_list');
+    Route::get('/Dəstək-list','AdminController@destek_list');
+    Route::get('/activate/{id}','AdminController@activate');
+    Route::get('/deactivate/{id}','AdminController@deactivate');
+  });
+}
 //<=================Admin Routes ===========>
