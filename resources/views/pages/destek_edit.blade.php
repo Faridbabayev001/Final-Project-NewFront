@@ -16,6 +16,7 @@
       <div class="row">
         <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
           <div id="map"></div>
+          <button id="MyLocation" class="btn" type="button" name="button">Məni Tap</button>
         </div>
         <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12">
           @if (Session::has('destek_edited'))
@@ -71,7 +72,7 @@
             {{-- image show from DB --}}
            @foreach($destek_edit->shekiller as $pic)
                 <div class="img-wrap" imagename="{{$pic->imageName}}" data-remove="{{$pic->imageName}}">
-                    <span class="close"  imagename="{{$pic->imageName}}">&times;</span>
+                    <span class="closeImage"  imagename="{{$pic->imageName}}">&times;</span>
                   <img class="im_" imagename="{{$pic->imageName}}" src="{{url('/image/'.$pic->imageName)}}" alt="İstək image" />
                   </div>
             @endforeach

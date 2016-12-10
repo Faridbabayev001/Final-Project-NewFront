@@ -212,25 +212,25 @@
 
           {{-- <================== MESSAGE PART  ==================> --}}
           <div id="profil-ismariclar" class="tab-pane fade in {{Request::is('Ismarıclar') ? " active" : ''}}">
+            @foreach($data_join as $data_joins)
             <div class="col-lg-12 padding0 notification-block">
-                @foreach($data_join as $data_join)
                   <div class="col-lg-2">
-                      <img src="{{url('/image/'.$data_join->avatar)}}">
+                      <img src="{{url('/image/'.$data_joins->avatar)}}">
                   </div>
                   <div class="col-lg-9">
                     <h4 class="profil-notification-title">
-                      @if($data_join->type_id==2)
-                        <span class="special-istek">{{$data_join->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
+                      @if($data_joins->type_id==2)
+                        <span class="special-istek">{{$data_joins->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
                       @endif
-                      @if($data_join->type_id==1)
-                        <span class="special-destek">{{$data_join->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
+                      @if($data_joins->type_id==1)
+                        <span class="special-destek">{{$data_joins->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
                       @endif
                     </h4>
-                    <p class="profil-notification-desc">{{$data_join->description}}</p>
-                    <p class="profil-notification-full pull-right"><a href="{{url('/message/'.$data_join->id)}}" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
+                    <p class="profil-notification-desc">{{$data_joins->description}}</p>
+                    <p class="profil-notification-full pull-right"><a href="{{url('/message/'.$data_joins->id)}}" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
                   </div>
-                @endforeach
             </div>
+          @endforeach
           </div>
 
 

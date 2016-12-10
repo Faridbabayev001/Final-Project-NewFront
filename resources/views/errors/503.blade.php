@@ -3,7 +3,8 @@
     <head>
         <title>Be right back.</title>
 
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
+        {{-- <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css"> --}}
+        <link rel="stylesheet" href="{{url('/css/style.css')}}" media="screen" title="no title">
 
         <style>
             html, body {
@@ -41,7 +42,8 @@
     <body>
         <div class="container">
             <div class="content">
-                <div class="title">404 Page Not Found &#9785</div>
+                <div class="title">Bu səhifə tapılmadı &#9785</div>
+                <h3><a href="{{url('/')}}">Ana Səhifə</a></h3>
             </div>
         </div>
     </body>

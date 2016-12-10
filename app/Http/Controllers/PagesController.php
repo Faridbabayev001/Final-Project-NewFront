@@ -105,8 +105,8 @@ class PagesController extends Controller
     //<================= METHHOD FOR NOTIFICATION COUNT ================>
 
       public function notification_count(Request $request,Qarsiliq $qarsiliq,$id)
-      {   Session::flash('description_destek' , "Dəstəyiniz uğurla  gönderildi. ");
-          Session::flash('description_istek' , "istəyiniz uğurla  gönderildi. ");
+      {   Session::flash('description_destek' , "Dəstəyiniz uğurla  göndərildi. Qəbul olunduğu zaman sizə bildiriş göndəriləcək ");
+          Session::flash('description_istek' , "İstəyiniz uğurla  göndərildi. Qəbul olunduğu zaman sizə bildiriş göndəriləcək ");
 
           $qarsiliq->elan_id = $id;
           $qarsiliq->user_id = Auth::user()->id;
@@ -313,6 +313,8 @@ class PagesController extends Controller
     //<================= METHHOD FOR ACCEPT ISTEK OR DESTEK MESSSAGE ================>
     public function accept($id)
     {
+      Session::flash('accept', 'İsmarıcınız müvəffəqiyyətlə göndərildi.');
+
       $qars=Qarsiliq::find($id);
       if ($qars) {
         $qars->data=1;

@@ -51,6 +51,7 @@
             <div class="about-us-team-details">
               <h3 class="about-us-team-details-title">Lalə Məmmədova</h3>
               <p class="about-us-team-details-desc">BDU - Komputer elmləri</p>
+              <p class="about-us-team-details-desc">lale.m@code.edu.az</p>
             </div>
           </div>
         </div>
@@ -63,6 +64,7 @@
             <div class="about-us-team-details">
               <h3 class="about-us-team-details-title">Fərid Babayev</h3>
               <p class="about-us-team-details-desc">AzTU - Komputer elmləri</p>
+              <p class="about-us-team-details-desc">farid.b@code.edu.az</p>
             </div>
           </div>
         </div>
@@ -75,6 +77,7 @@
             <div class="about-us-team-details">
               <h3 class="about-us-team-details-title">Naseh Bədəlov</h3>
               <p class="about-us-team-details-desc">QU - Sənaye mühəndisliyi</p>
+              <p class="about-us-team-details-desc">nasehbadalov@gmail.com</p>
             </div>
           </div>
         </div>
@@ -87,6 +90,7 @@
             <div class="about-us-team-details">
               <h3 class="about-us-team-details-title">Günel İsmayılova</h3>
               <p class="about-us-team-details-desc">ADNSU - Komputer mühəndisliyi</p>
+              <p class="about-us-team-details-desc">gunel.i@code.edu.az</p>
             </div>
           </div>
         </div>
