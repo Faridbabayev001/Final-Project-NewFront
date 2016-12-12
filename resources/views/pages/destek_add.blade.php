@@ -1,6 +1,18 @@
 @extends('pages.layout')
 @section('title','Dəstək əlavə et')
 @section('content')
+
+
+<div id="myModal" class="modal">
+
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span id="ModalClose" class="close">&times;</span>
+    <p></p>
+  </div>
+
+</div>
+
   <div id="breadcrumb">
   <div class="container">
      <div class="row">
@@ -33,7 +45,7 @@
             </span>
           @endif
 
-          <form action="{{url('/destek-add')}}" method="post" enctype="multipart/form-data">
+          <form id="forUploadImages" action="{{url('/destek-add')}}" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
             {{-- <=================title input ================> --}}
             <div class="col-lg-6">

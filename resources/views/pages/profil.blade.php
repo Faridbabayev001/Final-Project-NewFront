@@ -3,6 +3,7 @@
 @section('title','Profil')
 
 @section('content')
+
   <div id="breadcrumb">
   <div class="container">
      <div class="row">
