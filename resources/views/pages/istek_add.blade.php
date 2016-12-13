@@ -129,6 +129,11 @@
             <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
               <label for="date">İstəyin müddəti<SPAN> *</SPAN></label>
               <input type="date" name="date" class="form-control" id="date" value="{{ old('date') }}">
+              @if ($errors->has('date'))
+                  <span class="help-block">
+                    <strong>Seçdiyiniz tarix sizin elanınızın bitmə müddətini göstərir. Həmin gündən sonra elan görünməyəcək</strong>
+                  </span>
+              @endif
             </div>
             <div class="form-group text-right">
               <input type="submit" class="btn" value="GÖNDƏR">
