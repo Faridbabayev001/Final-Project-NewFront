@@ -41,11 +41,11 @@ class DestekController extends Controller
        Session::flash('imageerror' , "Xahiş olunur şəkil seçin.");
           return back();
       }
-       $tarix = date('Y-m-d');
-       if(date_create($req->date) < date_create($tarix)){
-         Session::flash('dateerror' , "Zəhmət olmasa tarixi düzgün seçin.");
-         return back();    
-       }
+       // $tarix = date('Y-m-d');
+       // if(date_create($req->date) < date_create($tarix)){
+       //   Session::flash('dateerror' , "Zəhmət olmasa tarixi düzgün seçin.");
+       //   return back();    
+       // }
 
         $this->validate($req, [
           'title' => 'required',
@@ -58,7 +58,7 @@ class DestekController extends Controller
           'phone' => 'required',
           'email' => 'required',
           'nov' => 'required',
-          'date' => 'required'
+         'date' => 'required|after:tomorrow'
       ]);
 
 
