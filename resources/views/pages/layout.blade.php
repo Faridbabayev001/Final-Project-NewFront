@@ -244,6 +244,7 @@ use App\Qarsiliq;
                       <span class="input-group-addon"><i class="fa fa-key"></i></span>
                       <input id="pass" type="password" name="password" class="form-control" placeholder="Şifrə">
                     </div>
+                  <a class="btn btn-link" href="{{ url('/password/reset') }}">Şifrəni unutdun ?</a>
                     <strong id="PasswordError" class="text-danger"></strong>
                         <div class="col-lg-12 padding0">
                           <input id="submit"  type="submit" class="btn btn-default pull-right" value="Daxil ol">

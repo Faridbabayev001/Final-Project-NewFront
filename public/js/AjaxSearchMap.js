@@ -103,7 +103,7 @@ function Mydata(data,count){
                src="/images/red-icon.png";
              };
              var MyData =data[i]['about'];
-             var about = MyData.substring(0,140);
+             var about = MyData.substring(0,185);
              marker = new google.maps.Marker({
                position: new google.maps.LatLng(data[i]['lat'],data[i]['lng']),
                map: map,
@@ -112,7 +112,7 @@ function Mydata(data,count){
                '<div class="infow-content">' +
                "<a href='/single/"+data[i]['id']+"'><img src='image/"+data[i]['image']+"'height='127' width='140'></a>" +
                '<div class="infoBubble-desc">' +
-               "<p>"+about+"</p>"+
+               "<p style='padding-right:9px'>"+about+" ...</p>"+
                '</div>' +
                "<p class='pull-right '><a href='/single/"+data[i]['id']+"' class='btn infoBubble-button'>Ətraflı</a></p>"+
                '</div>' +

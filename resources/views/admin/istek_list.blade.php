@@ -39,12 +39,12 @@
                                     <td><a class="btn btn-warning" href="{{url('/deactivate/'.$istek->id)}}">Deaktivləşdir</a></td>
                                   @endif
                                   <td>{{$istek->title}}</td>
-                                  <td><a href="#" data-toggle="modal" data-target="#{{$istek->id}}">{{substr($istek->about,0,10)}}</a></td>
+                                  <td>{{substr($istek->about,0,10)}}</td>
                                   <td>{{substr($istek->location, 0,10)}}</td>
                                   <td>{{$istek->name}}</td>
                                   <td>{{$istek->phone}}</td>
                                   <td>{{$istek->email}}</td>
-                                  <td><img style="width:50px; height:50px" src="{{url('image/'.$istek->shekiller[0]->imageName)}}"/></td>
+                                  <td><a href="#" data-toggle="modal" data-target="#{{$istek->id}}"><img style="width:50px; height:50px" src="{{url('image/'.$istek->shekiller[0]->imageName)}}"/></a></td>
                                   <td>{{$istek->org}}</td>
                                   <td>{{$istek->nov}}</td>
                               </tr>

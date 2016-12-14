@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('pages.layout')
 
 <!-- Main Content -->
 @section('content')
@@ -6,11 +6,12 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Reset Password</div>
+                <div class="panel-heading">Şifrə bərpası</div>
                 <div class="panel-body">
                     @if (session('status'))
                         <div class="alert alert-success">
-                            {{ session('status') }}
+                            {{-- {{ session('status') }} --}}
+                            Biz sizin emailinizə şifrəni bərpa etmek üçün link göndərdik zəhmət olmasa emailinizi yoxlayasınız.
                         </div>
                     @endif
 
@@ -25,7 +26,7 @@
 
                                 @if ($errors->has('email'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
+                                        <strong>E-Mail Addressini yazın</strong>
                                     </span>
                                 @endif
                             </div>
@@ -33,9 +34,9 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    <i class="fa fa-btn fa-envelope"></i> Send Password Reset Link
-                                </button>
+                              <button type="submit" class="btn btn-primary">
+                                  <i class="fa fa-btn fa-envelope"></i> Şifrə dəyişmə linkini göndər
+                              </button>
                             </div>
                         </div>
                     </form>
