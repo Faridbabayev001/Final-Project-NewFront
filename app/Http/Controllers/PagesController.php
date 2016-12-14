@@ -18,7 +18,7 @@ class PagesController extends Controller
 {
     public function index(Request $request)
     {
-      $datas=Elan::orderBy('created_at','desc')->take(5)->get();
+      $datas=Elan::orderBy('created_at','desc')->take(4)->get();
       $datamaps=Elan::all();
       foreach ($datamaps as $check_date) {
       $dbdate=new DateTime($check_date->deadline);
@@ -284,7 +284,7 @@ class PagesController extends Controller
 
     public function istek_list()
     {
-      $datas=Elan::orderBy('created_at','desc')->get();
+      $datas=Elan::orderBy('created_at','desc')->paginate(8);
 
       return view('pages.istek_list', compact('datas'));
     }
@@ -292,7 +292,7 @@ class PagesController extends Controller
     //<================= METHHOD FOR DESTEK_LIST ================>
     public function destek_list()
     {
-      $datas=Elan::orderBy('created_at','desc')->get();
+      $datas=Elan::orderBy('created_at','desc')->paginate(8);
       return view('pages.destek_list', compact('datas'));
     }
 
