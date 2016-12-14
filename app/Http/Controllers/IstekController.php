@@ -36,11 +36,11 @@ class IstekController extends Controller
 
     public function istek_add(Request $req)
     {
-       $tarix = date('Y-m-d');
-       if(date_create($req->date) < date_create($tarix)){
-         Session::flash('dateerror' , "Zəhmət olmasa tarixi düzgün seçin.");
-         return back();    
-       }
+       // $tarix = date('Y-m-d');
+       // if(date_create($req->date) < date_create($tarix)){
+       //   Session::flash('dateerror' , "Zəhmət olmasa tarixi düzgün seçin.");
+       //   return back();    
+       // }
 
       if($req->file('image')[0]==null){
        Session::flash('imageerror' , "Xahiş olunur şəkil seçin.");
@@ -56,7 +56,7 @@ class IstekController extends Controller
              'phone' => 'required',
              'email' => 'required',
              'nov' => 'required',
-             'date' => 'required'
+             'date' => 'required|after:tomorrow'
         ]);      
     
 
