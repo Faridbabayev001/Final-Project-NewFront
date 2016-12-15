@@ -35,29 +35,24 @@
         @elseif (Session::has('status'))
         <div class="alert alert-success" role="alert">{{Session::get('status')}}</div>
         @endif
+        @if ($errors->has('name') || $errors->has('username') || $errors->has('phone') || $errors->has('email') || $errors->has('password') || $errors->has('password_confirmation'))
+             <span class="help-block">
+             <div class="alert alert-danger"><p>Ulduz ilə işarəli xanaları boş saxlamayın.</p></div>
+           </span>
+         @endif
         <form action="{{ url('/register') }}" method="post">
           {{csrf_field()}}
           <div class="col-lg-6">
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-              <label for="name">Ad, Soyad</label>
+              <label for="name">Ad, Soyad <span> *</span></label>
               <input type="text" name="name" class="form-control" value="{{$name}}">
-              @if ($errors->has('name'))
-                  <span class="help-block">
-                      <strong>{{ $errors->first('name') }}</strong>
-                  </span>
-              @endif
             </div>
             <div class="form-group{{$errors->has('username') ? ' has-error ' : ''}}">
-              <label for="name">İstifadəçi adı</label>
+              <label for="name">İstifadəçi adı<span> *</span></label>
               <input type="text" name="username" class="form-control" value="{{$username}}">
-              @if ($errors->has('username'))
-                  <span class="help-block">
-                      <strong>{{ $errors->first('username') }}</strong>
-                  </span>
-              @endif
             </div>
             <div class="form-group{{ $errors->has('phone') ? ' has-error' : '' }}">
-              <label for="operator">Əlaqə nömrəsi</label>
+              <label for="operator">Əlaqə nömrəsi<span> *</span></label>
               <div class="input-group">
                   <div class="input-group-addon">
                       <input type="hidden" id="operator" name="operator" value="55">
@@ -70,22 +65,12 @@
                                 <option>77</option>
                           </select>
                       </div>
-                <input type="text" class="form-control" name="phone" value="" maxlength="7">
+                <input type="text" class="form-control" name="phone" value="{{substr(old('phone'),0,7)}}" maxlength="7">
               </div>
-              @if ($errors->has('phone'))
-                  <span class="help-block">
-                      <strong>{{ $errors->first('phone') }}</strong>
-                  </span>
-              @endif
             </div>
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-              <label for="email">Email</label>
+              <label for="email">Email<span> *</span></label>
               <input type="email" name="email" class="form-control" value="{{$email}}">
-              @if ($errors->has('email'))
-                  <span class="help-block">
-                      <strong>{{ $errors->first('email') }}</strong>
-                  </span>
-              @endif
             </div>
           </div>
           <div class="col-lg-6">
@@ -161,29 +146,14 @@
                            <option value="Zaqatala">Zaqatala</option>
                            <option value="Zərdab">Zərdab</option>
                      </select>
-                     @if ($errors->has('city'))
-                         <span class="help-block">
-                             <strong>{{ $errors->first('city') }}</strong>
-                         </span>
-                     @endif
             </div>
             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-              <label for="password">Şifrə</label>
-              <input type="password" name="password" class="form-control" placeholder="Password">
-              @if ($errors->has('password'))
-                  <span class="help-block">
-                      <strong>{{ $errors->first('password') }}</strong>
-                  </span>
-              @endif
+              <label for="password">Şifrə<span> *</span></label>
+              <input type="password" name="password" class="form-control">
             </div>
             <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
-              <label for="password">Təkrar Şifrə</label>
-              <input type="password" name="password_confirmation" class="form-control" placeholder="Password">
-              @if ($errors->has('password_confirmation'))
-                  <span class="help-block">
-                      <strong>{{ $errors->first('password_confirmation') }}</strong>
-                  </span>
-              @endif
+              <label for="password">Təkrar Şifrə<span> *</span></label>
+              <input type="password" name="password_confirmation" class="form-control">
             </div>
             <div class="form-group text-center">
               <input type="submit" class="btn" value="GÖNDƏR">

@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
-
+use Illuminate\Support\Facades\Lang;
 use App\Elan;
 use App\User;
 use Auth;
@@ -68,9 +68,32 @@ class PagesController extends Controller
 
     public function register()
     {
-      return view('pages.register');
+      //qeydiyyat sehifesinde login ederse ana sehifeye yonelecek ve yalniz cixis edenden sonra qeydiyyat sehifesini gore bilecek.
+      if (Auth::user()) {
+        return redirect('/');
+      }else {
+        return view('pages.register');
+      }
     }
       //<================= METHHOD FOR REGİSTER END===========>
+      //<===================METHOD FOR USER LOGIN =============>
+      public function user_login(Request $request)
+      {
+        $email = $request->email;
+        $password = $request->password;
+        $this->validate($request, [
+          'email' => 'required',
+          'password' => 'required',
+        ]);
+        // Auth ozu user table-dan axtarir eger inputdan gelen email ve sifre dogru deyilse eyni zamanda activated 1 deyilse /resources/lang/en/passwords.php -de
+        //olan  arraylarin icindeki user key-ne uygun valueni cixardir yeni We can't find a user with that e-mail address. :)
+            if (Auth::attempt(['email' => $email, 'password' => $password, 'activated' => 1])) {
+
+            }else {
+              return Lang::get('passwords.user');
+            }
+      }
+      //<===================METHOD FOR USER LOGIN END=============>
     //<================= METHHOD FOR SİNGLE PAGE  ================>
 
     public function single($id)
@@ -100,7 +123,6 @@ class PagesController extends Controller
 
     }
 
-
     //<================= METHHOD FOR NOTIFICATION COUNT ================>
 
       public function notification_count(Request $request,Qarsiliq $qarsiliq,$id)
@@ -123,7 +145,7 @@ class PagesController extends Controller
       $Elan_all=Elan::all();
       $noti_message = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
                 ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-                ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.description','qarsiliqs.notification','qarsiliqs.id')
+                ->select('users.name','users.avatar','qarsiliqs.data','qarsiliqs.created_at','els.title','els.type_id','qarsiliqs.description','qarsiliqs.notification','qarsiliqs.id')
                 ->where([
                       ['els.user_id', '=', Auth::user()->id]
                   ])

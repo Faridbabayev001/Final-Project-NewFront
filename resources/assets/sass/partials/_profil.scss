@@ -274,4 +274,106 @@
         }
     }
   }
+  #profil-done-desteks{
+  font-size: 13px;
+  .profil-desteklerim-status{
+    i.fa-check-circle-o{
+      color: $succes-color;
+    }
+    i.fa-times-circle-o{
+      color: $danger-color;
+    }
+    i.fa-clock-o{
+      color: $warning-color;
+    }
+  }
+  .profil-desteklerim-photo{
+    img{
+      height: 50px;
+    }
+  }
+  .profil-desteklerim-action{
+    a.action-edit{
+      text-decoration: none;
+      background-color: $warning-color;
+      color: white;
+      padding: 2px;
+      margin-right: 3px;
+      &:hover{
+        background-color: darken($warning-color, 10%);
+      }
+    }
+
+    a.action-delete{
+      text-decoration: none;
+      background-color: $danger-color;
+      color: white;
+      padding: 2px;
+      &:hover{
+        background-color: darken($danger-color, 10%);
+      }
+    }
+    a.action-accept{
+      text-decoration: none;
+      background-color: $succes-color;
+      color: white;
+      padding: 2px;
+      margin-right: 10px;
+      &:hover{
+        background-color: darken($succes-color, 10%);
+      }
+    }
+  }
+}
+#profil-recieved-desteks{
+  font-size: 13px;
+  .profil-desteklerim-status{
+    i.fa-check-circle-o{
+      color: $succes-color;
+    }
+    i.fa-times-circle-o{
+      color: $danger-color;
+    }
+    i.fa-clock-o{
+      color: $warning-color;
+    }
+  }
+  .profil-desteklerim-photo{
+    img{
+      height: 50px;
+    }
+  }
+  .profil-desteklerim-action{
+    a.action-edit{
+      text-decoration: none;
+      background-color: $warning-color;
+      color: white;
+      padding: 2px;
+      margin-right: 3px;
+      &:hover{
+        background-color: darken($warning-color, 10%);
+      }
+    }
+
+    a.action-delete{
+      text-decoration: none;
+      background-color: $danger-color;
+      color: white;
+      padding: 2px;
+      &:hover{
+        background-color: darken($danger-color, 10%);
+      }
+    }
+    a.action-accept{
+      text-decoration: none;
+      background-color: $succes-color;
+      color: white;
+      padding: 2px;
+      margin-right: 10px;
+      &:hover{
+        background-color: darken($succes-color, 10%);
+      }
+    }
+  }
+}
 }

@@ -22,13 +22,6 @@ $(document).ready(function(){
 /*========================================================================================
 ==========================================================================================
 ==========================================================================================*/
-    // var placeHolder = ['example@mail.com','example@mail.co','example@mail.c','example@mail.',
-    //                    'example@mail','example@mai','example@ma','example@m',
-    //                    'example@','example','exampl','examp',
-    //                    'exam','exa','ex','e','','ex','exa','exam',
-    //                    'examp','exampl','example','example@','example@m',
-    //                    'example@ma','example@mai','example@mail','example@mail.',
-    //                    'example@mail.c','example@mail.co','example@mail.com'];
     var placeHolder = [
                 'test@mail.com','test@mail.co','test@mail.c','test@mail.','test@mail',
                 'test@mai','test@ma','test@m','test@','test','tes','te','t','te',
@@ -338,53 +331,119 @@ $('#searchBoxDrag').draggable({
 
 
 //------------------------------For Login Ajax --------------------------------------------
+
 $('#SubmitLogin').submit(function(event) {
   $('#EmailGroup').removeClass('has-error')
   $('#PasswordGroup').removeClass('has-error')
   $('#EmailError').html('');
   $('#PasswordError').html('');
   event.preventDefault();
-  var Login = $.ajax({
-    url: '/login',
-    type: 'POST',
-    // dataType: 'json',
-    headers:{
-    'X-CSRF-TOKEN':$('meta[name="_token"]').attr('content')
-  },
-    data: {
-      email: $('#email').val(),
-      password: $('#pass').val()
-    },
-    success: function(data){
+    $.ajax({
+      url: 'user-login',
+      type: 'POST',
+      // dataType: 'default: Intelligent Guess (Other values: xml, json, script, or html)',
+      headers:{
+          'X-CSRF-TOKEN':$('meta[name="_token"]').attr('content')
+        },
+          data: {
+            email: $('#email').val(),
+            password: $('#pass').val()
+          },
+          success: function(data){
+            // console.log(data);
+            if (data == "We can't find a user with that e-mail address.") {
+              var ForUserError = "Email veya sifre dogru deyil";
+              $('#PasswordError').html(ForUserError);
+              $('#EmailGroup').addClass('has-error')
+              $('#PasswordGroup').addClass('has-error')
+            }else {
+              location.reload();
+            }
+          },
+          beforeSend:function(){
+                $('#submit').val('...');
+              },
+              complete:function(){
+                $('#submit').val('Daxil ol');
+              },
+          error: function(data){
+            var errors = data.responseJSON;
+            // console.log(errors);
+                  if (errors['email'] == 'The email field is required.') {
+                    var ForEmailError = 'Emaili boş buraxmayın';
+                    $('#EmailGroup').addClass('has-error')
+                  }
+                  if (errors['password'] == 'The password field is required.') {
+                    var ForPasswordError = 'Şifreni boş buraxmayın';
+                    $('#PasswordGroup').addClass('has-error')
+                  }
+                  $('#EmailError').html(ForEmailError);
+                  $('#PasswordError').html(ForPasswordError);
+          }
+    })
+    // .done(function() {
+    //   console.log("success");
+    // })
+    // .fail(function() {
+    //   console.log("error");
+    // })
+    // .always(function() {
+    //   console.log("complete");
+    // });
 
-    },
-    beforeSend:function(){
-      $('#submit').val('...');
-    },
-    complete:function(){
-      $('#submit').val('Daxil ol');
-    },
-    error:function(data){
-      console.log(data);
-      var errors = data.responseJSON;
-      if (errors['email'] == 'The email field is required.') {
-        var ForEmailError = 'Emaili boş buraxmayın';
-        $('#EmailGroup').addClass('has-error')
-      }
-      if (errors['password'] == 'The password field is required.') {
-        var ForPasswordError = 'Şifreni boş buraxmayın';
-        $('#PasswordGroup').addClass('has-error')
-      }else {
-         location.reload();
-      }
-      $('#EmailError').html(ForEmailError);
-      $('#PasswordError').html(ForPasswordError);
-    }
-  })
-  Login.done(function(data) {
-    location.reload();
-  })
 });
+
+
+
+
+
+// $('#SubmitLogin').submit(function(event) {
+//   $('#EmailGroup').removeClass('has-error')
+//   $('#PasswordGroup').removeClass('has-error')
+//   $('#EmailError').html('');
+//   $('#PasswordError').html('');
+//   event.preventDefault();
+//   var Login = $.ajax({
+//     url: '/login',
+//     type: 'POST',
+//     // dataType: 'json',
+//     headers:{
+//     'X-CSRF-TOKEN':$('meta[name="_token"]').attr('content')
+//   },
+//     data: {
+//       email: $('#email').val(),
+//       password: $('#pass').val()
+//     },
+//     success: function(data){
+//
+//     },
+//     beforeSend:function(){
+//       $('#submit').val('...');
+//     },
+//     complete:function(){
+//       $('#submit').val('Daxil ol');
+//     },
+//     error:function(data){
+//       console.log(data);
+//       var errors = data.responseJSON;
+//       if (errors['email'] == 'The email field is required.') {
+//         var ForEmailError = 'Emaili boş buraxmayın';
+//         $('#EmailGroup').addClass('has-error')
+//       }
+//       if (errors['password'] == 'The password field is required.') {
+//         var ForPasswordError = 'Şifreni boş buraxmayın';
+//         $('#PasswordGroup').addClass('has-error')
+//       }else {
+//          location.reload();
+//       }
+//       $('#EmailError').html(ForEmailError);
+//       $('#PasswordError').html(ForPasswordError);
+//     }
+//   })
+//   Login.done(function(data) {
+//     location.reload();
+//   })
+// });
 //------------------------------For Login Ajax End ----------------------------------------
 
 //------------------------------For facebook share button window----------------------------------------

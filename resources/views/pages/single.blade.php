@@ -10,7 +10,6 @@
     </div>
   </div>
 </div>
-{{-- {{dd($single->shekiller[0)}} --}}
 <section id="single">
   <div class="container">
     <div class="row">
@@ -20,8 +19,12 @@
             <i class="fa fa-calendar"></i>
             @if(!$diff->d == 0 && $diff->m == 0)
                 {{$diff->d}} gün
+            @elseif(!$diff->y == 0 && !$diff->m == 0 && $diff->d == 0)
+              {{$diff->y}} il {{$diff->m}} ay
+            @elseif (!$diff->y == 0 && $diff->m == 0 && $diff->d == 0)
+              {{$diff->y}} il
             @else
-                {{$diff->m}} ay {{$diff->d}} gün
+                {{$diff->y}} il {{$diff->m}} ay {{$diff->d}} gün
             @endif
           </div>
           <img src="{{url('/image/'.$single->shekiller[0]->imageName)}}" class="img-responsive" alt="" />

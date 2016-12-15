@@ -8753,6 +8753,72 @@ form span {
     object-fit: cover;
     height: 210px;
     width: 210px; }
+  #profil #profil-done-desteks {
+    font-size: 13px; }
+    #profil #profil-done-desteks .profil-desteklerim-status i.fa-check-circle-o {
+      color: #4CAF50; }
+    #profil #profil-done-desteks .profil-desteklerim-status i.fa-times-circle-o {
+      color: #F44336; }
+    #profil #profil-done-desteks .profil-desteklerim-status i.fa-clock-o {
+      color: #F57F17; }
+    #profil #profil-done-desteks .profil-desteklerim-photo img {
+      height: 50px; }
+    #profil #profil-done-desteks .profil-desteklerim-action a.action-edit {
+      text-decoration: none;
+      background-color: #F57F17;
+      color: white;
+      padding: 2px;
+      margin-right: 3px; }
+      #profil #profil-done-desteks .profil-desteklerim-action a.action-edit:hover {
+        background-color: #d06609; }
+    #profil #profil-done-desteks .profil-desteklerim-action a.action-delete {
+      text-decoration: none;
+      background-color: #F44336;
+      color: white;
+      padding: 2px; }
+      #profil #profil-done-desteks .profil-desteklerim-action a.action-delete:hover {
+        background-color: #ea1c0d; }
+    #profil #profil-done-desteks .profil-desteklerim-action a.action-accept {
+      text-decoration: none;
+      background-color: #4CAF50;
+      color: white;
+      padding: 2px;
+      margin-right: 10px; }
+      #profil #profil-done-desteks .profil-desteklerim-action a.action-accept:hover {
+        background-color: #3d8b40; }
+  #profil #profil-recieved-desteks {
+    font-size: 13px; }
+    #profil #profil-recieved-desteks .profil-desteklerim-status i.fa-check-circle-o {
+      color: #4CAF50; }
+    #profil #profil-recieved-desteks .profil-desteklerim-status i.fa-times-circle-o {
+      color: #F44336; }
+    #profil #profil-recieved-desteks .profil-desteklerim-status i.fa-clock-o {
+      color: #F57F17; }
+    #profil #profil-recieved-desteks .profil-desteklerim-photo img {
+      height: 50px; }
+    #profil #profil-recieved-desteks .profil-desteklerim-action a.action-edit {
+      text-decoration: none;
+      background-color: #F57F17;
+      color: white;
+      padding: 2px;
+      margin-right: 3px; }
+      #profil #profil-recieved-desteks .profil-desteklerim-action a.action-edit:hover {
+        background-color: #d06609; }
+    #profil #profil-recieved-desteks .profil-desteklerim-action a.action-delete {
+      text-decoration: none;
+      background-color: #F44336;
+      color: white;
+      padding: 2px; }
+      #profil #profil-recieved-desteks .profil-desteklerim-action a.action-delete:hover {
+        background-color: #ea1c0d; }
+    #profil #profil-recieved-desteks .profil-desteklerim-action a.action-accept {
+      text-decoration: none;
+      background-color: #4CAF50;
+      color: white;
+      padding: 2px;
+      margin-right: 10px; }
+      #profil #profil-recieved-desteks .profil-desteklerim-action a.action-accept:hover {
+        background-color: #3d8b40; }
 
 #register {
   padding-top: 40px;

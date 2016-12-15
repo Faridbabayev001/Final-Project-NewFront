@@ -17,15 +17,16 @@ Route::get('/Qeydiyyat','PagesController@register');
 Route::get('/Haqqımızda','PagesController@about');
 Route::get('/Əlaqə','PagesController@contact');
 Route::post('/Əlaqə','PagesController@contact_send');
-Route::get('/Tənzimləmələr','PagesController@profil');
-Route::post('/Tənzimləmələr','PagesController@settings');
-Route::get('/Profil','PagesController@profil');
-Route::get('/Istekler','PagesController@profil');
 Route::get('/istek-list','PagesController@istek_list');
-Route::get('/Destekler','PagesController@profil');
 Route::get('/destek-list','PagesController@destek_list');
-Route::get('/Tənzimləmələr','PagesController@profil');
 Route::get('/single/{id}','PagesController@single');
+  Route::group(['middleware' => 'auth'],function(){
+    Route::get('/Profil','PagesController@profil');
+    Route::get('/Tənzimləmələr','PagesController@profil');
+    Route::post('/Tənzimləmələr','PagesController@settings');
+    Route::get('/Destekler','PagesController@profil');
+    Route::get('/Istekler','PagesController@profil');
+    });
 //<=================Page Routes End ================>
 
 
@@ -33,12 +34,14 @@ Route::get('/single/{id}','PagesController@single');
 //<==================Istek Routes ==================>
 Route::get('/istek-add','IstekController@show');
 Route::post('/istek-add','IstekController@istek_add');
-Route::get('/istek-edit/{id}','IstekController@istek_edit');
-Route::get('/istek-delete/{id}','IstekController@istek_delete');
-Route::patch('/istek-edit/{id}','IstekController@istek_update');
-// ajax istek and destek
 Route::post('/add_file_change','IstekController@only_pic');
-Route::post('/deleteAjax','IstekController@deleteAjax');
+// ajax istek and destek
+Route::group(['middleware' => 'auth'],function(){
+  Route::get('/istek-edit/{id}','IstekController@istek_edit');
+  Route::get('/istek-delete/{id}','IstekController@istek_delete');
+  Route::patch('/istek-edit/{id}','IstekController@istek_update');
+  Route::post('/deleteAjax','IstekController@deleteAjax');
+  });
 //<=================Istek Routes End ================>
 
 
@@ -46,12 +49,15 @@ Route::post('/deleteAjax','IstekController@deleteAjax');
 //<==================Destek Routes ==================>
 Route::get('/destek-add','DestekController@show');
 Route::post('/destek-add','DestekController@destek_add');
-Route::get('/destek-edit/{id}','DestekController@destek_edit');
-Route::patch('/destek-edit/{id}','DestekController@destek_update');
+Route::group(['middleware' => 'auth'],function(){
+  Route::get('/destek-edit/{id}','DestekController@destek_edit');
+  Route::patch('/destek-edit/{id}','DestekController@destek_update');
+});
 //<=================Destek Routes End ================>
 
 
 //<==================Nofification Routes ==================>
+Route::group(['middleware' => 'auth'],function(){
 Route::post('/notification/{id}','PagesController@notification_count');
 Route::get('/Bildirişlər','PagesController@profil');
 Route::get('/message/{id}','PagesController@message');
@@ -59,12 +65,14 @@ Route::get('/Bildiriş/{id}','PagesController@notication_single');
 Route::get('/accept','PagesController@accept');
 Route::get('/refusal/{id}','PagesController@refusal');
 Route::get('/accept/{id}','PagesController@accept');
+});
 //<=================Nofification Routes End ================>
 
 
 //<=================Auth and User Routes ===========>
 Route::auth();
 Route::get('/home', 'PagesController@index');
+Route::post('user-login','PagesController@user_login');
 Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name('user.activate');
 //<=================Auth and User Routes End ===========>
 
