@@ -28,7 +28,7 @@
                   <div class="news-block">
                     <div class="news-image col-lg-12 padding0">
                       <div class="news-type news-istek">
-                        İstək
+                        Dəstək
                       </div>
                       <a href="{{url('/single/'.$data->id)}}"><img src="{{url('/image/' .$data->shekiller[0]->imageName)}}" alt="İstək image" /></a>
                     </div>
@@ -49,7 +49,7 @@
         </div>
        @endforeach
            <div class="pull-right">
-          
+
           {{$datas->links()}}
         </div>
         {{-- <div class="col-lg-12">

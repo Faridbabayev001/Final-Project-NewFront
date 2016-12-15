@@ -65,6 +65,7 @@
                          <option value="Neftçala">Neftçala</option>
                          <option value="Oğuz">Oğuz</option>
                          <option value="Ordubad">Ordubad</option>
+                         <option value="Sumqayıt">Sumqayıt</option>
                          <option value="Saatlı">Saatlı</option>
                          <option value="Sabirabad">Sabirabad</option>
                          <option value="Sədərək">Sədərək</option>
@@ -179,7 +180,7 @@
         <!-- News block end -->
         <div class="col-lg-12 news-all-desteks-button">
           <a href="/destek-list" class="btn pull-right">Bütün dəstəklər <i class="fa fa-angle-right"></i></a>
-        </div>    
+        </div>
       </div>
     </div>
   </div>

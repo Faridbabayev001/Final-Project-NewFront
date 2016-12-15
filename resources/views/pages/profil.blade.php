@@ -346,6 +346,7 @@
                              <option value="Neftçala">Neftçala</option>
                              <option value="Oğuz">Oğuz</option>
                              <option value="Ordubad">Ordubad</option>
+                             <option value="Sumqayıt">Sumqayıt</option>
                              <option value="Saatlı">Saatlı</option>
                              <option value="Sabirabad">Sabirabad</option>
                              <option value="Sədərək">Sədərək</option>
