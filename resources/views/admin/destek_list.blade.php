@@ -69,9 +69,9 @@
                             @endif
                             @endforeach
                             @endforeach
-                            {{$destekler->links()}}
                           </tbody>
                       </table>
+                      {{$destekler->links()}}
                   </div>
               </div>
           </div>

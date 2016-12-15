@@ -69,16 +69,20 @@
                                           </tr>
                                       </thead>
                                       <tbody>
-                                        @foreach($users as $user)
+                                        @foreach (array_chunk($users->getCollection()->all(), 4) as $row)
+
+                                        @foreach($row as $user)
                                              <tr>
                                                 <td>{{$user->username}}</td>
                                                 <td>{{$user->name}}</td>
                                                 <td>{{$user->phone}}</td>
                                                 <td>{{$user->email}}</td>
                                              </tr>
+                                           @endforeach
                                         @endforeach
                                       </tbody>
                                   </table>
+                                  {{$users->links()}}
                               </div>
                           </div>
                       </div>

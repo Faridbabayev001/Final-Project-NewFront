@@ -65,7 +65,7 @@ class AdminController extends Controller
   //========================For Admin Login End=======================
     public function index()
     {
-      $users = User::all();
+      $users = User::orderBy('created_at','desc')->paginate(8);
       $istek_count = Elan::where('type_id', 2);
       $destek_count = Elan::where('type_id', 1);
       return view('admin.index',compact('users','istek_count','destek_count'));
