@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div id="myModal" class="modal">
+<div id="myModal" class="modalsss">
 
   <!-- Modal content -->
   <div class="modal-content">
@@ -38,7 +38,7 @@
             <div class="alert alert-danger" role="alert">{{Session::get('imageerror')}}</div>
           @endif
 
-           @if (Session::has('dateerror'))
+          @if (Session::has('dateerror'))
             <div class="alert alert-danger" role="alert">{{Session::get('dateerror')}}</div>
           @endif
         <div id="ajaxErrorImage" class="aler alert-danger"></div>

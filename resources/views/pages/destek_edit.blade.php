@@ -4,7 +4,7 @@
 
 @section('content')
 
-<div id="myModal" class="modal">
+<div id="myModal" class="modalsss">
 
   <!-- Modal content -->
   <div class="modal-content">
@@ -77,8 +77,8 @@
             {{-- <=================image input ================> --}}
 
               <div id="afterImage" class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-              <label for="email">Şəkil</label>
-              <a class="forImg form-control btn btn-default">Şəkil Seç<SPAN> *</SPAN></a>
+              <label for="email">Şəkil<SPAN> *</SPAN></label>
+              <a class="forImg form-control btn btn-default">Şəkil Seç</a>
               <input id="uploadAjax" type="file" name="image" class="hidden imgInput form-control" value="{{$destek_edit->image}}">
             </div>
             {{-- image show from DB --}}

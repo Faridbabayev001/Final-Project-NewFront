@@ -2,7 +2,11 @@
 @section('title','İstək əlavə et')
 @section('content') 
 
-<div id="myModal" class="modal">
+<style type="text/css">
+
+</style>
+
+<div id="myModal" class="modalsss">
 
   <!-- Modal content -->
   <div class="modal-content">
