@@ -350,10 +350,9 @@ $('#SubmitLogin').submit(function(event) {
             password: $('#pass').val()
           },
           success: function(data){
-            // console.log(data);
             if (data == "We can't find a user with that e-mail address.") {
-              var ForUserError = "Email veya sifre dogru deyil";
-              $('#PasswordError').html(ForUserError);
+              var ForUserError = "Email vəya şifrə düzgün deyil";
+              $('#EmailError').html(ForUserError);
               $('#EmailGroup').addClass('has-error')
               $('#PasswordGroup').addClass('has-error')
             }else {
@@ -368,28 +367,12 @@ $('#SubmitLogin').submit(function(event) {
               },
           error: function(data){
             var errors = data.responseJSON;
-            // console.log(errors);
-                  if (errors['email'] == 'The email field is required.') {
-                    var ForEmailError = 'Emaili boş buraxmayın';
-                    $('#EmailGroup').addClass('has-error')
-                  }
-                  if (errors['password'] == 'The password field is required.') {
-                    var ForPasswordError = 'Şifreni boş buraxmayın';
-                    $('#PasswordGroup').addClass('has-error')
-                  }
-                  $('#EmailError').html(ForEmailError);
-                  $('#PasswordError').html(ForPasswordError);
+            var ForEmailError = 'Email və şifrəni boş buraxmayın';
+            $('#EmailGroup').addClass('has-error')
+                $('#PasswordGroup').addClass('has-error')
+              $('#EmailError').html(ForEmailError);
           }
     })
-    // .done(function() {
-    //   console.log("success");
-    // })
-    // .fail(function() {
-    //   console.log("error");
-    // })
-    // .always(function() {
-    //   console.log("complete");
-    // });
 
 });
 

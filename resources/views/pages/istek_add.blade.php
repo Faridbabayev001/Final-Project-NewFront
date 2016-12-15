@@ -1,6 +1,6 @@
 @extends('pages.layout')
 @section('title','İstək əlavə et')
-@section('content') 
+@section('content')
 
 <style type="text/css">
 
@@ -113,7 +113,7 @@
                             <option {{substr(Auth::user()->phone,4,2) == '77' ? 'selected' : '' }}>77</option>
                           </select>
                       </div>
-                <input type="text" class="form-control" name="phone" value="{{substr(Auth::user()->phone,6)}}" maxlength="7">
+                <input id="inputNumber" type="text" class="form-control" name="phone" value="{{substr(Auth::user()->phone,6)}}" maxlength="7">
               </div>
             </div>
 

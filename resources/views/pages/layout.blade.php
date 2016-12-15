@@ -235,11 +235,11 @@ use App\Qarsiliq;
                 <div class="col-lg-12 padding0 contact-login-form">
                   <form id="SubmitLogin" class="ModalLogin" action="" method="POST">
                     {{csrf_field()}}
+                    <strong id="EmailError" class="text-danger"></strong>
                     <div id="EmailGroup" class="input-group">
                       <span class="input-group-addon"><i class="fa fa-envelope"></i></span>
                       <input id="email" type="email" name="email" class="form-control email-placeholder-change">
                     </div>
-                      <strong id="EmailError" class="text-danger"></strong>
                     <div id="PasswordGroup" class="input-group">
                       <span class="input-group-addon"><i class="fa fa-key"></i></span>
                       <input id="pass" type="password" name="password" class="form-control" placeholder="Şifrə">
