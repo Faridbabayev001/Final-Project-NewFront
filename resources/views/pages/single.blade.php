@@ -23,6 +23,8 @@
               {{$diff->y}} il {{$diff->m}} ay
             @elseif (!$diff->y == 0 && $diff->m == 0 && $diff->d == 0)
               {{$diff->y}} il
+            @elseif ($diff->y == 0 && !$diff->m == 0 && !$diff->d == 0)
+              {{$diff->m}} ay {{$diff->d}} gün
             @else
                 {{$diff->y}} il {{$diff->m}} ay {{$diff->d}} gün
             @endif
