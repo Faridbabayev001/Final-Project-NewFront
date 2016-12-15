@@ -39,7 +39,7 @@ class IstekController extends Controller
        // $tarix = date('Y-m-d');
        // if(date_create($req->date) < date_create($tarix)){
        //   Session::flash('dateerror' , "Zəhmət olmasa tarixi düzgün seçin.");
-       //   return back();    
+       //   return back();
        // }
 
       if($req->file('image')[0]==null){
@@ -57,8 +57,8 @@ class IstekController extends Controller
              'email' => 'required',
              'nov' => 'required',
              'date' => 'required|after:tomorrow'
-        ]);      
-    
+        ]);
+
 
      $files = $req->file('image');
      $pic_name = array();
@@ -125,7 +125,7 @@ class IstekController extends Controller
         {
 
           if ($req->ajax()) {
-          
+
           if($req->imgLength>5){
             return false;
           }
@@ -229,7 +229,7 @@ class IstekController extends Controller
     if($istek_delete->user_id==Auth::user()->id){
        $istek_delete->shekiller();
        foreach ($istek_delete->shekiller as $val) {
-         unlink('image/'.$val->imageName);  
+         unlink('image/'.$val->imageName);
        }
        $istek_delete->delete();
        return back();

@@ -15,6 +15,8 @@
             <li {{Request::is('Profil') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-view">Profil görünüşü</a></li>
             <li {{Request::is('Istekler') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-isteklerim">İstəklərim</a></li>
             <li {{Request::is('Destekler') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-desteklerim">Dəstəklərim</a></li>
+            {{-- <li><a data-toggle="tab" href="#profil-done-desteks">Edilən dəstəklər</a></li>
+            <li><a data-toggle="tab" href="#profil-recieved-desteks">Alınan dəstəklər</a></li> --}}
             <li {{Request::is('Bildirişlər') ? " class=active" : ''}}><a data-toggle="tab" href="#profil-notification">Bildirişlər</a></li>
             <li {{Request::is('Ismarıclar') ? " class=active" : ''}}><a data-toggle="tab" href="#profil-ismariclar">Ismarıclar</a></li>
             <li {{Request::is('Tənzimləmələr') ? " class=active" : ''}}><a data-toggle="tab" href="#profil-settings">Tənzimləmələr</a></li>
@@ -185,6 +187,73 @@
           </div>
           {{-- <================== DESTERKLERIM PART END ==================> --}}
 
+          {{-- <==================Edilən dəstəklər PART ====================> --}}
+          {{-- <div id="profil-recieved-desteks" class="tab-pane fade in">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Qəbul olunub?</th>
+                  <th>Dəstək göndərən</th>
+                  <th>İstək adı</th>
+                  <th>Açıqlama</th>
+                </tr>
+              </thead>
+              @foreach ($noti_message as $noti_message_type)
+                <tbody>
+                  <tr>
+                    @if ($noti_message_type->data == 1)
+                      <td class="profil-desteklerim-status" title="Qəbul olunub"><i class="fa fa-check-circle-o fa-2x"></i></td>
+                    @else
+                      <td class="profil-desteklerim-status" title="Dərc olunmayıb"><i class="fa fa-times-circle-o fa-2x"></i></td>
+                    @endif
+                    <td>{{$noti_message_type->name}}</td>
+                    <td>{{$noti_message_type->title}}</td>
+                    <td>{{$noti_message_type->description}}</td>
+                  </tr>
+                </tbody>
+              @endforeach
+            </table>
+          </div>
+          {{-- <==================Edilən dəstəklər PART END====================> --}}
+
+          {{-- <==================Alınan dəstəklər PART ====================> --}}
+          {{-- <div id="profil-done-desteks" class="tab-pane fade in">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Qəbul olunub?</th>
+                  <th>İstək sahibi</th>
+                  <th>İstək adı</th>
+                  <th>Açıqlama</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td class="profil-desteklerim-status" title="Qəbul olunub"><i class="fa fa-check-circle-o fa-2x"></i></td>
+                  <td>Araz Abdullayev</td>
+                  <td>Təcili kitab lazımdı</td>
+                  <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</td>
+                </tr>
+              </tbody>
+              <tbody>
+                <tr>
+                  <td class="profil-desteklerim-status" title="Dərc olunmayıb"><i class="fa fa-times-circle-o fa-2x"></i></td>
+                  <td>Mixael Saakaşvili</td>
+                  <td>Sınıq maşın</td>
+                  <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</td>
+                </tr>
+              </tbody>
+              <tbody>
+                <tr>
+                  <td class="profil-desteklerim-status" title="Yoxlanış gözlənilir"><i class="fa fa-clock-o fa-2x"></i></td>
+                  <td>Nursultan Nazarbayev</td>
+                  <td>Məktəb ləvazimatları</td>
+                  <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit...</td>
+                </tr>
+              </tbody>
+            </table>
+          </div> --}}
+          {{-- <==================Alınan dəstəklər PART END====================> --}}
 
           {{-- <================== NOTIFICATION PART==================> --}}
 
