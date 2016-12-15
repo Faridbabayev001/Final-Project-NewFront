@@ -29,7 +29,8 @@
                               </tr>
                           </thead>
                           <tbody>
-                            @foreach($destekler as $destek)
+                            @foreach (array_chunk($destekler->getCollection()->all(), 4) as $row)
+                            @foreach($row as $destek)
                               @if($destek->type_id=='1')
                               <tr>
                                  @if($destek->status=='0')
@@ -67,6 +68,8 @@
                             </div>
                             @endif
                             @endforeach
+                            @endforeach
+                            {{$destekler->links()}}
                           </tbody>
                       </table>
                   </div>

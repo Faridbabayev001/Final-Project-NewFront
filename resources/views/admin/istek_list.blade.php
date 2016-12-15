@@ -29,7 +29,10 @@
                               </tr>
                           </thead>
                           <tbody>
-                            @foreach($istekler as $istek)
+                            @foreach (array_chunk($istekler->getCollection()->all(), 4) as $row)
+
+
+                            @foreach($row as $istek)
                               @if($istek->type_id=='2')
                               <tr>
                                   @if($istek->status=='0')
@@ -68,8 +71,10 @@
                               </div>
                             @endif
                             @endforeach
+                            @endforeach
                           </tbody>
                       </table>
+                      {{$istekler->links()}}
                   </div>
               </div>
           </div>

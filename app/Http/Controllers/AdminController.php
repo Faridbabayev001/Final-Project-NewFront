@@ -73,13 +73,13 @@ class AdminController extends Controller
 
     public function istek_list()
     {
-      $istekler=Elan::all();
+      $istekler=Elan::orderBy('created_at','desc')->paginate(8);
       return view('admin.istek_list',compact('istekler'));
     }
 
     public function destek_list()
     {
-      $destekler=Elan::all();
+      $destekler=Elan::orderBy('created_at','desc')->paginate(8);
       return view('admin.destek_list',compact('destekler'));
     }
 
