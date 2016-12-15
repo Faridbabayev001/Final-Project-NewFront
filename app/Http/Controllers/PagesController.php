@@ -70,7 +70,7 @@ class PagesController extends Controller
     {
       return view('pages.register');
     }
-
+      //<================= METHHOD FOR REGİSTER END===========>
     //<================= METHHOD FOR SİNGLE PAGE  ================>
 
     public function single($id)

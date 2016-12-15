@@ -18,18 +18,23 @@ $(document).ready(function(){
    $(this).find('.dropdown-menu').first().stop(true, true).slideUp();
  });
 //----------------------------DROPDOWN SLIDE EFFECT END----------------------------------
-
 //----------------------------EMAIL PLACEHOLDER CHANGE------------------------------------
 /*========================================================================================
 ==========================================================================================
 ==========================================================================================*/
-    var placeHolder = ['example@mail.com','example@mail.co','example@mail.c','example@mail.',
-                       'example@mail','example@mai','example@ma','example@m',
-                       'example@','example','exampl','examp',
-                       'exam','exa','ex','e','','ex','exa','exam',
-                       'examp','exampl','example','example@','example@m',
-                       'example@ma','example@mai','example@mail','example@mail.',
-                       'example@mail.c','example@mail.co','example@mail.com'];
+    // var placeHolder = ['example@mail.com','example@mail.co','example@mail.c','example@mail.',
+    //                    'example@mail','example@mai','example@ma','example@m',
+    //                    'example@','example','exampl','examp',
+    //                    'exam','exa','ex','e','','ex','exa','exam',
+    //                    'examp','exampl','example','example@','example@m',
+    //                    'example@ma','example@mai','example@mail','example@mail.',
+    //                    'example@mail.c','example@mail.co','example@mail.com'];
+    var placeHolder = [
+                'test@mail.com','test@mail.co','test@mail.c','test@mail.','test@mail',
+                'test@mai','test@ma','test@m','test@','test','tes','te','t','te',
+                'tes','test','test@','test@m','test@ma','test@mai','test@mail','test@mail.',
+                'test@mail.c','test@mail.co','test@mail.com'
+              ];
     var n=0;
     var loopLength=placeHolder.length;
 
@@ -177,9 +182,9 @@ $("#uploadAjax").change(function(e) {
   $('#forUploadImages').submit(function(){
   //   var dt = new Date();
   //   var today = dt.getDate();
-  //   var month = dt.getMonth() + 1; 
+  //   var month = dt.getMonth() + 1;
   //   var year = dt.getFullYear();
-  // console.log(year+'-'+month+'-'+today)   
+  // console.log(year+'-'+month+'-'+today)
 
   var dat =  $('#date').val();
 
@@ -187,16 +192,16 @@ $("#uploadAjax").change(function(e) {
           $('#myModal').css('display', 'block');
           var texts = $('.modal-content').children('p');
           texts.text('Zəhmət olmasa elanınıza bitmə tarixi daxil edin')
-        return false; 
-      } 
+        return false;
+      }
 
     if(lengthForImg >5 || lengthForImg==undefined){
       if(lengthForImg >5){
         $('#myModal').css('display', 'block');
           var texts = $('.modal-content').children('p');
-          texts.text('Zəhmət olmasa 5-dən artıq şəkil seçməyəsiniz')         
+          texts.text('Zəhmət olmasa 5-dən artıq şəkil seçməyəsiniz')
       }
-      if(lengthForImg==undefined){        
+      if(lengthForImg==undefined){
        $('#myModal').css('display', 'block');
           var texts = $('.modal-content').children('p');
           texts.text('Zəhmət olmasa ən azı bir şəkil seçin')
@@ -216,7 +221,7 @@ $("#uploadAjax").change(function(e) {
   $('#ModalClose').click(function(event) {
     var sh = $('.modal-content').children('p');
       $('#myModal').css('display', 'none');
-   
+
      });
 
     function checkExtension (name) {
@@ -342,7 +347,7 @@ $('#SubmitLogin').submit(function(event) {
   var Login = $.ajax({
     url: '/login',
     type: 'POST',
-    dataType: 'json',
+    // dataType: 'json',
     headers:{
     'X-CSRF-TOKEN':$('meta[name="_token"]').attr('content')
   },
@@ -360,6 +365,7 @@ $('#SubmitLogin').submit(function(event) {
       $('#submit').val('Daxil ol');
     },
     error:function(data){
+      console.log(data);
       var errors = data.responseJSON;
       if (errors['email'] == 'The email field is required.') {
         var ForEmailError = 'Emaili boş buraxmayın';

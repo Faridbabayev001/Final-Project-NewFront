@@ -3,7 +3,7 @@
 @section('content')
 
 
-<div id="myModal" class="modal">
+<div id="myModal" class="modalsss">
 
   <!-- Modal content -->
   <div class="modal-content">
