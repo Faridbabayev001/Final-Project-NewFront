@@ -122,7 +122,7 @@
 
         <!-- News block -->
         @foreach ($datas as $data)
-          @if($data->status=='1' && $data->type_id=='2')
+          @if($data->type_id=='2')
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0 thumbnail">
               <div class="news-block">
                 <div class="news-image col-lg-12 padding0">
@@ -156,7 +156,7 @@
         </div>
         <!-- News block -->
         @foreach ($datas as $data)
-          @if($data->status=='1' && $data->type_id=='1')
+          @if($data->type_id=='1')
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0 thumbnail">
               <div class="news-block">
                 <div class="news-image col-lg-12 padding0">
