@@ -194,6 +194,7 @@ class IstekController extends Controller
             'phone' => 'required',
             'email' => 'required',
             'nov' => 'required',
+            'date' => 'required|after:tomorrow'
       ]);
 
         // $this->delete_edited_pics($req->input('picsArray'));
