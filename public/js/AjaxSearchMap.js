@@ -56,18 +56,17 @@ $.ajax({
             $('.search-error-desc').css('background', '#F44336');
             Mydata(data);
           }else {
-            var count = 0
-            for (var i = 0; i < data.length; i++) {
+            var counts = 0;
+            for (var i =  0; i < data.length; i++) {
               if (data[i]['status'] ==1) {
-                count++;
+                counts++;
               }
             }
-            $('.search-error-desc').fadeIn('2000');
-
-            $('.infoMessage').text('İstəyinizə uyğun '+count+' nəticə tapıldi')
-            $('.search-error-desc').css('background', '#4CAF50');
-            var count = data.length;
-          Mydata(data,count);
+              $('.search-error-desc').fadeIn('2000');
+              $('.infoMessage').text('İstəyinizə uyğun '+counts+' nəticə tapıldi')
+              $('.search-error-desc').css('background', '#4CAF50');
+              var count = data.length;
+              Mydata(data,count);
           }
       },
       beforeSend:function(){

@@ -32,45 +32,6 @@ class AuthController extends Controller
      * @var string
      */
 
-     public function loginPost(Request $request)
-    {
-
-        $this->validate($request, [
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
-
-        /*If the class is using the ThrottlesLogins trait, we can automatically throttle
-        the login attempts for this application. We'll key this by the username and
-        the IP address of the client making these requests into this application.*/
-        $throttles = $this->isUsingThrottlesLoginsTrait();
-
-        if ($throttles && $lockedOut = $this->hasTooManyLoginAttempts($request)) {
-            $this->fireLockoutEvent($request);
-            $key = $this->getThrottleKey($request).':lockout';
-
-
-            return $this->sendLockoutResponse($request);
-        }
-
-        $credentials = $this->getCredentials($request);
-
-        $input = $request->input();
-        if (auth()->attempt(array('email' => $input['email'], 'password' => $input['password'])))
-        {
-            return $this->handleUserWasAuthenticated($request, $throttles);
-        }
-
-        /*If the login attempt was unsuccessful we will increment the number of attempts
-         to login and redirect the user back to the login form. Of course, when this
-         user surpasses their maximum number of attempts they will get locked out.*/
-        if ($throttles && ! $lockedOut) {
-            $this->incrementLoginAttempts($request);
-        }
-
-        return $this->sendFailedLoginResponse($request);
-    }
-
     protected $activationService;//verification
 
 
@@ -81,6 +42,17 @@ class AuthController extends Controller
      *
      * @return void
      */
+     //===========================START===============================
+     // /login ve /register yazanda get  methodu ile error vermemesi ucun route yonlendirmeleleri...
+     public function showLoginForm()
+     {
+       return back();
+     }
+     public function showRegistrationForm()
+     {
+       return redirect('/Qeydiyyat');
+     }
+     //==========================END=====================================
      public function __construct(ActivationService $activationService)
        {
            $this->middleware($this->guestMiddleware(), ['except' => 'logout']);
