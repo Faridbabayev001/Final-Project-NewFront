@@ -114,10 +114,10 @@
           <h1>İSTƏKLƏR</h1>
           <hr>
         </div>
-
+{{-- {{dd($datas_istek)}} --}}
         <!-- News block -->
-        @foreach ($datas as $data)
-          @if($data->type_id=='2')
+        @foreach ($datas_istek as $data)
+          {{-- @if($data->type_id=='2') --}}
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0 thumbnail">
               <div class="news-block">
                 <div class="news-image col-lg-12 padding0">
@@ -136,7 +136,7 @@
                 </div>
               </div>
             </div>
-          @endif
+          {{-- @endif --}}
         @endforeach
 
         <div class="col-lg-12 news-all-isteks-button">
@@ -150,8 +150,8 @@
           <hr>
         </div>
         <!-- News block -->
-        @foreach ($datas as $data)
-          @if($data->type_id=='1')
+        @foreach ($datas_destek as $data)
+          {{-- @if($data->type_id=='1') --}}
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 padding0 thumbnail">
               <div class="news-block">
                 <div class="news-image col-lg-12 padding0">
@@ -170,7 +170,7 @@
                 </div>
               </div>
             </div>
-          @endif
+          {{-- @endif --}}
         @endforeach
         <!-- News block end -->
         <div class="col-lg-12 news-all-desteks-button">
