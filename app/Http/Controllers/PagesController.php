@@ -20,7 +20,10 @@ class PagesController extends Controller
 {
     public function index(Request $request)
     {
-      $datas=Elan::raw(1)->orderBy('created_at','desc')->whereRaw('`status` = 1')->take(4)->get();
+      $datas_destek=Elan::raw(1)->orderBy('created_at','desc')->whereRaw('`status` = 1 AND `type_id` = 1')->take(4)->get();
+      $datas_istek=Elan::raw(1)->orderBy('created_at','desc')->whereRaw('`status` = 1 AND `type_id` = 2')->take(4)->get();
+     
+     // dd($datas_destek);
       $datamaps=Elan::all();
       foreach ($datamaps as $check_date) {
       $dbdate=new DateTime($check_date->deadline);
@@ -71,7 +74,7 @@ class PagesController extends Controller
       }
       return $datalar;
     };
-      return view('pages.index',compact('datas'));
+      return view('pages.index',compact('datas_destek', 'datas_istek'));
     }
 
     //<================= METHHOD FOR REGİSTER ===========>
@@ -316,7 +319,7 @@ class PagesController extends Controller
 
     public function istek_list()
     {
-      $datas=Elan::raw(1)->orderBy('created_at','desc')->whereRaw('`status` = 1 & `type_id` = 2')->paginate(8);
+      $datas=Elan::raw(1)->orderBy('created_at','desc')->whereRaw('`status` = 1 AND `type_id` = 2')->paginate(8);
 
       return view('pages.istek_list', compact('datas'));
     }
@@ -324,7 +327,7 @@ class PagesController extends Controller
     //<================= METHHOD FOR DESTEK_LIST ================>
     public function destek_list()
     {
-      $datas=Elan::raw(1)->orderBy('created_at','desc')->whereRaw('`status` = 1 & `type_id` = 1')->paginate(8);
+      $datas=Elan::raw(1)->orderBy('created_at','desc')->whereRaw('`status` = 1 AND `type_id` = 1')->paginate(8);
       
       return view('pages.destek_list', compact('datas'));
     }
