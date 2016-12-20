@@ -23,7 +23,6 @@
           {{-- <div class="col-lg-offset-1"> --}} {{--deyishdirile biler --}}
             <!-- News block -->
             @foreach($row as $data)
-              @if($data->type_id=='1')
                 <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12 padding0 thumbnail">
                   <div class="news-block">
                     <div class="news-image col-lg-12 padding0">
@@ -42,7 +41,6 @@
                     </div>
                   </div>
                 </div>
-              @endif
               @endforeach
           {{-- </div> --}}
           </div>
