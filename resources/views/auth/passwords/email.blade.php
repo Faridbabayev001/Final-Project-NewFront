@@ -18,7 +18,7 @@
             @if (session('status'))
                 <div class="alert alert-success">
                     {{-- {{ session('status') }} --}}
-                    Biz sizin emailinizə şifrəni bərpa etmek üçün link göndərdik zəhmət olmasa emailinizi yoxlayasınız.
+                    Biz sizin emailinizə şifrəni bərpa etmək üçün link göndərdik zəhmət olmasa emailinizi yoxlayın.
                 </div>
             @endif
 
@@ -33,7 +33,7 @@
 
                         @if ($errors->has('email'))
                             <span class="help-block">
-                                <strong>E-Mail Addressini yazın</strong>
+                                <strong>E-Mail adresinizi yazın</strong>
                             </span>
                         @endif
                     </div>
