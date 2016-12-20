@@ -375,58 +375,6 @@ $('#SubmitLogin').submit(function(event) {
     })
 
 });
-
-
-
-
-
-// $('#SubmitLogin').submit(function(event) {
-//   $('#EmailGroup').removeClass('has-error')
-//   $('#PasswordGroup').removeClass('has-error')
-//   $('#EmailError').html('');
-//   $('#PasswordError').html('');
-//   event.preventDefault();
-//   var Login = $.ajax({
-//     url: '/login',
-//     type: 'POST',
-//     // dataType: 'json',
-//     headers:{
-//     'X-CSRF-TOKEN':$('meta[name="_token"]').attr('content')
-//   },
-//     data: {
-//       email: $('#email').val(),
-//       password: $('#pass').val()
-//     },
-//     success: function(data){
-//
-//     },
-//     beforeSend:function(){
-//       $('#submit').val('...');
-//     },
-//     complete:function(){
-//       $('#submit').val('Daxil ol');
-//     },
-//     error:function(data){
-//       console.log(data);
-//       var errors = data.responseJSON;
-//       if (errors['email'] == 'The email field is required.') {
-//         var ForEmailError = 'Emaili boş buraxmayın';
-//         $('#EmailGroup').addClass('has-error')
-//       }
-//       if (errors['password'] == 'The password field is required.') {
-//         var ForPasswordError = 'Şifreni boş buraxmayın';
-//         $('#PasswordGroup').addClass('has-error')
-//       }else {
-//          location.reload();
-//       }
-//       $('#EmailError').html(ForEmailError);
-//       $('#PasswordError').html(ForPasswordError);
-//     }
-//   })
-//   Login.done(function(data) {
-//     location.reload();
-//   })
-// });
 //------------------------------For Login Ajax End ----------------------------------------
 
 //------------------------------For facebook share button window----------------------------------------
@@ -480,7 +428,7 @@ var MyLocation = document.getElementById('MyLocation')
   var geocoder = new google.maps.Geocoder;
   MyLocation.addEventListener('click',function(){
     if(navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function(position) {
+            var geoSuccess  = function(position) {
                 var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
                 map.setCenter(latlng);
                 map.setZoom(15);
@@ -488,6 +436,7 @@ var MyLocation = document.getElementById('MyLocation')
                   position: latlng,
                   map: map,
                 });
+
                   geocodeLatLng(geocoder, map);
                 function geocodeLatLng(geocoder, map) {
                   geocoder.geocode({'location': latlng}, function(results, status) {
@@ -505,7 +454,31 @@ var MyLocation = document.getElementById('MyLocation')
                   });
                 }
                 markers.push(marker);
-            });
+            };
+            var geoError = function(error) {
+              switch (error.code) {
+                  case error.PERMISSION_DENIED:
+                      window.alert("User denied the request for Geolocation.");
+                      break;
+                  case error.POSITION_UNAVAILABLE:
+                      window.alert("Location information is unavailable.");
+                      break;
+                  case error.TIMEOUT:
+                      window.alert("The request to get user location timed out.");
+                      break;
+                  case error.UNKNOWN_ERROR:
+                      window.alert("An unknown error occurred.");
+                      break;
+              }
+                  // error.code can be:
+                  //   0: unknown error
+                  //   1: permission denied
+                  //   2: position unavailable (error response from location provider)
+                  //   3: timed out
+                };
+            navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
+        }else {
+          window.alert('Geolocation is not supported by this browser');
         };
   });
 

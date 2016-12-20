@@ -13,6 +13,7 @@
 session_start();
 //<==================Page Routes ==================>
 Route::get('/','PagesController@index');
+Route::get('/index','PagesController@index');
 Route::get('/Qeydiyyat','PagesController@register');
 Route::get('/Haqqımızda','PagesController@about');
 Route::get('/Əlaqə','PagesController@contact');

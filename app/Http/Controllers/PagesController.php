@@ -33,28 +33,36 @@ class PagesController extends Controller
     }
     //Ajax search
     if ($request->ajax()) {
+      // $ElanLocation ve $ElanType mapda select optionlar ile secilen value-lardi yeni seher ve elanin tipi(istek ve ya destek) adlaridir.
       $ElanLocation = $request->ElanLocation;
       $ElanType = $request->ElanType;
-        if ($ElanLocation =="all" && $ElanType =="all") {
+        if ($ElanLocation =="all" && $ElanType =="all") {// eger default olaraq hecne secilmeyibse value-dan all gelecek ve butun datalar secilecek.
           $datalar=Elan::all();
           foreach ($datalar as $key => $value) {
-            $datalar[$key]['image'] = $value->shekiller[0]->imageName;
+            $datalar[$key]['image'] = $value->shekiller[0]->imageName;//photo table-i ayri olduqu ucun els table-da olan image columuna photo table-dan 0-ci colum-u elave olunur.
           }
         }else if($ElanLocation !=="all" && $ElanType !=="all"){
           $datalar=Elan::where([
             ['location','LIKE','%'.$ElanLocation.'%'],
-            ['type_id','LIKE','%'.$ElanType.'%']
+            ['type_id','LIKE','%'.$ElanType.'%'],
+            ['status','=','1']
         ])->get();
         foreach ($datalar as $key => $value) {
           $datalar[$key]['image'] = $value->shekiller[0]->imageName;
         }
       }else if ($ElanLocation !=="all") {
-        $datalar = Elan::where('location','LIKE','%'.$ElanLocation.'%')->get();
+        $datalar=Elan::where([
+          ['location','LIKE','%'.$ElanLocation.'%'],
+          ['status','=','1']
+      ])->get();
         foreach ($datalar as $key => $value) {
           $datalar[$key]['image'] = $value->shekiller[0]->imageName;
         }
       }else if ($ElanLocation =="all" && $ElanType !=="all") {
-        $datalar = Elan::where('type_id','=',$ElanType)->get();
+        $datalar=Elan::where([
+          ['type_id','LIKE','%'.$ElanType.'%'],
+          ['status','=','1']
+      ])->get();
         foreach ($datalar as $key => $value) {
           $datalar[$key]['image'] = $value->shekiller[0]->imageName;
         }

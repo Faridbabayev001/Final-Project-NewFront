@@ -150,11 +150,11 @@
             </div>
             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
               <label for="password">Şifrə<span> *</span></label>
-              <input type="password" name="password" class="form-control">
+              <input type="password" name="password" class="form-control" placeholder="Minimum 6 simvol">
             </div>
             <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
               <label for="password">Təkrar Şifrə<span> *</span></label>
-              <input type="password" name="password_confirmation" class="form-control">
+              <input type="password" name="password_confirmation" class="form-control" placeholder="Minimum 6 simvol">
             </div>
             <div class="form-group text-center">
               <input type="submit" class="btn" value="GÖNDƏR">
