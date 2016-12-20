@@ -316,7 +316,7 @@ class PagesController extends Controller
 
     public function istek_list()
     {
-      $datas=Elan::raw(1)->orderBy('created_at','desc')->whereRaw('`status` = 1')->paginate(8);
+      $datas=Elan::raw(1)->orderBy('created_at','desc')->whereRaw('`status` = 1 & `type_id` = 2')->paginate(8);
 
       return view('pages.istek_list', compact('datas'));
     }
@@ -324,7 +324,8 @@ class PagesController extends Controller
     //<================= METHHOD FOR DESTEK_LIST ================>
     public function destek_list()
     {
-      $datas=Elan::raw(1)->orderBy('created_at','desc')->whereRaw('`status` = 1')->paginate(8);
+      $datas=Elan::raw(1)->orderBy('created_at','desc')->whereRaw('`status` = 1 & `type_id` = 1')->paginate(8);
+      
       return view('pages.destek_list', compact('datas'));
     }
 
