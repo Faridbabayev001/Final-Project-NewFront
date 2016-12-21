@@ -91,36 +91,45 @@ use App\Qarsiliq;
                        <?php
                         $count=count($noti);
                         ?>
+                        <span class="contact-auth-notification-number">
                        @foreach($noti as $key => $noties)
                          @if($noties->user_id==Auth::user()->id)
-                           <span class="contact-auth-notification-number">
                              {{$count}}
-                           </span>
+                             @php
+                               break;
+                             @endphp
                          @endif
                        @endforeach
+                     </span>
 
                  @elseif(count($noti_qars_user)!=0 && count($noti) != 0)
                          <?php
                             $count1=count($noti_qars_user) + count($noti);
                           ?>
+                          <span class="contact-auth-notification-number">
                          @foreach($noti_qars_user as $key => $noti_qars_users)
                            @if($noti_qars_users->user_id==Auth::user()->id)
-                             <span class="contact-auth-notification-number">
                                {{$count1}}
-                             </span>
+                               @php
+                                 break;
+                               @endphp
                            @endif
                          @endforeach
+                       </span>
                 @elseif(count($noti_qars_user)!=0 && count($noti) == 0)
                       <?php
                          $count1=count($noti_qars_user);
                        ?>
+                       <span class="contact-auth-notification-number">
                       @foreach($noti_qars_user as $key => $noti_qars_users)
                         @if($noti_qars_users->user_id==Auth::user()->id)
-                          <span class="contact-auth-notification-number">
                             {{$count1}}
-                          </span>
+                            @php
+                              break;
+                            @endphp
                         @endif
                       @endforeach
+                    </span>
                  @endif
                    </a>
               <ul class="dropdown-menu contact-auth-notification" role="menu">
@@ -153,6 +162,9 @@ use App\Qarsiliq;
                             </a>
                     @endif
                   </li>
+                  @php
+                    break;
+                  @endphp
                 @elseif($notification_image->user_id == Auth::user()->id)
                     <li>
                       @foreach($data_join as $data_joins)
@@ -183,6 +195,9 @@ use App\Qarsiliq;
                     @endif
                         @endforeach
                      </li>
+                     @php
+                       break;
+                     @endphp
                   @endif
 
                 @endforeach
