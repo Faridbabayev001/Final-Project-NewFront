@@ -22,10 +22,10 @@
           Əsas olaraq 2 bölmədən ibarət olan saytın istifadə qaydaları aşağıdakı kimidir:
         </p>
         <p class="about-us-desc">
-          <span class="about-us-istek">İstək əlavə et:</span> Bu bölümdə yaşadığınız yerdə sizə lazım olan bir ehitaycı daxil edirsiniz.
+          <span class="about-us-istek">İstək əlavə et:</span> Bu bölümdə yaşadığınız yerdə sizə lazım olan bir ehtiyacı daxil edirsiniz.
           Sizdən istəyiniz barədə ətraflı və düzgün məlumat yerləşdirməyiniz (əlaqə məlumatları, düzgün şəkil, dəqiq ünvan, və s.) xahiş olunur.
-          İstək əlavə etmək üçün Bumeranq.org'a üzv olmağınz kifayətdir. Əlavə etdiyiniz istək moderasiyadan keçdikdən sonra xəritədə
-          və istəklər bölməsində hamıya açıq şəkildə görünəcək. Sizin şəxsi informasiyalarını. Bundan sonra sizə kimsə dəstək verərsə
+          İstək əlavə etmək üçün Bumeranq.org'a üzv olmağınız kifayətdir. Əlavə etdiyiniz istək moderasiyadan keçdikdən sonra xəritədə
+          və istəklər bölməsində hamıya açıq şəkildə görünəcək. Bundan sonra sizə kimsə dəstək verərsə
           həmin dəstəkçinin qısa məlumatları və dəstək açıqlaması sizə bildiriş şəklində görünəcək və yalnız siz qəbul etdikdən sonra
           sizin şəxsi məlumatlarınız (Ad, telefon və s.) həmin dəstəkçiyə göndəriləcək. Bu barədə Bumeranq.org portalı sizin şəxsi
           informasiyalarınızın 3-cü bir şəxs tərəfindən görülməyəcəyinə zəmanət verir.
