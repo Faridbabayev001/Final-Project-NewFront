@@ -1,6 +1,7 @@
 @extends('pages.layout')
 
-<!-- Main Content -->
+@section('title', 'Şifrə bərpası')
+  
 @section('content')
   <div id="breadcrumb">
   <div class="container">
@@ -40,7 +41,7 @@
                     </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group pass-reset-form">
                     <div class="col-md-6 col-md-offset-4">
                       <button type="submit" class="btn">
                           <i class="fa fa-btn fa-envelope"></i> Şifrə dəyişmə linkini göndər
