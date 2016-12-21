@@ -11,14 +11,15 @@
     </div>
   </div>
 </div>
+
 <section id="password-reset">
   <div class="container">
       <div class="row">
-          <div class="col-md-8 col-md-offset-2">
+          <div class=" col-lg-8 col-md-8 col-md-offset-2">
             @if (session('status'))
                 <div class="alert alert-success">
                     {{-- {{ session('status') }} --}}
-                    Biz sizin emailinizə şifrəni bərpa etmek üçün link göndərdik zəhmət olmasa emailinizi yoxlayasınız.
+                    Biz sizin emailinizə şifrəni bərpa etmək üçün link göndərdik zəhmət olmasa emailinizi yoxlayın.
                 </div>
             @endif
 
@@ -33,7 +34,7 @@
 
                         @if ($errors->has('email'))
                             <span class="help-block">
-                                <strong>E-Mail Addressini yazın</strong>
+                                <strong>E-Mail adresinizi yazın</strong>
                             </span>
                         @endif
                     </div>

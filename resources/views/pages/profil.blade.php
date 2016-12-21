@@ -11,7 +11,7 @@
           <h1 class="text-left">Profilim</h1>
         </div>
         <div class="col-lg-9">
-          <ul class="nav nav-tabs">
+          <ul class="nav nav-tabs profil-navigatior">
             <li {{Request::is('Profil') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-view">Profil görünüşü</a></li>
             <li {{Request::is('Istekler') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-isteklerim">İstəklərim</a></li>
             <li {{Request::is('Destekler') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-desteklerim">Dəstəklərim</a></li>
@@ -203,7 +203,9 @@
                         @endif
                     </h4>
                     <p class="profil-notification-desc">{{$notification_message->description}}</p>
-                    <p class="profil-notification-full pull-right"><a href="{{url('/Bildiriş/'.$notification_message->id)}}" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
+                    <div class="col-lg-1 col-lg-offset-11 col-md-offset-10  col-sm-offset-9 col-xs-offset-4 padding0">
+                      <p class="profil-notification-full"><a href="{{url('/Bildiriş/'.$notification_message->id)}}" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
+                    </div>
                   </div>
             </div>
             @endforeach
