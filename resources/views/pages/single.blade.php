@@ -92,11 +92,15 @@
                 </div>
             @endif
           @else
-            @if ($single->type_id == 1)
-              <div class="alert alert-success" role="alert">Siz artıq bu dəstəkdən yararlanmaq üçün müraciət etmisiniz.</div>
-            @elseif ($single->type_id == 2)
-              <div class="alert alert-success" role="alert">Siz artıq bu istəyə dəstək göndərmisiniz.</div>
-            @endif
+              @if (Session::has('description_destek'))
+                <div class="alert alert-success" role="alert">{{Session::get('description_destek')}}</div>
+              @elseif (Session::has('description_istek'))
+                <div class="alert alert-success" role="alert">{{Session::get('description_istek')}}</div>
+              @elseif ($single->type_id == 1)
+                <div class="alert alert-success" role="alert">Siz artıq bu dəstəkdən yararlanmaq üçün müraciət etmisiniz.</div>
+              @elseif ($single->type_id == 2)
+                <div class="alert alert-success" role="alert">Siz artıq bu istəyə dəstək göndərmisiniz.</div>
+              @endif
           @endif
 
 
