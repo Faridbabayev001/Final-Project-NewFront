@@ -22,7 +22,7 @@ class PagesController extends Controller
     {
       $datas_destek=Elan::raw(1)->orderBy('created_at','desc')->whereRaw('`status` = 1 AND `type_id` = 1')->take(4)->get();
       $datas_istek=Elan::raw(1)->orderBy('created_at','desc')->whereRaw('`status` = 1 AND `type_id` = 2')->take(4)->get();
-     
+
      // dd($datas_destek);
       $datamaps=Elan::all();
       foreach ($datamaps as $check_date) {
@@ -112,6 +112,21 @@ class PagesController extends Controller
     public function single($id)
     {
       $single = Elan::find($id);
+      $qarsiliqs = Qarsiliq::all();
+      $check = false;
+      foreach ($qarsiliqs as $qarsiliq) {
+        if (Auth::user()) {
+          if (Auth::user()->id == $qarsiliq->user_id && $single->id == $qarsiliq->elan_id) {
+            $check = true;
+            break;
+          }else {
+            $check = false;
+            continue;
+          }
+        }else {
+          break;
+        }
+      }
       if ($single) {
           if ($single->status == 0) {
             return redirect('/');
@@ -129,7 +144,7 @@ class PagesController extends Controller
           return redirect('/');
         }
 
-        return view('pages.single',compact('single','diff'));
+        return view('pages.single',compact('single','diff','check'));
       }else {
         return view('errors.503');
       }
@@ -328,7 +343,7 @@ class PagesController extends Controller
     public function destek_list()
     {
       $datas=Elan::raw(1)->orderBy('created_at','desc')->whereRaw('`status` = 1 AND `type_id` = 1')->paginate(8);
-      
+
       return view('pages.destek_list', compact('datas'));
     }
 

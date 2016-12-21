@@ -63,36 +63,44 @@
           </p>
         </div>
         @if(Auth::user())
-
-          @if(Auth::user()->id != $single->user_id)
-            <div class="single-support">
-              <p class="text-right">
-                @if ($single->type_id == 2)
-                  @if (Session::has('description_destek'))
-                    <div class="alert alert-success" role="alert">{{Session::get('description_destek')}}</div>
-                  @endif
-                  <a class="btn destek-ol-button" role="button"><i class="fa fa-check"></i> DƏSTƏK OLMAQ İSTƏYİRƏM</a>
-                  @else
-                    @if (Session::has('description_istek'))
-                      <div class="alert alert-success" role="alert">{{Session::get('description_istek')}}</div>
+            @if (!$check)
+              @if(Auth::user()->id != $single->user_id)
+                <div class="single-support">
+                  <p class="text-right">
+                    @if ($single->type_id == 2)
+                      @if (Session::has('description_destek'))
+                        <div class="alert alert-success" role="alert">{{Session::get('description_destek')}}</div>
+                      @endif
+                      <a class="btn destek-ol-button" role="button"><i class="fa fa-check"></i> DƏSTƏK OLMAQ İSTƏYİRƏM</a>
+                      @else
+                        @if (Session::has('description_istek'))
+                          <div class="alert alert-success" role="alert">{{Session::get('description_istek')}}</div>
+                        @endif
+                      <a class="btn destek-ol-button" role="button"><i class="fa fa-check"></i> DƏSTƏKDƏN YARARLANMAQ İSTƏYİRƏM</a>
                     @endif
-                  <a class="btn destek-ol-button" role="button"><i class="fa fa-check"></i> DƏSTƏKDƏN YARARLANMAQ İSTƏYİRƏM</a>
-                @endif
-                  <div class="alert alert-success destek-ol-message">
+                      <div class="alert alert-success destek-ol-message">
 
-                      <form class="" action="{{url('/notification/'.$single->id)}}" method="post">
-                        {{csrf_field()}}
-                          <label for=""><h4>Açıqlama</h4></label>
-                          <textarea name="description" rows="8" cols="80" class="form-control"></textarea>
-                          <input type="submit" name="send" class="pull-right btn" value="Göndər">
-                          <div class="clear-fix"></div>
-                      </form>
-                  </div>
-              </p>
-            </div>
-        @endif
+                          <form class="" action="{{url('/notification/'.$single->id)}}" method="post">
+                            {{csrf_field()}}
+                              <label for=""><h4>Açıqlama</h4></label>
+                              <textarea name="description" rows="8" cols="80" class="form-control"></textarea>
+                              <input type="submit" name="send" class="pull-right btn" value="Göndər">
+                              <div class="clear-fix"></div>
+                          </form>
+                      </div>
+                  </p>
+                </div>
+            @endif
+          @else
+            @if ($single->type_id == 1)
+              <div class="alert alert-success" role="alert">Siz artıq bu dəstəkdən yararlanmaq üçün müraciət etmisiniz.</div>
+            @elseif ($single->type_id == 2)
+              <div class="alert alert-success" role="alert">Siz artıq bu istəyə dəstək göndərmisiniz.</div>
+            @endif
+          @endif
 
-        @elseif(Auth::guest())
+
+        @elseif(Auth::guest() && $check == false)
           <div class="single-support">
             <p class="text-right">
               @if ($single->type_id == 2)
