@@ -4,14 +4,14 @@
 
 @section('content')
   <div id="breadcrumb">
-  <div class="container">
-     <div class="row">
-       <div class="col-lg-12">
-         <h1>Haqqımızda</h1>
-       </div>
+    <div class="container">
+       <div class="row">
+         <div class="col-lg-12">
+           <h1>Haqqımızda</h1>
+         </div>
+      </div>
     </div>
   </div>
-</div>
 <section id="about-us">
   <div class="container">
     <div class="row">

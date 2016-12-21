@@ -446,10 +446,10 @@ var MyLocation = document.getElementById('MyLocation')
                         document.getElementById('lat').value = position.coords.latitude;
                         document.getElementById('lng').value = position.coords.longitude;
                       } else {
-                        window.alert('No results found');
+                        window.alert('Heç bir nəticə tapılmadı');
                       }
                     } else {
-                      window.alert('Geocoder failed due to: ' + status);
+                      window.alert('Geokod səhvi: ' + status);
                     }
                   });
                 }
@@ -458,16 +458,16 @@ var MyLocation = document.getElementById('MyLocation')
             var geoError = function(error) {
               switch (error.code) {
                   case error.PERMISSION_DENIED:
-                      window.alert("User denied the request for Geolocation.");
+                      window.alert("Adresi əldə etmək cəhdi istifadəçi tərəfindən əngəlləndi");
                       break;
                   case error.POSITION_UNAVAILABLE:
-                      window.alert("Location information is unavailable.");
+                      window.alert("Adresi əldə etmək mümkün olmadı");
                       break;
                   case error.TIMEOUT:
-                      window.alert("The request to get user location timed out.");
+                      window.alert("Adresi əldə etmək üçün verilən vaxt bitdi.");
                       break;
                   case error.UNKNOWN_ERROR:
-                      window.alert("An unknown error occurred.");
+                      window.alert("Nəsə bir səhv baş verdi");
                       break;
               }
                   // error.code can be:
@@ -478,7 +478,7 @@ var MyLocation = document.getElementById('MyLocation')
                 };
             navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
         }else {
-          window.alert('Geolocation is not supported by this browser');
+          window.alert('Brovser adres tapmaq funksiyasını dəstəkləmir');
         };
   });
 
