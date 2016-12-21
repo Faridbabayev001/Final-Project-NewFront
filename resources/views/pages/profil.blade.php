@@ -185,6 +185,7 @@
           </div>
           {{-- <================== DESTERKLERIM PART END ==================> --}}
 
+
           {{-- <================== NOTIFICATION PART==================> --}}
 
           <div id="profil-notification" class="tab-pane fade in {{Request::is('Bildirişlər') ? " active" : ''}}">
