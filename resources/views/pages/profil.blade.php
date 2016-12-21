@@ -60,6 +60,9 @@
                 <div class="alert alert-success" role="alert">{{Session::get('istek_edited')}}</div>
               @endif
             {{-- <div class="table-responsive"> --}}
+            @if ($istek == 0)
+              <h1>İstəyiniz yoxdur</h1>
+            @else
               <table class="table">
                 <thead>
                   <tr>
@@ -71,6 +74,7 @@
                     <th>Yenilə & Sil</th>
                   </tr>
                 </thead>
+              @endif
                     @foreach ($Elan_all as $istekler)
                       <tbody>
                       @if ($istekler->user_id == Auth::user()->id && $istekler->type_id == '2')
@@ -126,16 +130,21 @@
           <div id="profil-desteklerim" class="tab-pane fade in{{Request::is('Destekler') ? " active" : ''}}">
             {{-- <div class="table-responsive"> --}}
               <table class="table">
-                <thead>
-                  <tr>
-                    <th>Dərc olunub?</th>
-                    <th>Bitmə vaxtı</th>
-                    <th>Başlıq</th>
-                    <th>Təsvir</th>
-                    <th>Şəkil</th>
-                    <th>Yenilə & Sil</th>
-                  </tr>
-                </thead>
+                @if ($destek == 0)
+                  <h1>Dəstəyiniz yoxdur</h1>
+                @else
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>Dərc olunub?</th>
+                        <th>Bitmə vaxtı</th>
+                        <th>Başlıq</th>
+                        <th>Təsvir</th>
+                        <th>Şəkil</th>
+                        <th>Yenilə & Sil</th>
+                      </tr>
+                    </thead>
+                  @endif
                 @foreach ($Elan_all as $destekler)
                   <tbody>
                     <tr>
@@ -189,51 +198,59 @@
           {{-- <================== NOTIFICATION PART==================> --}}
 
           <div id="profil-notification" class="tab-pane fade in {{Request::is('Bildirişlər') ? " active" : ''}}">
-            @foreach($noti_message as $notification_message)
-            <div class="col-lg-12 padding0 notification-block">
-                  <div class="col-lg-2">
-                      <img src="{{url('/image/'.$notification_message->avatar)}}">
-                  </div>
-                  <div class="col-lg-9">
-                    <h4 class="profil-notification-title">
-                        @if($notification_message->type_id==2)
-                          <span class="special-istek">{{$notification_message->name}}</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !
-                        @elseif($notification_message->type_id==1)
-                            <span class="special-destek">{{$notification_message->name}}</span> adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
-                        @endif
-                    </h4>
-                    <p class="profil-notification-desc">{{$notification_message->description}}</p>
-                    <div class="col-lg-1 col-lg-offset-11 col-md-offset-10  col-sm-offset-9 col-xs-offset-4 padding0">
-                      <p class="profil-notification-full"><a href="{{url('/Bildiriş/'.$notification_message->id)}}" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
+            @if (isset($noti_message))
+              <h1>Bildirişiniz yoxdur</h1>
+            @else
+              @foreach($noti_message as $notification_message)
+              <div class="col-lg-12 padding0 notification-block">
+                    <div class="col-lg-2">
+                        <img src="{{url('/image/'.$notification_message->avatar)}}">
                     </div>
-                  </div>
-            </div>
-            @endforeach
+                    <div class="col-lg-9">
+                      <h4 class="profil-notification-title">
+                          @if($notification_message->type_id==2)
+                            <span class="special-istek">{{$notification_message->name}}</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !
+                          @elseif($notification_message->type_id==1)
+                              <span class="special-destek">{{$notification_message->name}}</span> adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
+                          @endif
+                      </h4>
+                      <p class="profil-notification-desc">{{$notification_message->description}}</p>
+                      <div class="col-lg-1 col-lg-offset-11 col-md-offset-10  col-sm-offset-9 col-xs-offset-4 padding0">
+                        <p class="profil-notification-full"><a href="{{url('/Bildiriş/'.$notification_message->id)}}" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
+                      </div>
+                    </div>
+              </div>
+              @endforeach
+            @endif
           </div>
           {{-- <================== NOTIFICATION PART END ==================> --}}
 
 
           {{-- <================== MESSAGE PART  ==================> --}}
           <div id="profil-ismariclar" class="tab-pane fade in {{Request::is('Ismarıclar') ? " active" : ''}}">
-            @foreach($data_join as $data_joins)
-            <div class="col-lg-12 padding0 notification-block">
-                  <div class="col-lg-2">
-                      <img src="{{url('/image/'.$data_joins->avatar)}}">
-                  </div>
-                  <div class="col-lg-9">
-                    <h4 class="profil-notification-title">
-                      @if($data_joins->type_id==2)
-                        <span class="special-istek">{{$data_joins->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
-                      @endif
-                      @if($data_joins->type_id==1)
-                        <span class="special-destek">{{$data_joins->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
-                      @endif
-                    </h4>
-                    <p class="profil-notification-desc">{{$data_joins->description}}</p>
-                    <p class="profil-notification-full pull-right"><a href="{{url('/message/'.$data_joins->id)}}" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
-                  </div>
-            </div>
-          @endforeach
+            @if (!isset($data_join))
+              <h1>İsmarıcınız yoxdur</h1>
+            @else
+                @foreach($data_join as $data_joins)
+                <div class="col-lg-12 padding0 notification-block">
+                      <div class="col-lg-2">
+                          <img src="{{url('/image/'.$data_joins->avatar)}}">
+                      </div>
+                      <div class="col-lg-9">
+                        <h4 class="profil-notification-title">
+                          @if($data_joins->type_id==2)
+                            <span class="special-istek">{{$data_joins->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
+                          @endif
+                          @if($data_joins->type_id==1)
+                            <span class="special-destek">{{$data_joins->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
+                          @endif
+                        </h4>
+                        <p class="profil-notification-desc">{{$data_joins->description}}</p>
+                        <p class="profil-notification-full pull-right"><a href="{{url('/message/'.$data_joins->id)}}" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
+                      </div>
+                </div>
+              @endforeach
+            @endif
           </div>
 
 

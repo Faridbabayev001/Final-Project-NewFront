@@ -171,6 +171,8 @@ class PagesController extends Controller
     public function profil()
     {
       $Elan_all=Elan::all();
+      $istek=Elan::whereRaw('`type_id` = 2 AND user_id = '. Auth::user()->id)->count();
+      $destek=Elan::whereRaw('`type_id` = 1 AND user_id = '. Auth::user()->id)->count();
       $noti_message = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
                 ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
                 ->select('users.name','users.avatar','qarsiliqs.data','qarsiliqs.created_at','els.title','els.type_id','qarsiliqs.description','qarsiliqs.notification','qarsiliqs.id')
@@ -185,7 +187,7 @@ class PagesController extends Controller
                 ->where([
                       ['qarsiliqs.user_id', '=', Auth::user()->id]
                   ])->get();
-      return view('pages.profil',compact('Elan_all','noti_message','data_join'));
+      return view('pages.profil',compact('Elan_all','noti_message','data_join','istek','destek'));
     }
 
 
