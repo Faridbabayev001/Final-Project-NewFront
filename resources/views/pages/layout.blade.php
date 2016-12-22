@@ -162,9 +162,6 @@ use App\Qarsiliq;
                             </a>
                     @endif
                   </li>
-                  @php
-                    break;
-                  @endphp
                 @elseif($notification_image->user_id == Auth::user()->id)
                     <li>
                       @foreach($data_join as $data_joins)
@@ -195,9 +192,6 @@ use App\Qarsiliq;
                     @endif
                         @endforeach
                      </li>
-                     @php
-                       break;
-                     @endphp
                   @endif
 
                 @endforeach
