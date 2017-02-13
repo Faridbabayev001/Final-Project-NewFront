@@ -84,6 +84,11 @@ use App\Qarsiliq;
                     ->get();
           @endphp
           <ul class="list-inline pull-right contact-auth">
+              <li class="dropdown">
+                  <a href="#" data-toggle="dropdown" class="dropdown-toggle socket-messages-number"> </a>
+                  <ul class="dropdown-menu contact-auth-notification socket-messages-data" role="menu">
+                  </ul>
+              </li>
           <li class="dropdown">
                   <a href="#" data-toggle="dropdown" class="dropdown-toggle">
                     <i class="fa fa-bell"></i>
@@ -309,6 +314,8 @@ use App\Qarsiliq;
   </div>
 </nav>
 </section>
+<script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
             {{-- content  yield--}}
 @yield('content')
 
@@ -321,15 +328,57 @@ use App\Qarsiliq;
   </div>
 </div>
 </section>
-
+@php
+    if (Auth::user()){
+        $id = Auth::user()->id;
+    }else{
+        $id = 0;
+    }
+@endphp
 
 </body>
 
-<script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>
+
 <script src="{{url('/js/vendor/jquery-ui.js')}}"></script>
 <script src="{{url('/js/vendor/bootstrap.min.js')}}"></script>
 <script src="{{url('/js/InfoBubble.js')}}" charset="utf-8"></script>
 <script src="{{url('/js/AjaxSearchMap.js')}}" charset="utf-8"></script>
 <script src="{{url('/js/main.js')}}"></script>
+<script type="text/javascript">
+    var socket = io(':3000');
+    var count = 0;
+    var data = {
+        id: {{$id}}
+    }
+    socket.emit('message_notifications', data);
+    socket.on('notifications', function(message_notification_data){
+        if({{$id}} != 0){
+            $('.socket-messages-data').empty();
+            count=0 ;
+            $.each(message_notification_data,function (key,value){
+                if (value.seen == 0) {
+                    count++;
+                }
+
+                $('.socket-messages-data').append(
+                    '<li>' +
+                    '<a href="/Mesajlar/'+value.id+'">' +
+                    '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />' +
+                    '<p>'+ '<span style="color:#0090D9;">' + value.name + '</span>' + ': '+ value.message +'</p></a></li>');
+            });
+        }else{
+            count = 0;
+        }
+        if (count > 0) {
+            $('.socket-messages-number').text('');
+            $('.socket-messages-count span').text('');
+            $('.socket-messages-number').append('<a href="#" data-toggle="dropdown" class="dropdown-toggle socket-messages-count"><i class="fa fa-comments-o"></i> <span class="contact-auth-notification-number"> </span> </a>');
+            $('.socket-messages-count span').text(count);
+        }else{
+            $('.socket-messages-number').append('<a href="#" data-toggle="dropdown" class="dropdownyoxdur-toggle socket-messages-count"><i class="fa fa-comments-o"></i></a>');
+            $('.socket-messages-data').append('<li><a href="#"> <h4 class="text-center margin0">Mesajınız yoxdur</h4></a></li>');
+        }
+    });
+</script>
   @yield('scripts')
 </html>

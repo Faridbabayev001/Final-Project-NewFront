@@ -15,6 +15,7 @@ use Session;
 use Mail;
 use App\Qarsiliq;
 use App\Photo;
+use App\Chat;
 
 class PagesController extends Controller
 {
@@ -192,24 +193,45 @@ class PagesController extends Controller
 
 
     //<================= METHHOD FOR NOFICATION_SINGLE ================>
-    public function notication_single($id)
+    public function notication_single($id, Chat $chat, Qarsiliq $qarsiliq_table)
     {
 
-      $notication_single=Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
-             ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-             ->select('users.name','users.avatar','els.type_id','qarsiliqs.user_id','qarsiliqs.description','qarsiliqs.id','qarsiliqs.status','qarsiliqs.notification','qarsiliqs.data')
-             ->where([
-                   ['qarsiliqs.id', '=', $id],
-                   ['els.user_id', '=', Auth::user()->id]
-               ])->get();
+
+
+        $qarsiliq_table = Qarsiliq::find($id);
+        $notication_single = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
+            ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+            ->select('users.name', 'users.avatar', 'els.type_id', 'qarsiliqs.user_id', 'qarsiliqs.description', 'qarsiliqs.id', 'qarsiliqs.status', 'qarsiliqs.notification', 'qarsiliqs.data')
+            ->where([
+                ['qarsiliqs.id', '=', $id],
+                ['els.user_id', '=', Auth::user()->id]
+            ])->get();
+
+        $delete_chat = Chat::where('sender_id', '=', $qarsiliq_table->user_id)->where('receiver_id', '=', Auth::user()->id  )->get();
+        $delete_message = Chat::where('sender_id', '=', Auth::user()->id )->where('receiver_id', '=', $qarsiliq_table->user_id  )->get();
+
+        if ($delete_message) {
+            foreach ($delete_message as $delete_messages) {
+
+                $delete_messages->delete();
+            }
+        }
+        if ($delete_chat) {
+            foreach ($delete_chat as $delete_chats) {
+
+                $delete_chats->delete();
+            }
+        }
+
         if ($notication_single) {
-          foreach ($notication_single as $notication_single) {
-            $notication_single->status=0;
-            $notication_single->update();
-          }
-          return view('pages.notification_single',compact('notication_single','data_join','userId'));
-        }else {
-          return view('errors.503');
+            foreach ($notication_single as $notication_single) {
+                $notication_single->status = 0;
+
+                $notication_single->update();
+            }
+            return view('pages.notification_single', compact('notication_single', 'data_join', 'userId'));
+        } else {
+            return view('errors.503');
         }
     }
 
@@ -400,5 +422,19 @@ class PagesController extends Controller
         return view('errors.503');
       }
 
+    }
+
+    public function chat($id)
+    {
+        $chat = Chat::find($id);
+        if ($chat->sender_id == Auth::user()->id){ // Eger user id chat table-den gelen sender_id-ye beraberdirse /pages/chat.blade.php-ye getsin ve mesaj gonderen Auth user olsun. :)
+            return view('pages.chat',compact('chat'));
+
+        }elseif ($chat->receiver_id == Auth::user()->id){ //Eger user id chat table-den gelen receiver_id-ye beraberdirse
+            $gonderilen = $chat->receiver_id; // chat table-dan gelen receiver_id $gonderilen deyiseninde saxlanilir ki asaqida menimsedilende itmesin. :D
+            $chat->receiver_id = $chat->sender_id; // burada user deyisikliyi edirik cunki chat.blade.php-de auth user GONDERILEN yox mesaj gonderen olmalidir. :D
+            $chat->sender_id = $gonderilen;
+            return view('pages.chat',compact('chat'));
+        }
     }
 }

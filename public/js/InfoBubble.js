@@ -1149,9 +1149,9 @@ InfoBubble.prototype.htmlToDocumentFragment_ = function(htmlString) {
 
 
 /**
- * Removes all children from the node.
+ * Removes all children from the nodejs.
  *
- * @param {Node} node The node to remove all children from.
+ * @param {Node} node The nodejs to remove all children from.
  * @private
  */
 InfoBubble.prototype.removeChildren_ = function(node) {
