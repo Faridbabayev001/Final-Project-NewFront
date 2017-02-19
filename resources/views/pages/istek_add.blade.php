@@ -148,6 +148,8 @@
     </div>
   </div>
   </section>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAanmTrOlQYWRepobnwqSO1E2SOoHYMRBA&libraries=places&callback=initAutocomplete&language=az"
+          async defer></script>
 @elseif(Auth::guest())
   <section id="add">
     <div class="alert alert-danger">
@@ -156,8 +158,4 @@
   </section>
 @endif
 
-@endsection
-@section('scripts')
-  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAanmTrOlQYWRepobnwqSO1E2SOoHYMRBA&libraries=places&callback=initAutocomplete&language=az"
-         async defer></script>
 @endsection

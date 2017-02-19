@@ -40,8 +40,8 @@
             sender_id :{{Auth::user()->id}},
             receiver_id: {{$chat->receiver_id}},
             message :  "",
-            created_at: date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(),
-            updated_at: date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+            created_at: moment().format("YYYY-MM-DD HH:mm:ss"),
+            updated_at: moment().format("YYYY-MM-DD HH:mm:ss")
         };
         socket.emit('data',data_chat);
         $('#notification_chat').submit(function () {

@@ -20,7 +20,8 @@ use App\Qarsiliq;
   <link rel="manifest" href="/manifest.json">
   <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
   <meta name="theme-color" content="#ffffff">
-  <link rel="stylesheet" href="{{url('/css/style.css')}}" media="screen" title="no title">
+    <script src="{{url('/js/moment.js')}}"></script>
+    <link rel="stylesheet" href="{{url('/css/style.css')}}" media="screen" title="no title">
 </head>
 <body>
 
