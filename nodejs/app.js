@@ -7,8 +7,8 @@ var PORT = process.env.PORT || 3000;
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '10000hoursrule',
-    database: 'destekol'
+    password: '',
+    database: 'final_project'
 });
 connection.connect(function (err) {
     if (err){
@@ -96,8 +96,7 @@ io.on('connect',function (socket) {
                 "type_id,title,status "+
                 "FROM "+
                 "els "+
-                "WHERE status=1 " +
-                "AND updated_at=NOW()",
+                "WHERE status=1 ",
                 function(error,live_update_rows){
                     if (error) throw error;
                     io.emit('live_update_data',live_update_rows);

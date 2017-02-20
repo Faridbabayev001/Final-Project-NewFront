@@ -77,4 +77,10 @@
           </div>
       </div>
   </div>
+  <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
+  <script>
+      var socket = io(':3000');
+      socket.emit('live_update')
+  </script>
 @endsection
