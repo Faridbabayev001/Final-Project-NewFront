@@ -154,18 +154,28 @@ class PagesController extends Controller
 
     //<================= METHHOD FOR NOTIFICATION COUNT ================>
 
-      public function notification_count(Request $request,Qarsiliq $qarsiliq,$id)
-      {   Session::flash('description_destek' , "Dəstəyiniz uğurla  göndərildi. Qəbul olunduğu zaman sizə bildiriş göndəriləcək ");
-          Session::flash('description_istek' , "İstəyiniz uğurla  göndərildi. Qəbul olunduğu zaman sizə bildiriş göndəriləcək ");
+    public function notification_count(Request $request,Qarsiliq $qarsiliq,$id)
+    {
 
-          $qarsiliq->elan_id = $id;
-          $qarsiliq->user_id = Auth::user()->id;
-          $qarsiliq->description = $request->description;
-          $qarsiliq->notification =1;
-          $qarsiliq->status =1;
-          $qarsiliq->save();
-          return back();
-      }
+        $this->validate($request, [
+            'description' => 'required',
+        ]);
+
+        if ($qarsiliq->description='') {
+            Session::flash('description_error' , "Boş mesaj gonderme yetiiiiiim");
+        }else{
+            Session::flash('description_destek' , "Dəstəyiniz uğurla  göndərildi. Qəbul olunduğu zaman sizə bildiriş göndəriləcək ");
+            Session::flash('description_istek' , "İstəyiniz uğurla  göndərildi. Qəbul olunduğu zaman sizə bildiriş göndəriləcək ");
+        }
+
+        $qarsiliq->elan_id = $id;
+        $qarsiliq->user_id = Auth::user()->id;
+        $qarsiliq->description = $request->description;
+        $qarsiliq->notification =1;
+        $qarsiliq->status =1;
+        $qarsiliq->save();
+        return back();
+    }
 
 
     //<================= METHHOD FOR PROFIL ================>
@@ -347,8 +357,7 @@ class PagesController extends Controller
         'contactMessage' => $request->message,
       ];
       Mail::send('pages.contact_us_mail',$data, function($message) use ($data){
-        $message->from($data['email']);
-        $message->to('farid.b@code.edu.az');
+        $message->to('farid.b@code.edu.az')->subject('nese');
       });
       Session::flash('send', 'İsmarıcınız müvəffəqiyyətlə göndərildi.');
       return back();

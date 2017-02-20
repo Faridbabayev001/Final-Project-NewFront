@@ -70,7 +70,7 @@
       </div>
       </div>
       <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>
-      <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
+          <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
       <script type="text/javascript">
           var socket = io(':3000');
           var date = new Date();
@@ -78,8 +78,9 @@
               sender_id :{{Auth::user()->id}},
               receiver_id: {{$notication_single->user->id}},
               message :  "",
-              created_at: date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds(),
-              updated_at: date.getFullYear() + "-" + date.getMonth() + "-" + date.getDay() + " " + date.getHours() + ":" + date.getMinutes() + ":" + date.getSeconds()
+              seen: 0,
+              created_at: moment().format("YYYY-MM-DD HH:mm:ss"),
+              updated_at: moment().format("YYYY-MM-DD HH:mm:ss")
           };
           socket.emit('data',data_single);
           $('#notification_chat').submit(function () {
