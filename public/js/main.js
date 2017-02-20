@@ -12,8 +12,7 @@ $(document).ready(function(){
 //---------------------------SLIDER PART------------------------------------//
 $('.littleImg img').click(function(){
    var sekil = $(this).attr('src');
-  console.log(sekil);
-  $('.mainImg img').attr('src', sekil).animation();
+  $('.mainImg img').attr('src', sekil);
 });
 
 //---------------------------SLIDER PART------------------------------------//
