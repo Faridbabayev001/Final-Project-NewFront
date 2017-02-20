@@ -42,7 +42,7 @@ use App\Qarsiliq;
           </ul>
         @else
           @php
-          $noti = Elan::join('users', 'users.id', '=', 'els.user_id')
+          $noti_elan_table = Elan::join('users', 'users.id', '=', 'els.user_id')
                     ->join('qarsiliqs', 'qarsiliqs.elan_id', '=', 'els.id')
                     ->select('els.type_id','users.name','els.user_id','qarsiliqs.notification','qarsiliqs.status','qarsiliqs.data')
                      ->where([
@@ -52,7 +52,7 @@ use App\Qarsiliq;
                        ->get();
                       //  dd($noti);
 
-      $noti_qars_user=Elan::join('users', 'users.id', '=', 'els.user_id')
+      $noti_qars_table_user=Elan::join('users', 'users.id', '=', 'els.user_id')
               ->join('qarsiliqs', 'qarsiliqs.elan_id', '=', 'els.id')
               ->select('els.type_id','users.name','users.avatar','qarsiliqs.notification','qarsiliqs.user_id','qarsiliqs.id','qarsiliqs.status','qarsiliqs.data')
                ->where([
@@ -63,26 +63,28 @@ use App\Qarsiliq;
                 //  ->orWhere('qarsiliqs.data_status', '=', 1)
                  ->get();
     //  dd($noti_qars_user);
+        // LAZIMDIR
          $noti_image = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
               ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-              ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.user_id','qarsiliqs.id','qarsiliqs.status','qarsiliqs.data')
+              ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.user_id','qarsiliqs.id as qarwiliq_id','qarsiliqs.status','qarsiliqs.data')
               ->orderBy('created_at', 'desc')
-               ->where('els.user_id', '=', Auth::user()->id)
-                ->orWhere('qarsiliqs.user_id', '=', Auth::user()->id)
+              ->where('qarsiliqs.user_id', '=', Auth::user()->id)
+               ->orwhere('els.user_id', '=', Auth::user()->id)
               ->take(3)
                ->get();
-
-               $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-                    ->join('users', 'users.id', '=', 'els.user_id')
-                    ->select('users.name','els.type_id','users.email','users.city','qarsiliqs.id','users.avatar','qarsiliqs.data_status','qarsiliqs.created_at')
-                    ->orderBy('created_at', 'desc')
-                    ->where([
-                          ['qarsiliqs.data', '=', 1],
-                          ['qarsiliqs.user_id','=',Auth::user()->id]
-                      ])
-                      ->take(3)
-                    // ->where('qarsiliqs.user_id','=',Auth::user()->id)
-                    ->get();
+          // dd($noti_image);
+                                // TAKE OLAN VE  noti_qars_user EKVIALENT OLAN QUERY
+              //  $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+              //       ->join('users', 'users.id', '=', 'els.user_id')
+              //       ->select('users.name','els.type_id','users.email','users.city','qarsiliqs.id','users.avatar','qarsiliqs.data_status','qarsiliqs.created_at')
+              //       ->orderBy('created_at', 'desc')
+              //       ->where([
+              //             ['qarsiliqs.data', '=', 1],
+              //             ['qarsiliqs.user_id','=',Auth::user()->id]
+              //         ])
+              //         ->take(3)
+              //       // ->where('qarsiliqs.user_id','=',Auth::user()->id)
+              //       ->get();
           @endphp
           <ul class="list-inline pull-right contact-auth">
               <li class="dropdown">
@@ -90,7 +92,7 @@ use App\Qarsiliq;
                   <ul class="dropdown-menu contact-auth-notification socket-messages-data" role="menu">
                   </ul>
               </li>
-          <li class="dropdown">
+              {{-- burda noti var idi php ile  --}}{{-- <li class="dropdown">
                   <a href="#" data-toggle="dropdown" class="dropdown-toggle">
                     <i class="fa fa-bell"></i>
                 @if(count($noti) != 0 && count($noti_qars_user)==0)
@@ -143,26 +145,26 @@ use App\Qarsiliq;
                   @if($notification_image->user_id != Auth::user()->id)
                     <li>
                       @if($notification_image->status==0)
-                             <a href="{{url('/Bildiriş/'.$notification_image->id)}}" class="notification-seen">
+                             <a href="{{url('/Bildiris/'.$notification_image->id)}}" class="notification-seen">
                               <img src="{{url('/image/'.$notification_image->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
                               <p>
                                   @if($notification_image->type_id==2)
-                                    <span class="special-istek">{{$notification_image->name}}</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !
+                                    <span class="special-istek">{{$notification_image->name}}</span>  adli istifad?çi ist?yiniz? d?st?k verm?k ist?yir !
                                   @endif
                                   @if($notification_image->type_id==1)
-                                    <span class="special-destek">{{$notification_image->name}}</span>  adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
+                                    <span class="special-destek">{{$notification_image->name}}</span>  adli istifad?çi d?st?yinizd?n yararlanmaq ist?yir !
                                   @endif
                                 </p>
                             </a>
                           @else
-                             <a href="{{url('/Bildiriş/'.$notification_image->id)}}">
+                             <a href="{{url('/Bildiris/'.$notification_image->id)}}">
                             <img src="{{url('/image/'.$notification_image->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
                                <p>
                                 @if($notification_image->type_id==2)
-                                  <span class="special-istek">{{$notification_image->name}}</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !
+                                  <span class="special-istek">{{$notification_image->name}}</span>  adli istifad?çi ist?yiniz? d?st?k verm?k ist?yir !
                                 @endif
                                 @if($notification_image->type_id==1)
-                                  <span class="special-destek">{{$notification_image->name}}</span>  adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
+                                  <span class="special-destek">{{$notification_image->name}}</span>  adli istifad?çi d?st?yinizd?n yararlanmaq ist?yir !
                                 @endif
                                </p>
                             </a>
@@ -176,10 +178,10 @@ use App\Qarsiliq;
                             <img src="{{url('/image/'.$data_joins->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
                               <p>
                                 @if($data_joins->type_id==2)
-                                  <span class="special-istek">{{$data_joins->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
+                                  <span class="special-istek">{{$data_joins->name}}</span>  adli istifad?çi desteyinizi q?bul etdi !
                                 @endif
                                 @if($data_joins->type_id==1)
-                                  <span class="special-destek">{{$data_joins->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
+                                  <span class="special-destek">{{$data_joins->name}}</span>  adli istifad?çi ist?yinizi q?bul etdi !
                                 @endif
                               </p>
                             </a>
@@ -188,10 +190,10 @@ use App\Qarsiliq;
                           <img src="{{url('/image/'.$data_joins->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
                           <p>
                             @if($data_joins->type_id==2)
-                              <span class="special-istek">{{$data_joins->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
+                              <span class="special-istek">{{$data_joins->name}}</span>  adli istifad?çi desteyinizi q?bul etdi !
                             @endif
                             @if($data_joins->type_id==1)
-                              <span class="special-destek">{{$data_joins->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
+                              <span class="special-destek">{{$data_joins->name}}</span>  adli istifad?çi ist?yinizi q?bul etdi !
                             @endif
                           </p>
                         </a>
@@ -203,19 +205,19 @@ use App\Qarsiliq;
                 @endforeach
                 @if(count($noti_image)!=0 ||  count($noti_qars_user)!=0)
                   <li>
-                    <a href="{{url('/Bildirişlər')}}">
-                      <h4 class="text-center margin0">Hamısına bax ></h4>
+                    <a href="{{url('/Bildirisl?r')}}">
+                      <h4 class="text-center margin0">Hamisina bax ></h4>
                     </a>
                   </li>
                 @elseif(count($noti_image)==0 && count($noti_qars_user)==0)
                   <li>
                     <a>
-                      <h4 class="text-center margin0">Bildirişiniz yoxdur </h4>
+                      <h4 class="text-center margin0">Bildirisiniz yoxdur </h4>
                     </a>
                   </li>
                 @endif
               </ul>
-          </li>
+          </li> --}}
           <li class="dropdown">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Xoş gəldiniz, {{Auth::user()->name}} <span class="caret"></span></a>
               <ul class="dropdown-menu contact-profil-menu" role="menu">
@@ -380,6 +382,12 @@ use App\Qarsiliq;
             $('.socket-messages-data').append('<li><a href="#"> <h4 class="text-center margin0">Mesajınız yoxdur</h4></a></li>');
         }
     });
+
+    //notifications
+    socket.emit('live_notification',data);
+    socket.on('live_noti',function(live_notification_data){
+      
+    })
 </script>
   @yield('scripts')
 </html>

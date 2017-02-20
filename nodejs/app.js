@@ -88,7 +88,7 @@ io.on('connection', function(socket){
     });
 });
 
-// For notificaton connect ( Eyni seydi qarismasin deye yenisin yazdim :D )
+// For notificaton connect
 io.on('connect',function (socket) {
         socket.on('live_update',function(result){
             connection.query(
@@ -104,3 +104,46 @@ io.on('connect',function (socket) {
                 });
         });
 });
+
+  //  notificaton
+  io.on('connection',function(socket){
+    socket.on('live_notification',function(result) {
+       connection.query(
+         "SELECT "+
+         "els.type_id,els.user_id,users.name,qarsiliqs.status,qarsiliqs.notificaton "+
+         "FROM "+
+         "els "+
+         "INNER JOIN qarsiliqs ON "+
+         "qarsiliqs.elan_id=els.id "+
+         "WHERE els.user_id = "+ connection.escape(result.id) +
+         " AND qarsiliqs.status = " + 1,
+         function (err, live_notification_data) {
+             if (err) throw err;
+             io.emit('live_noti',live_notification_data);
+         });
+         $noti_qars_table_user=Elan::join('users', 'users.id', '=', 'els.user_id')
+                 ->join('qarsiliqs', 'qarsiliqs.elan_id', '=', 'els.id')
+                 ->select('els.type_id','users.name','users.avatar','qarsiliqs.notification','qarsiliqs.user_id','qarsiliqs.id','qarsiliqs.status','qarsiliqs.data')
+                  ->where([
+                        ['qarsiliqs.data', '=', 1],
+                        ['qarsiliqs.user_id', '=', Auth::user()->id],
+                        ['qarsiliqs.data_status', '=', 1]
+                    ])
+         connection.query(
+           "SELECT "+
+           "els.type_id,qarsiliqs.user_id,users.avatar,users.name,qarsiliqs.status,qarsiliqs.notificaton "+
+           "qarsiliqs.id,qarsiliqs.status,qarsiliqs.data"
+           "FROM "+
+           "qarsiliqs "+
+           "INNER JOIN els ON "+
+           "els.id=qarsiliqs.elan_id "+
+           "WHERE qarsiliqs.data = " + 1 +
+           "AND qarsiliqs.data_status = " + 1 +
+           " AND qarsiliqs.user_id = "+ connection.escape(result.id),
+           function (err, live_notification_data) {
+               if (err) throw err;
+               io.emit('live_noti',live_notification_data);
+           });
+       );
+    })
+  });
