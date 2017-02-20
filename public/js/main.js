@@ -8,6 +8,18 @@ $(document).ready(function(){
     });
 //----------------------------MAP HEIGH FOR WINDOW SIZE END-------------------------------
 
+
+//---------------------------SLIDER PART------------------------------------//
+$('.littleImg img').click(function(){
+   var sekil = $(this).attr('src');
+  console.log(sekil);
+  $('.mainImg img').attr('src', sekil).animation();
+});
+
+//---------------------------SLIDER PART------------------------------------//
+
+
+
 //----------------------------DROPDOWN SLIDE EFFECT---------------------------------------
  $('.dropdown').on('show.bs.dropdown', function(e){
    $(this).find('.dropdown-menu').first().stop(true, true).slideDown();

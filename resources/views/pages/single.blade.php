@@ -1,6 +1,17 @@
 @extends('pages.layout')
 @section('title','Ətraflı')
 @section('content')
+<style type="text/css">
+  .littleImg{
+    margin: 3% 0 0 2%;
+    width: 18%;
+    border-radius: 5%;
+    height: 100px;
+    overflow: hidden;
+    float: left;
+  }
+
+</style>
   <div id="breadcrumb">
   <div class="container">
      <div class="row">
@@ -29,10 +40,20 @@
                 {{$diff->y}} il {{$diff->m}} ay {{$diff->d}} gün
             @endif
           </div>
-          <img src="{{url('/image/'.$single->shekiller[0]->imageName)}}" class="img-responsive" alt="" />
+          <div class="mainImg">
+            
+            <img src="{{url('/image/'.$single->shekiller[0]->imageName)}}" class="img-responsive" alt="" />
+          </div>
           <div class="single-img-location">
             <i class="fa fa-map-marker"></i> {{$single->location}}
           </div>
+            {{-- SLIDER PART --}}
+              
+            @foreach($single->shekiller as $imgName)
+            <div class="littleImg"> 
+                <img src="{{url('/image/'.$imgName->imageName)}}" class="img-responsive" alt="" />
+            </div>
+            @endforeach
         </div>
       </div>
       @php
