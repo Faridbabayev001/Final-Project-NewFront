@@ -88,8 +88,8 @@ io.on('connection', function(socket){
     });
 });
 
-// For notificaton connect ( Eyni seydi qarismasin deye yenisin yazdim :D )
-io.on('connect',function (socket) {
+// For notificaton connect
+io.on('connection',function (socket) {
         socket.on('live_update',function(result){
             connection.query(
                 "SELECT "+
@@ -103,3 +103,50 @@ io.on('connect',function (socket) {
                 });
         });
 });
+
+  //  notificaton
+  io.on('connection',function(socket){
+    socket.on('live_notification',function(result) {
+        var noti_data = []; // bos bir array( obyekt) yaradim ki her 2 query-nin neticesini bu obeykte doldurub son olaraq emit ile gonderecem
+        connection.query(
+            "SELECT " +
+            "els.type_id,els.user_id as els_user_id,users.avatar,users.name,qarsiliqs.status,qarsiliqs.notification " +
+            "FROM " +
+            "els " +
+            "INNER JOIN qarsiliqs ON " +
+            "qarsiliqs.elan_id=els.id " +
+            "INNER JOIN users ON " +
+            "els.user_id=users.id " +
+            "WHERE els.user_id =" + connection.escape(result.id) +
+            " AND qarsiliqs.status = 1",
+            function (err, live_notification_first_data) {
+                if (err) throw err;
+// for ile query-den gelen obyektleri bir-bir arraya doldururam
+                for ( var i=0; i<live_notification_first_data.length; i++ ) {
+                    noti_data.push( live_notification_first_data[i] );
+                }
+                connection.query(
+                    "SELECT " +
+                    "els.type_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name,qarsiliqs.status,qarsiliqs.notification," +
+                    "qarsiliqs.id as qarsiliqs_id,qarsiliqs.status,qarsiliqs.data " +
+                    "FROM " +
+                    "qarsiliqs " +
+                    "INNER JOIN els ON " +
+                    "els.id = qarsiliqs.elan_id " +
+                    "INNER JOIN users ON " +
+                    "users.id = qarsiliqs.user_id " +
+                    "WHERE qarsiliqs.data =1 " +
+                    "AND qarsiliqs.data_status=1 "+
+                    "AND qarsiliqs.user_id = " + connection.escape(result.id),
+                    function (err, live_notification_second_data) {
+                        if (err) throw err;
+                        // yene 2-ci query-nin neticesini bu arraya doldururam eger varsa
+                        for ( var i=0; i<live_notification_second_data.length; i++ ) {
+                            noti_data.push( live_notification_second_data[i] );
+                        };
+                        // son olaraq yaratdiqim arrayi emt ile layout-a gonderirem :)
+                        io.emit('live_noti',noti_data);
+                    });
+            })
+        })
+    });

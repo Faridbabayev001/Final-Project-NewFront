@@ -381,6 +381,17 @@ use App\Qarsiliq;
             $('.socket-messages-data').append('<li><a href="#"> <h4 class="text-center margin0">Mesajınız yoxdur</h4></a></li>');
         }
     });
+
+    //notifications
+    socket.emit('live_notification',data);
+    socket.on('live_noti',function(live_notification_data){
+        console.log(live_notification_data);
+        $.each(live_notification_data,function (key,value) {
+            $('.contact-auth-notification').append(
+//                her sey bura appen olunacaq
+            );
+        })
+    })
 </script>
   @yield('scripts')
 </html>

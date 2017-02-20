@@ -57,7 +57,6 @@ $.ajax({
             Mydata(data);
           }else {
             var counts = 0;
-            console.log(data);
             for (var i =  0; i < data.length; i++) {
               if (data[i]['status'] == 1) {
                 counts++;
