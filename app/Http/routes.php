@@ -56,6 +56,15 @@ Route::group(['middleware' => 'auth'],function(){
 });
 //<=================Destek Routes End ================>
 
+//<==================Google Register Routes ==================>
+Route::get('auth/google', 'GoogleController@redirectToProvider')->name('google.login');
+Route::get('auth/google/callback', 'GoogleController@handleProviderCallback');
+//<==================Google Register Routes ==================>
+
+//<==================Facebook Register Routes ==================>
+Route::get('facebook', 'FacebookController@redirectToProvider')->name('facebook.login');
+Route::get('facebook/callback', 'FacebookController@handleProviderCallback');
+//<==================Facebook Register Routes ==================>
 
 //<==================Nofification Routes ==================>
 Route::group(['middleware' => 'auth'],function(){
