@@ -110,7 +110,7 @@ io.on('connection',function (socket) {
         var noti_data = []; // bos bir array( obyekt) yaradim ki her 2 query-nin neticesini bu obeykte doldurub son olaraq emit ile gonderecem
         connection.query(
             "SELECT " +
-            "els.type_id,els.user_id as els_user_id,users.avatar,users.name,qarsiliqs.status,qarsiliqs.notification,qarsiliqs.user_id as qarsiliqs_user_id " +
+            "els.type_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name as qarsiliqs_user_name,qarsiliqs.status,qarsiliqs.notification,qarsiliqs.id as qarsiliqs_id " +
             "FROM " +
             "qarsiliqs " +
             "INNER JOIN els ON " +
@@ -128,8 +128,7 @@ io.on('connection',function (socket) {
             });
         connection.query(
             "SELECT " +
-            "els.type_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name as qarsiliqs_user_name,qarsiliqs.status,qarsiliqs.notification," +
-            "qarsiliqs.id as qarsiliqs_id,qarsiliqs.status,qarsiliqs.data " +
+            "els.type_id,users.avatar,users.name as els_user_name,qarsiliqs.notification,qarsiliqs.id as qarsiliqsass_id,qarsiliqs.status,qarsiliqs.data " +
             "FROM " +
             "qarsiliqs " +
             "INNER JOIN els ON " +

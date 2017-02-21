@@ -68,10 +68,9 @@ use App\Qarsiliq;
               ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.user_id','qarsiliqs.id','qarsiliqs.status','qarsiliqs.data')
               ->orderBy('created_at', 'desc')
                ->where('els.user_id', '=', Auth::user()->id)
-                // ->orWhere('qarsiliqs.user_id', '=', Auth::user()->id)
-              ->take(3)
                ->get();
 
+              //  dd($noti_image);
                $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
                     ->join('users', 'users.id', '=', 'els.user_id')
                     ->select('users.name','els.type_id','users.email','users.city','qarsiliqs.id','users.avatar','qarsiliqs.data_status','qarsiliqs.created_at')
@@ -80,8 +79,6 @@ use App\Qarsiliq;
                           ['qarsiliqs.data', '=', 1],
                           ['qarsiliqs.user_id','=',Auth::user()->id]
                       ])
-                      ->take(3)
-                    // ->where('qarsiliqs.user_id','=',Auth::user()->id)
                     ->get();
                 // dd($data_join);
           @endphp
