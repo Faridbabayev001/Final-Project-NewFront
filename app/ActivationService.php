@@ -2,7 +2,7 @@
 
 namespace App;
 
-
+use Mail;
 use Illuminate\Mail\Mailer;
 use Illuminate\Mail\Message;
 
@@ -31,10 +31,13 @@ class ActivationService
         $token = $this->activationRepo->createActivation($user);
 
         $link = route('user.activate', $token);
-        $mylink = '<a href="%s"></a>';
-        $message = sprintf('Salam '.$user->name.' Sizin aktivasiya linkiniz: %s',$link, $link);
+        $message = [
+        'link' => $link
+        ];
 
-        $this->mailer->raw($message, function (Message $m) use ($user) {
+    //$this->mailer->raw(without 'pages.mail') was in place of Mail::send()
+
+        Mail::send('pages.mail',$message, function (Message $m) use ($user) {
             $m->to($user->email)->subject('Activation mail');
         });
 
