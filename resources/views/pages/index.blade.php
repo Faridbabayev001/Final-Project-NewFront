@@ -104,8 +104,8 @@
         <div id="InfoMap">
         </div>
       </div>
-      <div class="map-socket-section">
-      </div>
+        <div class="map-socket-section">
+        </div>
     </div>
   </section>
   <section id="news">

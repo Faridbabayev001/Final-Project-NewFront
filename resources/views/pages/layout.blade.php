@@ -71,7 +71,7 @@ use App\Qarsiliq;
                 // ->orWhere('qarsiliqs.user_id', '=', Auth::user()->id)
               ->take(3)
                ->get();
-        // dd($noti_image);6
+
                $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
                     ->join('users', 'users.id', '=', 'els.user_id')
                     ->select('users.name','els.type_id','users.email','users.city','qarsiliqs.id','users.avatar','qarsiliqs.data_status','qarsiliqs.created_at')
@@ -395,7 +395,7 @@ use App\Qarsiliq;
         }else{
             $('.socket-messages-number').empty();
             $('.socket-messages-number').append('<a href="#" data-toggle="dropdown" class="dropdownyoxdur-toggle socket-messages-count"><i class="fa fa-comments-o"></i></a>');
-            $('.socket-messages-data').append('<li><a href="#"> <h4 class="text-center margin0">Mesajınız yoxdur</h4></a></li>');
+//            $('.socket-messages-data').append('<li><a href="#"> <h4 class="text-center margin0">Mesajınız yoxdur</h4></a></li>');
         }
     });
 
