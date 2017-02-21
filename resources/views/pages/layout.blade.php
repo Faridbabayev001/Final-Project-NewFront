@@ -400,8 +400,7 @@ use App\Qarsiliq;
 
     socket.emit('live_notification',data);
     socket.on('live_noti',function(live_notification_data){
-        console.log(live_notification_data);
-      console.log(live_notification_data.length);
+      console.log(live_notification_data);
       // var noti_text_p=
       //     '<span class "special-istek">'+ value.name +
       //     '<span>'+

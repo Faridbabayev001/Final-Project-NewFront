@@ -8,7 +8,8 @@ var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'final_project'
+    database: 'final_project',
+    multipleStatements: true
 });
 connection.connect(function (err) {
     if (err){
@@ -107,45 +108,42 @@ io.on('connection',function (socket) {
   //  notificaton
   io.on('connection',function(socket){
     socket.on('live_notification',function(result) {
-        var noti_data = []; // bos bir array( obyekt) yaradim ki her 2 query-nin neticesini bu obeykte doldurub son olaraq emit ile gonderecem
-        connection.query(
-            "SELECT " +
-            "els.type_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name as qarsiliqs_user_name,qarsiliqs.status,qarsiliqs.notification,qarsiliqs.id as qarsiliqs_id " +
-            "FROM " +
-            "qarsiliqs " +
-            "INNER JOIN els ON " +
-            "els.id=qarsiliqs.elan_id " +
-            "INNER JOIN users ON " +
-            "els.user_id=users.id " +
-            "WHERE els.user_id =" + connection.escape(result.id) +
-            " AND qarsiliqs.status = 1",
-            function (err, live_notification_first_data) {
-                if (err) throw err;
-
-                for ( var i=0; i<live_notification_first_data.length; i++ ) {
-                    noti_data.push( live_notification_first_data[i] );
-                }
-            });
-        connection.query(
-            "SELECT " +
-            "els.type_id,users.avatar,users.name as els_user_name,qarsiliqs.notification,qarsiliqs.id as qarsiliqsass_id,qarsiliqs.status,qarsiliqs.data " +
-            "FROM " +
-            "qarsiliqs " +
-            "INNER JOIN els ON " +
-            "els.id = qarsiliqs.elan_id " +
-            "INNER JOIN users ON " +
-            "users.id = qarsiliqs.user_id " +
-            "WHERE qarsiliqs.data =1 " +
-            "AND qarsiliqs.data_status=1 "+
-            "AND qarsiliqs.user_id = " + connection.escape(result.id),
-            function (err, live_notification_second_data) {
-                if (err) throw err;
-                // yene 2-ci query-nin neticesini bu arraya doldururam eger varsa
-                for ( var i=0; i<live_notification_second_data.length; i++ ) {
-                    noti_data.push( live_notification_second_data[i] );
-                };
-                // son olaraq yaratdiqim arrayi emt ile layout-a gonderirem :)
-            });
-        io.emit('live_noti',noti_data);
+        var noti_data = [];
+        var option = {nestTables: '_'};
+            connection.query(
+                "SELECT " +
+                    "els.type_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name as qarsiliqs_user_name,qarsiliqs.status,qarsiliqs.notification,qarsiliqs.id as qarsiliqs_id " +
+                    "FROM " +
+                    "qarsiliqs " +
+                    "INNER JOIN els ON " +
+                    "els.id=qarsiliqs.elan_id " +
+                    "INNER JOIN users ON " +
+                    "els.user_id=users.id " +
+                    "WHERE els.user_id =" + connection.escape(result.id) +
+                    " AND qarsiliqs.status = 1 ;" +
+                "SELECT " +
+                    "els.type_id,users.avatar,users.name as els_user_name,qarsiliqs.notification,qarsiliqs.id as qarsiliqsass_id,qarsiliqs.status,qarsiliqs.data " +
+                    "FROM " +
+                    "qarsiliqs " +
+                    "INNER JOIN els ON " +
+                    "els.id = qarsiliqs.elan_id " +
+                    "INNER JOIN users ON " +
+                    "users.id = qarsiliqs.user_id " +
+                    "WHERE qarsiliqs.data =1 " +
+                    "AND qarsiliqs.data_status=1 "+
+                    "AND qarsiliqs.user_id = " + connection.escape(result.id),
+                option,
+                    function (error, results) {
+                        if (error) throw error;
+                        for ( var i=0; i<results.length; i++ ) {
+                            for(var j=0; j<results.length; j++) {
+                                if(results[i][j]){
+                                    noti_data.push( results[i][j]);
+                                }
+                            }
+                        };
+                        io.emit('live_noti',noti_data);
+                    }
+            );
     })
     });
