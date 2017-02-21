@@ -110,24 +110,24 @@ io.on('connection',function (socket) {
         var noti_data = []; // bos bir array( obyekt) yaradim ki her 2 query-nin neticesini bu obeykte doldurub son olaraq emit ile gonderecem
         connection.query(
             "SELECT " +
-            "els.type_id,els.user_id as els_user_id,users.avatar,users.name,qarsiliqs.status,qarsiliqs.notification " +
+            "els.type_id,els.user_id as els_user_id,users.avatar,users.name,qarsiliqs.status,qarsiliqs.notification,qarsiliqs.user_id as qarsiliqs_user_id " +
             "FROM " +
-            "els " +
-            "INNER JOIN qarsiliqs ON " +
-            "qarsiliqs.elan_id=els.id " +
+            "qarsiliqs " +
+            "INNER JOIN els ON " +
+            "els.id=qarsiliqs.elan_id " +
             "INNER JOIN users ON " +
             "els.user_id=users.id " +
             "WHERE els.user_id =" + connection.escape(result.id) +
             " AND qarsiliqs.status = 1",
             function (err, live_notification_first_data) {
                 if (err) throw err;
-// for ile query-den gelen obyektleri bir-bir arraya doldururam
+
                 for ( var i=0; i<live_notification_first_data.length; i++ ) {
                     noti_data.push( live_notification_first_data[i] );
                 }
                 connection.query(
                     "SELECT " +
-                    "els.type_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name,qarsiliqs.status,qarsiliqs.notification," +
+                    "els.type_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name as qarsiliqs_user_name,qarsiliqs.status,qarsiliqs.notification," +
                     "qarsiliqs.id as qarsiliqs_id,qarsiliqs.status,qarsiliqs.data " +
                     "FROM " +
                     "qarsiliqs " +
