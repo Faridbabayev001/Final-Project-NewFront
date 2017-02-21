@@ -71,7 +71,7 @@ use App\Qarsiliq;
                 // ->orWhere('qarsiliqs.user_id', '=', Auth::user()->id)
               ->take(3)
                ->get();
-        dd($noti_image);
+        // dd($noti_image);6
                $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
                     ->join('users', 'users.id', '=', 'els.user_id')
                     ->select('users.name','els.type_id','users.email','users.city','qarsiliqs.id','users.avatar','qarsiliqs.data_status','qarsiliqs.created_at')
