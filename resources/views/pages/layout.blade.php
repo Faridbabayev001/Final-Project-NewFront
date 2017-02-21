@@ -68,10 +68,10 @@ use App\Qarsiliq;
               ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.user_id','qarsiliqs.id','qarsiliqs.status','qarsiliqs.data')
               ->orderBy('created_at', 'desc')
                ->where('els.user_id', '=', Auth::user()->id)
-                ->orWhere('qarsiliqs.user_id', '=', Auth::user()->id)
+                // ->orWhere('qarsiliqs.user_id', '=', Auth::user()->id)
               ->take(3)
                ->get();
-
+       // dd($noti_image);
                $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
                     ->join('users', 'users.id', '=', 'els.user_id')
                     ->select('users.name','els.type_id','users.email','users.city','qarsiliqs.id','users.avatar','qarsiliqs.data_status','qarsiliqs.created_at')
@@ -83,6 +83,7 @@ use App\Qarsiliq;
                       ->take(3)
                     // ->where('qarsiliqs.user_id','=',Auth::user()->id)
                     ->get();
+                // dd($data_join);
           @endphp
           <ul class="list-inline pull-right contact-auth">
               <li class="dropdown">
@@ -93,22 +94,25 @@ use App\Qarsiliq;
           <li class="dropdown">
                   <a href="#" data-toggle="dropdown" class="dropdown-toggle">
                     <i class="fa fa-bell"></i>
-                @if(count($noti) != 0 && count($noti_qars_user)==0)
+                {{-- @if(count($noti) != 0 && count($noti_qars_user)==0)
                        <?php
                         $count=count($noti);
-                        ?>
+                        ?> --}}
                         <span class="contact-auth-notification-number">
-                       @foreach($noti as $key => $noties)
+
+                          {{-- bura yazildi --}}
+
+                       {{-- @foreach($noti as $key => $noties)
                          @if($noties->user_id==Auth::user()->id)
                              {{$count}}
                              @php
                                break;
                              @endphp
                          @endif
-                       @endforeach
+                       @endforeach --}}
                      </span>
 
-                 @elseif(count($noti_qars_user)!=0 && count($noti) != 0)
+                 {{-- @elseif(count($noti_qars_user)!=0 && count($noti) != 0)
                          <?php
                             $count1=count($noti_qars_user) + count($noti);
                           ?>
@@ -136,10 +140,15 @@ use App\Qarsiliq;
                         @endif
                       @endforeach
                     </span>
-                 @endif
+                 @endif --}}
+                                    {{-- YUXARIDAKI COUNT YAZILDI   --}}
                    </a>
+
+
+
+
               <ul class="dropdown-menu contact-auth-notification" role="menu">
-                @foreach($noti_image as $key => $notification_image)
+                {{-- @foreach($noti_image as $key => $notification_image)
                   @if($notification_image->user_id != Auth::user()->id)
                     <li>
                       @if($notification_image->status==0)
@@ -213,7 +222,7 @@ use App\Qarsiliq;
                       <h4 class="text-center margin0">Bildirişiniz yoxdur </h4>
                     </a>
                   </li>
-                @endif
+                @endif --}}
               </ul>
           </li>
           <li class="dropdown">
@@ -313,6 +322,14 @@ use App\Qarsiliq;
       </ul>
     </div>
   </div>
+  {{-- <p>
+      @if($notification_image->type_id==2)
+        <span class="special-istek">{{$notification_image->name}}</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !
+      @endif
+      @if($notification_image->type_id==1)
+        <span class="special-destek">{{$notification_image->name}}</span>  adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
+      @endif
+    </p> --}}
 </nav>
 </section>
 <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>
@@ -383,15 +400,31 @@ use App\Qarsiliq;
     });
 
     //notifications
+
     socket.emit('live_notification',data);
     socket.on('live_noti',function(live_notification_data){
         console.log(live_notification_data);
+      console.log(live_notification_data.length);
+      // var noti_text_p=
+      //     '<span class "special-istek">'+ value.name +
+      //     '<span>'+
+      //   ' adlı istifadəçi istəyinizə dəstək vermək istəyir !'
         $.each(live_notification_data,function (key,value) {
-            $('.contact-auth-notification').append(
-//                her sey bura appen olunacaq
-            );
-        })
-    })
+            $('.contact-auth-notification-number').text(live_notification_data.length);
+              if (value.qarsiliqs_user_id==data.id && value.type_id==2) {
+                $('.contact-auth-notification').append('<li>'+
+                '<a href= href="/Bildiriş/'+value.id+' class="notification-seen">'+
+                '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />'+
+                '<p><span class="special-istek">'+ value.els_user_name+
+                '</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !</p>'+
+                '</a>'
+                +'</li>'
+                );
+
+              }
+
+        });
+    });
 </script>
   @yield('scripts')
 </html>
