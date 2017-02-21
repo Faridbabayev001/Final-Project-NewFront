@@ -437,9 +437,13 @@ class PagesController extends Controller
     {
         $chat = Chat::find($id);
         if ($chat->sender_id == Auth::user()->id){ // Eger user id chat table-den gelen sender_id-ye beraberdirse /pages/chat.blade.php-ye getsin ve mesaj gonderen Auth user olsun. :)
+            $chat->seen = 1;
+            $chat->update();
             return view('pages.chat',compact('chat'));
 
         }elseif ($chat->receiver_id == Auth::user()->id){ //Eger user id chat table-den gelen receiver_id-ye beraberdirse
+            $chat->seen = 1;
+            $chat->update();
             $gonderilen = $chat->receiver_id; // chat table-dan gelen receiver_id $gonderilen deyiseninde saxlanilir ki asaqida menimsedilende itmesin. :D
             $chat->receiver_id = $chat->sender_id; // burada user deyisikliyi edirik cunki chat.blade.php-de auth user GONDERILEN yox mesaj gonderen olmalidir. :D
             $chat->sender_id = $gonderilen;
