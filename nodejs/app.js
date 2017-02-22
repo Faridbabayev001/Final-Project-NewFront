@@ -112,25 +112,25 @@ io.on('connection',function (socket) {
         var option = {nestTables: '_'};
             connection.query(
                 "SELECT " +
-                    "els.type_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name as qarsiliqs_user_name,qarsiliqs.status,qarsiliqs.notification,qarsiliqs.id as qarsiliqs_id " +
+                    "els.type_id, els.user_id as els_user_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name as qarsiliqs_user_name,qarsiliqs.status,qarsiliqs.notification,qarsiliqs.id as qarsiliqs_id " +
                     "FROM " +
                     "qarsiliqs " +
                     "INNER JOIN els ON " +
                     "els.id=qarsiliqs.elan_id " +
                     "INNER JOIN users ON " +
-                    "els.user_id=users.id " +
+                    "users.id=qarsiliqs.user_id " +
                     "WHERE els.user_id =" + connection.escape(result.id) +
-                    " AND qarsiliqs.status = 1 ;" +
+                    " AND qarsiliqs.notification = 1 ;" +
                 "SELECT " +
-                    "els.type_id,users.avatar,users.name as els_user_name,qarsiliqs.notification,qarsiliqs.id as qarsiliqsass_id,qarsiliqs.status,qarsiliqs.data " +
+                    "els.type_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name as els_user_name,qarsiliqs.notification,qarsiliqs.id as qarsiliqs_id,qarsiliqs.data_status,qarsiliqs.data " +
                     "FROM " +
                     "qarsiliqs " +
                     "INNER JOIN els ON " +
                     "els.id = qarsiliqs.elan_id " +
                     "INNER JOIN users ON " +
-                    "users.id = qarsiliqs.user_id " +
-                    "WHERE qarsiliqs.data =1 " +
-                    "AND qarsiliqs.data_status=1 "+
+                    "users.id = els.user_id " +
+                    "WHERE qarsiliqs.data = 1 " +
+                    "OR qarsiliqs.data_status=1 "+
                     "AND qarsiliqs.user_id = " + connection.escape(result.id),
                 option,
                     function (error, results) {
