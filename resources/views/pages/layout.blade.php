@@ -91,6 +91,7 @@ use App\Qarsiliq;
           <li class="dropdown">
                   <a href="#" data-toggle="dropdown" class="dropdown-toggle">
                     <i class="fa fa-bell"></i>
+<<<<<<< HEAD
                 @if(count($noti) != 0 && count($noti_qars_user)==0)
                        <?php
                         $count=count($noti);
@@ -139,87 +140,22 @@ use App\Qarsiliq;
                     </span>
                  @endif
                                     {{-- YUXARIDAKI COUNT YAZILDI --}}
+=======
+
+                     <span class="count">
+
+
+                     </span>
+
+                                    {{-- YUXARIDAKI COUNT YAZILDI   --}}
+>>>>>>> 77aa47e4676d3704fed1d31c3221a0c0af5db965
                    </a>
 
 
 
 
-              <ul class="dropdown-menu contact-auth-notification" role="menu">
-                {{-- @foreach($noti_image as $key => $notification_image)
-                  @if($notification_image->user_id != Auth::user()->id)
-                    <li>
-                      @if($notification_image->status==0)
-                             <a href="{{url('/Bildiriş/'.$notification_image->id)}}" class="notification-seen">
-                              <img src="{{url('/image/'.$notification_image->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
-                              <p>
-                                  @if($notification_image->type_id==2)
-                                    <span class="special-istek">{{$notification_image->name}}</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !
-                                  @endif
-                                  @if($notification_image->type_id==1)
-                                    <span class="special-destek">{{$notification_image->name}}</span>  adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
-                                  @endif
-                                </p>
-                            </a>
-                          @else
-                             <a href="{{url('/Bildiriş/'.$notification_image->id)}}">
-                            <img src="{{url('/image/'.$notification_image->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
-                               <p>
-                                @if($notification_image->type_id==2)
-                                  <span class="special-istek">{{$notification_image->name}}</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !
-                                @endif
-                                @if($notification_image->type_id==1)
-                                  <span class="special-destek">{{$notification_image->name}}</span>  adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
-                                @endif
-                               </p>
-                            </a>
-                    @endif
-                  </li>
-                @elseif($notification_image->user_id == Auth::user()->id)
-                    <li>
-                      @foreach($data_join as $data_joins)
-                        @if($data_joins->data_status==0)
-                          <a href="{{url('/message/'.$data_joins->id)}}" class="notification-seen">
-                            <img src="{{url('/image/'.$data_joins->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
-                              <p>
-                                @if($data_joins->type_id==2)
-                                  <span class="special-istek">{{$data_joins->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
-                                @endif
-                                @if($data_joins->type_id==1)
-                                  <span class="special-destek">{{$data_joins->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
-                                @endif
-                              </p>
-                            </a>
-                      @elseif($data_joins->data_status==1)
-                        <a href="{{url('/message/'.$data_joins->id)}}">
-                          <img src="{{url('/image/'.$data_joins->avatar)}}" class="img-responsive pull-left" alt="Notification image" />
-                          <p>
-                            @if($data_joins->type_id==2)
-                              <span class="special-istek">{{$data_joins->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
-                            @endif
-                            @if($data_joins->type_id==1)
-                              <span class="special-destek">{{$data_joins->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
-                            @endif
-                          </p>
-                        </a>
-                    @endif
-                        @endforeach
-                     </li>
-                  @endif
+              <ul class="dropdown-menu contact-auth-notification notification" role="menu">
 
-                @endforeach
-                @if(count($noti_image)!=0 ||  count($noti_qars_user)!=0)
-                  <li>
-                    <a href="{{url('/Bildirişlər')}}">
-                      <h4 class="text-center margin0">Hamısına bax ></h4>
-                    </a>
-                  </li>
-                @elseif(count($noti_image)==0 && count($noti_qars_user)==0)
-                  <li>
-                    <a>
-                      <h4 class="text-center margin0">Bildirişiniz yoxdur </h4>
-                    </a>
-                  </li>
-                @endif --}}
               </ul>
           </li>
           <li class="dropdown">
@@ -374,7 +310,6 @@ use App\Qarsiliq;
                 if (value.seen == 0) {
                     count++;
                 }
-
                 $('.socket-messages-data').append(
                     '<li>' +
                     '<a href="/Mesajlar/'+value.id+'">' +
@@ -397,26 +332,45 @@ use App\Qarsiliq;
     });
 
     //notifications
-
     socket.emit('live_notification',data);
     socket.on('live_noti',function(live_notification_data){
+      $('.notification').html('');
       console.log(live_notification_data);
-      // var noti_text_p=
-      //     '<span class "special-istek">'+ value.name +
-      //     '<span>'+
-      //   ' adlı istifadəçi istəyinizə dəstək vermək istəyir !'
+
         $.each(live_notification_data,function (key,value) {
-            $('.contact-auth-notification-number').text(live_notification_data.length);
-              if (value.qarsiliqs_user_id==data.id && value.type_id==2) {
-                $('.contact-auth-notification').append('<li>'+
-                '<a href="/Bildiriş/'+value.qarsiliqs.id+'" class="notification-seen">'+
+          var noti_text_els_user= (value.type_id == 2) ?'<span class="special-destek">'+ value.qarsiliqs_user_name +'</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !':
+          '<span class="special-istek">'+ value.qarsiliqs_user_name +'</span> adlı istifadəçi desteyinize istek vermək istəyir !';
+
+          var noti_text_qars_user= (value.type_id == 2) ?'<span class="special-istek">'+ value.els_user_name +'</span> adlı istifadəçi desteyinizi qəbul etdi !':
+          '<span class="special-istek">'+ value.els_user_name +'</span> adlı istifadəçi istəyinizi qəbul etdi !';
+
+              if (value.els_user_id==data.id) {
+                if (value.status==1) {
+                  $('.count').addClass('contact-auth-notification-number');
+                   $('.contact-auth-notification-number').text(live_notification_data.length);
+                }
+                $('.notification').append('<li>'+
+                '<a href="/Bildiriş/'+value.qarsiliqs_id +'"class="notification-seen">'+
                 '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />'+
-                '<p><span class="special-istek">'+ value.els_user_name+
-                '</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !</p>'+
-                '</a>'
-                +'</li>'
+                '<p>'+noti_text_els_user+'</p>'+
+                '</a>'+
+                '</li>'
                 );
 
+              }
+              else if(value.qarsiliqs_user_id==data.id && value.data_status==1){
+                if (value.data_status==1) {
+                  $('.count').addClass('contact-auth-notification-number');
+                   $('.contact-auth-notification-number').text(live_notification_data.length);
+                }
+                console.log('yes');
+                $('.notification').append('<li>'+
+                '<a href="/message/'+value.qarsiliqs_id +'"class="notification-seen">'+
+                '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />'+
+                '<p>'+noti_text_qars_user+'</p>'+
+                '</a>'+
+                '</li>'
+                );
               }
 
         });

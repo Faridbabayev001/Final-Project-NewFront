@@ -157,12 +157,13 @@ class PagesController extends Controller
     public function notification_count(Request $request,Qarsiliq $qarsiliq,$id)
     {
 
+      $qarsiliq_table = Qarsiliq::find($id);
         $this->validate($request, [
             'description' => 'required',
         ]);
 
         if ($qarsiliq->description='') {
-            Session::flash('description_error' , "Boş mesaj gonderme yetiiiiiim");
+            Session::flash('description_error' , "Boş mesaj gonderməyin !");
         }else{
             Session::flash('description_destek' , "Dəstəyiniz uğurla  göndərildi. Qəbul olunduğu zaman sizə bildiriş göndəriləcək ");
             Session::flash('description_istek' , "İstəyiniz uğurla  göndərildi. Qəbul olunduğu zaman sizə bildiriş göndəriləcək ");
@@ -208,7 +209,6 @@ class PagesController extends Controller
 
 
 
-        $qarsiliq_table = Qarsiliq::find($id);
         $notication_single = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
             ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
             ->select('users.name', 'users.avatar', 'els.type_id', 'qarsiliqs.user_id', 'qarsiliqs.description', 'qarsiliqs.id', 'qarsiliqs.status', 'qarsiliqs.notification', 'qarsiliqs.data')
@@ -217,21 +217,7 @@ class PagesController extends Controller
                 ['els.user_id', '=', Auth::user()->id]
             ])->get();
 
-        $delete_chat = Chat::where('sender_id', '=', $qarsiliq_table->user_id)->where('receiver_id', '=', Auth::user()->id  )->get();
-        $delete_message = Chat::where('sender_id', '=', Auth::user()->id )->where('receiver_id', '=', $qarsiliq_table->user_id  )->get();
 
-        if ($delete_message) {
-            foreach ($delete_message as $delete_messages) {
-
-                $delete_messages->delete();
-            }
-        }
-        if ($delete_chat) {
-            foreach ($delete_chat as $delete_chats) {
-
-                $delete_chats->delete();
-            }
-        }
 
         if ($notication_single) {
             foreach ($notication_single as $notication_single) {
@@ -383,6 +369,22 @@ class PagesController extends Controller
     //<================= METHHOD FOR DELETE ISTEK OR DESTEK MESSSAGE ================>
     public function refusal($id)
     {
+      $qarsiliq_table = Qarsiliq::find($id);
+      $delete_chat = Chat::where('sender_id', '=', $qarsiliq_table->user_id)->where('receiver_id', '=', Auth::user()->id  )->get();
+      $delete_message = Chat::where('sender_id', '=', Auth::user()->id )->where('receiver_id', '=', $qarsiliq_table->user_id  )->get();
+
+      if ($delete_message) {
+          foreach ($delete_message as $delete_messages) {
+
+              $delete_messages->delete();
+          }
+      }
+      if ($delete_chat) {
+          foreach ($delete_chat as $delete_chats) {
+
+              $delete_chats->delete();
+          }
+      }
         $qars=Qarsiliq::find($id);
         if ($qars) {
           $qars->notification=0;
