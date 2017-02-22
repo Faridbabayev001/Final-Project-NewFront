@@ -13,7 +13,7 @@ use App\Qarsiliq;
   <meta name="description" content="Bumerang">
   <meta name="keywords" content="Bumerang,Destek,Istek">
   <meta name="_token" content="{!!csrf_token()!!}">
-  <title>Bumerang.org | @yield('title')</title>
+  <title>Bumeranq.org | @yield('title')</title>
   <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
   <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
@@ -30,10 +30,10 @@ use App\Qarsiliq;
     <div class="row">
       <div class="col-lg-12">
         <ul class="list-inline pull-left contact-social">
-          <li class="list-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+          {{-- <li class="list-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
           <li class="list-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-          <li class="list-item"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-          <li class="list-item"><a href="#"><i class="fa fa-envelope"></i> contact@test.com</a></li>
+          <li class="list-item"><a href="#"><i class="fa fa-google-plus"></i></a></li> --}}
+          <li class="list-item"><a href="mailto:info@bumeranq.org"><i class="fa fa-envelope"></i> info@bumeranq.org</a></li>
         </ul>
         @if (Auth::guest())
           <ul class="list-inline pull-right contact-auth">

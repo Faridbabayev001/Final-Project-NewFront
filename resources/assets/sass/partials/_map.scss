@@ -95,21 +95,21 @@
   }
   .map-socket-section{
     position: absolute;
-    right: 45px;
-    bottom: 23px;
-    height: 375px;
+    right: 0px;
+    bottom: 5px;
     overflow: hidden;
+    height: 375px;
     a{
       text-decoration: none;
       color: white;
+      height: 80px;
+      width: 100%;
       .map-socket-data{
         height: 80px;
-        width: 300px;
         background-color: #44576A;
-        margin-bottom: 15px;
         color: white;
-        padding: 15px;
         transition: all .3s ease;
+        border-radius: 5px 0 0 5px;
         &:hover{
           background: darken($main-bg-color, 5%);
         }
