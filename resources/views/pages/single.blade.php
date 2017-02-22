@@ -41,17 +41,17 @@
             @endif
           </div>
           <div class="mainImg">
-            
-            <img src="{{url('/image/'.$single->shekiller[0]->imageName)}}" class="img-responsive" alt="" />
+
+            <img src="{{url('/image/'.$single->shekiller[0]->imageName)}}" class="img-responsive img-single-big" alt="" />
           </div>
           <div class="single-img-location">
             <i class="fa fa-map-marker"></i> {{$single->location}}
           </div>
             {{-- SLIDER PART --}}
-              
+
             @foreach($single->shekiller as $imgName)
-            <div class="littleImg"> 
-                <img src="{{url('/image/'.$imgName->imageName)}}" class="img-responsive" alt="" />
+            <div class="littleImg">
+                <img src="{{url('/image/'.$imgName->imageName)}}" class="img-responsive img-single-small" alt="" />
             </div>
             @endforeach
         </div>

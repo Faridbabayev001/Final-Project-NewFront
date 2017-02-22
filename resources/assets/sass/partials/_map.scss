@@ -97,6 +97,24 @@
     position: absolute;
     right: 45px;
     bottom: 23px;
+    height: 375px;
+    overflow: hidden;
+    a{
+      text-decoration: none;
+      color: white;
+      .map-socket-data{
+        height: 80px;
+        width: 300px;
+        background-color: #44576A;
+        margin-bottom: 15px;
+        color: white;
+        padding: 15px;
+        transition: all .3s ease;
+        &:hover{
+          background: darken($main-bg-color, 5%);
+        }
+      }
+    }
   }
   .map-socket-data{
     height: 80px;

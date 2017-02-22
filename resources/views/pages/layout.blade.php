@@ -91,10 +91,10 @@ use App\Qarsiliq;
           <li class="dropdown">
                   <a href="#" data-toggle="dropdown" class="dropdown-toggle">
                     <i class="fa fa-bell"></i>
-                {{-- @if(count($noti) != 0 && count($noti_qars_user)==0)
+                @if(count($noti) != 0 && count($noti_qars_user)==0)
                        <?php
                         $count=count($noti);
-                        ?> --}}
+                        ?>
                         <span class="contact-auth-notification-number">
 
                           {{-- bura yazildi --}}
@@ -137,8 +137,8 @@ use App\Qarsiliq;
                         @endif
                       @endforeach
                     </span>
-                 @endif --}}
-                                    {{-- YUXARIDAKI COUNT YAZILDI   --}}
+                 @endif
+                                    {{-- YUXARIDAKI COUNT YAZILDI --}}
                    </a>
 
 
@@ -409,7 +409,7 @@ use App\Qarsiliq;
             $('.contact-auth-notification-number').text(live_notification_data.length);
               if (value.qarsiliqs_user_id==data.id && value.type_id==2) {
                 $('.contact-auth-notification').append('<li>'+
-                '<a href= href="/Bildiriş/'+value.id+' class="notification-seen">'+
+                '<a href="/Bildiriş/'+value.qarsiliqs.id+'" class="notification-seen">'+
                 '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />'+
                 '<p><span class="special-istek">'+ value.els_user_name+
                 '</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !</p>'+
