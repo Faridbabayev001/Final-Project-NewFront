@@ -91,69 +91,9 @@ use App\Qarsiliq;
           <li class="dropdown">
                   <a href="#" data-toggle="dropdown" class="dropdown-toggle">
                     <i class="fa fa-bell"></i>
-<<<<<<< HEAD
-                @if(count($noti) != 0 && count($noti_qars_user)==0)
-                       <?php
-                        $count=count($noti);
-                        ?>
-                        <span class="contact-auth-notification-number">
-
-                          {{-- bura yazildi --}}
-
-                       {{-- @foreach($noti as $key => $noties)
-                         @if($noties->user_id==Auth::user()->id)
-                             {{$count}}
-                             @php
-                               break;
-                             @endphp
-                         @endif
-                       @endforeach --}}
-                     </span>
-
-                 {{-- @elseif(count($noti_qars_user)!=0 && count($noti) != 0)
-                         <?php
-                            $count1=count($noti_qars_user) + count($noti);
-                          ?>
-                          <span class="contact-auth-notification-number">
-                         @foreach($noti_qars_user as $key => $noti_qars_users)
-                           @if($noti_qars_users->user_id==Auth::user()->id)
-                               {{$count1}}
-                               @php
-                                 break;
-                               @endphp
-                           @endif
-                         @endforeach
-                       </span>
-                @elseif(count($noti_qars_user)!=0 && count($noti) == 0)
-                      <?php
-                         $count1=count($noti_qars_user);
-                       ?>
-                       <span class="contact-auth-notification-number">
-                      @foreach($noti_qars_user as $key => $noti_qars_users)
-                        @if($noti_qars_users->user_id==Auth::user()->id)
-                            {{$count1}}
-                            @php
-                              break;
-                            @endphp
-                        @endif
-                      @endforeach
-                    </span>
-                 @endif
-                                    {{-- YUXARIDAKI COUNT YAZILDI --}}
-=======
-
                      <span class="count">
-
-
                      </span>
-
-                                    {{-- YUXARIDAKI COUNT YAZILDI   --}}
->>>>>>> 77aa47e4676d3704fed1d31c3221a0c0af5db965
                    </a>
-
-
-
-
               <ul class="dropdown-menu contact-auth-notification notification" role="menu">
 
               </ul>
