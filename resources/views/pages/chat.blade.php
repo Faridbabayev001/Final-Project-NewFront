@@ -76,6 +76,9 @@
         });
         socket.on('all_data',function (allData) {
             $('.chat-body ul').text('');
+            if (Object.keys(allData).length === 0) {
+             $("#chat").css("display","none");
+            }
             $.each(allData,function (key,value) {
                 $('.header-name').text(value.username);
                 if (value.sender_id == {{Auth::user()->id}}){
