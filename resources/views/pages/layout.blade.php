@@ -91,18 +91,9 @@ use App\Qarsiliq;
           <li class="dropdown">
                   <a href="#" data-toggle="dropdown" class="dropdown-toggle">
                     <i class="fa fa-bell"></i>
-
                      <span class="count">
-
-
                      </span>
-
-                                    {{-- YUXARIDAKI COUNT YAZILDI   --}}
                    </a>
-
-
-
-
               <ul class="dropdown-menu contact-auth-notification notification" role="menu">
 
               </ul>
