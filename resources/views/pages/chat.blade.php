@@ -56,7 +56,7 @@
                     if (value.sender_id == {{Auth::user()->id}}){
                         $('.body-message').append(
                             '<li class="pull-right">' +
-                            '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');+'</p>'+
+                            '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
                             '<img src="/image/'+value.avatar+'" class="message-img" alt="user-image">'+
                             '</li>'+
                             '<div class="clearfix"></div>'
@@ -65,7 +65,7 @@
                         $('.chat-body ul').append(
                             '<li class="pull-left">' +
                             '<img src="/image/'+value.avatar+'" class="message-img" alt="user-image">'+
-                            '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');+'</p>'+
+                            '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
                             '</li>'+
                             '<div class="clearfix"></div>'
                         );
@@ -84,7 +84,7 @@
                 if (value.sender_id == {{Auth::user()->id}}){
                     $('.chat-body ul').append(
                         '<li class="pull-right">' +
-                        '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');+'</p>'+
+                        '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
                         '<img src="/image/'+value.avatar+'" class="message-img" alt="user-image">'+
                         '</li>'+
                         '<div class="clearfix"></div>'
@@ -93,7 +93,7 @@
                     $('.chat-body ul').append(
                         '<li class="pull-left">' +
                         '<img src="/image/'+value.avatar+'" class="message-img" alt="user-image">'+
-                        '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');+'</p>'+
+                        '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
                         '</li>'+
                         '<div class="clearfix"></div>'
                     );
