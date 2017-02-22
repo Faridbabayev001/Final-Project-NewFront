@@ -64,21 +64,23 @@
                                       {{$istek->about}}
                                     </div>
                                      {{-- SLIDER PART --}}
-              <style type="text/css">
-                .littleImg{
-                   width: 18%;
-                   height: 100px;
-                    overflow: hidden;
-                    float: left;
-                   margin: 3% 0 0 2%;                
+                                     {{-- mecbur qalib style burda yazdm --}}
+            <style type="text/css">
+              .littleImg{
+                 width: 18%;
+                 height: 100px;
+                  overflow: hidden;
+                  float: left;
+                 margin: 3% 0 0 2%;                
 
-                }
-              </style>
+              }
+            </style>
                                     @foreach($istek->shekiller as $imgName)
                                     <div class="littleImg"> 
                                         <img src="{{url('/image/'.$imgName->imageName)}}" class="img-responsive" alt="" />
                                     </div>
                                       @endforeach
+
                                     <div class="mainImg modal-footer">
                                        <img class="img-responsive " src="{{url('image/'.$istek->shekiller[0]->imageName)}}"/>
                                     </div>
