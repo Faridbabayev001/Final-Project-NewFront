@@ -438,6 +438,9 @@ class PagesController extends Controller
     public function chat($id)
     {
         $chat = Chat::find($id);
+        if (!$chat) {
+          return redirect('/');
+        }
         if ($chat->sender_id == Auth::user()->id){ // Eger user id chat table-den gelen sender_id-ye beraberdirse /pages/chat.blade.php-ye getsin ve mesaj gonderen Auth user olsun. :)
             $chat->seen = 1;
             $chat->update();

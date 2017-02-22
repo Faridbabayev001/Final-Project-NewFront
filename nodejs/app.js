@@ -7,8 +7,8 @@ var PORT = process.env.PORT || 3000;
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: '',
-    database: 'final_project',
+    password: 'root',
+    database: 'final',
     multipleStatements: true
 });
 connection.connect(function (err) {
@@ -94,7 +94,7 @@ io.on('connection',function (socket) {
         socket.on('live_update',function(result){
             connection.query(
                 "SELECT "+
-                "type_id,title,status "+
+                "type_id,title,status,id "+
                 "FROM "+
                 "els "+
                 "WHERE status=1 ",
