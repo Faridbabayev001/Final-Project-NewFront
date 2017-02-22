@@ -191,9 +191,9 @@
           $('.map-socket-section').empty();
           $.each(results,function(key,value){
               if (value.type_id == 2){
-                  $('.map-socket-section').append("<div class='map-socket-data'>" + "<span style='color:#0AA699'>" + value.title + "</span>" + " adlı yeni istək əlavə olundu !" + "</div>");
+                $('.map-socket-section').prepend("<a href=/single/"+ value.id + ">" + "<div class='map-socket-data'>" +  "<span style='color:#0AA699'>" + value.title + "</span>" + " adlı yeni istək əlavə olundu !" + "</div>"+ "</a>");
               }else if(value.type_id == 1){
-                  $('.map-socket-section').append("<div class='map-socket-data'>" + "<span style='color:#F35958'>" + value.title + "</span>" + " adlı yeni dəstək əlavə olundu !" + "</div>");
+                  $('.map-socket-section').prepend("<a href=/single/"+ value.id + ">" + "<div class='map-socket-data'>" + "<span style='color:#F35958'>" + value.title + "</span>" + " adlı yeni dəstək əlavə olundu !" + "</div>"+ "</a>");
               }
           });
       });
