@@ -57,21 +57,20 @@
         </div>
       </div>
       @php
-        $url = 'http://bumeranq.org/single/' . $single->id;
+        $url = 'http://bumeranq.org/single/'.$single->id;
       @endphp
       <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
         <div class="single-social">
           <ul class="list-inline">
               <li class="single-social-facebook faceBook">
                 <div class="social-buttons">
-                  <i class="fa fa-facebook"></i> PAYLAŞ
-                </a>
                     <a
                             data-open-share="facebook"
                             data-open-share-link="{{ $url }}"
                             data-open-share-picture="{{url('/image/'.$single->shekiller[0]->imageName)}}"
                             data-open-share-caption="Bumeranq.org"
                             data-open-share-description="{{$single->about}}"
+                            data-open-share-dynamic="{{$single->title}}"
 
                             target="_blank">
                         <i class="fa fa-facebook"></i> PAYLAŞ
@@ -81,8 +80,12 @@
 
             <li  class="single-social-google" >
               <div class="social-buttons">
-                <a href="https://plus.google.com/share?url={{ $url }}">
-                  <i class="fa fa-google-plus"></i> PAYLAŞ
+                <a
+                  data-open-share="google"
+                  data-open-share-url="{{ $url }}"
+                  data-open-share-dynamic="{{$single->title}}"
+                  target="_blank">
+              <i class="fa fa-facebook"></i> PAYLAŞ
                 </a>
               </div>
             </li>
@@ -159,6 +162,6 @@
   </div>
 </section>
 @endsection
-{{--@section('scripts')--}}
-    {{--<script src='https://cdn.rawgit.com/OpenShare/openshare/master/dist/openshare.js'></script>--}}
-{{--@endsection--}}
+@section('scripts')--}}
+    <script src='https://cdn.rawgit.com/OpenShare/openshare/master/dist/openshare.js'></script>
+@endsection
