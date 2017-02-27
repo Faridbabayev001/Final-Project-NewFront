@@ -83,7 +83,7 @@ Route::get('/accept/{id}','PagesController@accept');
 //<=================Auth and User Routes ===========>
 Route::auth();
 Route::get('/home', 'PagesController@index');
-Route::post('user-login','PagesController@user_login');
+Route::post('/user-login','PagesController@user_login');
 Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name('user.activate');
 //<=================Auth and User Routes End ===========>
 
