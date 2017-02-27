@@ -9,8 +9,6 @@ var connection = mysql.createConnection({
     user: 'root',
     password: '',
     database: 'newversion',
-    password: 'root',
-    database: 'final',
     multipleStatements: true
 });
 connection.connect(function (err) {
