@@ -60,6 +60,25 @@
                                   <div class="modal-body">
                                     {{$destek->about}}
                                   </div>
+
+                                      {{-- SLIDER PART --}}
+                                     {{-- mecbur qalib style burda yazdm --}}
+            <style type="text/css">
+              .littleImg{
+                 width: 18%;
+                 height: 100px;
+                  overflow: hidden;
+                  float: left;
+                 margin: 3% 0 0 2%;                
+
+              }
+            </style>
+                                    @foreach($destek->shekiller as $imgName)
+                                    <div class="littleImg"> 
+                                        <img src="{{url('/image/'.$imgName->imageName)}}" class="img-responsive" alt="" />
+                                    </div>
+                                      @endforeach
+
                                   <div class="modal-footer">
                                      <img class="img-responsive " src="{{url('image/'.$destek->shekiller[0]->imageName)}}"/>
                                   </div>
