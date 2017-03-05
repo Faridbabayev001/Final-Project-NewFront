@@ -86,7 +86,7 @@ use App\Qarsiliq;
                 // dd($data_join);
           @endphp
           <ul class="list-inline pull-right contact-auth">
-              <li class="dropdown">
+              <li class="dropdown clickNumber">
                   <a href="#" data-toggle="dropdown" class="dropdown-toggle socket-messages-number"> </a>
                   <ul class="dropdown-menu contact-auth-notification socket-messages-data" role="menu">
                   </ul>
@@ -249,6 +249,7 @@ use App\Qarsiliq;
         if({{$id}} != 0){
               $('.socket-messages-data').empty();
               count=0 ;
+              console.log(message_notification_data);
               $.each(message_notification_data,function (key,value){
                 if (value.receiver_id == data.id) {
                   if (value.seen == 0) {
@@ -278,11 +279,17 @@ use App\Qarsiliq;
         }
     });
 
+    //OnClick message notification
+      $('.clickNumber').on('click',function () {
+          socket.emit('CountZero',data);
+          socket.emit('message_notifications', data);
+      })
+
     //notifications
     socket.emit('live_notification',data);
     socket.on('live_noti',function(live_notification_data){
       $('.notification').html('');
-      console.log(live_notification_data);
+//      console.log(live_notification_data);
 
         $.each(live_notification_data,function (key,value) {
           var noti_text_els_user= (value.type_id == 2) ?'<span class="special-destek">'+ value.qarsiliqs_user_name +'</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !':

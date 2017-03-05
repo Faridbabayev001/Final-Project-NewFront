@@ -53,7 +53,7 @@
             socket.on('all_data',function (allData) {
                 $('.chat-body ul').text('');
                 $.each(allData,function (key,value) {
-                    if (value.sender_id == {{Auth::user()->id}}){
+                    if (value.sender_id == {{Auth::user()->id}} && value.receiver_id == {{$chat->receiver_id}}){
                         $('.body-message').append(
                             '<li class="pull-right">' +
                             '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
@@ -81,7 +81,7 @@
             }
             $.each(allData,function (key,value) {
                 $('.header-name').text(value.username);
-                if (value.sender_id == {{Auth::user()->id}}){
+                if (value.sender_id == {{Auth::user()->id}} && value.receiver_id == {{$chat->receiver_id}}){
                     $('.chat-body ul').append(
                         '<li class="pull-right">' +
                         '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
