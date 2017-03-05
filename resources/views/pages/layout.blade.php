@@ -10,10 +10,13 @@ use App\Qarsiliq;
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="description" content="Bumerang">
-  <meta name="keywords" content="Bumerang,Destek,Istek">
+  <meta property="og:url"                content="http://www.bumeranq.org" />
+  <meta property="og:type"               content="article" />
+  <meta property="og:title"              content="Bumeranq.org" />
+  <meta property="og:description"        content="Bumeranq.org" />
+  <meta property="og:image"              content="{{url('/images/favicon.png')}}" />
   <meta name="_token" content="{!!csrf_token()!!}">
-  <title>Bumerang.org | @yield('title')</title>
+  <title>Bumeranq.org | @yield('title')</title>
   <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
   <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
@@ -30,10 +33,10 @@ use App\Qarsiliq;
     <div class="row">
       <div class="col-lg-12">
         <ul class="list-inline pull-left contact-social">
-          <li class="list-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+          {{-- <li class="list-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
           <li class="list-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
-          <li class="list-item"><a href="#"><i class="fa fa-google-plus"></i></a></li>
-          <li class="list-item"><a href="#"><i class="fa fa-envelope"></i> contact@test.com</a></li>
+          <li class="list-item"><a href="#"><i class="fa fa-google-plus"></i></a></li> --}}
+          <li class="list-item"><a href="mailto:info@bumeranq.org"><i class="fa fa-envelope"></i> info@bumeranq.org</a></li>
         </ul>
         @if (Auth::guest())
           <ul class="list-inline pull-right contact-auth">
@@ -206,18 +209,22 @@ use App\Qarsiliq;
     socket.emit('message_notifications', data);
     socket.on('notifications', function(message_notification_data){
         if({{$id}} != 0){
-            $('.socket-messages-data').empty();
-            count=0 ;
-            $.each(message_notification_data,function (key,value){
-                if (value.seen == 0) {
-                    count++;
-                }
-                $('.socket-messages-data').append(
-                    '<li>' +
-                    '<a href="/Mesajlar/'+value.id+'">' +
-                    '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />' +
-                    '<p>'+ '<span style="color:#0090D9;">' + value.name + '</span>' + ': '+ value.message +'</p></a></li>');
-            });
+              $('.socket-messages-data').empty();
+              count=0 ;
+              $.each(message_notification_data,function (key,value){
+                if (value.receiver_id == data.id) {
+                  if (value.seen == 0) {
+                      count++;
+                  }
+                  $('.socket-messages-data').append(
+                      '<li>' +
+                      '<a href="/Mesajlar/'+value.id+'">' +
+                      '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />' +
+                      '<p>'+ '<span style="color:#0090D9;">' + value.name + '</span>' + ': '+ value.message +'</p></a></li>'
+                    );
+              };
+            })
+
         }else{
             count = 0;
         }

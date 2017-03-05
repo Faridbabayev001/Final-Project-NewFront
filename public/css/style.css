@@ -8269,6 +8269,8 @@ form span {
       box-shadow: none; }
   #contact-us .about-us-social-block {
     margin-bottom: 45px; }
+    #contact-us .about-us-social-block img {
+      border-radius: 20px; }
     #contact-us .about-us-social-block:first-child {
       margin-top: 23px; }
     #contact-us .about-us-social-block a {
@@ -8358,21 +8360,21 @@ form span {
     text-align: justify; }
   #map .map-socket-section {
     position: absolute;
-    right: 45px;
-    bottom: 23px;
-    height: 375px;
-    overflow: hidden; }
+    right: 0px;
+    bottom: 5px;
+    overflow: hidden;
+    height: 375px; }
     #map .map-socket-section a {
       text-decoration: none;
-      color: white; }
+      color: white;
+      height: 80px;
+      width: 100%; }
       #map .map-socket-section a .map-socket-data {
         height: 80px;
-        width: 300px;
         background-color: #44576A;
-        margin-bottom: 15px;
         color: white;
-        padding: 15px;
-        transition: all .3s ease; }
+        transition: all .3s ease;
+        border-radius: 5px 0 0 5px; }
         #map .map-socket-section a .map-socket-data:hover {
           background: #1e282e; }
   #map .map-socket-data {
@@ -8385,7 +8387,8 @@ form span {
 
 #news {
   padding-top: 50px;
-  padding-bottom: 50px; }
+  padding-bottom: 50px;
+  min-height: 100%; }
   #news .news-block {
     height: 268px;
     word-break: break-all;
@@ -8913,14 +8916,6 @@ form span {
     transition: all .3s ease;
     margin-left: -4px;
     padding: 0px; }
-    #contact .contact-social li:last-child {
-      border-left: 1px solid #535D63; }
-    #contact .contact-social li:first-child:hover {
-      background-color: #3B5998; }
-    #contact .contact-social li:nth-child(2):hover {
-      background-color: #00ACEE; }
-    #contact .contact-social li:nth-child(3):hover {
-      background-color: #DD4B39; }
   #contact .contact-auth i {
     height: 15px;
     width: 15px; }

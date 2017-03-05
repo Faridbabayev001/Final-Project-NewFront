@@ -14,6 +14,7 @@
       </div>
     </div>
   </div>
+
   {{-- Google+ ve Facebook datalari Session ile gelir --}}
   @if (Session::has('user') && Session::has('email'))
    <?php $name = Session::get('user');?>
@@ -28,6 +29,9 @@
 @endif
   <section id="register">
   <div class="container">
+  @if (Session::has('mail_exists'))
+  <div class="alert alert-warning" role="alert">{{Session::get('mail_exists')}}</div>
+@endif
     <div class="row">
       <div class="col-lg-12 padding0">
         @if (Session::has('warning'))
