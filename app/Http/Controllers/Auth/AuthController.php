@@ -7,6 +7,8 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+use Session;
+
 
 use Illuminate\Http\Request; //verification
 use App\ActivationService; //verification
@@ -67,6 +69,8 @@ class AuthController extends Controller
      */
     protected function validator(array $data)
     {
+        
+
         return Validator::make($data, [
           'username' => 'required|unique:users',
           'city' => 'required',
@@ -99,6 +103,25 @@ class AuthController extends Controller
 
     public function register(Request $request)
     {
+
+        $mails = User::select('email','activated')->where('email', '=', $request['email'])->get();
+
+            if (count($mails)==1) {
+
+                foreach ($mails as $val) {
+                    if ($val->activated==0) {
+                        Session::flash('mail_exists' , "Siz artıq qeydiyyatdan keçmisiniz email ünvanınıza yollanılan aktivasiya linkini tıklmağınız gərəkdir.");
+                          return back();
+
+                    }else{
+                        Session::flash('mail_exists' , "Siz artıq qeydiyyatdan keçmisiniz yuxarıdan daxil ol bölməsində email və şifrənizi yazaraq sayta giriş edə bilərsiniz.");
+                         return back();
+                    }
+                }
+
+             }else {
+                // echo "deyil";
+            }
 
         $validator = $this->validator($request->all());
 
