@@ -7,8 +7,8 @@ var PORT = process.env.PORT || 3000;
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root',
-    database: 'final',
+    password: '',
+    database: 'final_project',
     multipleStatements: true
 });
 connection.connect(function (err) {
@@ -89,7 +89,7 @@ io.on('connection', function(socket){
     });
 });
 
-// For notificaton connect
+                  // DRING :)
 io.on('connection',function (socket) {
         socket.on('live_update',function(result){
             connection.query(

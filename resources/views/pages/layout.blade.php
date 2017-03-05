@@ -41,63 +41,23 @@ use App\Qarsiliq;
             <li class="list-item"><a href="{{url('/Qeydiyyat')}}"><i class="fa fa-user-plus"></i> Qeydiyyat</a></li>
           </ul>
         @else
-          @php
-          $noti = Elan::join('users', 'users.id', '=', 'els.user_id')
-                    ->join('qarsiliqs', 'qarsiliqs.elan_id', '=', 'els.id')
-                    ->select('els.type_id','users.name','els.user_id','qarsiliqs.notification','qarsiliqs.status','qarsiliqs.data')
-                     ->where([
-                           ['qarsiliqs.status', '=', 1],
-                           ['els.user_id', '=', Auth::user()->id]
-                       ])
-                       ->get();
-                      //  dd($noti);
-
-      $noti_qars_user=Elan::join('users', 'users.id', '=', 'els.user_id')
-              ->join('qarsiliqs', 'qarsiliqs.elan_id', '=', 'els.id')
-              ->select('els.type_id','users.name','users.avatar','qarsiliqs.notification','qarsiliqs.user_id','qarsiliqs.id','qarsiliqs.status','qarsiliqs.data')
-               ->where([
-                     ['qarsiliqs.data', '=', 1],
-                     ['qarsiliqs.user_id', '=', Auth::user()->id],
-                     ['qarsiliqs.data_status', '=', 1]
-                 ])
-                //  ->orWhere('qarsiliqs.data_status', '=', 1)
-                 ->get();
-    //  dd($noti_qars_user);
-         $noti_image = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
-              ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-              ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.user_id','qarsiliqs.id','qarsiliqs.status','qarsiliqs.data')
-              ->orderBy('created_at', 'desc')
-               ->where('els.user_id', '=', Auth::user()->id)
-               ->get();
-
-              //  dd($noti_image);
-               $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-                    ->join('users', 'users.id', '=', 'els.user_id')
-                    ->select('users.name','els.type_id','users.email','users.city','qarsiliqs.id','users.avatar','qarsiliqs.data_status','qarsiliqs.created_at')
-                    ->orderBy('created_at', 'desc')
-                    ->where([
-                          ['qarsiliqs.data', '=', 1],
-                          ['qarsiliqs.user_id','=',Auth::user()->id]
-                      ])
-                    ->get();
-                // dd($data_join);
-          @endphp
           <ul class="list-inline pull-right contact-auth">
               <li class="dropdown">
                   <a href="#" data-toggle="dropdown" class="dropdown-toggle socket-messages-number"> </a>
                   <ul class="dropdown-menu contact-auth-notification socket-messages-data" role="menu">
                   </ul>
               </li>
-          <li class="dropdown">
-                  <a href="#" data-toggle="dropdown" class="dropdown-toggle">
-                    <i class="fa fa-bell"></i>
-                     <span class="count">
-                     </span>
-                   </a>
-              <ul class="dropdown-menu contact-auth-notification notification" role="menu">
 
-              </ul>
-          </li>
+              <li class="dropdown">
+                      <a href="#" data-toggle="dropdown" class="dropdown-toggle">
+                        <i class="fa fa-bell"></i>
+                         <span class="count">
+                         </span>
+                       </a>
+                  <ul class="dropdown-menu contact-auth-notification notification" role="menu">
+
+                  </ul>
+              </li>
           <li class="dropdown">
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Xoş gəldiniz, {{Auth::user()->name}} <span class="caret"></span></a>
               <ul class="dropdown-menu contact-profil-menu" role="menu">
@@ -236,11 +196,13 @@ use App\Qarsiliq;
 <script src="{{url('/js/AjaxSearchMap.js')}}" charset="utf-8"></script>
 <script src="{{url('/js/main.js')}}"></script>
 <script type="text/javascript">
-    var socket = io(':3000');
-    var count = 0;
-    var data = {
-        id: {{$id}}
-    }
+    $(document).ready(function(){
+      var socket = io(':3000');
+      var count = 0;
+      var data = {
+          id: {{$id}}
+      }
+
     socket.emit('message_notifications', data);
     socket.on('notifications', function(message_notification_data){
         if({{$id}} != 0){
@@ -315,6 +277,8 @@ use App\Qarsiliq;
 
         });
     });
+  });
+    
 </script>
   @yield('scripts')
 </html>
