@@ -98,14 +98,12 @@
     right: 0px;
     bottom: 5px;
     overflow: hidden;
-    height: 375px;
+    height: 450px;
     a{
       text-decoration: none;
       color: white;
-      height: 80px;
       width: 100%;
       .map-socket-data{
-        height: 80px;
         background-color: #44576A;
         color: white;
         transition: all .3s ease;
@@ -117,11 +115,10 @@
     }
   }
   .map-socket-data{
-    height: 80px;
     width: 300px;
     background-color: #44576A;
     margin-bottom: 15px;
     color: white;
-    padding: 15px;
+    padding: 25px;
   }
 }
