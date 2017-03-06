@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\Http\Requests;
+use Session;
 
 use App\User;
 use App\Elan;
@@ -96,6 +97,23 @@ class AdminController extends Controller
       $status=Elan::find($id);
       $status->status='0';
       $status->save();
+      return back();
+    }
+
+    public function elan_edit(Elan $elan)
+    {
+      return view('admin.elan_edit', compact('elan'));
+    }
+
+    public function elan_edit_update(Elan $elan, Request $request)
+    {
+      $elan->title = $request->title;
+      $elan->about = $request->about;
+
+      $elan->update();
+
+      Session::flash('success', 'Elan uğurla yeniləndi.');
+
       return back();
     }
 }

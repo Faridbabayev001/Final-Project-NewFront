@@ -38,6 +38,7 @@
                                 @else
                                   <td><a class="btn btn-warning" href="{{url('/deactivate/'.$destek->id)}}">Deaktivləşdir</a></td>
                                 @endif
+                                  <td><a href="/admin/elan-edit/{{$destek->id}}" class="btn btn-primary">Edit</a></td>
                                   <td>{{$destek->title}}</td>
                                   <td>{{substr($destek->about, 0,10)}}</td>
                                   <td>{{$destek->location}}</td>
@@ -69,12 +70,12 @@
                  height: 100px;
                   overflow: hidden;
                   float: left;
-                 margin: 3% 0 0 2%;                
+                 margin: 3% 0 0 2%;
 
               }
             </style>
                                     @foreach($destek->shekiller as $imgName)
-                                    <div class="littleImg"> 
+                                    <div class="littleImg">
                                         <img src="{{url('/image/'.$imgName->imageName)}}" class="img-responsive" alt="" />
                                     </div>
                                       @endforeach
