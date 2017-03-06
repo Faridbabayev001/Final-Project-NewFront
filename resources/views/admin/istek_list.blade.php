@@ -17,6 +17,7 @@
                           <thead>
                               <tr>
                                   <th>Status</th>
+                                  <th>Edit</th>
                                   <th>title</th>
                                   <th>about</th>
                                   <th>location</th>
@@ -41,6 +42,7 @@
                                   @else
                                     <td><a class="btn btn-warning" href="{{url('/deactivate/'.$istek->id)}}">Deaktivləşdir</a></td>
                                   @endif
+                                  <td><a href="/admin/elan-edit/{{$istek->id}}" class="btn btn-primary">Edit</a></td>
                                   <td>{{$istek->title}}</td>
                                   <td>{{substr($istek->about,0,10)}}</td>
                                   <td>{{substr($istek->location, 0,10)}}</td>
@@ -71,12 +73,12 @@
                  height: 100px;
                   overflow: hidden;
                   float: left;
-                 margin: 3% 0 0 2%;                
+                 margin: 3% 0 0 2%;
 
               }
             </style>
                                     @foreach($istek->shekiller as $imgName)
-                                    <div class="littleImg"> 
+                                    <div class="littleImg">
                                         <img src="{{url('/image/'.$imgName->imageName)}}" class="img-responsive" alt="" />
                                     </div>
                                       @endforeach

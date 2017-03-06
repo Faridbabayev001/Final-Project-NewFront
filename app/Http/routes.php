@@ -96,6 +96,8 @@ if (isset($_SESSION['admin'])) {
     Route::get('/alfagen','AdminController@index');
     Route::get('/alfagen/logout', 'AdminController@logout');
     Route::get('/İstək-list','AdminController@istek_list');
+    Route::get('/admin/elan-edit/{elan}','AdminController@elan_edit');
+    Route::post('/admin/elan-edit/{elan}','AdminController@elan_edit_update');
     Route::get('/Dəstək-list','AdminController@destek_list');
     Route::get('/activate/{id}','AdminController@activate');
     Route::get('/deactivate/{id}','AdminController@deactivate');
