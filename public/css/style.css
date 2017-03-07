@@ -8363,14 +8363,12 @@ form span {
     right: 0px;
     bottom: 5px;
     overflow: hidden;
-    height: 375px; }
+    height: 450px; }
     #map .map-socket-section a {
       text-decoration: none;
       color: white;
-      height: 80px;
       width: 100%; }
       #map .map-socket-section a .map-socket-data {
-        height: 80px;
         background-color: #44576A;
         color: white;
         transition: all .3s ease;
@@ -8378,12 +8376,11 @@ form span {
         #map .map-socket-section a .map-socket-data:hover {
           background: #1e282e; }
   #map .map-socket-data {
-    height: 80px;
     width: 300px;
     background-color: #44576A;
     margin-bottom: 15px;
     color: white;
-    padding: 15px; }
+    padding: 25px; }
 
 #news {
   padding-top: 50px;
@@ -9271,6 +9268,8 @@ form span {
     transition: all .3s ease; }
     #notification-single .not-deny:hover {
       background-color: #f32c1e; }
+  #notification-single #notif-accept-modal .modal-content {
+    border-radius: 0px; }
 
 #password-reset {
   margin-top: 30px;

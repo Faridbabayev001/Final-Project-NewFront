@@ -38,8 +38,35 @@
               </div>
             @elseif($notication_single->data==0)
               <p class="pull-right">
-                <a href="{{url('/accept/'.$notication_single->id)}}" class="btn not-accept"><i class="fa fa-check"></i> Qəbul et</a>
+                <a data-toggle="modal" data-target="#notif-accept-modal" class="btn not-accept"><i class="fa fa-check"></i> Qəbul et</a>
                 <a href="{{url('/refusal/'.$notication_single->id)}}" class="btn not-deny"><i class="fa fa-times"></i> İmtina et</a>
+
+                {{-- ACCEPT MODAL --}}
+                <div id="notif-accept-modal" class="modal fade" role="dialog">
+                  <div class="modal-dialog modal-sm">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Əminsinizmi ?</h4>
+                      </div>
+                      <div class="modal-body">
+                        <p>
+                          Qəbul etdiyiniz təqdirdə sizin bütün informasiyalarınız həmin <b>{{$notication_single->name}}</b> adlı şəxsə ötürüləcək.
+                        </p>
+                      </div>
+                      <div class="modal-footer">
+                        <a href="{{url('/accept/'.$notication_single->id)}}" class="btn not-accept">Bəli</a>
+                        <a data-dismiss="modal" class="btn not-deny margin0">Xeyr</a>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                {{-- ACCEPT MODAL --}}
+
               </p>
             @else
             @endif
