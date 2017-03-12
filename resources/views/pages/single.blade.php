@@ -162,6 +162,6 @@
   </div>
 </section>
 @endsection
-@section('scripts')--}}
+@section('scripts')
     <script src='https://cdn.rawgit.com/OpenShare/openshare/master/dist/openshare.js'></script>
 @endsection

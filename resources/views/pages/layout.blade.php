@@ -228,6 +228,7 @@ use App\Qarsiliq;
     }else{
         $id = 0;
     }
+    $send_id = 0;
 @endphp
 
 </body>
@@ -238,97 +239,16 @@ use App\Qarsiliq;
 <script src="{{url('/js/InfoBubble.js')}}" charset="utf-8"></script>
 <script src="{{url('/js/AjaxSearchMap.js')}}" charset="utf-8"></script>
 <script src="{{url('/js/main.js')}}"></script>
-<script type="text/javascript">
-    var socket = io(':3000');
-    var count = 0;
-    var data = {
-        id: {{$id}}
+<script src="/js/socket-data.js"></script>
+  @php
+    if (isset($chat->receiver_id)) {
+    $send_id = $chat->receiver_id;
+    }elseif(isset($notication_single->user->id)) {
+      $send_id = $notication_single->user->id;
     }
-    socket.emit('message_notifications', data);
-    socket.on('notifications', function(message_notification_data){
-        if({{$id}} != 0){
-              $('.socket-messages-data').empty();
-              count=0 ;
-              console.log(message_notification_data);
-              $.each(message_notification_data,function (key,value){
-                if (value.receiver_id == data.id) {
-                  if (value.seen == 0) {
-                      count++;
-                  }
-                  $('.socket-messages-data').append(
-                      '<li>' +
-                      '<a href="/Mesajlar/'+value.id+'">' +
-                      '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />' +
-                      '<p>'+ '<span style="color:#0090D9;">' + value.name + '</span>' + ': '+ value.message +'</p></a></li>'
-                    );
-              };
-            })
-
-        }else{
-            count = 0;
-        }
-        if (count > 0) {
-            $('.socket-messages-number').empty();
-            $('.socket-messages-count span').text('');
-            $('.socket-messages-number').append('<a href="#" data-toggle="dropdown" class="dropdown-toggle socket-messages-count"><i class="fa fa-comments-o"></i> <span class="contact-auth-notification-number"> </span> </a>');
-            $('.socket-messages-count span').text(count);
-        }else{
-            $('.socket-messages-number').empty();
-            $('.socket-messages-number').append('<a href="#" data-toggle="dropdown" class="dropdownyoxdur-toggle socket-messages-count"><i class="fa fa-comments-o"></i></a>');
-//            $('.socket-messages-data').append('<li><a href="#"> <h4 class="text-center margin0">Mesajınız yoxdur</h4></a></li>');
-        }
-    });
-
-    //OnClick message notification
-      $('.clickNumber').on('click',function () {
-          socket.emit('CountZero',data);
-          socket.emit('message_notifications', data);
-      })
-
-    //notifications
-    socket.emit('live_notification',data);
-    socket.on('live_noti',function(live_notification_data){
-      $('.notification').html('');
-//      console.log(live_notification_data);
-
-        $.each(live_notification_data,function (key,value) {
-          var noti_text_els_user= (value.type_id == 2) ?'<span class="special-destek">'+ value.qarsiliqs_user_name +'</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !':
-          '<span class="special-istek">'+ value.qarsiliqs_user_name +'</span> adlı istifadəçi desteyinize istek vermək istəyir !';
-
-          var noti_text_qars_user= (value.type_id == 2) ?'<span class="special-istek">'+ value.els_user_name +'</span> adlı istifadəçi desteyinizi qəbul etdi !':
-          '<span class="special-istek">'+ value.els_user_name +'</span> adlı istifadəçi istəyinizi qəbul etdi !';
-
-              if (value.els_user_id==data.id) {
-                if (value.status==1) {
-                  $('.count').addClass('contact-auth-notification-number');
-                   $('.contact-auth-notification-number').text(live_notification_data.length);
-                }
-                $('.notification').append('<li>'+
-                '<a href="/Bildiriş/'+value.qarsiliqs_id +'"class="notification-seen">'+
-                '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />'+
-                '<p>'+noti_text_els_user+'</p>'+
-                '</a>'+
-                '</li>'
-                );
-
-              }
-              else if(value.qarsiliqs_user_id==data.id && value.data_status==1){
-                if (value.data_status==1) {
-                  $('.count').addClass('contact-auth-notification-number');
-                   $('.contact-auth-notification-number').text(live_notification_data.length);
-                }
-                console.log('yes');
-                $('.notification').append('<li>'+
-                '<a href="/message/'+value.qarsiliqs_id +'"class="notification-seen">'+
-                '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />'+
-                '<p>'+noti_text_qars_user+'</p>'+
-                '</a>'+
-                '</li>'
-                );
-              }
-
-        });
-    });
+  @endphp
+<script type="text/javascript">
+  socketData({{$id}},{{$send_id}});
 </script>
   @yield('scripts')
 </html>

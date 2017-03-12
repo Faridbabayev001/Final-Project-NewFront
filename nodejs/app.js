@@ -7,8 +7,8 @@ var PORT = process.env.PORT || 3000;
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root',
-    database: 'final',
+    password: '',
+    database: 'final_project',
     multipleStatements: true
 });
 connection.connect(function (err) {
@@ -49,6 +49,7 @@ io.on('connection', function(socket){
             });
     });
     socket.on('data', function(result) {
+      console.log(result.receiver_id);
         connection.query(
             "SELECT " +
             "chats.message, chats.sender_id, chats.receiver_id, users.name, users.avatar ,users.username " +
@@ -122,7 +123,6 @@ io.on('connection',function (socket) {
   io.on('connection',function(socket){
     socket.on('live_notification',function(result) {
         var noti_data = [];
-        var option = {nestTables: '_'};
             connection.query(
                 "SELECT " +
                     "els.type_id, els.user_id as els_user_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name as qarsiliqs_user_name,qarsiliqs.status,qarsiliqs.notification,qarsiliqs.id as qarsiliqs_id " +
@@ -132,8 +132,7 @@ io.on('connection',function (socket) {
                     "els.id=qarsiliqs.elan_id " +
                     "INNER JOIN users ON " +
                     "users.id=qarsiliqs.user_id " +
-                    "WHERE els.user_id =" + connection.escape(result.id) +
-                    " AND qarsiliqs.notification = 1 ;" +
+                    "WHERE qarsiliqs.notification = 1 ;" +
                 "SELECT " +
                     "els.type_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name as els_user_name,qarsiliqs.notification,qarsiliqs.id as qarsiliqs_id,qarsiliqs.data_status,qarsiliqs.data " +
                     "FROM " +
@@ -143,9 +142,8 @@ io.on('connection',function (socket) {
                     "INNER JOIN users ON " +
                     "users.id = els.user_id " +
                     "WHERE qarsiliqs.data = 1 " +
-                    "OR qarsiliqs.data_status=1 " +
-                    "AND qarsiliqs.user_id = " + connection.escape(result.id),
-                option,
+                    "OR qarsiliqs.data_status=1 " ,
+                    // "AND qarsiliqs.user_id = " + connection.escape(result.id),
                     function (error, results) {
                         if (error) throw error;
                         for ( var i=0; i<results.length; i++ ) {
