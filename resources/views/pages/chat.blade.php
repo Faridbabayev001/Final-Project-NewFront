@@ -10,7 +10,7 @@
         </div>
     </div>
     {{--Chat--}}
-    <div id="chat dsp_none">
+    <div id="chat" class="dsp_none">
         <div class="chat-header">
             <h5 class="header-name">x</h5>
         </div>
@@ -20,7 +20,7 @@
         </div>
 
         <div class="chat-footer">
-            <form id="notification_chat" action="" method="post">
+            <form id="notification_chat" method="post">
                 <div class="col-lg-10 padding0">
                     <input type="text" class="form-control footer-input" name="" placeholder="Mesajınız">
                 </div>
@@ -44,6 +44,6 @@
   <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
   <script type="text/javascript">
-      
+
   </script>
 @endsection

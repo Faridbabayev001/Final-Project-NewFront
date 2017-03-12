@@ -49,7 +49,6 @@ io.on('connection', function(socket){
             });
     });
     socket.on('data', function(result) {
-      console.log(result.receiver_id);
         connection.query(
             "SELECT " +
             "chats.message, chats.sender_id, chats.receiver_id, users.name, users.avatar ,users.username " +
@@ -132,7 +131,8 @@ io.on('connection',function (socket) {
                     "els.id=qarsiliqs.elan_id " +
                     "INNER JOIN users ON " +
                     "users.id=qarsiliqs.user_id " +
-                    "WHERE qarsiliqs.notification = 1 ;" +
+                    // "WHERE els.user_id =" + connection.escape(result.id) +
+                    " WHERE qarsiliqs.notification = 1 ;" +
                 "SELECT " +
                     "els.type_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name as els_user_name,qarsiliqs.notification,qarsiliqs.id as qarsiliqs_id,qarsiliqs.data_status,qarsiliqs.data " +
                     "FROM " +
@@ -141,8 +141,7 @@ io.on('connection',function (socket) {
                     "els.id = qarsiliqs.elan_id " +
                     "INNER JOIN users ON " +
                     "users.id = els.user_id " +
-                    "WHERE qarsiliqs.data = 1 " +
-                    "OR qarsiliqs.data_status=1 " ,
+                    "WHERE qarsiliqs.data = 1 " ,
                     // "AND qarsiliqs.user_id = " + connection.escape(result.id),
                     function (error, results) {
                         if (error) throw error;

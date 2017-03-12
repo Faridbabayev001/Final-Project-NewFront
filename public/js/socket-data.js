@@ -16,7 +16,6 @@ var socketData = function(auth_user_id, receiver_id) {
   //-----------------Message and Notification sokjet -----------------------------------
   socket.emit('message_notifications', data);
   socket.on('notifications', function(message_notification_data){
-    console.log(message_notification_data);
       if(auth_user_id != 0){
             $('.socket-messages-data').empty();
             count=0 ;
@@ -62,7 +61,6 @@ var socketData = function(auth_user_id, receiver_id) {
   })
   socket.on('live_noti',function(live_notification_data){
     $('.notification').html('');
-  //      console.log(live_notification_data);
 
       $.each(live_notification_data,function (key,value) {
         var noti_text_els_user= (value.type_id == 2) ?'<span class="special-destek">'+ value.qarsiliqs_user_name +'</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !':
@@ -203,7 +201,7 @@ $('#notification_chat').submit(function () {
 socket.on('all_data',function (allData) {
     $('.chat-body ul').text('');
     if (Object.keys(allData).length === 0) {
-     $("#dsp_none").css("display","none");
+     $(".dsp_none").css("display","none");
     }
     $.each(allData,function (key,value) {
         $('.header-name').text(value.username);
@@ -232,5 +230,19 @@ socket.on('all_data',function (allData) {
 $('.chat-body').animate({scrollTop: $('.chat-body').prop("scrollHeight")}, 0.001);
 }
 
+
 //--------------------Chat blade code end ---------------------------------------------------
+
+
+socket.emit('live_update');
+socket.on('live_update_data',function(results){
+    $('.map-socket-section').empty();
+    $.each(results,function(key,value){
+        if (value.type_id == 2){
+          $('.map-socket-section').prepend("<a href=/single/"+ value.id + ">" + "<div class='map-socket-data'>" +  "<span style='color:#0AA699'>" + value.title + "</span>" + " adlı yeni istək əlavə olundu !" + "</div>"+ "</a>");
+        }else if(value.type_id == 1){
+            $('.map-socket-section').prepend("<a href=/single/"+ value.id + ">" + "<div class='map-socket-data'>" + "<span style='color:#F35958'>" + value.title + "</span>" + " adlı yeni dəstək əlavə olundu !" + "</div>"+ "</a>");
+        }
+    });
+});
 }

@@ -1,9 +1,3 @@
-
-<?php
-use App\Elan;
-use App\User;
-use App\Qarsiliq;
- ?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +13,7 @@ use App\Qarsiliq;
   <title>Bumeranq.org | @yield('title')</title>
   <link rel="apple-touch-icon" sizes="72x72" href="/apple-touch-icon.png">
   <link rel="icon" type="image/png" href="/favicon-32x32.png" sizes="32x32">
-  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">
+  <link rel="icon" type="image/png" href="/favicon-16x16.png" sizes="16x16">  
   <link rel="manifest" href="/manifest.json">
   <link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
   <meta name="theme-color" content="#ffffff">
@@ -44,47 +38,6 @@ use App\Qarsiliq;
             <li class="list-item"><a href="{{url('/Qeydiyyat')}}"><i class="fa fa-user-plus"></i> Qeydiyyat</a></li>
           </ul>
         @else
-          @php
-          $noti = Elan::join('users', 'users.id', '=', 'els.user_id')
-                    ->join('qarsiliqs', 'qarsiliqs.elan_id', '=', 'els.id')
-                    ->select('els.type_id','users.name','els.user_id','qarsiliqs.notification','qarsiliqs.status','qarsiliqs.data')
-                     ->where([
-                           ['qarsiliqs.status', '=', 1],
-                           ['els.user_id', '=', Auth::user()->id]
-                       ])
-                       ->get();
-                      //  dd($noti);
-
-      $noti_qars_user=Elan::join('users', 'users.id', '=', 'els.user_id')
-              ->join('qarsiliqs', 'qarsiliqs.elan_id', '=', 'els.id')
-              ->select('els.type_id','users.name','users.avatar','qarsiliqs.notification','qarsiliqs.user_id','qarsiliqs.id','qarsiliqs.status','qarsiliqs.data')
-               ->where([
-                     ['qarsiliqs.data', '=', 1],
-                     ['qarsiliqs.user_id', '=', Auth::user()->id],
-                     ['qarsiliqs.data_status', '=', 1]
-                 ])
-                //  ->orWhere('qarsiliqs.data_status', '=', 1)
-                 ->get();
-    //  dd($noti_qars_user);
-         $noti_image = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
-              ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-              ->select('users.name','users.avatar','qarsiliqs.created_at','els.type_id','qarsiliqs.user_id','qarsiliqs.id','qarsiliqs.status','qarsiliqs.data')
-              ->orderBy('created_at', 'desc')
-               ->where('els.user_id', '=', Auth::user()->id)
-               ->get();
-
-              //  dd($noti_image);
-               $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-                    ->join('users', 'users.id', '=', 'els.user_id')
-                    ->select('users.name','els.type_id','users.email','users.city','qarsiliqs.id','users.avatar','qarsiliqs.data_status','qarsiliqs.created_at')
-                    ->orderBy('created_at', 'desc')
-                    ->where([
-                          ['qarsiliqs.data', '=', 1],
-                          ['qarsiliqs.user_id','=',Auth::user()->id]
-                      ])
-                    ->get();
-                // dd($data_join);
-          @endphp
           <ul class="list-inline pull-right contact-auth">
               <li class="dropdown clickNumber">
                   <a href="#" data-toggle="dropdown" class="dropdown-toggle socket-messages-number"> </a>
@@ -198,14 +151,6 @@ use App\Qarsiliq;
       </ul>
     </div>
   </div>
-  {{-- <p>
-      @if($notification_image->type_id==2)
-        <span class="special-istek">{{$notification_image->name}}</span>  adlı istifadəçi istəyinizə dəstək vermək istəyir !
-      @endif
-      @if($notification_image->type_id==1)
-        <span class="special-destek">{{$notification_image->name}}</span>  adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
-      @endif
-    </p> --}}
 </nav>
 </section>
 <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>
