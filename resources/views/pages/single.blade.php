@@ -64,7 +64,7 @@
           <ul class="list-inline">
               <li class="single-social-facebook faceBook">
                 <div class="social-buttons">
-                    <a
+                    <a href="#"
                             data-open-share="facebook"
                             data-open-share-link="{{ $url }}"
                             data-open-share-picture="{{url('/image/'.$single->shekiller[0]->imageName)}}"
@@ -80,7 +80,7 @@
 
             <li  class="single-social-google" >
               <div class="social-buttons">
-                <a
+                <a href="#"
                   data-open-share="google"
                   data-open-share-url="{{ $url }}"
                   data-open-share-dynamic="{{$single->title}}"
@@ -162,6 +162,6 @@
   </div>
 </section>
 @endsection
-@section('scripts')--}}
+@section('scripts')
     <script src='https://cdn.rawgit.com/OpenShare/openshare/master/dist/openshare.js'></script>
 @endsection

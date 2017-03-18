@@ -38,8 +38,35 @@
               </div>
             @elseif($notication_single->data==0)
               <p class="pull-right">
-                <a href="{{url('/accept/'.$notication_single->id)}}" class="btn not-accept"><i class="fa fa-check"></i> Qəbul et</a>
+                <a data-toggle="modal" data-target="#notif-accept-modal" class="btn not-accept"><i class="fa fa-check"></i> Qəbul et</a>
                 <a href="{{url('/refusal/'.$notication_single->id)}}" class="btn not-deny"><i class="fa fa-times"></i> İmtina et</a>
+
+                {{-- ACCEPT MODAL --}}
+                <div id="notif-accept-modal" class="modal fade" role="dialog">
+                  <div class="modal-dialog modal-sm">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        <h4 class="modal-title">Əminsinizmi ?</h4>
+                      </div>
+                      <div class="modal-body">
+                        <p>
+                          Qəbul etdiyiniz təqdirdə sizin bütün informasiyalarınız həmin <b>{{$notication_single->name}}</b> adlı şəxsə ötürüləcək.
+                        </p>
+                      </div>
+                      <div class="modal-footer">
+                        <a href="{{url('/accept/'.$notication_single->id)}}" class="btn not-accept">Bəli</a>
+                        <a data-dismiss="modal" class="btn not-deny margin0">Xeyr</a>
+
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+                {{-- ACCEPT MODAL --}}
+
               </p>
             @else
             @endif
@@ -69,78 +96,23 @@
       </div>
       </div>
       </div>
-      <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>
-          <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
-      <script type="text/javascript">
-          var socket = io(':3000');
-          var date = new Date();
-          var data_single = {
-              sender_id :{{Auth::user()->id}},
-              receiver_id: {{$notication_single->user->id}},
-              message :  "",
-              seen: 0,
-              created_at: moment().format("YYYY-MM-DD HH:mm:ss"),
-              updated_at: moment().format("YYYY-MM-DD HH:mm:ss")
-          };
-          socket.emit('data',data_single);
-          $('#notification_chat').submit(function () {
-              data_single.message = $('.footer-input').val();
-              socket.emit('send_message', data_single);
-              $('.footer-input').val("");
-              $('.chat-body ul').text('');
-              socket.on('all_data',function (allData) {
-                  $('.chat-body ul').text('');
-                  $.each(allData,function (key,value) {
-                      if (value.sender_id == {{Auth::user()->id}}){
-                          $('.body-message').append(
-                              '<li class="pull-right">' +
-                              '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
-                              '<img src="/image/'+value.avatar+'" class="message-img" alt="user-image">'+
-                              '</li>'+
-                              '<div class="clearfix"></div>'
-                          );
-                      }else if (value.sender_id == {{$notication_single->user->id}} && value.receiver_id == {{Auth::user()->id}}){
-                          $('.body-message').append(
-                              '<li class="pull-left">' +
-                              '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
-                              '<img src="/image/'+value.avatar+'" class="message-img" alt="user-image">'+
-                              '</li>'+
-                              '<div class="clearfix"></div>'
-                          );
-                      }
-                  });
-              })
-              return false;
-          });
-          socket.on('all_data',function (allData) {
-              $('.chat-body ul').text('');
-              $.each(allData,function (key,value) {
-                  if (value.sender_id == {{Auth::user()->id}}){
-                      $('.body-message').append(
-                          '<li class="pull-right">' +
-                          '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
-                          '<img src="/image/'+value.avatar+'" class="message-img" alt="user-image">'+
-                          '</li>'+
-                          '<div class="clearfix"></div>'
-                      );
-                  }else if (value.sender_id == {{$notication_single->user->id}} && value.receiver_id == {{Auth::user()->id}}){
-                      $('.chat-body ul').append(
-                          '<li class="pull-left">' +
-                          '<img src="/image/'+value.avatar+'" class="message-img" alt="user-image">'+
-                          '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
-                          '</li>'+
-                          '<div class="clearfix"></div>'
-                      );
-                  }
-              });
-          });
 
-          // CHAT scroll
-          $('.chat-body').animate({scrollTop: $('.chat-body').prop("scrollHeight")}, 500);
-      </script>
       </div>
     @else
       <h1 class="text-center">Sorğunuz düzgün deyil !</h1>
     @endif
+    @php
+        if (Auth::user()){
+            $id = Auth::user()->id;
+        }else{
+            $id = 0;
+        }
+    @endphp
   </section>
+  @section('scripts')
+    <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
+    <script type="text/javascript">
+    </script>
+  @endsection
 @endsection

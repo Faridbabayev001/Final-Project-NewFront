@@ -27,7 +27,6 @@ server.listen(PORT, function() {
 io.on('connection', function(socket){
     socket.on('send_message', function(data){
         if (data.message != '') {
-            // console.log(data);
             connection.query('INSERT INTO chats SET?',[data],function (err) {
                 if (err) throw err;
                 io.emit('only_one_data',data);
@@ -58,7 +57,9 @@ io.on('connection', function(socket){
             "`chats` " +
             "INNER JOIN " +
             "`users` " +
-            "ON chats.sender_id = users.id",
+            "ON chats.receiver_id = users.id " +
+            "WHERE sender_id ="+result.sender_id+" AND receiver_id="+result.receiver_id +
+            " OR sender_id="+result.receiver_id+" AND receiver_id="+result.sender_id ,
             function (err,data) {
                 if (err) throw err;
                 io.emit('all_data',data);
@@ -76,6 +77,7 @@ io.on('connection', function(socket){
                 "users " +
                 "ON " +
                 "chats.sender_id = users.id " +
+                " WHERE sender_id="+result.id+" OR receiver_id="+result.id+
                 " ORDER BY " +
                 "chats.id DESC",
                 function (err, message_notification_data) {
@@ -86,6 +88,19 @@ io.on('connection', function(socket){
             io.emit('notifications', result);
         }
     });
+    // functiom for Count Zero
+    socket.on('CountZero',function (count) {
+        connection.query(
+            "UPDATE " +
+            "chats " +
+            "SET " +
+            "seen=1 " +
+            "WHERE seen=0 AND receiver_id="+count.id,
+            function (err,data) {
+                if (err) throw  err;
+            }
+        );
+    })
 });
 
                   // DRING :)
@@ -108,7 +123,6 @@ io.on('connection',function (socket) {
   io.on('connection',function(socket){
     socket.on('live_notification',function(result) {
         var noti_data = [];
-        var option = {nestTables: '_'};
             connection.query(
                 "SELECT " +
                     "els.type_id, els.user_id as els_user_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name as qarsiliqs_user_name,qarsiliqs.status,qarsiliqs.notification,qarsiliqs.id as qarsiliqs_id " +
@@ -119,7 +133,7 @@ io.on('connection',function (socket) {
                     "INNER JOIN users ON " +
                     "users.id=qarsiliqs.user_id " +
                     // "WHERE els.user_id =" + connection.escape(result.id) +
-                    " AND qarsiliqs.notification = 1 ;" +
+                    " WHERE qarsiliqs.notification = 1 ;" +
                 "SELECT " +
                     "els.type_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name as els_user_name,qarsiliqs.notification,qarsiliqs.id as qarsiliqs_id,qarsiliqs.data_status,qarsiliqs.data " +
                     "FROM " +
@@ -128,10 +142,8 @@ io.on('connection',function (socket) {
                     "els.id = qarsiliqs.elan_id " +
                     "INNER JOIN users ON " +
                     "users.id = els.user_id " +
-                    "WHERE qarsiliqs.data = 1 " +
-                    "OR qarsiliqs.data_status=1 ",
+                    "WHERE qarsiliqs.data = 1 " ,
                     // "AND qarsiliqs.user_id = " + connection.escape(result.id),
-                option,
                     function (error, results) {
                         if (error) throw error;
                         for ( var i=0; i<results.length; i++ ) {
