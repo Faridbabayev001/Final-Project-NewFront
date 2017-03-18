@@ -235,7 +235,19 @@ $('.chat-body').animate({scrollTop: $('.chat-body').prop("scrollHeight")}, 0.001
 
 
 socket.emit('live_update');
+var live_update = [];
 socket.on('live_update_data',function(results){
+  if (live_update.length > 0 ) {
+    console.log('live_update length = '+ live_update.length);
+    console.log('results length = '+ results.length);
+    if (live_update.length < results.length) {
+      //sound play
+      live_update = [];
+      live_update.push(results);
+    }
+  }else {
+    live_update.push(results);
+  }
     $('.map-socket-section').empty();
     $.each(results,function(key,value){
         if (value.type_id == 2){

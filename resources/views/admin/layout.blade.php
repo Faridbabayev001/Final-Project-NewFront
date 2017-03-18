@@ -81,7 +81,6 @@
 
     <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>
     <script src="{{url('/js/vendor/bootstrap.min.js')}}"></script>
-{{-- <script src="{{url('/js/main.js')}}"></script> --}}
-
+    @yield('script')
 </body>
 </html>

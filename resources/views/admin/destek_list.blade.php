@@ -97,10 +97,12 @@
           </div>
       </div>
   </div>
-  <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>
+@endsection
+@section('script')
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
-  <script>
-      var socket = io(':3000');
-      socket.emit('live_update')
-  </script>
+  <script src="{{url('/js/moment.js')}}"></script>
+  <script src="{{url('/js/socket-data.js')}}"></script>
+<script>
+socketData(0,0);
+</script>
 @endsection
