@@ -20,6 +20,7 @@ connection.connect(function (err) {
 
 server.listen(PORT, function() {
     console.log("Server port: 3000");
+    
 });
 
 // Connection
@@ -102,7 +103,7 @@ io.on('connection', function(socket){
     })
 });
 
-// For notificaton connect
+                  // DRING :)
 io.on('connection',function (socket) {
         socket.on('live_update',function(result){
             connection.query(

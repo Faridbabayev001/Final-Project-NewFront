@@ -187,18 +187,17 @@ class PagesController extends Controller
       $destek=Elan::whereRaw('`type_id` = 1 AND user_id = '. Auth::user()->id)->count();
       $noti_message = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
                 ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-                ->select('users.name','users.avatar','qarsiliqs.data','qarsiliqs.created_at','els.title','els.type_id','qarsiliqs.description','qarsiliqs.notification','qarsiliqs.id')
-                ->where([
-                      ['els.user_id', '=', Auth::user()->id]
-                  ])
+                ->select('users.name','users.avatar','qarsiliqs.data','els.user_id as elan_userid','qarsiliqs.created_at','els.title','els.type_id','qarsiliqs.description','qarsiliqs.notification','qarsiliqs.user_id','qarsiliqs.id')
+                ->where('els.user_id', '=', Auth::user()->id)
                 ->orderBy('created_at', 'desc')
                 ->get();
+
       $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
                 ->join('users', 'users.id', '=', 'els.user_id')
-                ->select('users.name','els.type_id','users.email','qarsiliqs.user_id','users.city','qarsiliqs.id','users.avatar','users.phone','els.location')
-                ->where([
-                      ['qarsiliqs.user_id', '=', Auth::user()->id]
-                  ])->get();
+                ->select('users.name','els.type_id','users.email','qarsiliqs.user_id as qars_userid','users.city','qarsiliqs.id','users.avatar','users.phone','els.location')
+                ->where('qarsiliqs.user_id', '=', Auth::user()->id)
+                ->get();
+                  // dd($noti_message);
       return view('pages.profil',compact('Elan_all','noti_message','data_join','istek','destek'));
     }
 
