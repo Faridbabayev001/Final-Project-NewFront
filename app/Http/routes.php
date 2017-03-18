@@ -11,6 +11,8 @@
 |
 */
 session_start();
+
+
 //<==================Page Routes ==================>
 Route::get('/','PagesController@index');
 Route::get('/index','PagesController@index');
@@ -32,6 +34,7 @@ Route::get('/single/{id}','PagesController@single');
 
 
 
+
 //<==================Istek Routes ==================>
 Route::get('/istek-add','IstekController@show');
 Route::post('/istek-add','IstekController@istek_add');
@@ -47,6 +50,7 @@ Route::group(['middleware' => 'auth'],function(){
 
 
 
+
 //<==================Destek Routes ==================>
 Route::get('/destek-add','DestekController@show');
 Route::post('/destek-add','DestekController@destek_add');
@@ -56,15 +60,21 @@ Route::group(['middleware' => 'auth'],function(){
 });
 //<=================Destek Routes End ================>
 
+
+
 //<==================Google Register Routes ==================>
 Route::get('auth/google', 'GoogleController@redirectToProvider')->name('google.login');
 Route::get('auth/google/callback', 'GoogleController@handleProviderCallback');
 //<==================Google Register Routes ==================>
 
+
+
 //<==================Facebook Register Routes ==================>
 Route::get('facebook', 'FacebookController@redirectToProvider')->name('facebook.login');
 Route::get('facebook/callback', 'FacebookController@handleProviderCallback');
 //<==================Facebook Register Routes ==================>
+
+
 
 //<==================Nofification Routes ==================>
 Route::group(['middleware' => 'auth'],function(){
@@ -80,12 +90,15 @@ Route::get('/accept/{id}','PagesController@accept');
 //<=================Nofification Routes End ================>
 
 
+
 //<=================Auth and User Routes ===========>
 Route::auth();
 Route::get('/home', 'PagesController@index');
 Route::post('/user-login','PagesController@user_login');
 Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name('user.activate');
 //<=================Auth and User Routes End ===========>
+
+
 
 //<=================Admin Routes ===========>
 Route::get('/alfagen/login', 'AdminController@login');
