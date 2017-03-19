@@ -12,21 +12,21 @@
     {{--Chat--}}
     <div id="chat" class="dsp_none">
         <div class="chat-header">
-            <h5 class="header-name">x</h5>
+            <h5 class="chat-header-name">Loading...</h5>
         </div>
         <div class="chat-body">
-            <ul class="list-group body-message list-unstyled">
+            <ul class="list-group chat-body-message list-unstyled">
             </ul>
         </div>
 
         <div class="chat-footer">
             <form id="notification_chat" method="post">
                 <div class="col-lg-10 padding0">
-                    <input type="text" class="form-control footer-input" name="" placeholder="Mesajınız">
+                    <input type="text" class="form-control chat-footer-input" name="" placeholder="Mesajınız">
                 </div>
 
                 <div class="col-lg-2 padding0">
-                    <button type="submit" name="button" class="btn footer-btn"><i class="fa fa-paper-plane-o"></i></button>
+                    <button type="submit" name="button" class="btn chat-footer-btn"><i class="fa fa-paper-plane-o"></i></button>
                 </div>
             </form>
         </div>

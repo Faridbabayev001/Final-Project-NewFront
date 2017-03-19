@@ -1,17 +1,20 @@
-#chat{
+#chat , #noti
+{
   margin: 50px auto;
   background-color: $chat-bg-color;
   height: 500px;
   max-width: 550px;
   position: relative;
 
-  .chat-header{
+  .chat-header , .noti-header
+  {
     width: 100%;
     background-color: $chat-header-bg-color;
     height: 50px;
     border-bottom: 1px solid #17BDD8;
 
-    .header-name{
+    .chat-header-name , .noti-header-name
+    {
       line-height: 50px;
       margin: 0px;
       margin-left: 15px;
@@ -33,14 +36,17 @@
     }
   }
 
-  .chat-body{
+  .chat-body , .noti-body
+  {
     overflow: scroll;
     height: 420px;
-    .body-message{
+    .chat-body-message , .noti-body-message
+    {
       margin-top: 10px;
       margin-left: 0;
       width: 100%;
-      .message-content{
+      .chat-message-content , .noti-message-content
+      {
         background-color: #DBDBDB;
         max-width: 220px;
         margin: 0px;
@@ -48,7 +54,8 @@
         display: inline-block;
         word-break: all;
       }
-      .message-img{
+      .chat-message-img , .noti-message-img
+      {
         margin: 5px;
         height: 60px;
         width: 60px;
@@ -59,13 +66,15 @@
     }
   }
 
-  .chat-footer{
+  .chat-footer , .noti-footer
+  {
     width: 100%;
     position: absolute;
     bottom: 0px;
     left: 0px;
 
-    .footer-input{
+    .chat-footer-input , .noti-footer-input
+    {
       padding: 10px;
       height: 40px;
       border-radius: 0px;
@@ -74,7 +83,8 @@
         box-shadow: none;
       }
     }
-    .footer-btn{
+    .chat-footer-btn, .noti-footer-btn
+    {
       width: 100%;
       border: none;
       border-radius: 0;

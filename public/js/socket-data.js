@@ -1,4 +1,4 @@
-var socketData = function(auth_user_id, receiver_id) {
+  var socketData = function(auth_user_id, receiver_id, check) {
   var socket = io(':3000');
   var count = 0;
   var data = {
@@ -13,7 +13,7 @@ var socketData = function(auth_user_id, receiver_id) {
       updated_at: moment().format("YYYY-MM-DD HH:mm:ss")
   };
 
-  //-----------------Message and Notification sokjet -----------------------------------
+  //-----------------Message and Notification socket -----------------------------------
   socket.emit('message_notifications', data);
   socket.on('notifications', function(message_notification_data){
       if(auth_user_id != 0){
@@ -83,12 +83,13 @@ var socketData = function(auth_user_id, receiver_id) {
               );
 
             }
-            else if(value.qarsiliqs_user_id==data.id && value.data_status==1){
-              if (value.data_status==1) {
+            else if(value.qarsiliqs_user_id==data.id && value.data_status==1)
+            {
+              if (value.data_status==1)
+              {
                 $('.count').addClass('contact-auth-notification-number');
                  $('.contact-auth-notification-number').text(live_notification_data.length);
               }
-              console.log('yes');
               $('.notification').append('<li>'+
               '<a href="/message/'+value.qarsiliqs_id +'"class="notification-seen">'+
               '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />'+
@@ -101,31 +102,41 @@ var socketData = function(auth_user_id, receiver_id) {
       });
   });
 //--------------------Message and Notification socket End -----------------------------------
+
+
+
 //--------------------Notification_single chat code :D -----------------------------------
-if (data_single.receiver_id != 0) {
+if (data_single.receiver_id != 0 && check==2)
+{
   socket.emit('data',data_single);
-  $('#notification_chat').submit(function () {
+  $('#notification_noti').submit(function ()
+  {
     socketData(auth_user_id,receiver_id);
-      data_single.message = $('.footer-input').val();
+      data_single.message = $('.noti-footer-input').val();
       socket.emit('send_message', data_single);
-      $('.footer-input').val("");
-      $('.chat-body ul').text('');
-      socket.on('all_data',function (allData) {
-          $('.chat-body ul').text('');
-          $.each(allData,function (key,value) {
-              if (value.sender_id == auth_user_id && value.receiver_id == receiver_id){
-                  $('.body-message').append(
+      $('.noti-footer-input').val("");
+      $('.noti-body ul').text('');
+      socket.on('all_data',function (allData)
+      {
+          $('.noti-body ul').text('');
+          $.each(allData,function (key,value)
+          {
+              if (value.sender_id == auth_user_id && value.receiver_id == receiver_id)
+              {
+                  $('.noti-body-message').append(
                       '<li class="pull-right">' +
-                      '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
-                      '<img src="/image/'+value.avatar+'" class="message-img" alt="user-image">'+
+                      '<p class="noti-message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
+                      '<img src="/image/'+value.avatar+'" class="noti-message-img" alt="user-image">'+
                       '</li>'+
                       '<div class="clearfix"></div>'
                   );
-              }else if (value.sender_id == receiver_id && value.receiver_id == auth_user_id){
-                  $('.body-message').append(
+              }
+              else if (value.sender_id == receiver_id && value.receiver_id == auth_user_id)
+              {
+                  $('.noti-body-message').append(
                       '<li class="pull-left">' +
-                      '<img src="/image/'+value.avatar+'" class="message-img" alt="user-image">'+
-                      '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
+                      '<img src="/image/'+value.avatar+'" class="noti-message-img" alt="user-image">'+
+                      '<p class="noti-message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
                       '</li>'+
                       '<div class="clearfix"></div>'
                   );
@@ -134,22 +145,27 @@ if (data_single.receiver_id != 0) {
       })
       return false;
   });
-  socket.on('all_data',function (allData) {
-      $('.chat-body ul').text('');
-      $.each(allData,function (key,value) {
-          if (value.sender_id == auth_user_id && value.receiver_id == receiver_id){
-              $('.body-message').append(
+  socket.on('all_data',function (allData)
+  {
+      $('.noti-body ul').text('');
+      $.each(allData,function (key,noti_value)
+       {
+          if (noti_value.sender_id == auth_user_id && noti_value.receiver_id == receiver_id)
+          {
+              $('.noti-body ul').append(
                   '<li class="pull-right">' +
-                  '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
-                  '<img src="/image/'+value.avatar+'" class="message-img" alt="user-image">'+
+                  '<p class="noti-message-content">'+String(noti_value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
+                  '<img src="/image/'+noti_value.avatar+'" class="noti-message-img" alt="user-image">'+
                   '</li>'+
                   '<div class="clearfix"></div>'
               );
-          }else if (value.sender_id == receiver_id && value.receiver_id == auth_user_id){
-              $('.chat-body ul').append(
+          }
+          else if (noti_value.sender_id == receiver_id && noti_value.receiver_id == auth_user_id)
+          {
+              $('.noti-body ul').append(
                   '<li class="pull-left">' +
-                  '<img src="/image/'+value.avatar+'" class="message-img" alt="user-image">'+
-                  '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
+                  '<img src="/image/'+noti_value.avatar+'" class="noti-message-img" alt="user-image">'+
+                  '<p class="noti-message-content">'+String(noti_value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
                   '</li>'+
                   '<div class="clearfix"></div>'
               );
@@ -158,7 +174,8 @@ if (data_single.receiver_id != 0) {
   });
 
   // CHAT scroll
-  $('.chat-body').animate({scrollTop: $('.chat-body').prop("scrollHeight")}, 500);
+  $('.noti-body').animate({scrollTop: $('.noti-body').prop("scrollHeight")}, 500);
+}
 
 //--------------------Notification_single chat code END:D -----------------------------------
 
@@ -167,68 +184,83 @@ if (data_single.receiver_id != 0) {
 
 
 //--------------------Chat blade code -------------------------------------------------------
-socket.emit('data',data_single);
-$('#notification_chat').submit(function () {
-  socketData(auth_user_id,receiver_id);
-    data_single.message = $('.footer-input').val();
-    socket.emit('send_message', data_single);
-    $('.footer-input').val("");
-//            $('.chat-body').text('');
-    socket.on('all_data',function (allData) {
+  if (data_single.receiver_id != 0 && check==1)
+  {
+    socket.emit('data',data_single);
+    $('#notification_chat').submit(function ()
+    {
+      socketData(auth_user_id,receiver_id);
+        data_single.message = $('.chat-footer-input').val();
+        socket.emit('send_message', data_single);
+        $('.chat-footer-input').val("");
+    //            $('.chat-body').text('');
+        socket.on('all_data',function (allData)
+        {
+            $('.chat-body ul').text('');
+            $.each(allData,function (key,value)
+            {
+                if (value.sender_id == auth_user_id && value.receiver_id == receiver_id)
+                {
+                    $('.chat-body-message').append(
+                        '<li class="pull-right">' +
+                        '<p class="chat-message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
+                        '<img src="/image/'+value.avatar+'" class="chat-message-img" alt="user-image">'+
+                        '</li>'+
+                        '<div class="clearfix"></div>'
+                    );
+                }
+                else if (value.sender_id == receiver_id && value.receiver_id == auth_user_id)
+                {
+                    $('.chat-body ul').append(
+                        '<li class="pull-left">' +
+                        '<img src="/image/'+value.avatar+'" class="chat-message-img" alt="user-image">'+
+                        '<p class="chat-message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
+                        '</li>'+
+                        '<div class="clearfix"></div>'
+                    );
+                }
+            });
+        })
+        return false;
+    });
+    socket.on('all_data',function (allData)
+    {
         $('.chat-body ul').text('');
-        $.each(allData,function (key,value) {
-            if (value.sender_id == auth_user_id && value.receiver_id == receiver_id){
-                $('.body-message').append(
-                    '<li class="pull-right">' +
-                    '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
-                    '<img src="/image/'+value.avatar+'" class="message-img" alt="user-image">'+
-                    '</li>'+
-                    '<div class="clearfix"></div>'
-                );
-            }else if (value.sender_id == receiver_id && value.receiver_id == auth_user_id){
+        if (Object.keys(allData).length === 0)
+        {
+         $(".dsp_none").css("display","none");
+        }
+        $.each(allData,function (key,values)
+        {
+            $('.chat-header-name').text(values.username);
+            if (values.sender_id == auth_user_id && values.receiver_id == receiver_id)
+            {
                 $('.chat-body ul').append(
-                    '<li class="pull-left">' +
-                    '<img src="/image/'+value.avatar+'" class="message-img" alt="user-image">'+
-                    '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
+                    '<li class="pull-right">' +
+                    '<p class="chat-message-content">'+String(values.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
+                    '<img src="/image/'+values.avatar+'" class="chat-message-img" alt="user-image">'+
                     '</li>'+
                     '<div class="clearfix"></div>'
                 );
             }
+            else if (values.sender_id == receiver_id && values.receiver_id == auth_user_id)
+            {
+                $('.chat-body ul').append(
+                    '<li class="pull-left">' +
+                    '<img src="/image/'+values.avatar+'" class="chat-message-img" alt="user-image">'+
+                    '<p class="chat-message-content">'+String(values.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
+                    '</li>'+
+                    '<div class="clearfix"></div>'
+                );
+                $('.chat-body').animate({scrollTop: $('.chat-body').prop("scrollHeight")}, 0.001);
+            }
         });
-    })
-    return false;
-});
-socket.on('all_data',function (allData) {
-    $('.chat-body ul').text('');
-    if (Object.keys(allData).length === 0) {
-     $(".dsp_none").css("display","none");
-    }
-    $.each(allData,function (key,value) {
-        $('.header-name').text(value.username);
-        if (value.sender_id == auth_user_id && value.receiver_id == receiver_id){
-            $('.chat-body ul').append(
-                '<li class="pull-right">' +
-                '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
-                '<img src="/image/'+value.avatar+'" class="message-img" alt="user-image">'+
-                '</li>'+
-                '<div class="clearfix"></div>'
-            );
-        }else if (value.sender_id == receiver_id && value.receiver_id == auth_user_id){
-            $('.chat-body ul').append(
-                '<li class="pull-left">' +
-                '<img src="/image/'+value.avatar+'" class="message-img" alt="user-image">'+
-                '<p class="message-content">'+String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
-                '</li>'+
-                '<div class="clearfix"></div>'
-            );
-            $('.chat-body').animate({scrollTop: $('.chat-body').prop("scrollHeight")}, 0.001);
-        }
     });
-});
 
-//CHAT scroll
-$('.chat-body').animate({scrollTop: $('.chat-body').prop("scrollHeight")}, 0.001);
-}
+    //CHAT scroll
+    $('.chat-body').animate({scrollTop: $('.chat-body').prop("scrollHeight")}, 0.001);
+
+  }
 
 
 //--------------------Chat blade code end ---------------------------------------------------
