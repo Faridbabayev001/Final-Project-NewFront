@@ -168,12 +168,16 @@
 </div>
 </section>
 @php
-    if (Auth::user()){
+    if (Auth::user())
+    {
         $id = Auth::user()->id;
-    }else{
+    }
+    else
+    {
         $id = 0;
     }
-    $send_id = 0;
+        $send_id = 0;
+        $check=0;
 @endphp
 
 </body>
@@ -186,14 +190,19 @@
 <script src="{{url('/js/main.js')}}"></script>
 <script src="/js/socket-data.js"></script>
   @php
-    if (isset($chat->receiver_id)) {
-    $send_id = $chat->receiver_id;
-    }elseif(isset($notication_single->user->id)) {
+    if (isset($chat->receiver_id))
+    {
+      $send_id = $chat->receiver_id;
+      $check = 1;
+    }
+    elseif(isset($notication_single->user->id))
+    {
       $send_id = $notication_single->user->id;
+      $check = 2;
     }
   @endphp
-<script type="text/javascript">
-  socketData({{$id}},{{$send_id}});
-</script>
+  <script type="text/javascript">
+    socketData({{$id}},{{$send_id}},{{$check}});
+  </script>
   @yield('scripts')
 </html>

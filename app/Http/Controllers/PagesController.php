@@ -187,17 +187,21 @@ class PagesController extends Controller
       $destek=Elan::whereRaw('`type_id` = 1 AND user_id = '. Auth::user()->id)->count();
       $noti_message = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
                 ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-                ->select('users.name','users.avatar','qarsiliqs.data','els.user_id as elan_userid','qarsiliqs.created_at','els.title','els.type_id','qarsiliqs.description','qarsiliqs.notification','qarsiliqs.user_id','qarsiliqs.id')
+                ->select('users.name','users.avatar','qarsiliqs.data','els.user_id as elan_userid',
+                'qarsiliqs.created_at','els.title','els.type_id','qarsiliqs.description',
+                'qarsiliqs.notification','qarsiliqs.user_id','qarsiliqs.id')
                 ->where('els.user_id', '=', Auth::user()->id)
                 ->orderBy('created_at', 'desc')
                 ->get();
 
       $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
                 ->join('users', 'users.id', '=', 'els.user_id')
-                ->select('users.name','els.type_id','users.email','qarsiliqs.user_id as qars_userid','users.city','qarsiliqs.id','users.avatar','users.phone','els.location')
+                ->select('users.name','els.type_id','users.email',
+                'qarsiliqs.user_id as qars_userid','users.city',
+                'qarsiliqs.id','users.avatar','users.phone','els.location')
                 ->where('qarsiliqs.user_id', '=', Auth::user()->id)
                 ->get();
-                  // dd($noti_message);
+
       return view('pages.profil',compact('Elan_all','noti_message','data_join','istek','destek'));
     }
 
@@ -205,27 +209,26 @@ class PagesController extends Controller
     //<================= METHHOD FOR NOFICATION_SINGLE ================>
     public function notication_single($id, Chat $chat, Qarsiliq $qarsiliq_table)
     {
-
-
-
-        $notication_single = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
+      $notication_single = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
             ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-            ->select('users.name', 'users.avatar', 'els.type_id', 'qarsiliqs.user_id', 'qarsiliqs.description', 'qarsiliqs.id', 'qarsiliqs.status', 'qarsiliqs.notification', 'qarsiliqs.data')
+            ->select('users.name', 'users.avatar', 'els.type_id', 'qarsiliqs.user_id',
+            'qarsiliqs.description', 'qarsiliqs.id', 'qarsiliqs.status', 'qarsiliqs.notification', 'qarsiliqs.data')
             ->where([
                 ['qarsiliqs.id', '=', $id],
                 ['els.user_id', '=', Auth::user()->id]
             ])->get();
 
-
-
-        if ($notication_single) {
-            foreach ($notication_single as $notication_single) {
+        if ($notication_single)
+        {
+            foreach ($notication_single as $notication_single)
+            {
                 $notication_single->status = 0;
-
                 $notication_single->update();
             }
-            return view('pages.notification_single', compact('notication_single', 'data_join', 'userId'));
-        } else {
+          return view('pages.notification_single', compact('notication_single', 'data_join', 'userId'));
+        }
+        else
+        {
             return view('errors.503');
         }
     }
@@ -234,17 +237,22 @@ class PagesController extends Controller
     //<================= METHHOD FOR PROFİL UPDATE ================>
 
 
- public function imageType($name)
+    public function imageType($name)
       {
         $file_type = strtolower($name->getClientOriginalExtension());
-        if($file_type =='jpg' || $file_type =='jpeg' || $file_type =='png'){
-
-          if($name->getRealPath() && !@is_array(getimagesize($name->getRealPath()))){
+        if($file_type =='jpg' || $file_type =='jpeg' || $file_type =='png')
+        {
+          if($name->getRealPath() && !@is_array(getimagesize($name->getRealPath())))
+          {
             return false;
-          }else{
+          }
+          else
+          {
             return true;
           }
-        }else{
+        }
+        else
+        {
           return false;
         }
       }
@@ -258,7 +266,8 @@ class PagesController extends Controller
          'phone' => 'required',
          'city' => 'required'
       ]);
-      if ($request->avatar == '') {
+      if ($request->avatar == '')
+      {
         // return true;
         $profil_image = Auth::user()->avatar;
         $data = [
@@ -269,24 +278,28 @@ class PagesController extends Controller
           'city' => $request['city']
         ];
         Auth::user()->update($data);
-      }else {
+      }
+      else
+      {
         // $filetype=$request->file('avatar')->getClientOriginalExtension();
-        $img_name = $request->file('avatar')->getCLientOriginalName();
+            $img_name = $request->file('avatar')->getCLientOriginalName();
         // $lowered = strtolower($filetype);
 
         //   if($lowered=='jpg' || $lowered=='jpeg' || $lowered=='png'){
 
-          $check = $this->imageType($request->file('avatar'));
+              $check = $this->imageType($request->file('avatar'));
 
             if($check==true){
 
               $avatar_del = Auth::user()->avatar;
-              if($avatar_del=="prof.png"){
-                echo "hello";
+              if($avatar_del=="prof.png")
+              {
+                  echo "hello";
               }
-              else if(file_exists('image/'.$avatar_del)){
+              else if(file_exists('image/'.$avatar_del))
+              {
                   echo "no";
-                unlink('image/'.$avatar_del);
+                  unlink('image/'.$avatar_del);
               }
 
               $filename=date('ygmis').'.'.$img_name;
@@ -301,14 +314,15 @@ class PagesController extends Controller
 
                Auth::user()->update($data);
           }
-          else{
+          else
+          {
               Session::flash('imageerror' , "Xahiş olunur şəkili düzgun yükləyəsiniz.");
-            return redirect('/Tənzimləmələr');
+              return redirect('/Tənzimləmələr');
           }
 
       }
-       Session::flash('added' , "Məlumatlarınız yeniləndi.");
-        return redirect('/Tənzimləmələr');
+             Session::flash('added' , "Məlumatlarınız yeniləndi.");
+             return redirect('/Tənzimləmələr');
     }
 
     //<================= METHHOD FOR ABOUT US  ================>
@@ -348,6 +362,7 @@ class PagesController extends Controller
       return back();
     }
 
+
     //<================= METHHOD FOR ISTEK_LIST ================>
 
     public function istek_list()
@@ -357,6 +372,7 @@ class PagesController extends Controller
       return view('pages.istek_list', compact('datas'));
     }
 
+
     //<================= METHHOD FOR DESTEK_LIST ================>
     public function destek_list()
     {
@@ -365,6 +381,7 @@ class PagesController extends Controller
       return view('pages.destek_list', compact('datas'));
     }
 
+
     //<================= METHHOD FOR DELETE ISTEK OR DESTEK MESSSAGE ================>
     public function refusal($id)
     {
@@ -372,27 +389,33 @@ class PagesController extends Controller
       $delete_chat = Chat::where('sender_id', '=', $qarsiliq_table->user_id)->where('receiver_id', '=', Auth::user()->id  )->get();
       $delete_message = Chat::where('sender_id', '=', Auth::user()->id )->where('receiver_id', '=', $qarsiliq_table->user_id  )->get();
 
-      if ($delete_message) {
+      if ($delete_message)
+      {
           foreach ($delete_message as $delete_messages) {
-
               $delete_messages->delete();
           }
       }
-      if ($delete_chat) {
+      if ($delete_chat)
+      {
           foreach ($delete_chat as $delete_chats) {
 
               $delete_chats->delete();
           }
       }
         $qars=Qarsiliq::find($id);
-        if ($qars) {
+        if ($qars)
+        {
           $qars->notification=0;
           $qars->update();
           return back();
-        }else {
+        }
+        else
+        {
           return view('errors.503');
         }
     }
+
+
 
     //<================= METHHOD FOR ACCEPT ISTEK OR DESTEK MESSSAGE ================>
     public function accept($id)
@@ -437,19 +460,19 @@ class PagesController extends Controller
     public function chat($id)
     {
         $chat = Chat::find($id);
-        if (!$chat) {
+        if (!$chat)
+        {
           return redirect('/');
         }
-        if ($chat->sender_id == Auth::user()->id){ // Eger user id chat table-den gelen sender_id-ye beraberdirse /pages/chat.blade.php-ye getsin ve mesaj gonderen Auth user olsun. :)
-            $chat->seen = 1;
-            $chat->update();
+        if ($chat->sender_id == Auth::user()->id)       // Eger user id chat table-den gelen sender_id-ye beraberdirse
+                                                        // /pages/chat.blade.php-ye getsin ve mesaj gonderen Auth user olsun.
+        {
             return view('pages.chat',compact('chat'));
-
-        }elseif ($chat->receiver_id == Auth::user()->id){ //Eger user id chat table-den gelen receiver_id-ye beraberdirse
-            $chat->seen = 1;
-            $chat->update();
-            $gonderilen = $chat->receiver_id; // chat table-dan gelen receiver_id $gonderilen deyiseninde saxlanilir ki asaqida menimsedilende itmesin. :D
-            $chat->receiver_id = $chat->sender_id; // burada user deyisikliyi edirik cunki chat.blade.php-de auth user GONDERILEN yox mesaj gonderen olmalidir. :D
+        }
+        elseif ($chat->receiver_id == Auth::user()->id)   //Eger user id chat table-den gelen receiver_id-ye beraberdirse
+        {
+            $gonderilen = $chat->receiver_id;             // chat table-dan gelen receiver_id $gonderilen deyiseninde saxlanilir ki asaqida menimsedilende itmesin.
+            $chat->receiver_id = $chat->sender_id;        // burada user deyisikliyi edirik cunki chat.blade.php-de auth user GONDERILEN yox mesaj gonderen olmalidir.
             $chat->sender_id = $gonderilen;
             return view('pages.chat',compact('chat'));
         }

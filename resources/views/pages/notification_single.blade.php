@@ -72,23 +72,23 @@
             @endif
           </div>
         </div>
-        <div id="chat">
-          <div class="chat-header">
-            <h5 class="header-name"> {{$notication_single->username}}</h5>
+        <div id="noti">
+          <div class="noti-header">
+            <h5 class="noti-header-name"> {{ $notication_single->name }}</h5>
           </div>
-          <div class="chat-body">
-            <ul class="list-group body-message list-unstyled">
+          <div class="noti-body">
+            <ul class="list-group noti-body-message list-unstyled">
             </ul>
           </div>
 
-          <div class="chat-footer">
-            <form id="notification_chat" action="" method="post">
+          <div class="noti-footer">
+            <form id="notification_noti"  action="" method="post">
               <div class="col-lg-10 padding0">
-                <input type="text" class="form-control footer-input" name="" placeholder="Mesajınız">
+                <input type="text" class="form-control noti-footer-input" name="" placeholder="Mesajınız">
               </div>
 
               <div class="col-lg-2 padding0">
-                <button type="submit" name="button" class="btn footer-btn"><i class="fa fa-paper-plane-o"></i></button>
+                <button type="submit" name="button" class="btn noti-footer-btn"><i class="fa fa-paper-plane-o"></i></button>
               </div>
             </form>
           </div>
