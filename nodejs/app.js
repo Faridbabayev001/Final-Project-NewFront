@@ -20,7 +20,7 @@ connection.connect(function (err) {
 
 server.listen(PORT, function() {
     console.log("Server port: 3000");
-    
+
 });
 
 // Connection
