@@ -57,7 +57,7 @@ io.on('connection', function(socket){
             "`chats` " +
             "INNER JOIN " +
             "`users` " +
-            "ON chats.receiver_id = users.id " +
+            "ON chats.sender_id = users.id " +
             "WHERE sender_id ="+result.sender_id+" AND receiver_id="+result.receiver_id +
             " OR sender_id="+result.receiver_id+" AND receiver_id="+result.sender_id ,
             function (err,data) {
