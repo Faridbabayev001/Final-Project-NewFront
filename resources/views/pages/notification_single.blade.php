@@ -110,9 +110,10 @@
     @endphp
   </section>
   @section('scripts')
-    <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
-    <script type="text/javascript">
-    </script>
+
+    <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>        
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
+    <script type="text/javascript"></script>
+
   @endsection
 @endsection

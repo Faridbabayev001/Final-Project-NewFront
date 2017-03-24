@@ -333,12 +333,13 @@ $(".destek-ol-message").hide();
  //-----------------------------For destek button  End-------------------------------------------
 
 
-//------------------------------For searchBoxDrag -----------------------------------------
-$('#searchBoxDrag').draggable({
-          containment: '#InfoMap'
-      });
+// //------------------------------For searchBoxDrag -----------------------------------------
+// $('#searchBoxDrag').draggable({
+//           containment: '#InfoMap'
+//       });
+
+// //------------------------------For searchBoxDrag End -------------------------------------
 });
-//------------------------------For searchBoxDrag End -------------------------------------
 
 
 //------------------------------For Login Ajax --------------------------------------------
@@ -523,3 +524,13 @@ var MyLocation = document.getElementById('MyLocation')
 }
 
 //-----------------------------For Map End -------------------------------------------
+// console.log = function() {};
+
+var DEBUG = false;
+if(!DEBUG){
+    if(!window.console) window.console = {};
+    var methods = ["log", "debug", "warn", "info", "dir", "dirxml", "trace", "profile"];
+    for(var i=0;i<methods.length;i++){
+        console[methods[i]] = function(){};
+    }
+}
