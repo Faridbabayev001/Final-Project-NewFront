@@ -186,5 +186,15 @@
 @section('scripts')
   <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
   <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAanmTrOlQYWRepobnwqSO1E2SOoHYMRBA&callback=Mydata&language=az" async defer></script>
+<script type="text/javascript">
+  //------------------------------For searchBoxDrag -----------------------------------------
+$('#searchBoxDrag').draggable({
+          containment: '#InfoMap'
+ });
 
+//just for index page. gives error on everypage because of ui.
+//------------------------------For searchBoxDrag End -------------------------------------
+
+</script>
 @endsection
+

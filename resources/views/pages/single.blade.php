@@ -149,10 +149,10 @@
             </p>
           </div>
           <div class="alert alert-danger destek-ol-message">
-            @if ($single->type_id == 2)
-              <h5 class="text-center">Dəstək olmaq üçün <a href="/Qeydiyyat" class="register-color">qeydiyyatdan</a> keçməyiniz tələb olunur.<a href="#" data-toggle="modal" data-target="#contact-login-modal"> Daxil ol</a></h5>
-              @else
-              <h5 class="text-center">Dəstəkdən yararlanmaq üçün <a href="/Qeydiyyat" class="register-color">qeydiyyatdan</a> keçməyiniz tələb olunur .Zəhmət ol<a href="#" data-toggle="modal" data-target="#contact-login-modal"> Daxil ol</a></h5>
+            @if ($single->type_id == 2 || $single->type_id == 1)
+              <h5 class="text-center">Dəstək olmaq üçün <a href="/Qeydiyyat" class="register-color">qeydiyyatdan</a> keçməyiniz və ya <a href="#" data-toggle="modal" data-target="#contact-login-modal"> daxil olmağınız </a> tələb olunur.</h5>
+              {{-- @else
+              <h5 class="text-center">Dəstəkdən yararlanmaq üçün <a href="/Qeydiyyat" class="register-color">qeydiyyatdan</a> keçməyiniz tələb olunur .Zəhmət ol<a href="#" data-toggle="modal" data-target="#contact-login-modal"> Daxil ol</a></h5> --}}
             @endif
           </div>
         @endif
