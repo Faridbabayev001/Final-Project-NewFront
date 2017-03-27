@@ -16,7 +16,7 @@
                       <div class="panel panel-primary text-center no-boder bg-color-red">
                           <div class="panel-body">
                               <i class="fa fa-yelp fa-5x"></i>
-                              <h3>{{count($destek_count)}}</h3>
+                              <h3>{{$destek_count}}</h3>
                           </div>
                           <div class="panel-footer back-footer-red">
                               Dəstək sayı
@@ -27,7 +27,7 @@
                       <div class="panel panel-primary text-center no-boder bg-color-brown">
                           <div class="panel-body">
                               <i class="fa fa-users fa-5x"></i>
-                              <h3>{{count($users)}}</h3>
+                              <h3>{{$user_count}}</h3>
                           </div>
                           <div class="panel-footer back-footer-brown">
                               Istifadeciler
@@ -38,7 +38,7 @@
                       <div class="panel panel-primary text-center no-boder bg-color-red">
                           <div class="panel-body">
                               <i class="fa fa-map-marker fa-5x"></i>
-                              <h3>{{count($istek_count)}}</h3>
+                              <h3>{{$istek_count}}</h3>
                           </div>
                           <div class="panel-footer back-footer-red">
                               İstək sayı

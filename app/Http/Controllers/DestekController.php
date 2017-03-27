@@ -101,6 +101,26 @@ class DestekController extends Controller
             $data->imageName = $file_name;
             $insert_pic_id->save($data);
           }
+
+
+          //mail to admin for every created post/////////////////
+           $dataforMail = [
+             'type_id'=>'1',
+             'title'=>$req->title,
+             'about'=>$req->about,
+             'location'=>$req->location,'name'=>$req->name,
+             'name'=>$req->name,
+             'email'=>$req->email
+           ];
+
+           Mail::send('pages.admin_mail', $dataforMail, function($mess) use ($dataforMail){
+            $mess->to('farid.b@code.edu.az')->subject('new post has been added');
+           });
+
+
+            //mail to admin end /////////////////////////////////
+
+
       Session::flash('destek_add' , "Dəstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
        return redirect('/destek-add');
   }

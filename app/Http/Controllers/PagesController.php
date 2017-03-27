@@ -356,7 +356,7 @@ class PagesController extends Controller
         'contactMessage' => $request->message,
       ];
       Mail::send('pages.contact_us_mail',$data, function($message) use ($data){
-        $message->to('farid.b@code.edu.az')->subject('nese');
+        $message->to('farid.b@code.edu.az')->subject('elaqe mesaji');
       });
       Session::flash('send', 'İsmarıcınız müvəffəqiyyətlə göndərildi.');
       return back();

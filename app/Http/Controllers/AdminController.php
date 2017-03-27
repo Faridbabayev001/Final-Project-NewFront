@@ -11,6 +11,7 @@ use App\User;
 use App\Elan;
 use App\Admin;
 use Auth;
+use Carbon\Carbon;
 
 
 class AdminController extends Controller
@@ -41,6 +42,29 @@ class AdminController extends Controller
       foreach ($admins as $admin) {
         if ($admin->email == $email && $admin->password == $password) {
           $_SESSION['admin'] = 'admin';
+
+
+        //cheking non activated users and deleting after 30days///////////////////////////////////////
+          
+          $users = User::all()->where('activated', '=', '0');
+
+          $now = Carbon::now();
+
+            foreach ($users as $dat) {
+          
+              $createdUser = new Carbon($dat['created_at']);              
+              $diffbtwUserNow = $createdUser->diff($now)->days;
+
+                if ($diffbtwUserNow >= 30) {
+             
+                  User::find($dat['id'])->delete();
+             
+                }                
+            }
+          
+        //end////////////////////////////////////////////////////////
+
+
           return redirect('/alfagen');
         }else {
           return redirect('/alfagen/login')
@@ -66,10 +90,13 @@ class AdminController extends Controller
   //========================For Admin Login End=======================
     public function index()
     {
-      $users = User::orderBy('created_at','desc')->paginate(8);
-      $istek_count = Elan::where('type_id', 2);
-      $destek_count = Elan::where('type_id', 1);
-      return view('admin.index',compact('users','istek_count','destek_count'));
+      $user = User::orderBy('created_at','desc');
+      $users = $user->paginate(8);
+      $user_count = $user->get()->count();
+      $istek_count = Elan::where('type_id', 2)->get()->count();
+      $destek_count = Elan::where('type_id', 1)->get()->count();
+
+      return view('admin.index',compact('users','istek_count','destek_count', 'user_count'));
     }
 
     public function istek_list()
