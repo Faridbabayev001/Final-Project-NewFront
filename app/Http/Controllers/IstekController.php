@@ -9,6 +9,8 @@ use Session;
 use Auth;
 use App\Elan;
 use App\Photo;
+use Mail;
+
 class IstekController extends Controller
 {
   //<================= METHHOD FOR SHOW PAGE ================>
@@ -69,7 +71,7 @@ class IstekController extends Controller
         if ($check==true) {
           continue;
         }else{
-          Session::flash('imageerror' , "Xahiş düzgün şəkil seçin.");
+          Session::flash('imageerror' , "Xahiş olunur düzgün formatda şəkil seçəsiniz.");
              return redirect('/istek-add');
         }
       }
@@ -97,6 +99,24 @@ class IstekController extends Controller
             $data->imageName = $file_name;
             $insert_pic_id->save($data);
            }
+
+          //mail to admin for every created post/////////////////
+           $dataforMail = [
+             'type_id'=>'2',
+             'title'=>$req->title,
+             'about'=>$req->about,
+             'location'=>$req->location,'name'=>$req->name,
+             'name'=>$req->name,
+             'email'=>$req->email
+           ];
+
+           Mail::send('pages.admin_mail', $dataforMail, function($mess) use ($dataforMail){
+            $mess->to('farid.b@code.edu.az')->subject('new post has been added');
+           });
+
+
+            //mail to admin end /////////////////////////////////
+
          Session::flash('istekadded' , "İstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
            return redirect('/istek-add');
 
