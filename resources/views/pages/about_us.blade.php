@@ -39,7 +39,7 @@
         </p>
       </div>
 
-      <div class="col-lg-12 about-us-team">
+      {{-- <div class="col-lg-12 about-us-team">
         <h1 class="text-center">Komandamız</h1>
         <hr>
 
@@ -94,7 +94,7 @@
             </div>
           </div>
         </div>
-      </div>
+      </div> --}}
     </div>
   </div>
 </section>
