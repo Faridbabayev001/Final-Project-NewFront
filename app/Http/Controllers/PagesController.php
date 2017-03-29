@@ -206,7 +206,8 @@ class PagesController extends Controller
     }
 
 
-    //<================= METHHOD FOR NOFICATION_SINGLE ================>
+//9. adam girir notilerden birine basir gelir bura. burda elan seclir ve yollanilir notification singla
+    //<================= METHHOD FOR NOFICccTION_SINGLE ================>
     public function notication_single($id, Chat $chat, Qarsiliq $qarsiliq_table)
     {
       $notication_single = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
@@ -460,6 +461,7 @@ class PagesController extends Controller
     public function chat($id)
     {
         $chat = Chat::find($id);
+
         if (!$chat)
         {
           return redirect('/');

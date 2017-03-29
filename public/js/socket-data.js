@@ -1,24 +1,30 @@
+  
   var socketData = function(auth_user_id, receiver_id, check) {
+ 
+
   var socket = io(':3000');
   var count = 0;
+  //3. ancaq noti olacaqsa ancaq user id-si bes edir deye ancaq user id dashiyan bir obyekt
   var data = {
       id: auth_user_id
   }
+  // 13. bu defe artiq sms var deye bu obj de dolur. ve dushruk ashagi noti single chat code-a.
   var data_single = {
       sender_id :auth_user_id,
       receiver_id: receiver_id,
-      message :  "",
+      message : "",
       seen: 0,
       created_at: moment().format("YYYY-MM-DD HH:mm:ss"),
       updated_at: moment().format("YYYY-MM-DD HH:mm:ss")
   };
 
   //-----------------Message and Notification socket -----------------------------------
+  // 4. sadece noti olacagi halda bu funk niye ishe dushur?
   socket.emit('message_notifications', data);
   socket.on('notifications', function(message_notification_data){
       if(auth_user_id != 0){
             $('.socket-messages-data').empty();
-            count=0 ;
+            count=0;
             $.each(message_notification_data,function (key,value){
               if (value.receiver_id == data.id) {
                 if (value.seen == 0) {
@@ -55,10 +61,12 @@
     })
 
   //notifications
+  //6. geldiy live notiye.  
   socket.emit('live_notification',data);
   $('#notification_chat').submit(function () {
       socket.emit('live_notification',data);
   })
+  // 8. geldi uygun notilermiz. boshaldiriq saheni, 79cu setir qaranliq qaldi. umumuiyyetle ondan ashagi bir az qarishiq oldu 
   socket.on('live_noti',function(live_notification_data){
     $('.notification').html('');
 
@@ -104,7 +112,7 @@
 //--------------------Message and Notification socket End -----------------------------------
 
 
-
+// 14. adam ilk sms yazib notisingle-dadi. datani yolluyur servere. 
 //--------------------Notification_single chat code :D -----------------------------------
 if (data_single.receiver_id != 0 && check==2)
 {
@@ -116,6 +124,8 @@ if (data_single.receiver_id != 0 && check==2)
       socket.emit('send_message', data_single);
       $('.noti-footer-input').val("");
       $('.noti-body ul').text('');
+      // 16. smsler geldi. noti_singldaki mesage bodye smsleri doldurur. burda smsleri sender recivere bolur.
+      // 17. adam mesajlar bolumunden yazmishsa. qarshidaki adam onsuzda ordan yazir. gedek chat blade-e  
       socket.on('all_data',function (allData)
       {
           $('.noti-body ul').text('');
@@ -182,11 +192,14 @@ if (data_single.receiver_id != 0 && check==2)
 
 
 
-
+// 19. chatin funku. qarshidaki adamiq yazdiq doldurduq geldik. reciever id-ni aldiq. chek elediy chatdan gelir. 
+//data yolladiq severe
 //--------------------Chat blade code -------------------------------------------------------
   if (data_single.receiver_id != 0 && check==1)
   {
     socket.emit('data',data_single);
+    // 21. geri geldik amma qaranliq qaldi. melumati getirmishik amma yene emir edirik??. burda yekunlashdiram
+     // gedirem yatmaga artiq errordayim lan feriiiiiiiiiiiiiiiiid
     $('#notification_chat').submit(function ()
     {
       socketData(auth_user_id,receiver_id);

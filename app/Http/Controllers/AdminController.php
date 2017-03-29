@@ -113,6 +113,7 @@ class AdminController extends Controller
 
     public function activate($id)
     {
+
       $status=Elan::find($id);
       $status->status='1';
       $status->save();

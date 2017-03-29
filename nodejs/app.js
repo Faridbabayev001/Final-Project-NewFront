@@ -49,6 +49,10 @@ io.on('connection', function(socket){
                 io.emit('all_data',data);
             });
     });
+    // 15. datani qebul eledik. burda query gedishatini bir az aydinlashdirariq. uygun gelmish sms-i yolluyur 
+    // qarshidaki ve mene olan adama. bu da mesajlari geri userlere getrir.
+
+    // 20. artiq chatdan gelen sms ucun de eyni funku ishledirik. smsleri yigib yolladiq geri.
     socket.on('data', function(result) {
         connection.query(
             "SELECT " +
@@ -67,6 +71,7 @@ io.on('connection', function(socket){
     });
 
     socket.on('message_notifications', function(result) {
+
         if(result.id !=0) {
             connection.query(
                 "SELECT " +
@@ -84,7 +89,8 @@ io.on('connection', function(socket){
                     if (err) throw err;
                     io.emit('notifications',message_notification_data);
                 });
-        }else{
+        }
+        else {
             io.emit('notifications', result);
         }
     });
@@ -120,6 +126,7 @@ io.on('connection',function (socket) {
 });
 
   //  notificaton
+  //7. live noti serverde ishe dushur uygunu secir orda niye ic ice iki for var? datani gonderir geri usere
   io.on('connection',function(socket){
     socket.on('live_notification',function(result) {
         var noti_data = [];

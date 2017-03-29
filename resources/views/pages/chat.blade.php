@@ -32,6 +32,7 @@
         </div>
     </div>
     @php
+    //18. neye lazimdi bu bilmirem. burda qarshidaki adamiq. id-ni goturduk tutaq ki. getdik socketdeki chatin funkuna
         if (Auth::user()){
             $id = Auth::user()->id;
         }else{

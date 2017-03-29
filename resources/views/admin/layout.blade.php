@@ -15,6 +15,9 @@
 </head>
 
 <body>
+
+
+
   <div class="container-fluid">
 
     <!-- BLADE SEHIFESINDE QOYULMALI -->
@@ -75,6 +78,8 @@
         <div id="page-wrapper">
             @yield('content')
         </div>
+        @endsection
+        
 
     </div>
 </div>
@@ -84,3 +89,4 @@
     @yield('script')
 </body>
 </html>
+

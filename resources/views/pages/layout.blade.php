@@ -168,6 +168,7 @@
 </div>
 </section>
 @php
+// 1.eger mesaj yoxdusa sadece noti varsa sockat data-da ancaq user id-si gedir.  
     if (Auth::user())
     {
         $id = Auth::user()->id;
@@ -195,6 +196,7 @@
       $send_id = $chat->receiver_id;
       $check = 1;
     }
+    //12. bu bayaq 9dan gelir page cont-da 211-ci setrden. yene gedirik sockete
     elseif(isset($notication_single->user->id))
     {
       $send_id = $notication_single->user->id;
@@ -202,6 +204,7 @@
     }
   @endphp
   <script type="text/javascript">
+  //2.bu da gedir socketdataya orda funku ishe salir
     socketData({{$id}},{{$send_id}},{{$check}});
   </script>
   @yield('scripts')

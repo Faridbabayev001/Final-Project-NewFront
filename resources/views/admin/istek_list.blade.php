@@ -4,6 +4,9 @@
 
 @section('content')
   <div class="row">
+        {{-- @if (Session::has('elsid')) --}}
+            {{-- <div class="alert alert-success" role="alert">{{Session::get('elsid')}}</div> --}}
+        {{-- @endif --}}
 
       <div class="col-md-12 col-sm-12 col-xs-12">
 
@@ -35,9 +38,10 @@
 
                             @foreach($row as $istek)
                               @if($istek->type_id=='2')
+
                               <tr>
                                   @if($istek->status=='0')
-                                    <td><a class="btn btn-success" href="{{url('/activate/'.$istek->id)}}">Aktivləşdir</a></td>
+                                    <td><a onclick="btnActive({{$istek->id}})" class="btn btn-success" href="{{url('/activate/'.$istek->id)}}">Aktivləşdir</a></td>
 
                                   @else
                                     <td><a class="btn btn-warning" href="{{url('/deactivate/'.$istek->id)}}">Deaktivləşdir</a></td>
@@ -67,16 +71,15 @@
                                     </div>
                                      {{-- SLIDER PART --}}
                                      {{-- mecbur qalib style burda yazdm --}}
-            <style type="text/css">
-              .littleImg{
-                 width: 18%;
-                 height: 100px;
-                  overflow: hidden;
-                  float: left;
-                 margin: 3% 0 0 2%;
-
-              }
-            </style>
+                                      <style type="text/css">
+                                        .littleImg{
+                                           width: 18%;
+                                           height: 100px;
+                                            overflow: hidden;
+                                            float: left;
+                                           margin: 3% 0 0 2%;
+                                        }
+                                      </style>
                                     @foreach($istek->shekiller as $imgName)
                                     <div class="littleImg">
                                         <img src="{{url('/image/'.$imgName->imageName)}}" class="img-responsive" alt="" />
@@ -94,6 +97,7 @@
                             @endforeach
                           </tbody>
                       </table>
+
                       {{$istekler->links()}}
                   </div>
               </div>
@@ -109,5 +113,8 @@
   <script src="{{url('/js/socket-data.js')}}"></script>
 <script>
 socketData(0,0);
+
+function btnActive(id) {  
+ console.log(id)
+}
 </script>
-@endsection
