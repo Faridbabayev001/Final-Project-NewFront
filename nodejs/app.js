@@ -8,24 +8,28 @@ var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'newversion',
+    database: 'final_project',
     multipleStatements: true
 });
-connection.connect(function (err) {
-    if (err){
+connection.connect(function (err)
+{
+    if (err)
+    {
         console.error("error connecting " + err.stack);
     }
 });
 
 
-server.listen(PORT, function() {
+server.listen(PORT, function()
+{
     console.log("Server port: 3000");
-
 });
 
 // Connection
-io.on('connection', function(socket){
-    socket.on('send_message', function(data){
+io.on('connection', function(socket)
+{
+    socket.on('send_message', function(data)
+    {
         if (data.message != '') {
             connection.query('INSERT INTO chats SET?',[data],function (err) {
                 if (err) throw err;
@@ -70,9 +74,10 @@ io.on('connection', function(socket){
             });
     });
 
-    socket.on('message_notifications', function(result) {
-
-        if(result.id !=0) {
+    socket.on('message_notifications', function(result)
+    {
+        if(result.id !=0)
+        {
             connection.query(
                 "SELECT " +
                 "chats.sender_id, chats.receiver_id,chats.id, chats.message, users.name,users.avatar, chats.seen " +
@@ -82,27 +87,33 @@ io.on('connection', function(socket){
                 "users " +
                 "ON " +
                 "chats.sender_id = users.id " +
-                " WHERE sender_id="+result.id+" OR receiver_id="+result.id+
+                " WHERE receiver_id="+result.id+
+                " GROUP BY GREATEST(sender_id, receiver_id), LEAST(sender_id, receiver_id)" +
                 " ORDER BY " +
                 "chats.id DESC",
-                function (err, message_notification_data) {
+                function (err, message_notification_data)
+                {
                     if (err) throw err;
                     io.emit('notifications',message_notification_data);
                 });
         }
-        else {
+
+        else
+        {
             io.emit('notifications', result);
         }
     });
     // functiom for Count Zero
-    socket.on('CountZero',function (count) {
+    socket.on('CountZero',function (count)
+    {
         connection.query(
             "UPDATE " +
             "chats " +
             "SET " +
             "seen=1 " +
             "WHERE seen=0 AND receiver_id="+count.id,
-            function (err,data) {
+            function (err,data)
+            {
                 if (err) throw  err;
             }
         );
@@ -110,15 +121,18 @@ io.on('connection', function(socket){
 });
 
                   // DRING :)
-io.on('connection',function (socket) {
-        socket.on('live_update',function(result){
+io.on('connection',function (socket)
+{
+        socket.on('live_update',function(result)
+        {
             connection.query(
                 "SELECT "+
                 "type_id,title,status,id "+
                 "FROM "+
                 "els "+
                 "WHERE status=1 ",
-                function(error,live_update_rows){
+                function(error,live_update_rows)
+                {
                     if (error) throw error;
                     io.emit('live_update_data',live_update_rows);
                 });
@@ -126,9 +140,11 @@ io.on('connection',function (socket) {
 });
 
   //  notificaton
-  //7. live noti serverde ishe dushur uygunu secir orda niye ic ice iki for var? datani gonderir geri usere
-  io.on('connection',function(socket){
-    socket.on('live_notification',function(result) {
+
+  io.on('connection',function(socket)
+  {
+    socket.on('live_notification',function(result)
+    {
         var noti_data = [];
             connection.query(
                 "SELECT " +
@@ -140,7 +156,7 @@ io.on('connection',function (socket) {
                     "INNER JOIN users ON " +
                     "users.id=qarsiliqs.user_id " +
                     // "WHERE els.user_id =" + connection.escape(result.id) +
-                    " WHERE qarsiliqs.notification = 1 ;" +
+                    " WHERE qarsiliqs.notification = 1 ORDER BY qarsiliqs_id DESC;" +
                 "SELECT " +
                     "els.type_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name as els_user_name,qarsiliqs.notification,qarsiliqs.id as qarsiliqs_id,qarsiliqs.data_status,qarsiliqs.data " +
                     "FROM " +
@@ -149,13 +165,17 @@ io.on('connection',function (socket) {
                     "els.id = qarsiliqs.elan_id " +
                     "INNER JOIN users ON " +
                     "users.id = els.user_id " +
-                    "WHERE qarsiliqs.data = 1 " ,
+                    "WHERE qarsiliqs.data = 1 ORDER BY qarsiliqs_id DESC" ,
                     // "AND qarsiliqs.user_id = " + connection.escape(result.id),
-                    function (error, results) {
+                    function (error, results)
+                    {
                         if (error) throw error;
-                        for ( var i=0; i<results.length; i++ ) {
-                            for(var j=0; j<results.length; j++) {
-                                if(results[i][j]){
+                        for ( var i=0; i<results.length; i++ )
+                        {
+                            for(var j=0; j<results.length; j++)
+                            {
+                                if(results[i][j])
+                                {
                                     noti_data.push( results[i][j]);
                                 }
                             }

@@ -19,22 +19,27 @@
   };
 
   //-----------------Message and Notification socket -----------------------------------
-  // 4. sadece noti olacagi halda bu funk niye ishe dushur?
+
   socket.emit('message_notifications', data);
   socket.on('notifications', function(message_notification_data){
+    // console.log(message_notification_data);
       if(auth_user_id != 0){
             $('.socket-messages-data').empty();
-            count=0;
-            $.each(message_notification_data,function (key,value){
-              if (value.receiver_id == data.id) {
-                if (value.seen == 0) {
+
+            count=0 ;
+            $.each(message_notification_data,function (key,value)
+            {
+              if (value.receiver_id == data.id)
+              {
+                if (value.seen == 0)
+                 {
                     count++;
                 }
                 $('.socket-messages-data').append(
                     '<li>' +
                     '<a href="/Mesajlar/'+value.id+'">' +
                     '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />' +
-                    '<p>'+ '<span style="color:#0090D9;">' + value.name + '</span>' + ': '+ value.message +'</p></a></li>'
+                    '<p>'+ '<span style="color:#0090D9;">' + value.name + ':</span> '+"<br>"+ value.message +'</p></a></li>'
                   );
             };
           })
