@@ -286,11 +286,18 @@ socket.on('live_update_data',function(results){
     live_update.push(results);
   }
     $('.map-socket-section').empty();
+    var socketDataCount = 0;
     $.each(results,function(key,value){
+        if (socketDataCount == 4) {
+          return;
+        }
+
         if (value.type_id == 2){
           $('.map-socket-section').prepend("<a href=/single/"+ value.id + ">" + "<div class='map-socket-data'>" +  "<span style='color:#0AA699'>" + value.title + "</span>" + " adlı yeni istək əlavə olundu !" + "</div>"+ "</a>");
+          socketDataCount++;
         }else if(value.type_id == 1){
-            $('.map-socket-section').prepend("<a href=/single/"+ value.id + ">" + "<div class='map-socket-data'>" + "<span style='color:#F35958'>" + value.title + "</span>" + " adlı yeni dəstək əlavə olundu !" + "</div>"+ "</a>");
+          $('.map-socket-section').prepend("<a href=/single/"+ value.id + ">" + "<div class='map-socket-data'>" + "<span style='color:#F35958'>" + value.title + "</span>" + " adlı yeni dəstək əlavə olundu !" + "</div>"+ "</a>");
+          socketDataCount++;
         }
     });
 });
