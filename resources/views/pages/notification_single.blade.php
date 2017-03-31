@@ -59,7 +59,7 @@
                       <div class="modal-footer">
                         <a href="{{url('/accept/'.$notication_single->id)}}" class="btn not-accept">Bəli</a>
                         <a data-dismiss="modal" class="btn not-deny margin0">Xeyr</a>
-
+{{-- 10. geldik bura ya accept ya refuse ya da yazisha biler. yazishma yolun secim. ashagda user varsa onun id-sin gotrur. ashagda noti-body var message body olsa yaxsi olardi neyse. gedek layoyta baxaq smse gore. bunu niye yazmishiq eger bu layout-da yazlibsa buna sebeb ne? --}}
                       </div>
                     </div>
 
@@ -102,11 +102,11 @@
       <h1 class="text-center">Sorğunuz düzgün deyil !</h1>
     @endif
     @php
-        if (Auth::user()){
-            $id = Auth::user()->id;
-        }else{
-            $id = 0;
-        }
+        // if (Auth::user()){
+        //     $id = Auth::user()->id;
+        // }else{
+        //     $id = 0;
+        // }
     @endphp
   </section>
   @section('scripts')

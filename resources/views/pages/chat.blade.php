@@ -10,12 +10,35 @@
         </div>
     </div>
     {{--Chat--}}
+    @php
+      if (isset($one_message->receiver_id)) {
+        $qarshidaki = $one_message->receiver_id;
+      }else if(isset($id))
+      {
+        $qarshidaki = $id;
+      }
+    @endphp
     <div id="chat" class="dsp_none">
         <div class="chat-header">
             <h5 class="chat-header-name">Loading...</h5>
         </div>
         <div class="chat-body">
             <ul class="list-group chat-body-message list-unstyled">
+              @foreach ($chats as $chat)
+                @if ($chat->sender_id == Auth::user()->id && $chat->receiver_id == $qarshidaki)
+                  <li class="pull-right">
+                    <p class="chat-message-content">{{$chat->message}}</p>
+                    <img src="/image/{{$chat->avatar}}" class="chat-message-img" alt="user-image">
+                  </li>
+                  <div class="clearfix"></div>
+                @elseif ($chat->sender_id == $qarshidaki && $chat->receiver_id == Auth::user()->id)
+                  <li class="pull-left">
+                    <img src="/image/{{$chat->avatar}}" class="chat-message-img" alt="user-image">
+                    <p class="chat-message-content">{{$chat->message}}</p>
+                  </li>
+                  <div class="clearfix"></div>
+                @endif
+              @endforeach
             </ul>
         </div>
 
@@ -26,7 +49,7 @@
                 </div>
 
                 <div class="col-lg-2 padding0">
-                    <button type="submit" name="button" class="btn chat-footer-btn"><i class="fa fa-paper-plane-o"></i></button>
+                    <button type="button" name="button" class="btn chat-footer-btn"><i class="fa fa-paper-plane-o"></i></button>
                 </div>
             </form>
         </div>
@@ -41,8 +64,8 @@
 
 @endsection
 @section('script')
-  <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
+  {{-- <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script> --}}
+  {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script> --}}
   <script type="text/javascript">
 
   </script>

@@ -79,11 +79,11 @@
               <div class="modal-body">
 
                 <div class="contact-auth-facebook">
-                  <a href="{{route('facebook.login')}}"><i class="fa fa-facebook"></i> FACEBOOK'LA QEYDİYYATDAN KEÇ</a>
+                  <a href="{{route('facebook.login')}}"><i class="fa fa-facebook"></i> FACEBOOK'LA DAXİL OL</a>
                 </div>
 
                 <div class="contact-auth-google">
-                  <a href="{{route('google.login')}}"><i class="fa fa-google-plus"></i> GOOGLE+'LƏ QEYDİYYATDAN KEÇ</a>
+                  <a href="{{route('google.login')}}"><i class="fa fa-google-plus"></i> GOOGLE+'LA DAXİL OL</a>
                 </div>
 
                 <div class="col-lg-12">
@@ -190,14 +190,14 @@
 <script src="{{url('/js/main.js')}}"></script>
 <script src="/js/socket-data.js"></script>
   @php
-    if (isset($chat->receiver_id))
+    if (isset($one_message->receiver_id))
     {
-      $send_id = $chat->receiver_id;
+      $send_id = $one_message->receiver_id;
       $check = 1;
     }
-    elseif(isset($notication_single->user->id))
+    elseif(isset($id))
     {
-      $send_id = $notication_single->user->id;
+      $send_id = $id;
       $check = 2;
     }
   @endphp
