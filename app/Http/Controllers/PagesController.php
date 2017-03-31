@@ -206,8 +206,7 @@ class PagesController extends Controller
     }
 
 
-//9. adam girir notilerden birine basir gelir bura. burda elan seclir ve yollanilir notification singla
-    //<================= METHHOD FOR NOFICccTION_SINGLE ================>
+    //<================= METHHOD FOR NOFICATION_SINGLE ================>
     public function notication_single($id, Chat $chat, Qarsiliq $qarsiliq_table)
     {
       $notication_single = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
@@ -357,7 +356,7 @@ class PagesController extends Controller
         'contactMessage' => $request->message,
       ];
       Mail::send('pages.contact_us_mail',$data, function($message) use ($data){
-        $message->to('farid.b@code.edu.az')->subject('elaqe mesaji');
+        $message->to('farid.b@code.edu.az')->subject('nese');
       });
       Session::flash('send', 'İsmarıcınız müvəffəqiyyətlə göndərildi.');
       return back();
@@ -451,32 +450,50 @@ class PagesController extends Controller
           $data_join->data_status=0;
           $data_join->update();
         }
-        return view('pages.message',compact('data_join'));
+        return view('pages.message', compact('data_join'));
       }else {
         return view('errors.503');
       }
-
     }
 
     public function chat($id)
     {
-        $chat = Chat::find($id);
+        $one_message = Chat::find($id);
+        if (!$one_message)
+        {
+            return redirect('/');
+        }
+        if ($one_message->receiver_id == Auth::user()->id)   //Eger user id chat table-den gelen receiver_id-ye beraberdirse
+        { 
+            $gonderilen = $one_message->receiver_id;             // chat table-dan gelen receiver_id $gonderilen deyiseninde saxlanilir ki asaqida menimsedilende itmesin.
+            $one_message->receiver_id = $one_message->sender_id;        // burada user deyisikliyi edirik cunki chat.blade.php-de auth user GONDERILEN yox mesaj gonderen olmalidir.
+            $one_message->sender_id = $gonderilen;
+        }
+        $chats = Chat::join('users','users.id','=','chats.sender_id')
+                    ->select('chats.message','chats.sender_id','chats.receiver_id','users.name','users.avatar','users.username')
+                    ->where([
+                                ['sender_id', '=', Auth::user()->id],
+                                ['receiver_id', '=',$one_message->receiver_id],
+                            ])
+                    ->orWhere([
+                                ['receiver_id', '=', Auth::user()->id],
+                                ['sender_id', '=',$one_message->receiver_id],
+                            ])->get();
+        return view('pages.chat',compact('chats','one_message'));
+    }
 
-        if (!$chat)
-        {
-          return redirect('/');
-        }
-        if ($chat->sender_id == Auth::user()->id)       // Eger user id chat table-den gelen sender_id-ye beraberdirse
-                                                        // /pages/chat.blade.php-ye getsin ve mesaj gonderen Auth user olsun.
-        {
-            return view('pages.chat',compact('chat'));
-        }
-        elseif ($chat->receiver_id == Auth::user()->id)   //Eger user id chat table-den gelen receiver_id-ye beraberdirse
-        {
-            $gonderilen = $chat->receiver_id;             // chat table-dan gelen receiver_id $gonderilen deyiseninde saxlanilir ki asaqida menimsedilende itmesin.
-            $chat->receiver_id = $chat->sender_id;        // burada user deyisikliyi edirik cunki chat.blade.php-de auth user GONDERILEN yox mesaj gonderen olmalidir.
-            $chat->sender_id = $gonderilen;
-            return view('pages.chat',compact('chat'));
-        }
+    public function chatToNoti($id)
+    {
+       $chats = Chat::join('users','users.id','=','chats.sender_id')
+                    ->select('chats.message','chats.sender_id','chats.receiver_id','users.name','users.avatar','users.username')
+                    ->where([
+                                ['sender_id', '=', Auth::user()->id],
+                                ['receiver_id', '=',$id],
+                            ])
+                    ->orWhere([
+                                ['receiver_id', '=', Auth::user()->id],
+                                ['sender_id', '=',$id],
+                            ])->get();
+        return view('pages.chat',compact('chats', 'id'));
     }
 }

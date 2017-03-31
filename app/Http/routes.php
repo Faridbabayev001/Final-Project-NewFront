@@ -86,6 +86,7 @@ Route::get('/Bildiriş/{id}','PagesController@notication_single');
 Route::get('/accept','PagesController@accept');
 Route::get('/refusal/{id}','PagesController@refusal');
 Route::get('/accept/{id}','PagesController@accept');
+Route::get('/chat/{id}','PagesController@chatToNoti');
 });
 //<=================Nofification Routes End ================>
 
