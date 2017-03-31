@@ -17,7 +17,7 @@
         {{ csrf_field() }}
         <h3>Başlıq:</h3>
         <br>
-        <input type="text" name="title" class="form-control" value="{{$elan->title}}">
+        <input type="text" name="title" class="form-control" value="{{$elan->title}}" maxlength="33">
         <br>
         <h3>Açıqlama:</h3>
         <br>

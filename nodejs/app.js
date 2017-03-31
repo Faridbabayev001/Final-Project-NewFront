@@ -8,7 +8,7 @@ var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '',
-    database: 'newversion',
+    database: 'final_project',
     multipleStatements: true
 });
 connection.connect(function (err) {
