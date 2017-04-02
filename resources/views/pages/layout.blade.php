@@ -193,16 +193,16 @@
     if (isset($one_message->receiver_id))
     {
       $send_id = $one_message->receiver_id;
-      $check = 1;
+      // $check = 1;
     }
-    elseif(isset($id))
+    elseif(isset($sender))
     {
-      $send_id = $id;
-      $check = 2;
+      $send_id = $sender;
+      // $check = 2;
     }
   @endphp
   <script type="text/javascript">
-    socketData({{$id}},{{$send_id}},{{$check}});
+    socketData({{$id}},{{$send_id}});
   </script>
   @yield('scripts')
 </html>

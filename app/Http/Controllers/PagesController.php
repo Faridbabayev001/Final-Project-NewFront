@@ -428,7 +428,8 @@ class PagesController extends Controller
         $qars->data_status=1;
         $qars->update();
         return back();
-      }else {
+      }
+      else {
         return view('errors.503');
       }
     }
@@ -464,7 +465,7 @@ class PagesController extends Controller
             return redirect('/');
         }
         if ($one_message->receiver_id == Auth::user()->id)   //Eger user id chat table-den gelen receiver_id-ye beraberdirse
-        { 
+        {
             $gonderilen = $one_message->receiver_id;             // chat table-dan gelen receiver_id $gonderilen deyiseninde saxlanilir ki asaqida menimsedilende itmesin.
             $one_message->receiver_id = $one_message->sender_id;        // burada user deyisikliyi edirik cunki chat.blade.php-de auth user GONDERILEN yox mesaj gonderen olmalidir.
             $one_message->sender_id = $gonderilen;
@@ -482,18 +483,19 @@ class PagesController extends Controller
         return view('pages.chat',compact('chats','one_message'));
     }
 
-    public function chatToNoti($id)
+    public function chatToNoti($sender)
     {
        $chats = Chat::join('users','users.id','=','chats.sender_id')
                     ->select('chats.message','chats.sender_id','chats.receiver_id','users.name','users.avatar','users.username')
                     ->where([
                                 ['sender_id', '=', Auth::user()->id],
-                                ['receiver_id', '=',$id],
+                                ['receiver_id', '=',$sender],
                             ])
                     ->orWhere([
                                 ['receiver_id', '=', Auth::user()->id],
-                                ['sender_id', '=',$id],
+                                ['sender_id', '=',$sender],
                             ])->get();
-        return view('pages.chat',compact('chats', 'id'));
+
+        return view('pages.chat',compact('chats', 'sender'));
     }
 }
