@@ -1,4 +1,4 @@
-  var socketData = function(auth_user_id, receiver_id, check) {
+  var socketData = function(auth_user_id, receiver_id) {
   var socket = io(':3000');
   var count = 0;
   var data = {
@@ -15,37 +15,31 @@
 
   //-----------------Message and Notification socket -----------------------------------
 
-  socket.emit('message_notifications', data);
-  socket.on('notifications', function(message_notification_data){
+  socket.emit('count', data);
+  socket.on('allcount', function(message_notification_data){
+    // console.log(mes  sage_notification_data);
       if(auth_user_id != 0){
-            $('.socket-messages-data').empty();
             count=0 ;
             $.each(message_notification_data,function (key,value){
               if (value.receiver_id == data.id) {
-                if (value.seen == 0) {
+                if (value.seen == 0)
+                {
                     count++;
                 }
-                $('.socket-messages-data').append(
-                    '<li>' +
-                    '<a href="/Mesajlar/'+value.id+'">' +
-                    '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />' +
-                    '<p>'+ '<span style="color:#0090D9;">' + value.name + '</span>' + ': '+ value.message +'</p></a></li>'
-                  );
             };
           })
 
-      }else{
-          count = 0;
       }
       if (count > 0) {
           $('.socket-messages-number').empty();
           $('.socket-messages-count span').text('');
           $('.socket-messages-number').append('<a href="#" data-toggle="dropdown" class="dropdown-toggle socket-messages-count"><i class="fa fa-comments-o"></i> <span class="contact-auth-notification-number"> </span> </a>');
           $('.socket-messages-count span').text(count);
-      }else{
+      }
+      else{
           $('.socket-messages-number').empty();
           $('.socket-messages-number').append('<a href="#" data-toggle="dropdown" class="dropdownyoxdur-toggle socket-messages-count"><i class="fa fa-comments-o"></i></a>');
-  //            $('.socket-messages-data').append('<li><a href="#"> <h4 class="text-center margin0">Mesajınız yoxdur</h4></a></li>');
+        //  $('.socket-messages-data').append('<li><a href="#"> <h4 class="text-center margin0">Mesajınız yoxdur</h4></a></li>');
       }
   });
 
@@ -53,6 +47,27 @@
     $('.clickNumber').on('click',function () {
         socket.emit('CountZero',data);
         socket.emit('message_notifications', data);
+        socketData(auth_user_id,receiver_id);
+
+        socket.on('notifications', function(message_notification_data){
+          console.log(message_notification_data);
+            if(auth_user_id != 0){
+                  $('.socket-messages-data').empty();
+                  $.each(message_notification_data,function (key,value)
+                  {
+                    if (value.receiver_id == data.id)
+                    {
+                      $('.socket-messages-data').append(
+                          '<li>' +
+                          '<a href="/Mesajlar/'+value.id+'">' +
+                          '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />' +
+                          '<p>'+ '<span style="color:#0090D9;">' + value.name + ':</span> '+"<br>"+ value.message +'</p></a></li>'
+                        );
+                  }
+                })
+
+            }
+        });
     })
 
   //notifications
@@ -107,7 +122,7 @@
 
 
 //--------------------Notification_single chat code :D -----------------------------------
-// hirildadiz getdi :P
+
 
 //--------------------Notification_single chat code END:D -----------------------------------
 
@@ -116,25 +131,31 @@
 
 
 //--------------------Chat blade code -------------------------------------------------------
-var i =0;
-var click = true;
-  if (data_single.receiver_id != 0 && check==1)
+var i=0;
+  if (data_single.receiver_id != 0)
   {
-    $('.chat-footer-btn').click(function (ev)
+    $('#notification_chat').submit(function (e)
     {
-      // console.log(ev);
-      // ev.preventDefault();
-      // socketData(auth_user_id,receiver_id);
+      e.preventDefault();
+      if (i==0) {
+
+      i++;
+      socketData(auth_user_id,receiver_id);
         data_single.message = $('.chat-footer-input').val();
         socket.emit('send_message', data_single);
 
         $('.chat-footer-input').val("");
-        if (i==0) {
 
-        i++;
+        console.log(i);
+      var j = 0;
+
         socket.on('only_one_data',function (only_one_data)
         {
-          console.log('only_one_data');
+          if (j==0) {
+            j++;
+          console.log("soz");
+
+          // console.log(only_one_data);
                 if (only_one_data[0].sender_id == auth_user_id && only_one_data[0].receiver_id == receiver_id)
                 {
                     $('.chat-body-message').append(
@@ -156,10 +177,14 @@ var click = true;
                     );
                 }
                 $('.chat-body').animate({scrollTop: $('.chat-body').prop("scrollHeight")}, 0.001);
-        })
+
       }
-        return false;
+    })
+
+      }
+      return false;
     });
+
     //CHAT scroll
 
   }
@@ -170,29 +195,39 @@ var click = true;
 
 socket.emit('live_update');
 var live_update = [];
-socket.on('live_update_data',function(results){
-  if (live_update.length > 0 ) {
+socket.on('live_update_data',function(results)
+{
+  if (live_update.length > 0 )
+  {
     // console.log('live_update length = '+ live_update.length);
     // console.log('results length = '+ results.length);
-    if (live_update.length < results.length) {
+    if (live_update.length < results.length)
+    {
       //sound play
       live_update = [];
       live_update.push(results);
     }
-  }else {
+  }
+  else
+  {
     live_update.push(results);
   }
     $('.map-socket-section').empty();
     var socketDataCount = 0;
-    $.each(results,function(key,value){
-        if (socketDataCount == 4) {
+    $.each(results,function(key,value)
+     {
+        if (socketDataCount == 4)
+        {
           return;
         }
 
-        if (value.type_id == 2){
+        if (value.type_id == 2)
+        {
           $('.map-socket-section').prepend("<a href=/single/"+ value.id + ">" + "<div class='map-socket-data'>" +  "<span style='color:#0AA699'>" + value.title + "</span>" + " adlı yeni istək əlavə olundu !" + "</div>"+ "</a>");
           socketDataCount++;
-        }else if(value.type_id == 1){
+        }
+        else if(value.type_id == 1)
+        {
           $('.map-socket-section').prepend("<a href=/single/"+ value.id + ">" + "<div class='map-socket-data'>" + "<span style='color:#F35958'>" + value.title + "</span>" + " adlı yeni dəstək əlavə olundu !" + "</div>"+ "</a>");
           socketDataCount++;
         }

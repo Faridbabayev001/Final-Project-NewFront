@@ -40,11 +40,9 @@
               <p class="pull-right">
                 <a data-toggle="modal" data-target="#notif-accept-modal" class="btn not-accept"><i class="fa fa-check"></i> Qəbul et</a>
                 <a href="{{url('/refusal/'.$notication_single->id)}}" class="btn not-deny"><i class="fa fa-times"></i> İmtina et</a>
-
                 {{-- ACCEPT MODAL --}}
                 <div id="notif-accept-modal" class="modal fade" role="dialog">
                   <div class="modal-dialog modal-sm">
-
                     <!-- Modal content-->
                     <div class="modal-content">
                       <div class="modal-header">
@@ -59,61 +57,30 @@
                       <div class="modal-footer">
                         <a href="{{url('/accept/'.$notication_single->id)}}" class="btn not-accept">Bəli</a>
                         <a data-dismiss="modal" class="btn not-deny margin0">Xeyr</a>
-{{-- 10. geldik bura ya accept ya refuse ya da yazisha biler. yazishma yolun secim. ashagda user varsa onun id-sin gotrur. ashagda noti-body var message body olsa yaxsi olardi neyse. gedek layoyta baxaq smse gore. bunu niye yazmishiq eger bu layout-da yazlibsa buna sebeb ne? --}}
                       </div>
                     </div>
-
                   </div>
                 </div>
                 {{-- ACCEPT MODAL --}}
-
               </p>
             @else
             @endif
           </div>
-        </div>
-        <div id="noti">
-          <div class="noti-header">
-            <h5 class="noti-header-name"> {{ $notication_single->name }}</h5>
-          </div>
-          <div class="noti-body">
-            <ul class="list-group noti-body-message list-unstyled">
-            </ul>
-          </div>
+             <a href="{{ url('/chat/'.$notication_single->user->id) }}" class="btn btn-default floatRight">ÇATA KEÇ</a>
 
-          <div class="noti-footer">
-            <form id="notification_noti"  action="" method="post">
-              <div class="col-lg-10 padding0">
-                <input type="text" class="form-control noti-footer-input" name="" placeholder="Mesajınız">
-              </div>
-
-              <div class="col-lg-2 padding0">
-                <button type="submit" name="button" class="btn noti-footer-btn"><i class="fa fa-paper-plane-o"></i></button>
-              </div>
-            </form>
-          </div>
         </div>
       </div>
       </div>
       </div>
-
       </div>
     @else
       <h1 class="text-center">Sorğunuz düzgün deyil !</h1>
     @endif
-    @php
-        // if (Auth::user()){
-        //     $id = Auth::user()->id;
-        // }else{
-        //     $id = 0;
-        // }
-    @endphp
   </section>
   @section('scripts')
-
-    <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>        
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
-    <script type="text/javascript"></script>
-
+    <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>
+        {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script> --}}
+    <script type="text/javascript">
+    </script>
   @endsection
 @endsection

@@ -70,7 +70,7 @@ io.on('connection', function(socket){
     socket.on('message_notifications', function(result) {
         if(result.id !=0) {
             connection.query(
-                "SELECT " +
+              "SELECT " +
                 "chats.sender_id, chats.receiver_id,chats.id, chats.message, users.name,users.avatar, chats.seen " +
                 "FROM " +
                 "chats " +
@@ -78,9 +78,10 @@ io.on('connection', function(socket){
                 "users " +
                 "ON " +
                 "chats.sender_id = users.id " +
-                " WHERE receiver_id="+result.id+
-                " ORDER BY " +
-                "chats.id DESC  LIMIT 3",
+                " WHERE chats.id in"+
+                " (SELECT MAX(id) FROM chats WHERE receiver_id="+result.id+
+                " GROUP BY GREATEST(receiver_id,sender_id),LEAST(receiver_id,sender_id))"+
+                " ORDER BY chats.id DESC",
                 function (err, message_notification_data) {
                     if (err) throw err;
                     io.emit('notifications',message_notification_data);
@@ -89,6 +90,35 @@ io.on('connection', function(socket){
             io.emit('notifications', result);
         }
     });
+
+    // functiom for All Count
+    // io.on('connection',function (socket){
+        socket.on('count',function (allcount)
+        {
+            connection.query(
+                "SELECT " +
+                " * FROM chats WHERE id IN "+
+                "(SELECT MAX(id) FROM chats"+
+                " WHERE seen=0 GROUP BY GREATEST(receiver_id,sender_id),LEAST(receiver_id,sender_id))"+
+                " ORDER BY id DESC",
+                function (err,datacount)
+                {
+                  if (err) throw  err;
+                  io.emit('allcount',datacount);
+                }
+            );
+            // connection.query(
+              // "SELECT * FROM "+
+              // " chats"+
+              // " WHERE seen=0",
+              // function(err,data) {
+              //   io.emit('allcount',data);
+              //   console.log(data.length);
+              // }
+            // )
+        })
+      // });
+
     // functiom for Count Zero
     socket.on('CountZero',function (count) {
         connection.query(
@@ -102,10 +132,9 @@ io.on('connection', function(socket){
             }
         );
     })
-});
 
                   // DRING :)
-io.on('connection',function (socket) {
+// io.on('connection',function (socket) {
         socket.on('live_update',function(result){
             connection.query(
                 "SELECT "+
@@ -118,10 +147,10 @@ io.on('connection',function (socket) {
                     io.emit('live_update_data',live_update_rows);
                 });
         });
-});
+// });
 
   //  notificaton
-  io.on('connection',function(socket){
+  // io.on('connection',function(socket){
     socket.on('live_notification',function(result) {
         var noti_data = [];
             connection.query(

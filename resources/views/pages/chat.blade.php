@@ -13,9 +13,9 @@
     @php
       if (isset($one_message->receiver_id)) {
         $qarshidaki = $one_message->receiver_id;
-      }else if(isset($id))
+      }else if(isset($sender))
       {
-        $qarshidaki = $id;
+        $qarshidaki = $sender;
       }
     @endphp
     <div id="chat" class="dsp_none">
@@ -49,7 +49,7 @@
                 </div>
 
                 <div class="col-lg-2 padding0">
-                    <button type="button" name="button" class="btn chat-footer-btn"><i class="fa fa-paper-plane-o"></i></button>
+                    <button type="submit" name="button" class="btn chat-footer-btn"><i class="fa fa-paper-plane-o"></i></button>
                 </div>
             </form>
         </div>
