@@ -65,8 +65,11 @@
               </p>
             @else
             @endif
+            @php
+              // dd($notication_single->elan_id);
+            @endphp
           </div>
-             <a href="{{ url('/chat/'.$notication_single->user->id) }}" class="btn btn-default floatRight">ÇATA KEÇ</a>
+             <a href="{{ url('/chat/'.$notication_single->user->id.'/'.$notication_single->elan_id) }}" class="btn btn-default floatRight">ÇATA KEÇ</a>
 
         </div>
       </div>

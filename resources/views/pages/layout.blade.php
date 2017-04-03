@@ -177,7 +177,8 @@
         $id = 0;
     }
         $send_id = 0;
-        $check=0;
+        $els_id = 0;
+
 @endphp
 
 </body>
@@ -190,19 +191,25 @@
 <script src="{{url('/js/main.js')}}"></script>
 <script src="/js/socket-data.js"></script>
   @php
-    if (isset($one_message->receiver_id))
+
+    if (isset($one_message[0]->receiver_id))
     {
-      $send_id = $one_message->receiver_id;
-      // $check = 1;
+      $send_id = $one_message[0]->receiver_id;
     }
     elseif(isset($sender))
     {
       $send_id = $sender;
-      // $check = 2;
+    }
+    if(isset($elan_id))
+    {
+      $els_id = $elan_id;
+    }
+    elseif (isset($one_message[0]->elan_id)) {
+      $els_id = $one_message[0]->elan_id;
     }
   @endphp
   <script type="text/javascript">
-    socketData({{$id}},{{$send_id}});
+    socketData({{$id}},{{$send_id}},{{$els_id}});
   </script>
   @yield('scripts')
 </html>

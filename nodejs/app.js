@@ -1,9 +1,9 @@
-var express = require('express');
-var app = express();
 var mysql = require('mysql');
-var server = require('http').createServer(app);
-var io = require('socket.io').listen(server);
 var PORT = process.env.PORT || 3000;
+var server = require('http').createServer().listen(PORT, function() {
+    console.log("Server port: "+PORT);
+});
+var io = require('socket.io').listen(server);
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
@@ -15,12 +15,6 @@ connection.connect(function (err) {
     if (err){
         console.error("error connecting " + err.stack);
     }
-});
-
-
-server.listen(PORT, function() {
-    console.log("Server port: 3000");
-
 });
 
 // Connection
@@ -38,8 +32,8 @@ io.on('connection', function(socket){
                     "INNER JOIN " +
                     "`users` " +
                     "ON chats.sender_id = users.id " +
-                    "WHERE sender_id ="+data.sender_id+" AND receiver_id="+data.receiver_id +
-                    " OR sender_id="+data.receiver_id+" AND receiver_id="+data.sender_id +
+                    "WHERE sender_id ="+data.sender_id+" AND receiver_id="+data.receiver_id +" AND elan_id="+data.elan_id+
+                    " OR sender_id="+data.receiver_id+" AND receiver_id="+data.sender_id +" AND elan_id="+data.elan_id+
                     " ORDER BY chats.id DESC LIMIT 1",
                     function (err,one_message) {
                         if (err) throw err;

@@ -1,4 +1,4 @@
-  var socketData = function(auth_user_id, receiver_id) {
+  var socketData = function(auth_user_id, receiver_id, elan_id) {
   var socket = io(':3000');
   var count = 0;
   var data = {
@@ -9,6 +9,7 @@
       receiver_id: receiver_id,
       message :  "",
       seen: 0,
+      elan_id: elan_id,
       created_at: moment().format("YYYY-MM-DD HH:mm:ss"),
       updated_at: moment().format("YYYY-MM-DD HH:mm:ss")
   };
@@ -47,7 +48,7 @@
     $('.clickNumber').on('click',function () {
         socket.emit('CountZero',data);
         socket.emit('message_notifications', data);
-        socketData(auth_user_id,receiver_id);
+        socketData(auth_user_id,receiver_id,elan_id);
 
         socket.on('notifications', function(message_notification_data){
           console.log(message_notification_data);
@@ -140,7 +141,7 @@ var i=0;
       if (i==0) {
 
       i++;
-      socketData(auth_user_id,receiver_id);
+      socketData(auth_user_id,receiver_id,elan_id);
         data_single.message = $('.chat-footer-input').val();
         socket.emit('send_message', data_single);
 
