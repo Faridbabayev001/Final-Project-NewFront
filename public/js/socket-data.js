@@ -18,7 +18,6 @@
 
   socket.emit('count', data);
   socket.on('allcount', function(message_notification_data){
-    // console.log(mes  sage_notification_data);
       if(auth_user_id != 0){
             count=0 ;
             $.each(message_notification_data,function (key,value){
@@ -48,46 +47,47 @@
     $('.clickNumber').on('click',function () {
         socket.emit('CountZero',data);
         socket.emit('message_notifications', data);
-        socketData(auth_user_id,receiver_id,elan_id);
-        console.log("nese");
-        socket.on('notifications', function(message_notification_data){
-          console.log(message_notification_data);
-            if(auth_user_id != 0){
-                  $('.socket-messages-data').empty();
-                  $.each(message_notification_data,function (key,value)
-                  {
-                    if (value.receiver_id == data.id)
-                    {
-                      $('.socket-messages-data').append(
-                          '<li>' +
-                          '<a href="/Mesajlar/'+value.id+'">' +
-                          '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />' +
-                          '<p>'+ '<span style="color:#0090D9;">' + value.name + ':</span> '+"<br>"+ value.message +'</p></a></li>'
-                        );
-                  }
-                })
-
-            }
-        });
+        // socketData(auth_user_id,receiver_id,elan_id);
     })
 
+  //Message notifications
+  socket.on('notifications', function(message_notification_data)
+  {
+      if(auth_user_id != 0){
+            $('.socket-messages-data').empty();
+            $.each(message_notification_data,function (key,value)
+            {
+              if (value.receiver_id == data.id)
+              {
+                $('.socket-messages-data').append(
+                    '<li>' +
+                    '<a href="/Mesajlar/'+value.id+'">' +
+                    '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />' +
+                    '<p>'+ '<span style="color:#0090D9;">' + value.name + ':</span> '+"<br>"+ value.message +'</p></a></li>'
+                  );
+            }
+          })
+
+      }
+  });
   //notifications
   socket.emit('live_notification',data);
-  $('#notification_chat').submit(function () {
-      socket.emit('live_notification',data);
-  })
-  socket.on('live_noti',function(live_notification_data){
+  socket.on('live_noti',function(live_notification_data)
+  {
     $('.notification').html('');
 
-      $.each(live_notification_data,function (key,value) {
+      $.each(live_notification_data,function (key,value)
+      {
         var noti_text_els_user= (value.type_id == 2) ?'<span class="special-destek">'+ value.qarsiliqs_user_name +'</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !':
         '<span class="special-istek">'+ value.qarsiliqs_user_name +'</span> adlı istifadəçi desteyinize istek vermək istəyir !';
 
         var noti_text_qars_user= (value.type_id == 2) ?'<span class="special-istek">'+ value.els_user_name +'</span> adlı istifadəçi desteyinizi qəbul etdi !':
         '<span class="special-istek">'+ value.els_user_name +'</span> adlı istifadəçi istəyinizi qəbul etdi !';
 
-            if (value.els_user_id==data.id) {
-              if (value.status==1) {
+            if (value.els_user_id==data.id)
+            {
+              if (value.status==1)
+              {
                 $('.count').addClass('contact-auth-notification-number');
                  $('.contact-auth-notification-number').text(live_notification_data.length);
               }
@@ -105,7 +105,7 @@
               if (value.data_status==1)
               {
                 $('.count').addClass('contact-auth-notification-number');
-                 $('.contact-auth-notification-number').text(live_notification_data.length);
+                $('.contact-auth-notification-number').text(live_notification_data.length);
               }
               $('.notification').append('<li>'+
               '<a href="/message/'+value.qarsiliqs_id +'"class="notification-seen">'+
@@ -141,7 +141,6 @@
 
 socket.on('only_one_data',function (only_one_data)
 {
-  console.log(only_one_data);
 
   // console.log(only_one_data);
         if (only_one_data[0].sender_id == auth_user_id && only_one_data[0].receiver_id == receiver_id)
@@ -177,8 +176,6 @@ socket.on('live_update_data',function(results)
 {
   if (live_update.length > 0 )
   {
-    // console.log('live_update length = '+ live_update.length);
-    // console.log('results length = '+ results.length);
     if (live_update.length < results.length)
     {
       //sound play
