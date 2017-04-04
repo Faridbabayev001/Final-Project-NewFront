@@ -49,7 +49,7 @@
         socket.emit('CountZero',data);
         socket.emit('message_notifications', data);
         socketData(auth_user_id,receiver_id,elan_id);
-
+        console.log("nese");
         socket.on('notifications', function(message_notification_data){
           console.log(message_notification_data);
             if(auth_user_id != 0){
@@ -122,73 +122,50 @@
 
 
 
-//--------------------Notification_single chat code :D -----------------------------------
-
-
-//--------------------Notification_single chat code END:D -----------------------------------
-
-
-
 
 
 //--------------------Chat blade code -------------------------------------------------------
-var i=0;
   if (data_single.receiver_id != 0)
   {
     $('#notification_chat').submit(function (e)
     {
       e.preventDefault();
-      if (i==0) {
-
-      i++;
-      socketData(auth_user_id,receiver_id,elan_id);
+      // socketData(auth_user_id,receiver_id,elan_id);
         data_single.message = $('.chat-footer-input').val();
         socket.emit('send_message', data_single);
-
+        socket.emit('count', data);
         $('.chat-footer-input').val("");
-
-        console.log(i);
-      var j = 0;
-
-        socket.on('only_one_data',function (only_one_data)
-        {
-          if (j==0) {
-            j++;
-          console.log("soz");
-
-          // console.log(only_one_data);
-                if (only_one_data[0].sender_id == auth_user_id && only_one_data[0].receiver_id == receiver_id)
-                {
-                    $('.chat-body-message').append(
-                        '<li class="pull-right">' +
-                        '<p class="chat-message-content">'+String(only_one_data[0].message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
-                        '<img src="/image/'+only_one_data[0].avatar+'" class="chat-message-img" alt="user-image">'+
-                        '</li>'+
-                        '<div class="clearfix"></div>'
-                    );
-                }
-                else if (only_one_data[0].sender_id == receiver_id && only_one_data[0].receiver_id == auth_user_id)
-                {
-                    $('.chat-body ul').append(
-                        '<li class="pull-left">' +
-                        '<img src="/image/'+only_one_data[0].avatar+'" class="chat-message-img" alt="user-image">'+
-                        '<p class="chat-message-content">'+String(only_one_data[0].message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
-                        '</li>'+
-                        '<div class="clearfix"></div>'
-                    );
-                }
-                $('.chat-body').animate({scrollTop: $('.chat-body').prop("scrollHeight")}, 0.001);
-
-      }
-    })
-
-      }
       return false;
     });
-
-    //CHAT scroll
-
   }
+
+socket.on('only_one_data',function (only_one_data)
+{
+  console.log(only_one_data);
+
+  // console.log(only_one_data);
+        if (only_one_data[0].sender_id == auth_user_id && only_one_data[0].receiver_id == receiver_id)
+        {
+            $('.chat-body-message').append(
+                '<li class="pull-right">' +
+                '<p class="chat-message-content">'+String(only_one_data[0].message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
+                '<img src="/image/'+only_one_data[0].avatar+'" class="chat-message-img" alt="user-image">'+
+                '</li>'+
+                '<div class="clearfix"></div>'
+            );
+        }
+        else if (only_one_data[0].sender_id == receiver_id && only_one_data[0].receiver_id == auth_user_id)
+        {
+            $('.chat-body ul').append(
+                '<li class="pull-left">' +
+                '<img src="/image/'+only_one_data[0].avatar+'" class="chat-message-img" alt="user-image">'+
+                '<p class="chat-message-content">'+String(only_one_data[0].message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')+'</p>'+
+                '</li>'+
+                '<div class="clearfix"></div>'
+            );
+        }
+        $('.chat-body').animate({scrollTop: $('.chat-body').prop("scrollHeight")}, 0.001);
+})
 
 
 //--------------------Chat blade code end ---------------------------------------------------
