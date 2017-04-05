@@ -503,7 +503,7 @@ class PagesController extends Controller
                                 ['sender_id', '=',$sender],
                                 ['elan_id', '=',$elan_id]
                             ])->get();
-        if(!isset($user) or !isset($chats[0]))
+        if(!isset($user))
         {
           return view('errors.503');
         }
