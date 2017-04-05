@@ -78,8 +78,7 @@
         <div id="page-wrapper">
             @yield('content')
         </div>
-        @endsection
-        
+
 
     </div>
 </div>
@@ -89,4 +88,3 @@
     @yield('script')
 </body>
 </html>
-
