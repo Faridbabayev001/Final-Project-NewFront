@@ -459,17 +459,15 @@ class PagesController extends Controller
 
     public function chat($id)
     {
-        // $one_message = Chat::find($id);
         $one_message = Chat::join('users','users.id','=','chats.sender_id')
                             ->select('chats.sender_id','chats.receiver_id','chats.elan_id','users.name')
                             ->where('chats.id','=',$id)
                             ->get();
-                            // dd($one_message);
-        if (!$one_message)
+        if (!isset($one_message[0]))
         {
             return redirect('/');
         }
-        if ($one_message[0]->receiver_id == Auth::user()->id)   //Eger user id chat table-den gelen receiver_id-ye beraberdirse
+        elseif ($one_message[0]->receiver_id == Auth::user()->id)   //Eger user id chat table-den gelen receiver_id-ye beraberdirse
         {
             $gonderilen = $one_message[0]->receiver_id;             // chat table-dan gelen receiver_id $gonderilen deyiseninde saxlanilir ki asaqida menimsedilende itmesin.
             $one_message[0]->receiver_id = $one_message[0]->sender_id;        // burada user deyisikliyi edirik cunki chat.blade.php-de auth user GONDERILEN yox mesaj gonderen olmalidir.
@@ -505,6 +503,10 @@ class PagesController extends Controller
                                 ['sender_id', '=',$sender],
                                 ['elan_id', '=',$elan_id]
                             ])->get();
+        if(!isset($user) or !isset($chats[0]))
+        {
+          return view('errors.503');
+        }
         return view('pages.chat',compact('chats','sender','elan_id','user'));
     }
 }
