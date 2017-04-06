@@ -38,7 +38,10 @@
               </div>
             @elseif($notication_single->data==0)
               <p class="pull-right">
+              <a href="{{ url('/chat/'.$notication_single->user->id.'/'.$notication_single->elan_id) }}" class="btn chatBtn"><i class="fa fa-arrow-right"></i> Çata keç</a>
+
                 <a data-toggle="modal" data-target="#notif-accept-modal" class="btn not-accept"><i class="fa fa-check"></i> Qəbul et</a>
+
                 <a href="{{url('/refusal/'.$notication_single->id)}}" class="btn not-deny"><i class="fa fa-times"></i> İmtina et</a>
                 {{-- ACCEPT MODAL --}}
                 <div id="notif-accept-modal" class="modal fade" role="dialog">
@@ -53,7 +56,7 @@
                         <p>
                           Qəbul etdiyiniz təqdirdə sizin bütün informasiyalarınız həmin <b>{{$notication_single->name}}</b> adlı şəxsə ötürüləcək.
                         </p>
-                      </div>
+                      </div>   
                       <div class="modal-footer">
                         <a href="{{url('/accept/'.$notication_single->id)}}" class="btn not-accept">Bəli</a>
                         <a data-dismiss="modal" class="btn not-deny margin0">Xeyr</a>
@@ -69,7 +72,7 @@
               // dd($notication_single->elan_id);
             @endphp
           </div>
-             <a href="{{ url('/chat/'.$notication_single->user->id.'/'.$notication_single->elan_id) }}" class="btn btn-default floatRight">ÇATA KEÇ</a>
+            
 
         </div>
       </div>
