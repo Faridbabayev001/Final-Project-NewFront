@@ -78,9 +78,9 @@
 
               <div class="modal-body">
 
-                {{-- <div class="contact-auth-facebook">
+                <div class="contact-auth-facebook">
                   <a href="{{route('facebook.login')}}"><i class="fa fa-facebook"></i> FACEBOOK'LA DAXİL OL</a>
-                </div> --}}
+                </div>
 
                 <div class="contact-auth-google">
                   <a href="{{route('google.login')}}"><i class="fa fa-google-plus"></i> GOOGLE+'LA DAXİL OL</a>
