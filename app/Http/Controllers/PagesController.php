@@ -485,6 +485,25 @@ class PagesController extends Controller
                                 ['sender_id', '=',$one_message[0]->receiver_id],
                                 ['elan_id', '=',$one_message[0]->elan_id]
                             ])->get();
+
+
+                    // chatin vaxti bitibse session yaradilir ki vaxti bitib
+                    $elsId = $one_message[0]->elan_id;
+                    $elan = Elan::where('id',$elsId)->get();
+                    if($elan[0]->status == 0)
+                      {
+                        if ($elan[0]->user_id == Auth::user()->id) {
+                        Session::flash('chatdead', 'Bu elana qoyulan vaxt bitdiyindən elan üzərindən əlaqə sona çatmışdır. Elanın vaxtın uzada bilərsiz');
+
+                        }else{
+                        Session::flash('chatdead', 'Bu elana qoyulan vaxt bitdiyindən elan üzərindən əlaqə sona çatmışdır.');
+
+                        }
+                        return view('pages.chat');
+                      }
+                    // chatin vaxti bitibse session yaradilir ki vaxti bitib
+
+
         return view('pages.chat',compact('chats','one_message'));
     }
 
@@ -492,7 +511,7 @@ class PagesController extends Controller
     {
       $user = User::find($sender);
        $chats = Chat::join('users','users.id','=','chats.sender_id')
-                    ->select('chats.message','chats.sender_id','chats.receiver_id','users.name','users.avatar','users.username')
+                    ->select('chats.message','chats.sender_id','chats.receiver_id','chats.elan_id','users.name','users.avatar','users.username')
                     ->where([
                                 ['sender_id', '=', Auth::user()->id],
                                 ['receiver_id', '=',$sender],
@@ -503,6 +522,28 @@ class PagesController extends Controller
                                 ['sender_id', '=',$sender],
                                 ['elan_id', '=',$elan_id]
                             ])->get();
+
+                    // chatin vaxti bitibse session yaradilir ki vaxti bitib
+              if (isset($chats[0])) {
+
+                    $elsId = $chats[0]->elan_id;
+                    $elan = Elan::where('id',$elsId)->get();
+                    if($elan[0]->status == 0)
+                      {
+                        if ($elan[0]->user_id == Auth::user()->id) {
+                        Session::flash('chatdead', 'Bu elana qoyulan vaxt bitdiyindən elan üzərindən əlaqə sona çatmışdır. Elanın vaxtın uzada bilərsiz');
+
+                        }else{
+                        Session::flash('chatdead', 'Bu elana qoyulan vaxt bitdiyindən elan üzərindən əlaqə sona çatmışdır.');
+
+                        }
+                        return view('pages.chat');
+                      }
+                }
+                    // chatin vaxti bitibse session yaradilir ki vaxti bitib
+
+
+
         if(!isset($user))
         {
           return view('errors.503');

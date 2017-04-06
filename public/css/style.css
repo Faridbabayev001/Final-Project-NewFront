@@ -9248,6 +9248,16 @@ form span {
   #notification-single .not-single-desc {
     margin-top: 20px;
     word-break: break-all; }
+  #notification-single .chatBtn {
+    background-color: #0cb2e7;
+    color: white;
+    border-radius: 0;
+    border: none;
+    padding: 10px 25px;
+    margin-right: 10px;
+    transition: all .3s ease; }
+    #notification-single .chatBtn:hover {
+      background-color: #0b9fcf; }
   #notification-single .not-accept {
     background-color: #4CAF50;
     color: white;

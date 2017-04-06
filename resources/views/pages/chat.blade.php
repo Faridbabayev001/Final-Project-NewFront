@@ -23,7 +23,18 @@
       }elseif (isset($user->name)) {
         $header_name = $user->name;
       }
+
+      if (Session::has('chatdead')) {
     @endphp
+       <span class="container help-block">
+                <div class="alert alert-warning"><p>{{Session::get('chatdead')}}</p></div>
+           
+       </span>
+    @php
+      }else{
+      
+    @endphp
+     
     <div id="chat" class="dsp_none">
         <div class="chat-header">
             <h5 class="chat-header-name">{{$header_name}}</h5>
@@ -60,6 +71,10 @@
             </form>
         </div>
     </div>
+ @php
+ }
+   
+ @endphp
 
 @endsection
 @section('script')
