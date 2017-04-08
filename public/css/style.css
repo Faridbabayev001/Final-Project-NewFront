@@ -8361,9 +8361,9 @@ form span {
   #map .map-socket-section {
     position: absolute;
     right: 0px;
-    bottom: 25px;
+    bottom: 90px;
     overflow: hidden;
-    height: 450px; }
+    height: 320px; }
     #map .map-socket-section a {
       text-decoration: none;
       color: white;
@@ -9318,6 +9318,9 @@ form span {
     padding: 10px 15px; }
     #reset-second-step button:hover {
       background-color: #007fc0; }
+
+#socket-chat-main {
+  min-height: 100%; }
 
 #chat, #noti {
   margin: 50px auto;
