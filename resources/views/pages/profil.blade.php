@@ -15,8 +15,9 @@
             <li {{Request::is('Profil') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-view">Profil görünüşü</a></li>
             <li {{Request::is('Istekler') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-isteklerim">İstəklərim</a></li>
             <li {{Request::is('Destekler') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-desteklerim">Dəstəklərim</a></li>
+            <li {{Request::is('Destekolduqlarim') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-destekolduqlarim">Dəstək olduqlarım</a></li>
+            <li {{Request::is('Istekverdiklerim') ? " class=active" : ''}}><a data-toggle="tab" href="#profil-istekverdiklerim">İstək verdiklərim</a></li>
             <li {{Request::is('Bildirişlər') ? " class=active" : ''}}><a data-toggle="tab" href="#profil-notification">Bildirişlər</a></li>
-            {{-- <li {{Request::is('Ismarıclar') ? " class=active" : ''}}><a data-toggle="tab" href="#profil-ismariclar">Ismarıclar</a></li> --}}
             <li {{Request::is('Tənzimləmələr') ? " class=active" : ''}}><a data-toggle="tab" href="#profil-settings">Tənzimləmələr</a></li>
           </ul>
         </div>
@@ -56,13 +57,13 @@
           {{-- <================== ISTEKLERIM PART==================> --}}
 
           <div id="profil-isteklerim" class="tab-pane fade in{{Request::is('Istekler') ? " active" : ''}}">
-            @if (Session::has('istek_edited'))
+              @if (Session::has('istek_edited'))
                 <div class="alert alert-success" role="alert">{{Session::get('istek_edited')}}</div>
               @endif
-            {{-- <div class="table-responsive"> --}}
-            @if ($istek == 0)
-              <h1>İstəyiniz yoxdur</h1>
-            @else
+              {{-- <div class="table-responsive"> --}}
+              @if ($istek == 0)
+                <h1>İstəyiniz yoxdur</h1>
+              @else
               <table class="table">
                 <thead>
                   <tr>
@@ -87,12 +88,12 @@
 															$derc_icon = 'fa fa-check-circle-o fa-2x';
 														}
                         @endphp
-                        <td class="profil-isteklerim-status" title="{{$derc_status}}"><i class="{{$derc_icon}}"></i></td>
+                        <td class="profil-status" title="{{$derc_status}}"><i class="{{$derc_icon}}"></i></td>
                         <td>{{$istekler->deadline}}</td>
                         <td>{{$istekler->title}}</td>
-                        <td class="profil-isteklerim-subText">{{substr($istekler->about,0,100)}}...</td>
-                        <td class="profil-isteklerim-photo"><img src="{{url('/image/'.$istekler->shekiller[0]->imageName)}}" class="img-responsive" alt="News image"></td>
-                        <td class="profil-isteklerim-action">
+                        <td class="profil-subText">{{substr($istekler->about,0,100)}}...</td>
+                        <td class="profil-photo"><img src="{{url('/image/'.$istekler->shekiller[0]->imageName)}}" class="img-responsive" alt="News image"></td>
+                        <td class="profil-action">
                           <a href="{{url('/istek-edit/'.$istekler->id)}}" class="btn action-edit"><i class="fa fa-pencil-square"></i></a>
                           <a href="#" data-toggle="modal" data-target="#{{$istekler->id}}" class="btn action-delete"><i class="fa fa-trash"></i></a>
                         </td>
@@ -122,7 +123,6 @@
               </table>
             {{-- </div> --}}
           </div>
-          {{-- <================== ISTEKLERIM PART END ==================> --}}
 
 
           {{-- <================== DESTEKLERIM PART ==================> --}}
@@ -130,7 +130,7 @@
           <div id="profil-desteklerim" class="tab-pane fade in{{Request::is('Destekler') ? " active" : ''}}">
             {{-- <div class="table-responsive"> --}}
               <table class="table">
-                @if ($destek == 0)
+                @if ($destek == null)
                   <h1>Dəstəyiniz yoxdur</h1>
                 @else
                   <table class="table">
@@ -157,12 +157,12 @@
                           $derc_icon = 'fa fa-check-circle-o fa-2x';
                         }
                     @endphp
-                    <td class="profil-desteklerim-status" title="{{$derc_status}}"><i class="{{$derc_icon}}"></i></td>
+                    <td class="profil-status" title="{{$derc_status}}"><i class="{{$derc_icon}}"></i></td>
                     <td>{{$destekler->deadline}}</td>
                     <td>{{$destekler->title}}</td>
-                    <td class="profil-desteklerim-subText">{{substr($destekler->about,0,100)}}...</td>
-                    <td class="profil-desteklerim-photo"><img src="{{url('/image/'.$destekler->shekiller[0]->imageName)}}" class="img-responsivse" alt="News image"></td>
-                    <td class="profil-desteklerim-action">
+                    <td class="profil-subText">{{substr($destekler->about,0,100)}}...</td>
+                    <td class="profil-photo"><img src="{{url('/image/'.$destekler->shekiller[0]->imageName)}}" class="img-responsivse" alt="News image"></td>
+                    <td class="profil-action">
                       <a href="{{url('/destek-edit/'.$destekler->id)}}" class="btn action-edit"><i class="fa fa-pencil-square"></i></a>
                       <a href="#" data-toggle="modal" data-target="#{{$destekler->id}}" class="btn action-delete"><i class="fa fa-trash"></i></a>
                     </td>
@@ -192,8 +192,140 @@
               </table>
             {{-- </div> --}}
           </div>
-          {{-- <================== DESTERKLERIM PART END ==================> --}}
 
+
+          {{-- <================== DESTEK OLDUQLARIM PART ==================> --}}
+
+          <div id="profil-destekolduqlarim" class="tab-pane fade in{{Request::is('Tekliflerim') ? " active" : ''}}">
+            {{-- <div class="table-responsive"> --}}
+           {{-- @if ($help==null)
+              <h1>Məlumat yoxdur</h1>
+            @else --}}
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Qəbul olunub?</th>
+                    {{-- <th>Bitmə vaxtı</th> --}}
+                    <th>Başlıq</th>
+                    <th>Təsvir</th>
+                    <th>Şəkil</th>
+                    {{-- <th>Yenilə & Sil</th> --}}
+                  </tr>
+                </thead>
+              {{-- @endif --}}
+                    @foreach ($help as $helps)
+                      <tbody>
+                      @if ($helps->user_id == Auth::user()->id && $helps->type_id == 2)
+                      <tr>
+                          @php
+                            $status = 'İmtina edilib';
+                            $status_icon = 'fa fa-times-circle-o fa-2x';
+                            if ($helps->data_status == 1)
+                             {
+                                $status = 'Qəbul olunub';
+                                $status_icon = 'fa fa-check-circle-o fa-2x';
+                              }
+                          @endphp
+                          <td class="profil-status" title="{{$status}}"><i class="{{$status_icon}}"></i></td>
+                          <td>{{$helps->title}}</td>
+                          <td class="profil-subText">{{substr($helps->description,0,100)}}...</td>
+                          <td class="profil-photo"><img src="{{url('/image/'.$helps->imageName)}}" class="img-responsive" alt="News image"></td>
+                          {{-- <td class="profil-action">
+                            <a href="{{url('/istek-edit/'.$helps->id)}}" class="btn action-edit"><i class="fa fa-pencil-square"></i></a>
+                            <a href="#" data-toggle="modal" data-target="#{{$istekler->id}}" class="btn action-delete"><i class="fa fa-trash"></i></a>
+                          </td> --}}
+                      </tr>
+                    </tbody>
+                   {{-- For Delete Button Modal --}}
+                   {{-- <div id="{{$helps->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <h4 class="modal-title text-center" id="myModalLabel">Əminsinizmi?</h4>
+                            </div>
+                            <div class="modal-body text-center">
+                              <button class="btn btn-primary" type="button" class="close" data-dismiss="modal" aria-label="Close">Xeyir
+                              </button>
+                              <a href="{{url('/istek-delete/'.$istekler->id)}}" class="btn btn-danger">Bəli</a>
+                            </div>
+                          </div>
+                      </div>
+                    </div> --}}
+                    {{-- For Delete Button Modal END--}}
+                       @endif
+                    @endforeach
+              </table>
+            {{-- </div> --}}
+          </div>
+
+
+          {{-- <================== TEKLIFLERIM PART ==================> --}}
+
+          <div id="profil-istekverdiklerim" class="tab-pane fade in{{Request::is('Tekliflerim') ? " active" : ''}}">
+            {{-- <div class="table-responsive"> --}}
+           {{-- @if ($help==null)
+              <h1>Məlumat yoxdur</h1>
+            @else --}}
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Qəbul olunub?</th>
+                    <th>Başlıq</th>
+                    <th>Təsvir</th>
+                    <th>Şəkil</th>
+                  </tr>
+                </thead>
+              {{-- @endif --}}
+                    @foreach ($help as $helps)
+                      <tbody>
+                      @if ($helps->user_id == Auth::user()->id && $helps->type_id == 1)
+                      <tr>
+                          @php
+                            $status = 'İmtina edilib';
+                            $status_icon = 'fa fa-times-circle-o fa-2x';
+                            if ($helps->data_status == 1)
+                             {
+                                $status = 'Qəbul olunub';
+                                $status_icon = 'fa fa-check-circle-o fa-2x';
+                              }
+                          @endphp
+                          <td class="profil-status" title="{{$status}}"><i class="{{$status_icon}}"></i></td>
+                          <td>{{$helps->title}}</td>
+                          <td class="profil-subText">{{substr($helps->description,0,100)}}...</td>
+                          {{-- <td class="profil-photo"><img src="{{url('/image/'.$helps->shekiller[0]->imageName)}}" class="img-responsive" alt="News image"></td> --}}
+                          {{-- <td class="profil-action">
+                            <a href="{{url('/istek-edit/'.$helps->id)}}" class="btn action-edit"><i class="fa fa-pencil-square"></i></a>
+                            <a href="#" data-toggle="modal" data-target="#{{$istekler->id}}" class="btn action-delete"><i class="fa fa-trash"></i></a>
+                          </td> --}}
+                      </tr>
+                    </tbody>
+                   {{-- For Delete Button Modal --}}
+                   {{-- <div id="{{$helps->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                      <div class="modal-dialog modal-sm">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                              <h4 class="modal-title text-center" id="myModalLabel">Əminsinizmi?</h4>
+                            </div>
+                            <div class="modal-body text-center">
+                              <button class="btn btn-primary" type="button" class="close" data-dismiss="modal" aria-label="Close">Xeyir
+                              </button>
+                              <a href="{{url('/istek-delete/'.$istekler->id)}}" class="btn btn-danger">Bəli</a>
+                            </div>
+                          </div>
+                      </div>
+                    </div> --}}
+                    {{-- For Delete Button Modal END--}}
+                       @endif
+                    @endforeach
+              </table>
+            {{-- </div> --}}
+          </div>
 
 
           {{-- <================== NOTIFICATION PART==================> --}}
