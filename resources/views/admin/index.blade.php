@@ -47,36 +47,38 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                    <div class="panel panel-default panel-table">
-                        <div class="panel-heading">
-                            <div class="title">İstifadəçi siyahısı</div>
-                        </div>
-                        <div class="panel-body table-responsive">
-                            <table class="table table-striped table-borderless">
-                                <thead>
-                                <tr>
-                                    <th style="width:40%;">Avatar</th>
-                                    <th style="width:40%;">Username</th>
-                                    <th style="width:20%;">Əlaqə nömrəsi</th>
-                                    <th style="width:20%;">Email</th>
-                                </tr>
-                                </thead>
-                                <tbody class="no-border-x">
-                                @foreach (array_chunk($users->getCollection()->all(), 4) as $row)
+                    <div class="col-md-12">
+                      <div class="panel panel-default panel-table">
+                          <div class="panel-heading">
+                              <div class="title">İstifadəçi siyahısı</div>
+                          </div>
+                          <div class="panel-body table-responsive">
+                              <table class="table table-striped table-borderless">
+                                  <thead>
+                                  <tr>
+                                      <th style="width:40%;">Avatar</th>
+                                      <th style="width:40%;">Username</th>
+                                      <th style="width:20%;">Əlaqə nömrəsi</th>
+                                      <th style="width:20%;">Email</th>
+                                  </tr>
+                                  </thead>
+                                  <tbody class="no-border-x">
+                                  @foreach (array_chunk($users->getCollection()->all(), 4) as $row)
 
-                                    @foreach($row as $user)
-                                        <tr>
-                                            <td class="user-avatar"> <img src="/image/{{$user->avatar}}" alt="Avatar">Penelope Thornton</td>
-                                            <td>{{$user->username}}</td>
-                                            <td>{{$user->phone}}</td>
-                                            <td>{{$user->email}}</td>
-                                        </tr>
-                                    @endforeach
-                                @endforeach
-                                </tbody>
-                            </table>
-                            {{$users->links()}}
-                        </div>
+                                      @foreach($row as $user)
+                                          <tr>
+                                              <td class="user-avatar"> <img src="/image/{{$user->avatar}}" alt="Avatar"> {{$user->name}}</td>
+                                              <td>{{$user->username}}</td>
+                                              <td>{{$user->phone}}</td>
+                                              <td>{{$user->email}}</td>
+                                          </tr>
+                                      @endforeach
+                                  @endforeach
+                                  </tbody>
+                              </table>
+                              {{$users->links()}}
+                          </div>
+                      </div>
                     </div>
                 </div>
             </div>

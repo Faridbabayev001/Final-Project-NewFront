@@ -44,7 +44,11 @@
                     <div class="left-sidebar-content">
                         <ul class="sidebar-elements">
                             <li class="divider">Menu</li>
-                            <li class="active"><a href="index.html"><i class="icon mdi mdi-home"></i><span>Ana səhifə</span></a>
+                            <li {{Request::is('alfagen') ? "class=active" : ''}}><a href="/alfagen"><i class="icon mdi mdi-home"></i><span>Ana səhifə</span></a>
+                            </li>
+                            <li {{Request::is('İstək-list') ? "class=active" : ''}}><a href="/İstək-list"><i class="icon mdi mdi-home"></i><span>İstək siyahısı</span></a>
+                            </li>
+                            <li {{Request::is('Dəstək-list') ? "class=active" : ''}}><a href="/Dəstək-list"><i class="icon mdi mdi-home"></i><span>Dəstək siyahısı</span></a>
                             </li>
                             <li class="parent"><a href="#"><i class="icon mdi mdi-dot-circle"></i><span>Forms</span></a>
                                 <ul class="sub-menu">

@@ -9357,6 +9357,26 @@ form span {
       color: white;
       height: 40px; }
 
+#admin-panel-login {
+  min-height: 100%;
+  background-color: #F0F4F7; }
+  #admin-panel-login .login-logo {
+    padding-top: 100px; }
+  #admin-panel-login .login-block {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid lightgray;
+    border-radius: 3px;
+    background-color: #fff; }
+  #admin-panel-login input[type="password"] {
+    margin-top: 20px;
+    margin-bottom: 20px; }
+  #admin-panel-login input[type="submit"] {
+    text-transform: none;
+    border-radius: 3px; }
+  #admin-panel-login .center-block {
+    float: none !important; }
+
 @media only screen and (max-width: 462px) {
   .contact-social {
     display: none; }
