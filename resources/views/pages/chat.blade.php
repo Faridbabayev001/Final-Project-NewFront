@@ -35,42 +35,44 @@
       
     @endphp
      
-    <div id="chat" class="dsp_none">
-        <div class="chat-header">
-            <h5 class="chat-header-name">{{$header_name}}</h5>
-        </div>
-        <div class="chat-body">
-            <ul class="list-group chat-body-message list-unstyled">
-              @foreach ($chats as $chat)
-                @if ($chat->sender_id == Auth::user()->id && $chat->receiver_id == $qarshidaki)
-                  <li class="pull-right">
-                    <p class="chat-message-content">{{$chat->message}}</p>
-                    <img src="/image/{{$chat->avatar}}" class="chat-message-img" alt="user-image">
-                  </li>
-                  <div class="clearfix"></div>
-                @elseif ($chat->sender_id == $qarshidaki && $chat->receiver_id == Auth::user()->id)
-                  <li class="pull-left">
-                    <img src="/image/{{$chat->avatar}}" class="chat-message-img" alt="user-image">
-                    <p class="chat-message-content">{{$chat->message}}</p>
-                  </li>
-                  <div class="clearfix"></div>
-                @endif
-              @endforeach
-            </ul>
-        </div>
+    <section id="socket-chat-main">
+        <div id="chat" class="dsp_none">
+            <div class="chat-header">
+                <h5 class="chat-header-name">{{$header_name}}</h5>
+            </div>
+            <div class="chat-body">
+                <ul class="list-group chat-body-message list-unstyled">
+                    @foreach ($chats as $chat)
+                        @if ($chat->sender_id == Auth::user()->id && $chat->receiver_id == $qarshidaki)
+                            <li class="pull-right">
+                                <p class="chat-message-content">{{$chat->message}}</p>
+                                <img src="/image/{{$chat->avatar}}" class="chat-message-img" alt="user-image">
+                            </li>
+                            <div class="clearfix"></div>
+                        @elseif ($chat->sender_id == $qarshidaki && $chat->receiver_id == Auth::user()->id)
+                            <li class="pull-left">
+                                <img src="/image/{{$chat->avatar}}" class="chat-message-img" alt="user-image">
+                                <p class="chat-message-content">{{$chat->message}}</p>
+                            </li>
+                            <div class="clearfix"></div>
+                        @endif
+                    @endforeach
+                </ul>
+            </div>
 
-        <div class="chat-footer">
-            <form id="notification_chat" method="post">
-                <div class="col-lg-10 padding0">
-                    <input type="text" class="form-control chat-footer-input" name="" placeholder="Mesajınız">
-                </div>
+            <div class="chat-footer">
+                <form id="notification_chat" method="post">
+                    <div class="col-lg-10 padding0">
+                        <input type="text" class="form-control chat-footer-input" name="" placeholder="Mesajınız">
+                    </div>
 
-                <div class="col-lg-2 padding0">
-                    <button type="submit" name="button" class="btn chat-footer-btn"><i class="fa fa-paper-plane-o"></i></button>
-                </div>
-            </form>
+                    <div class="col-lg-2 padding0">
+                        <button type="submit" name="button" class="btn chat-footer-btn"><i class="fa fa-paper-plane-o"></i></button>
+                    </div>
+                </form>
+            </div>
         </div>
-    </div>
+    </section>
  @php
  }
    
