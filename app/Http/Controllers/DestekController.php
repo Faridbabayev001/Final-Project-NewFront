@@ -10,6 +10,7 @@ use Auth;
 use App\Elan;
 use App\Photo;
 use Session;
+use Mail;
 class DestekController extends Controller
 {
   public function show()
@@ -44,7 +45,7 @@ class DestekController extends Controller
        // $tarix = date('Y-m-d');
        // if(date_create($req->date) < date_create($tarix)){
        //   Session::flash('dateerror' , "Zəhmət olmasa tarixi düzgün seçin.");
-       //   return back();    
+       //   return back();
        // }
 
         $this->validate($req, [

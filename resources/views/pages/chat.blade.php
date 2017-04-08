@@ -11,16 +11,33 @@
     </div>
     {{--Chat--}}
     @php
-      if (isset($one_message->receiver_id)) {
-        $qarshidaki = $one_message->receiver_id;
-      }else if(isset($sender))
+      if (isset($one_message[0]->receiver_id)) {
+        $qarshidaki = $one_message[0]->receiver_id;
+      }
+      else if(isset($sender))
       {
         $qarshidaki = $sender;
       }
+      if (isset($one_message[0]->name)) {
+        $header_name = $one_message[0]->name;
+      }elseif (isset($user->name)) {
+        $header_name = $user->name;
+      }
+
+      if (Session::has('chatdead')) {
     @endphp
+       <span class="container help-block">
+                <div class="alert alert-warning"><p>{{Session::get('chatdead')}}</p></div>
+           
+       </span>
+    @php
+      }else{
+      
+    @endphp
+     
     <div id="chat" class="dsp_none">
         <div class="chat-header">
-            <h5 class="chat-header-name">Loading...</h5>
+            <h5 class="chat-header-name">{{$header_name}}</h5>
         </div>
         <div class="chat-body">
             <ul class="list-group chat-body-message list-unstyled">
@@ -54,13 +71,10 @@
             </form>
         </div>
     </div>
-    @php
-        if (Auth::user()){
-            $id = Auth::user()->id;
-        }else{
-            $id = 0;
-        }
-    @endphp
+ @php
+ }
+   
+ @endphp
 
 @endsection
 @section('script')

@@ -18,6 +18,7 @@ class CreateChatsTable extends Migration
             $table->integer('receiver_id');
             $table->text('message');
             $table->boolean('seen');
+            $table->integer('elan_id');
             $table->timestamps();
         });
     }
