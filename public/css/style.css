@@ -8648,63 +8648,34 @@ form span {
       object-fit: cover;
       height: 210px;
       width: 210px; }
-  #profil #profil-isteklerim {
+  #profil #profil-isteklerim, #profil #profil-desteklerim, #profil #profil-destekolduqlarim {
     font-size: 13px; }
-    #profil #profil-isteklerim .profil-isteklerim-status i.fa-check-circle-o {
+    #profil #profil-isteklerim .profil-status i.fa-check-circle-o, #profil #profil-desteklerim .profil-status i.fa-check-circle-o, #profil #profil-destekolduqlarim .profil-status i.fa-check-circle-o {
       color: #4CAF50; }
-    #profil #profil-isteklerim .profil-isteklerim-status i.fa-times-circle-o {
+    #profil #profil-isteklerim .profil-status i.fa-times-circle-o, #profil #profil-desteklerim .profil-status i.fa-times-circle-o, #profil #profil-destekolduqlarim .profil-status i.fa-times-circle-o {
       color: #F44336; }
-    #profil #profil-isteklerim .profil-isteklerim-status i.fa-clock-o {
+    #profil #profil-isteklerim .profil-status i.fa-clock-o, #profil #profil-desteklerim .profil-status i.fa-clock-o, #profil #profil-destekolduqlarim .profil-status i.fa-clock-o {
       color: #F57F17; }
-    #profil #profil-isteklerim .profil-isteklerim-photo img {
+    #profil #profil-isteklerim .profil-photo img, #profil #profil-desteklerim .profil-photo img, #profil #profil-destekolduqlarim .profil-photo img {
       height: 50px; }
-    #profil #profil-isteklerim .profil-isteklerim-subText {
+    #profil #profil-isteklerim .profil-subText, #profil #profil-desteklerim .profil-subText, #profil #profil-destekolduqlarim .profil-subText {
       width: 200px; }
-    #profil #profil-isteklerim .profil-isteklerim-action a.action-edit {
+    #profil #profil-isteklerim .profil-action a.action-edit, #profil #profil-desteklerim .profil-action a.action-edit, #profil #profil-destekolduqlarim .profil-action a.action-edit {
       text-decoration: none;
       background-color: #F57F17;
       color: white;
       padding: 2px;
       margin-right: 3px; }
-      #profil #profil-isteklerim .profil-isteklerim-action a.action-edit:hover {
+      #profil #profil-isteklerim .profil-action a.action-edit:hover, #profil #profil-desteklerim .profil-action a.action-edit:hover, #profil #profil-destekolduqlarim .profil-action a.action-edit:hover {
         background-color: #d06609; }
-    #profil #profil-isteklerim .profil-isteklerim-action a.action-delete {
+    #profil #profil-isteklerim .profil-action a.action-delete, #profil #profil-desteklerim .profil-action a.action-delete, #profil #profil-destekolduqlarim .profil-action a.action-delete {
       text-decoration: none;
       background-color: #F44336;
       color: white;
       padding: 2px; }
-      #profil #profil-isteklerim .profil-isteklerim-action a.action-delete:hover {
+      #profil #profil-isteklerim .profil-action a.action-delete:hover, #profil #profil-desteklerim .profil-action a.action-delete:hover, #profil #profil-destekolduqlarim .profil-action a.action-delete:hover {
         background-color: #ea1c0d; }
-    #profil #profil-isteklerim .modal-content {
-      margin-top: 254px; }
-  #profil #profil-desteklerim {
-    font-size: 13px; }
-    #profil #profil-desteklerim .profil-desteklerim-status i.fa-check-circle-o {
-      color: #4CAF50; }
-    #profil #profil-desteklerim .profil-desteklerim-status i.fa-times-circle-o {
-      color: #F44336; }
-    #profil #profil-desteklerim .profil-desteklerim-status i.fa-clock-o {
-      color: #F57F17; }
-    #profil #profil-desteklerim .profil-desteklerim-photo img {
-      height: 50px; }
-    #profil #profil-desteklerim .profil-desteklerim-subText {
-      width: 200px; }
-    #profil #profil-desteklerim .profil-desteklerim-action a.action-edit {
-      text-decoration: none;
-      background-color: #F57F17;
-      color: white;
-      padding: 2px;
-      margin-right: 3px; }
-      #profil #profil-desteklerim .profil-desteklerim-action a.action-edit:hover {
-        background-color: #d06609; }
-    #profil #profil-desteklerim .profil-desteklerim-action a.action-delete {
-      text-decoration: none;
-      background-color: #F44336;
-      color: white;
-      padding: 2px; }
-      #profil #profil-desteklerim .profil-desteklerim-action a.action-delete:hover {
-        background-color: #ea1c0d; }
-    #profil #profil-desteklerim .modal-content {
+    #profil #profil-isteklerim .modal-content, #profil #profil-desteklerim .modal-content, #profil #profil-destekolduqlarim .modal-content {
       margin-top: 254px; }
   #profil #profil-notification .notification-block {
     margin-bottom: 20px;

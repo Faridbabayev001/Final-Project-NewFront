@@ -60,9 +60,9 @@
         }
       }
     }
-    #profil-isteklerim{
+    #profil-isteklerim,#profil-desteklerim,#profil-destekolduqlarim{
       font-size: 13px;
-      .profil-isteklerim-status{
+      .profil-status{
         i.fa-check-circle-o{
           color: $succes-color;
         }
@@ -73,15 +73,15 @@
           color: $warning-color;
         }
       }
-      .profil-isteklerim-photo{
+      .profil-photo{
         img{
           height: 50px;
         }
       }
-      .profil-isteklerim-subText{
+      .profil-subText{
         width:200px;
       }
-      .profil-isteklerim-action{
+      .profil-action{
         a.action-edit{
           text-decoration: none;
           background-color: $warning-color;
@@ -107,53 +107,53 @@
         margin-top: 254px;
       }
     }
-    #profil-desteklerim{
-      font-size: 13px;
-      .profil-desteklerim-status{
-        i.fa-check-circle-o{
-          color: $succes-color;
-        }
-        i.fa-times-circle-o{
-          color: $danger-color;
-        }
-        i.fa-clock-o{
-          color: $warning-color;
-        }
-      }
-      .profil-desteklerim-photo{
-        img{
-          height: 50px;
-        }
-      }
-      .profil-desteklerim-subText{
-        width: 200px;
-      }
-      .profil-desteklerim-action{
-        a.action-edit{
-          text-decoration: none;
-          background-color: $warning-color;
-          color: white;
-          padding: 2px;
-          margin-right: 3px;
-          &:hover{
-            background-color: darken($warning-color, 10%);
-          }
-        }
-
-        a.action-delete{
-          text-decoration: none;
-          background-color: $danger-color;
-          color: white;
-          padding: 2px;
-          &:hover{
-            background-color: darken($danger-color, 10%);
-          }
-        }
-      }
-      .modal-content{
-        margin-top: 254px;
-      }
-    }
+    // #profil-desteklerim{
+    //   font-size: 13px;
+    //   .profil-desteklerim-status{
+    //     i.fa-check-circle-o{
+    //       color: $succes-color;
+    //     }
+    //     i.fa-times-circle-o{
+    //       color: $danger-color;
+    //     }
+    //     i.fa-clock-o{
+    //       color: $warning-color;
+    //     }
+    //   }
+    //   .profil-desteklerim-photo{
+    //     img{
+    //       height: 50px;
+    //     }
+    //   }
+    //   .profil-desteklerim-subText{
+    //     width: 200px;
+    //   }
+    //   .profil-desteklerim-action{
+    //     a.action-edit{
+    //       text-decoration: none;
+    //       background-color: $warning-color;
+    //       color: white;
+    //       padding: 2px;
+    //       margin-right: 3px;
+    //       &:hover{
+    //         background-color: darken($warning-color, 10%);
+    //       }
+    //     }
+    //
+    //     a.action-delete{
+    //       text-decoration: none;
+    //       background-color: $danger-color;
+    //       color: white;
+    //       padding: 2px;
+    //       &:hover{
+    //         background-color: darken($danger-color, 10%);
+    //       }
+    //     }
+    //   }
+    //   .modal-content{
+    //     margin-top: 254px;
+    //   }
+    // }
     #profil-notification{
       .notification-block{
         margin-bottom: 20px;
