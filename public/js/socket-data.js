@@ -75,7 +75,7 @@
   socket.on('live_noti',function(live_notification_data)
   {
     $('.notification').html('');
-
+    var notiLengthCount = 0;
       $.each(live_notification_data,function (key,value)
       {
         var noti_text_els_user= (value.type_id == 2) ?'<span class="special-destek">'+ value.qarsiliqs_user_name +'</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !':
@@ -88,8 +88,9 @@
             {
               if (value.status==1)
               {
+                notiLengthCount++;
                 $('.count').addClass('contact-auth-notification-number');
-                 $('.contact-auth-notification-number').text(live_notification_data.length);
+                 $('.contact-auth-notification-number').text(notiLengthCount);
               }
               $('.notification').append('<li>'+
               '<a href="/Bildiriş/'+value.qarsiliqs_id +'"class="notification-seen">'+
@@ -104,8 +105,9 @@
             {
               if (value.data_status==1)
               {
+                notiLengthCount++;
                 $('.count').addClass('contact-auth-notification-number');
-                $('.contact-auth-notification-number').text(live_notification_data.length);
+                $('.contact-auth-notification-number').text(notiLengthCount);
               }
               $('.notification').append('<li>'+
               '<a href="/message/'+value.qarsiliqs_id +'"class="notification-seen">'+

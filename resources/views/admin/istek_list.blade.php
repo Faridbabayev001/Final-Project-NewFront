@@ -1,15 +1,10 @@
 @extends('admin.layout')
 
-@section('title','Istək list')
+@section('title','İstək list')
 
 @section('content')
   <div class="row">
-        {{-- @if (Session::has('elsid')) --}}
-            {{-- <div class="alert alert-success" role="alert">{{Session::get('elsid')}}</div> --}}
-        {{-- @endif --}}
-
       <div class="col-md-12 col-sm-12 col-xs-12">
-
           <div class="panel panel-default">
               <div class="panel-heading">
                   Istək siyahısı
@@ -20,16 +15,12 @@
                           <thead>
                               <tr>
                                   <th>Status</th>
-                                  <th>Edit</th>
-                                  <th>title</th>
-                                  <th>about</th>
-                                  <th>location</th>
-                                  <th>name</th>
-                                  <th>phone</th>
-                                  <th>email</th>
-                                  <th>image</th>
-                                  <th>org</th>
-                                  <th>nov</th>
+                                  <th>Dəyiş</th>
+                                  <th>Başlıq</th>
+                                  <th>Adres</th>
+                                  <th>Ad</th>
+                                  <th>Email</th>
+                                  <th>Şəkil</th>
                               </tr>
                           </thead>
                           <tbody>
@@ -39,25 +30,20 @@
                             @foreach($row as $istek)
                               @if($istek->type_id=='2')
 
-                              <tr>
-                                  @if($istek->status=='0')
-                                    <td><a onclick="btnActive({{$istek->id}})" class="btn btn-success" href="{{url('/activate/'.$istek->id)}}">Aktivləşdir</a></td>
+                                <tr data-toggle="modal" data-target="#{{$istek->id}}" style="cursor: pointer">
+                                    @if($istek->status=='0')
+                                      <td><a onclick="btnActive({{$istek->id}})" class="btn btn-success" href="{{url('/activate/'.$istek->id)}}">Aktivləşdir</a></td>
 
-                                  @else
-                                    <td><a class="btn btn-warning" href="{{url('/deactivate/'.$istek->id)}}">Deaktivləşdir</a></td>
-                                  @endif
-                                  <td><a href="/admin/elan-edit/{{$istek->id}}" class="btn btn-primary">Edit</a></td>
-                                  <td>{{$istek->title}}</td>
-                                  <td>{{substr($istek->about,0,10)}}</td>
-                                  <td>{{substr($istek->location, 0,10)}}</td>
-                                  <td>{{$istek->name}}</td>
-                                  <td>{{$istek->phone}}</td>
-                                  <td>{{$istek->email}}</td>
-                                  <td><a href="#" data-toggle="modal" data-target="#{{$istek->id}}"><img style="width:50px; height:50px" src="{{url('image/'.$istek->shekiller[0]->imageName)}}"/></a></td>
-                                  <td>{{$istek->org}}</td>
-                                  <td>{{$istek->nov}}</td>
-                              </tr>
-                              <div id="{{$istek->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                    @else
+                                      <td><a class="btn btn-warning" href="{{url('/deactivate/'.$istek->id)}}">Deaktivləşdir</a></td>
+                                    @endif
+                                    <td><a href="/admin/elan-edit/{{$istek->id}}" class="btn btn-primary">Dəyiş</a></td>
+                                    <td>{{$istek->title}}</td>
+                                    <td>{{substr($istek->location, 0,50)}}</td>
+                                    <td>{{$istek->name}}</td>
+                                    <td>{{$istek->email}}</td>
+                                    <td><a href="#"><img style="width:50px; height:50px" src="{{url('image/'.$istek->shekiller[0]->imageName)}}"/></a></td>
+                                    <div id="{{$istek->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog modal-lg">
                                   <div class="modal-content">
                                     <div class="modal-header">
@@ -92,6 +78,7 @@
                                   </div>
                                 </div>
                               </div>
+                                </tr>
                             @endif
                             @endforeach
                             @endforeach
@@ -105,7 +92,6 @@
       </div>
   </div>
   <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>
-
 @endsection
 @section('script')
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
@@ -114,7 +100,7 @@
 <script>
 socketData(0,0);
 
-function btnActive(id) {  
+function btnActive(id) {
  console.log(id)
 }
 </script>

@@ -1,0 +1,34 @@
+#admin-panel-login {
+  min-height: 100%;
+  background-color: #F0F4F7;
+  
+  .login-logo {
+    padding-top: 100px;
+  }
+
+  .login-block {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid lightgray;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    background-color: #fff;
+  }
+
+  input[type="password"] {
+    margin-top: 20px;
+    margin-bottom: 20px;
+  }
+
+  input[type="submit"] {
+    text-transform: none;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+  }
+
+  .center-block {
+    float: none !important
+  }
+}
