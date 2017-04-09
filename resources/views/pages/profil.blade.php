@@ -358,7 +358,7 @@
               @endforeach
 
               @foreach($data_join as $data_joins)
-                @if($data_joins->qars_userid==Auth::user()->id)
+                @if($data_joins->qars_userid==Auth::user()->id && $data_joins->data == 1)
               <div class="col-lg-12 padding0 notification-block">
                     <div class="col-lg-2">
                         <img src="{{url('/image/'.$data_joins->avatar)}}">
@@ -366,7 +366,7 @@
                     <div class="col-lg-9">
                       <h4 class="profil-notification-title">
                         @if($data_joins->type_id==2)
-                          <span class="special-istek">{{$data_joins->name}}</span>  adlı istifadəçi desteyinizi qəbul etdi !
+                          <span class="special-istek">{{$data_joins->name}}</span>  adlı istifadəçi dəstəyinizi qəbul etdi !
                         @endif
                         @if($data_joins->type_id==1)
                           <span class="special-destek">{{$data_joins->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
