@@ -12,7 +12,7 @@ use App\Elan;
 use App\Admin;
 use Auth;
 use Carbon\Carbon;
-
+use App\Qarsiliq;
 
 class AdminController extends Controller
 {
@@ -45,23 +45,23 @@ class AdminController extends Controller
 
 
         //cheking non activated users and deleting after 30days///////////////////////////////////////
-          
+
           $users = User::all()->where('activated', '=', '0');
 
           $now = Carbon::now();
 
             foreach ($users as $dat) {
-          
-              $createdUser = new Carbon($dat['created_at']);              
+
+              $createdUser = new Carbon($dat['created_at']);
               $diffbtwUserNow = $createdUser->diff($now)->days;
 
                 if ($diffbtwUserNow >= 30) {
-             
+
                   User::find($dat['id'])->delete();
-             
-                }                
+
+                }
             }
-          
+
         //end////////////////////////////////////////////////////////
 
 
@@ -143,5 +143,14 @@ class AdminController extends Controller
       Session::flash('success', 'Elan uğurla yeniləndi.');
 
       return back();
+    }
+    public function qarsiliq()
+    {
+      $qarsiliqs = Qarsiliq::paginate(10);
+      $zeroCount = Qarsiliq::where('data', 1)->count();
+      $oneCount = Qarsiliq::where('data', 0)->count();
+
+
+      return view('admin.qarsiliq-list', compact('qarsiliqs', 'zeroCount', 'oneCount'));
     }
 }

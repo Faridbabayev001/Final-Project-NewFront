@@ -115,6 +115,7 @@ if (isset($_SESSION['admin'])) {
     Route::get('/Dəstək-list','AdminController@destek_list');
     Route::get('/activate/{id}','AdminController@activate');
     Route::get('/deactivate/{id}','AdminController@deactivate');
+    Route::get('admin/qarsiliqlar','AdminController@qarsiliq');
   });
 }
 //<=================Admin Routes ===========>
