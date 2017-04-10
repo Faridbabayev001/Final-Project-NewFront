@@ -46,10 +46,12 @@
                             <li class="divider">Menu</li>
                             <li {{Request::is('alfagen') ? "class=active" : ''}}><a href="/alfagen"><i class="icon mdi mdi-home"></i><span>Ana səhifə</span></a>
                             </li>
-                            <li {{Request::is('İstək-list') ? "class=active" : ''}}><a href="/İstək-list"><i class="icon mdi mdi-home"></i><span>İstək siyahısı</span></a>
+                            <li {{Request::is('İstək-list') ? "class=active" : ''}}><a href="/İstək-list"><i class="icon mdi mdi-map"></i><span>İstək siyahısı</span></a>
                             </li>
-                            <li {{Request::is('Dəstək-list') ? "class=active" : ''}}><a href="/Dəstək-list"><i class="icon mdi mdi-home"></i><span>Dəstək siyahısı</span></a>
+                            <li {{Request::is('Dəstək-list') ? "class=active" : ''}}><a href="/Dəstək-list"><i class="icon mdi mdi-bookmark"></i><span>Dəstək siyahısı</span></a>
                             </li>
+                            <li {{Request::is('admin/qarsiliqlar') ? "class=active" : ''}}><a href="/admin/qarsiliqlar"><i class="icon mdi mdi-bookmark"></i><span>Qarşılıq siyahısı</span></a>
+
                             <li class="parent"><a href="#"><i class="icon mdi mdi-dot-circle"></i><span>Forms</span></a>
                                 <ul class="sub-menu">
                                     <li><a href="form-wysiwyg.html">WYSIWYG Editor</a>

@@ -31,7 +31,7 @@
                             @foreach($row as $destek)
                               @if($destek->type_id=='1')
 
-                                <tr style="cursor: pointer">
+                                <tr>
                                     @if($destek->status=='0')
                                       <td><a onclick="btnActive({{$destek->id}})" class="btn btn-success" href="{{url('/activate/'.$destek->id)}}">Aktivləşdir</a></td>
 
@@ -58,6 +58,7 @@
                                       <ul class="list-group">
                                         <li class="list-group-item"><b>Məlumat:</b> {{$destek->about}}</li>
                                         <li class="list-group-item"><b>Ad & Soyad:</b> {{$destek->name}}</li>
+                                        <li class="list-group-item"><b>İstifadəçi Ad & Soyadı:</b> {{$destek->user->name}}</li>
                                         <li class="list-group-item"><b>Əlaqə nömrəsi:</b> {{$destek->phone}}</li>
                                         <li class="list-group-item"><b>Email:</b> {{$destek->email}}</li>
                                         <li class="list-group-item"><b>Təşkilat:</b> {{$destek->org}}</li>
