@@ -199,7 +199,7 @@ class PagesController extends Controller
                           ->join('users', 'users.id', '=', 'els.user_id')
                           ->select('users.name','els.type_id','users.email',
                           'qarsiliqs.user_id as qars_userid','users.city',
-                          'qarsiliqs.id','users.avatar','users.phone','els.location')
+                          'qarsiliqs.id','qarsiliqs.data','users.avatar','users.phone','els.location')
                           ->where('qarsiliqs.user_id', '=', Auth::user()->id)
                           ->get();
 

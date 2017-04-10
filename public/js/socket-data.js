@@ -79,9 +79,9 @@
       $.each(live_notification_data,function (key,value)
       {
         var noti_text_els_user= (value.type_id == 2) ?'<span class="special-destek">'+ value.qarsiliqs_user_name +'</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !':
-        '<span class="special-istek">'+ value.qarsiliqs_user_name +'</span> adlı istifadəçi desteyinize istek vermək istəyir !';
+        '<span class="special-istek">'+ value.qarsiliqs_user_name +'</span> adlı istifadəçi dəstəyinizə istək vermək istəyir !';
 
-        var noti_text_qars_user= (value.type_id == 2) ?'<span class="special-istek">'+ value.els_user_name +'</span> adlı istifadəçi desteyinizi qəbul etdi !':
+        var noti_text_qars_user= (value.type_id == 2) ?'<span class="special-istek">'+ value.els_user_name +'</span> adlı istifadəçi dəstəyinizi qəbul etdi !':
         '<span class="special-istek">'+ value.els_user_name +'</span> adlı istifadəçi istəyinizi qəbul etdi !';
 
             if (value.els_user_id==data.id)
