@@ -49,7 +49,7 @@
             </span>
           @endif
 
-          <form id="forUploadImages" action="{{url('/destek-add')}}" method="post" enctype="multipart/form-data">
+          <form id="forUploadImages" action="/destek-elave-et" method="post" enctype="multipart/form-data">
             {{csrf_field()}}
             {{-- <=================title input ================> --}}
             <div class="col-lg-6">
@@ -164,10 +164,9 @@
 @elseif(Auth::guest())
   <section id="add">
     <div class="alert alert-danger">
-      <h1 class="text-center">İstək əlavə etmək üçün <a href="#" data-toggle="modal" data-target="#contact-login-modal" class="register-color">daxil olun</a> ya da <a href="{{url('/Qeydiyyat')}}" class="register-color">qeydiyyatdan</a> keçməyiniz tələb olunur.</h1>
+      <h1 class="text-center">İstək əlavə etmək üçün <a href="#" data-toggle="modal" data-target="#contact-login-modal" class="register-color">daxil olun</a> ya da <a href="/qeydiyyat" class="register-color">qeydiyyatdan</a> keçməyiniz tələb olunur.</h1>
     </div>
   </section>
 @endif
 
 @endsection
-

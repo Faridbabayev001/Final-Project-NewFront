@@ -38,6 +38,7 @@ class IstekController extends Controller
 
     public function istek_add(Request $req)
     {
+
        // $tarix = date('Y-m-d');
        // if(date_create($req->date) < date_create($tarix)){
        //   Session::flash('dateerror' , "Zəhmət olmasa tarixi düzgün seçin.");
@@ -72,12 +73,13 @@ class IstekController extends Controller
           continue;
         }else{
           Session::flash('imageerror' , "Xahiş olunur düzgün formatda şəkil seçəsiniz.");
-             return redirect('/istek-add');
+             return redirect('/istek-elave-et');
         }
       }
               $data = [
                'type_id'=>'2',
                'title'=>$req->title,
+               'slug'=> Date('d-m-y'). '-' . str_slug($req->title),
                'about'=>$req->about,
                'location'=>$req->location,
                'lat'=>$req->lat,
@@ -118,7 +120,7 @@ class IstekController extends Controller
             //mail to admin end /////////////////////////////////
 
          Session::flash('istekadded' , "İstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
-           return redirect('/istek-add');
+           return redirect('/istek-elave-et');
 
   }
 

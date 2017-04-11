@@ -110,9 +110,9 @@ class PagesController extends Controller
       //<===================METHOD FOR USER LOGIN END=============>
     //<================= METHHOD FOR SİNGLE PAGE  ================>
 
-    public function single($id)
+    public function single($slug)
     {
-      $single = Elan::find($id);
+      $single = Elan::where('slug', $slug)->first();
       $qarsiliqs = Qarsiliq::all();
       $check = false;
       foreach ($qarsiliqs as $qarsiliq) {

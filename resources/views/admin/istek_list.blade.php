@@ -7,7 +7,7 @@
       <div class="col-md-12 col-sm-12 col-xs-12">
           <div class="panel panel-default">
               <div class="panel-heading">
-                  Istək siyahısı
+                  İstək siyahısı
               </div>
               <div class="panel-body">
                   <div class="table-responsive">
@@ -16,6 +16,7 @@
                               <tr>
                                   <th>Status</th>
                                   <th>Dəyiş</th>
+                                  <th>Bax</th>
                                   <th>Başlıq</th>
                                   <th>Adres</th>
                                   <th>Ad</th>
@@ -30,7 +31,7 @@
                             @foreach($row as $istek)
                               @if($istek->type_id=='2')
 
-                                <tr data-toggle="modal" data-target="#{{$istek->id}}" style="cursor: pointer">
+                                <tr>
                                     @if($istek->status=='0')
                                       <td><a onclick="btnActive({{$istek->id}})" class="btn btn-success" href="{{url('/activate/'.$istek->id)}}">Aktivləşdir</a></td>
 
@@ -38,6 +39,7 @@
                                       <td><a class="btn btn-warning" href="{{url('/deactivate/'.$istek->id)}}">Deaktivləşdir</a></td>
                                     @endif
                                     <td><a href="/admin/elan-edit/{{$istek->id}}" class="btn btn-primary">Dəyiş</a></td>
+                                    <td><a data-toggle="modal" data-target="#{{$istek->id}}" class="btn btn-success">Bax</a></td>
                                     <td>{{$istek->title}}</td>
                                     <td>{{substr($istek->location, 0,50)}}</td>
                                     <td>{{$istek->name}}</td>
@@ -53,27 +55,44 @@
                                       <h4 class="modal-title" id="myModalLabel">{{$istek->title}}</h4>
                                     </div>
                                     <div class="modal-body">
-                                      {{$istek->about}}
+                                      <ul class="list-group">
+                                        <li class="list-group-item"><b>Məlumat:</b> {{$istek->about}}</li>
+                                        <li class="list-group-item"><b>Ad & Soyad:</b> {{$istek->name}}</li>
+                                        <li class="list-group-item"><b>İstifadəçi Ad & Soyadı:</b> {{$istek->user->name}}</li>
+                                        <li class="list-group-item"><b>Əlaqə nömrəsi:</b> {{$istek->phone}}</li>
+                                        <li class="list-group-item"><b>Email:</b> {{$istek->email}}</li>
+                                        <li class="list-group-item"><b>Təşkilat:</b> {{$istek->org}}</li>
+                                        <li class="list-group-item"><b>Növ:</b> {{$istek->nov}}</li>
+                                        <li class="list-group-item"><b>Deadline vaxtı:</b> {{$istek->deadline}}</li>
+                                      </ul>
+                                      <hr>
+                                      <h3>Digər Şəkillər:</h3>
+                                      <div class="row">
+                                        @php
+                                          $isFirst = true;
+                                        @endphp
+                                        @foreach($istek->shekiller as $imgName)
+                                          @if ($isFirst)
+                                            @php
+                                              $isFirst = false;
+                                              continue;
+                                            @endphp
+                                          @endif
+                                          <div class="col-lg-3">
+                                              <img src="{{url('/image/'.$imgName->imageName)}}" style="height:150px; cursor:pointer" class="admin-panel-other-photo img-responsive" alt="" />
+                                          </div>
+                                          @endforeach
+                                      </div>
+                                      <hr>
+                                      <h3>Əsas şəkil:</h3>
+                                      <div class="col-lg-12">
+                                        <img class="admin-panel-main-photo img-responsive" src="{{url('image/'.$istek->shekiller[0]->imageName)}}" alt="" />
+                                      </div>
+                                      <hr>
                                     </div>
-                                     {{-- SLIDER PART --}}
-                                     {{-- mecbur qalib style burda yazdm --}}
-                                      <style type="text/css">
-                                        .littleImg{
-                                           width: 18%;
-                                           height: 100px;
-                                            overflow: hidden;
-                                            float: left;
-                                           margin: 3% 0 0 2%;
-                                        }
-                                      </style>
-                                    @foreach($istek->shekiller as $imgName)
-                                    <div class="littleImg">
-                                        <img src="{{url('/image/'.$imgName->imageName)}}" class="img-responsive" alt="" />
-                                    </div>
-                                      @endforeach
 
-                                    <div class="mainImg modal-footer">
-                                       <img class="img-responsive " src="{{url('image/'.$istek->shekiller[0]->imageName)}}"/>
+
+                                    <div class="modal-footer">
                                     </div>
                                   </div>
                                 </div>
@@ -85,13 +104,14 @@
                           </tbody>
                       </table>
 
-                      {{$istekler->links()}}
+                      <div class="col-lg-12 center-block" style="float:none !important">
+                        {{$istekler->links()}}
+                      </div>
                   </div>
               </div>
           </div>
       </div>
   </div>
-  <script src="{{url('/js/vendor/jquery-2.2.4.min.js')}}"></script>
 @endsection
 @section('script')
   <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.2/socket.io.js"></script>
@@ -99,8 +119,16 @@
   <script src="{{url('/js/socket-data.js')}}"></script>
 <script>
 socketData(0,0);
-
-function btnActive(id) {
- console.log(id)
-}
 </script>
+
+<script>
+  $(document).ready(function() {
+    var mainPhoto = $('.admin-panel-main-photo');
+    var otherPhoto = $('.admin-panel-other-photo');
+
+    otherPhoto.click(function() {
+      mainPhoto.attr('src', $(this).attr('src'));
+    });
+  });
+</script>
+@endsection

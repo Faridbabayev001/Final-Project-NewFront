@@ -46,10 +46,12 @@
                             <li class="divider">Menu</li>
                             <li {{Request::is('alfagen') ? "class=active" : ''}}><a href="/alfagen"><i class="icon mdi mdi-home"></i><span>Ana səhifə</span></a>
                             </li>
-                            <li {{Request::is('İstək-list') ? "class=active" : ''}}><a href="/İstək-list"><i class="icon mdi mdi-home"></i><span>İstək siyahısı</span></a>
+                            <li {{Request::is('İstək-list') ? "class=active" : ''}}><a href="/İstək-list"><i class="icon mdi mdi-map"></i><span>İstək siyahısı</span></a>
                             </li>
-                            <li {{Request::is('Dəstək-list') ? "class=active" : ''}}><a href="/Dəstək-list"><i class="icon mdi mdi-home"></i><span>Dəstək siyahısı</span></a>
+                            <li {{Request::is('Dəstək-list') ? "class=active" : ''}}><a href="/Dəstək-list"><i class="icon mdi mdi-bookmark"></i><span>Dəstək siyahısı</span></a>
                             </li>
+                            <li {{Request::is('admin/qarsiliqlar') ? "class=active" : ''}}><a href="/admin/qarsiliqlar"><i class="icon mdi mdi-bookmark"></i><span>Qarşılıq siyahısı</span></a>
+
                             <li class="parent"><a href="#"><i class="icon mdi mdi-dot-circle"></i><span>Forms</span></a>
                                 <ul class="sub-menu">
                                     <li><a href="form-wysiwyg.html">WYSIWYG Editor</a>
@@ -308,21 +310,23 @@
         </div>
     </nav>
 </div>
-<script src="assets/lib/jquery/jquery.min.js" type="text/javascript"></script>
-<script src="assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
-<script src="assets/js/main.min.js" type="text/javascript"></script>
-<script src="assets/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
-<script src="assets/lib/jquery-flot/jquery.flot.js" type="text/javascript"></script>
-<script src="assets/lib/jquery-flot/jquery.flot.pie.js" type="text/javascript"></script>
-<script src="assets/lib/jquery-flot/jquery.flot.resize.js" type="text/javascript"></script>
-<script src="assets/lib/jquery-flot/plugins/jquery.flot.orderBars.js" type="text/javascript"></script>
-<script src="assets/lib/jquery-flot/plugins/curvedLines.js" type="text/javascript"></script>
-<script src="assets/lib/jquery.sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
-<script src="assets/lib/countup/countUp.min.js" type="text/javascript"></script>
-<script src="assets/lib/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
-<script src="assets/lib/jqvmap/jquery.vmap.min.js" type="text/javascript"></script>
-<script src="assets/lib/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
-<script src="assets/js/app-dashboard.js" type="text/javascript"></script>
+<script src="/assets/lib/jquery/jquery.min.js" type="text/javascript"></script>
+<script src="/assets/lib/perfect-scrollbar/js/perfect-scrollbar.jquery.min.js" type="text/javascript"></script>
+<script src="/assets/js/main.min.js" type="text/javascript"></script>
+<script src="/assets/lib/bootstrap/dist/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="/assets/lib/jquery-flot/jquery.flot.js" type="text/javascript"></script>
+<script src="/assets/lib/jquery-flot/jquery.flot.pie.js" type="text/javascript"></script>
+<script src="/assets/lib/jquery-flot/jquery.flot.resize.js" type="text/javascript"></script>
+<script src="/assets/lib/jquery-flot/plugins/jquery.flot.orderBars.js" type="text/javascript"></script>
+<script src="/assets/lib/jquery-flot/plugins/curvedLines.js" type="text/javascript"></script>
+<script src="/assets/lib/jquery.sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
+<script src="/assets/lib/countup/countUp.min.js" type="text/javascript"></script>
+<script src="/assets/lib/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="/assets/lib/jqvmap/jquery.vmap.min.js" type="text/javascript"></script>
+<script src="/assets/lib/jqvmap/maps/jquery.vmap.world.js" type="text/javascript"></script>
+<script src="/assets/js/app-dashboard.js" type="text/javascript"></script>
+@yield('script')
+
 <script type="text/javascript">
     $(document).ready(function(){
         //initialize the javascript

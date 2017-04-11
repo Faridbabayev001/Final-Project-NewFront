@@ -16,19 +16,19 @@ session_start();
 //<==================Page Routes ==================>
 Route::get('/','PagesController@index');
 Route::get('/index','PagesController@index');
-Route::get('/Qeydiyyat','PagesController@register');
-Route::get('/Haqqımızda','PagesController@about');
-Route::get('/Əlaqə','PagesController@contact');
-Route::post('/Əlaqə','PagesController@contact_send');
-Route::get('/istek-list','PagesController@istek_list');
-Route::get('/destek-list','PagesController@destek_list');
-Route::get('/single/{id}','PagesController@single');
+Route::get('/qeydiyyat','PagesController@register');
+Route::get('/haqqimizda','PagesController@about');
+Route::get('/elaqe','PagesController@contact');
+Route::post('/elaqe','PagesController@contact_send');
+Route::get('/istekler','PagesController@istek_list');
+Route::get('/destekler','PagesController@destek_list');
+Route::get('/elan/{slug}','PagesController@single');
   Route::group(['middleware' => 'auth'],function(){
-    Route::get('/Profil','PagesController@profil');
-    Route::get('/Tənzimləmələr','PagesController@profil');
-    Route::post('/Tənzimləmələr','PagesController@settings');
-    Route::get('/Destekler','PagesController@profil');
-    Route::get('/Istekler','PagesController@profil');
+    Route::get('/profilim','PagesController@profil');
+    Route::get('/tenzimlemeler','PagesController@profil');
+    Route::post('/tenzimlemeler','PagesController@settings');
+    Route::get('/destekler','PagesController@profil');
+    Route::get('/isteklerim','PagesController@profil');
     });
 //<=================Page Routes End ================>
 
@@ -36,8 +36,8 @@ Route::get('/single/{id}','PagesController@single');
 
 
 //<==================Istek Routes ==================>
-Route::get('/istek-add','IstekController@show');
-Route::post('/istek-add','IstekController@istek_add');
+Route::get('/istek-elave-et','IstekController@show');
+Route::post('/istek-elave-et','IstekController@istek_add');
 Route::post('/add_file_change','IstekController@only_pic');
 // ajax istek and destek
 Route::group(['middleware' => 'auth'],function(){
@@ -52,8 +52,8 @@ Route::group(['middleware' => 'auth'],function(){
 
 
 //<==================Destek Routes ==================>
-Route::get('/destek-add','DestekController@show');
-Route::post('/destek-add','DestekController@destek_add');
+Route::get('/destek-elave-et','DestekController@show');
+Route::post('/destek-elave-et','DestekController@destek_add');
 Route::group(['middleware' => 'auth'],function(){
   Route::get('/destek-edit/{id}','DestekController@destek_edit');
   Route::patch('/destek-edit/{id}','DestekController@destek_update');
@@ -115,6 +115,7 @@ if (isset($_SESSION['admin'])) {
     Route::get('/Dəstək-list','AdminController@destek_list');
     Route::get('/activate/{id}','AdminController@activate');
     Route::get('/deactivate/{id}','AdminController@deactivate');
+    Route::get('admin/qarsiliqlar','AdminController@qarsiliq');
   });
 }
 //<=================Admin Routes ===========>

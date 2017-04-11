@@ -12,9 +12,9 @@
         </div>
         <div class="col-lg-9">
           <ul class="nav nav-tabs profil-navigatior">
-            <li {{Request::is('Profil') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-view">Profil görünüşü</a></li>
-            <li {{Request::is('Istekler') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-isteklerim">İstəklərim</a></li>
-            <li {{Request::is('Destekler') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-desteklerim">Dəstəklərim</a></li>
+            <li {{Request::is('profilim') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-view">Profil görünüşü</a></li>
+            <li {{Request::is('isteklerim') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-isteklerim">İstəklərim</a></li>
+            <li {{Request::is('desteklerim') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-desteklerim">Dəstəklərim</a></li>
             <li {{Request::is('Destekolduqlarim') ? "class=active" : ''}}><a data-toggle="tab" href="#profil-destekolduqlarim">Dəstək olduqlarım</a></li>
             <li {{Request::is('Istekverdiklerim') ? " class=active" : ''}}><a data-toggle="tab" href="#profil-istekverdiklerim">İstək verdiklərim</a></li>
             <li {{Request::is('Bildirişlər') ? " class=active" : ''}}><a data-toggle="tab" href="#profil-notification">Bildirişlər</a></li>
@@ -32,7 +32,7 @@
         <div class="tab-content">
           {{-- <================== PROFIL PART==================> --}}
 
-          <div id="profil-view" class="tab-pane fade in {{Request::is('Profil') ? "active" : ''}}">
+          <div id="profil-view" class="tab-pane fade in {{Request::is('profilim') ? "active" : ''}}">
             <div class="col-lg-3 col-md-2 col-sm-2 col-xs-4 col-lg-offset-0 col-md-offset-0 col-sm-offset-0 col-xs-offset-4 padding0 profil-avatar">
               <img src="{{url('/image/'.Auth::user()->avatar)}}" alt="Avatar">
             </div>
@@ -56,7 +56,7 @@
 
           {{-- <================== ISTEKLERIM PART==================> --}}
 
-          <div id="profil-isteklerim" class="tab-pane fade in{{Request::is('Istekler') ? " active" : ''}}">
+          <div id="profil-isteklerim" class="tab-pane fade in{{Request::is('isteklerim') ? " active" : ''}}">
               @if (Session::has('istek_edited'))
                 <div class="alert alert-success" role="alert">{{Session::get('istek_edited')}}</div>
               @endif
@@ -127,7 +127,7 @@
 
           {{-- <================== DESTEKLERIM PART ==================> --}}
 
-          <div id="profil-desteklerim" class="tab-pane fade in{{Request::is('Destekler') ? " active" : ''}}">
+          <div id="profil-desteklerim" class="tab-pane fade in{{Request::is('desteklerim') ? " active" : ''}}">
             {{-- <div class="table-responsive"> --}}
               <table class="table">
                 @if ($destek == null)
