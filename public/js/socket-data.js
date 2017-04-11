@@ -38,8 +38,7 @@
       }
       else{
           $('.socket-messages-number').empty();
-          $('.socket-messages-number').append('<a href="#" data-toggle="dropdown" class="dropdownyoxdur-toggle socket-messages-count"><i class="fa fa-comments-o"></i></a>');
-        //  $('.socket-messages-data').append('<li><a href="#"> <h4 class="text-center margin0">Mesajınız yoxdur</h4></a></li>');
+          $('.socket-messages-number').append('<a href="#" data-toggle="dropdown" class="dropdown-toggle socket-messages-count"><i class="fa fa-comments-o"></i></a>');
       }
   });
 
@@ -55,10 +54,8 @@
   {
       if(auth_user_id != 0){
             $('.socket-messages-data').empty();
-            $.each(message_notification_data,function (key,value)
-            {
-              if (value.receiver_id == data.id)
-              {
+            $.each(message_notification_data,function (key,value) {
+              if (value.receiver_id == data.id) {
                 $('.socket-messages-data').append(
                     '<li>' +
                     '<a href="/Mesajlar/'+value.id+'">' +
@@ -68,16 +65,20 @@
             }
           })
 
+          if (message_notification_data.length == 0) {
+            $('.socket-messages-data').append('<li><a href="#"><h4 class="text-center margin0">Mesajınız yoxdur</h4></a></li>');
+          }
+
       }
   });
   //notifications
   socket.emit('live_notification',data);
   socket.on('live_noti',function(live_notification_data)
   {
+    // console.log(live_notification_data));
     $('.notification').html('');
     var notiLengthCount = 0;
-      $.each(live_notification_data,function (key,value)
-      {
+      $.each(live_notification_data,function (key,value) {
         var noti_text_els_user= (value.type_id == 2) ?'<span class="special-destek">'+ value.qarsiliqs_user_name +'</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !':
         '<span class="special-istek">'+ value.qarsiliqs_user_name +'</span> adlı istifadəçi dəstəyinizə istək vermək istəyir !';
 
@@ -92,16 +93,20 @@
                 $('.count').addClass('contact-auth-notification-number');
                  $('.contact-auth-notification-number').text(notiLengthCount);
               }
-              $('.notification').append('<li>'+
-              '<a href="/Bildiriş/'+value.qarsiliqs_id +'"class="notification-seen">'+
-              '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />'+
-              '<p>'+noti_text_els_user+'</p>'+
-              '</a>'+
-              '</li>'
+              if (typeof value.qarsiliqs_user_name!=='undefined') {
+                $('.notification').append('<li>'+
+                '<a href="/Bildiriş/'+value.qarsiliqs_id +'"class="notification-seen">'+
+                '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />'+
+                '<p>'+noti_text_els_user+'</p>'+
+                '</a>'+
+                '</li>'
               );
-
+              }
+              else {
+                $('.notification').append('<li><a href="#"><h4 class="text-center margin0">Bildirisiniz yoxdur</h4></a></li>');
+              }
             }
-            else if(value.qarsiliqs_user_id==data.id && value.data_status==1)
+            else if(value.qarsiliqs_user_id==data.id)
             {
               if (value.data_status==1)
               {
@@ -109,16 +114,20 @@
                 $('.count').addClass('contact-auth-notification-number');
                 $('.contact-auth-notification-number').text(notiLengthCount);
               }
-              $('.notification').append('<li>'+
-              '<a href="/message/'+value.qarsiliqs_id +'"class="notification-seen">'+
-              '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />'+
-              '<p>'+noti_text_qars_user+'</p>'+
-              '</a>'+
-              '</li>'
+              if (typeof value.els_user_name!=='undefined') {
+                $('.notification').append('<li>'+
+                '<a href="/message/'+value.qarsiliqs_id +'"class="notification-seen">'+
+                '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />'+
+                '<p>'+noti_text_qars_user+'</p>'+
+                '</a>'+
+                '</li>'
               );
+              }
+              else {
+                $('.notification').append('<li><a href="#"><h4 class="text-center margin0">Bildirisiniz yoxdur</h4></a></li>');
+              }
+              console.log(value.els_user_name);
             }
-
-
       });
   });
 //--------------------Message and Notification socket End -----------------------------------

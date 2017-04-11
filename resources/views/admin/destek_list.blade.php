@@ -118,7 +118,7 @@
   <script src="{{url('/js/moment.js')}}"></script>
   <script src="{{url('/js/socket-data.js')}}"></script>
 <script>
-socketData(0,0);
+socketData(0,0,0);
 </script>
 
 <script>

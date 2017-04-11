@@ -210,6 +210,7 @@ class PagesController extends Controller
                             ->select('qarsiliqs.id as qars_id','qarsiliqs.user_id','qarsiliqs.description',
                             'els.title','photos.imageName','els.id as elan_id','els.about','els.type_id','qarsiliqs.data','qarsiliqs.data_status')
                             ->where('qarsiliqs.user_id', '=' , Auth::user()->id)
+                            ->groupBy('qarsiliqs.elan_id')
                             ->get();
       // dd($help);
       return view('pages.profil', compact('Elan_all','noti_message','data_join','istek','destek','help'));

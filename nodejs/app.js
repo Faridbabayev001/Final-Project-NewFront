@@ -156,8 +156,7 @@ io.on('connection', function(socket){
                     "els.id=qarsiliqs.elan_id " +
                     "INNER JOIN users ON " +
                     "users.id=qarsiliqs.user_id " +
-                    // "WHERE els.user_id =" + connection.escape(result.id) +
-                    " WHERE qarsiliqs.notification = 1 ;" +
+                    " WHERE qarsiliqs.notification = 1 ORDER BY qarsiliqs.id DESC LIMIT 2;" +
                 "SELECT " +
                     "els.type_id,qarsiliqs.user_id as qarsiliqs_user_id,users.avatar,users.name as els_user_name,qarsiliqs.notification,qarsiliqs.id as qarsiliqs_id,qarsiliqs.data_status,qarsiliqs.data " +
                     "FROM " +
@@ -166,8 +165,7 @@ io.on('connection', function(socket){
                     "els.id = qarsiliqs.elan_id " +
                     "INNER JOIN users ON " +
                     "users.id = els.user_id " +
-                    "WHERE qarsiliqs.data = 1 " ,
-                    // "AND qarsiliqs.user_id = " + connection.escape(result.id),
+                    "WHERE qarsiliqs.data = 1 ORDER BY qarsiliqs.id DESC LIMIT 2" ,
                     function (error, results) {
                         if (error) throw error;
                         for ( var i=0; i<results.length; i++ ) {
