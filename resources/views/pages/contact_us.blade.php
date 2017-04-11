@@ -42,7 +42,7 @@
             <div class="alert alert-danger"><p>Ulduz ilə işarəli xanaları boş saxlamayın.</p></div>
         </span>
         @endif
-        <form action="{{url('/Əlaqə')}}" method="post">
+        <form action="/elaqe" method="post">
           {{csrf_field()}}
             <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
             <label for="name">Ad, Soyad<SPAN> *</SPAN></label>
