@@ -132,7 +132,7 @@ io.on('connection', function(socket){
         socket.on('live_update',function(result){
             connection.query(
                 "SELECT "+
-                "type_id,title,status,id "+
+                "type_id,title,status,id,slug "+
                 "FROM "+
                 "els "+
                 "WHERE status=1 ",

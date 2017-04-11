@@ -73,13 +73,14 @@ class DestekController extends Controller
           continue;
         }else{
           Session::flash('imageerror' , "Xahiş düzgün şəkil seçin.");
-             return redirect('/destek-add');
+             return redirect('/destek-elave-et');
         }
       }
 
     $data = [
           'type_id'=>'1',
           'title'=>$req->title,
+          'slug'=> Date('d-m-y'). '-' . str_slug($req->title),
           'about'=>$req->about,
           'location'=>$req->location,
           'lat'=>$req->lat,
@@ -123,7 +124,7 @@ class DestekController extends Controller
 
 
       Session::flash('destek_add' , "Dəstəyiniz uğurla  əlavə olundu və yoxlamadan keçəndən sonra dərc olunacaq.");
-       return redirect('/destek-add');
+       return redirect('/destek-elave-et');
   }
 
   public function destek_edit($id)

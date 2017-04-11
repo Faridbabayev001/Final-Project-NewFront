@@ -18,6 +18,7 @@ class CreateElsTable extends Migration
            $table->integer('user_id')->unsigned();
            $table->foreign('type_id')->references('id')->on('elantypes');
            $table->string('title');
+           $table->string('slug');
            $table->boolean('status');
            $table->text('about');
            $table->string('location');

@@ -29,11 +29,11 @@
                       <div class="news-type news-destek">
                         Dəstək
                       </div>
-                      <a href="{{url('/single/'.$data->id)}}"><img src="{{url('/image/' .$data->shekiller[0]->imageName)}}" alt="İstək image" /></a>
+                      <a href="/elan/{{$data->slug}}"><img src="{{url('/image/' .$data->shekiller[0]->imageName)}}" alt="İstək image" /></a>
                     </div>
                     <div class="news-content col-lg-12 padding0">
                       <div class="news-title">
-                        <a href="{{url('/single/'.$data->id)}}">{{$data->title}}</a>
+                        <a href="/elan/{{$data->slug}}">{{$data->title}}</a>
                       </div>
                       <div class="news-location col-lg-12">
                         <p><i class="fa fa-map-marker"></i> {{strlen($data->location) > 45 ? substr($data->location,0,45).' ...' : $data->location}}</p>
