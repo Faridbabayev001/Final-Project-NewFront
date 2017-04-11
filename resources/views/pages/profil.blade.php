@@ -295,7 +295,7 @@
                           <td class="profil-status" title="{{$status}}"><i class="{{$status_icon}}"></i></td>
                           <td>{{$helps->title}}</td>
                           <td class="profil-subText">{{substr($helps->description,0,100)}}...</td>
-                          {{-- <td class="profil-photo"><img src="{{url('/image/'.$helps->shekiller[0]->imageName)}}" class="img-responsive" alt="News image"></td> --}}
+                          <td class="profil-photo"><img src="{{url('/image/'.$helps->imageName)}}" class="img-responsive" alt="News image"></td>
                           {{-- <td class="profil-action">
                             <a href="{{url('/istek-edit/'.$helps->id)}}" class="btn action-edit"><i class="fa fa-pencil-square"></i></a>
                             <a href="#" data-toggle="modal" data-target="#{{$istekler->id}}" class="btn action-delete"><i class="fa fa-trash"></i></a>

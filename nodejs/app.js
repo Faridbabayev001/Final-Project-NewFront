@@ -7,8 +7,8 @@ var io = require('socket.io').listen(server);
 var connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
-    password: 'root',
-    database: 'final',
+    password: '',
+    database: 'final_project',
     multipleStatements: true
 });
 connection.connect(function (err) {
