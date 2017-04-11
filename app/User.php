@@ -21,6 +21,12 @@ class User extends Authenticatable
     protected $hidden = [
          'password','remember_token',
     ];
+
+    public function isAdmin()
+    {
+      return $this->isAdmin;
+    }
+
     public function elanlar()
     {
       return $this->hasMany('App\Elan','user_id');

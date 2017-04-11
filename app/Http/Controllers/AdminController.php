@@ -25,25 +25,12 @@ class AdminController extends Controller
   public function postLogin(Request $request)
   {
     $email = $request->email;
-    $password = md5($request->password);
-    $validator= validator($request->all(), [
-      'email' => 'required|min:3|max:100',
-      'password' => 'required|min:3|max:100',
-  ]);
-
-    if ($validator->fails() ) {
-        return redirect('/alfagen/login')
-                ->withErrors($validator)
-                ->withInput();
-    }
-    if (isset($_SESSION))
-    {
-      $admins = Admin::all();
-      foreach ($admins as $admin) {
-        if ($admin->email == $email && $admin->password == $password) {
-          $_SESSION['admin'] = 'admin';
-
-
+    $password = $request->password;
+      if (Auth::attempt(['email' => $email, 'password' => $password, 'activated' => 1,'isAdmin' => 1])) {
+        return redirect('/alfagen');
+      }else {
+        return redirect('/alfagen/login');
+      }
         //cheking non activated users and deleting after 30days///////////////////////////////////////
 
           $users = User::all()->where('activated', '=', '0');
@@ -63,23 +50,6 @@ class AdminController extends Controller
             }
 
         //end////////////////////////////////////////////////////////
-
-
-          return redirect('/alfagen');
-        }else {
-          return redirect('/alfagen/login')
-                  ->withErrors(['errors' => 'Duzgun deyl!'])
-                  ->withInput();
-        }
-      }
-    }
-    else
-    {
-      session_start();
-      // return redirect('/alfagen/login')
-      //         ->withErrors(['errors' => 'Duzgun deyl!'])
-      //         ->withInput();
-    }
   }
   public function logout()
     {
@@ -93,10 +63,11 @@ class AdminController extends Controller
       $user = User::orderBy('created_at','desc');
       $users = $user->paginate(8);
       $user_count = $user->get()->count();
+      $admin_count = User::where('isAdmin','=',1)->get()->count();
       $istek_count = Elan::where('type_id', 2)->get()->count();
       $destek_count = Elan::where('type_id', 1)->get()->count();
 
-      return view('admin.index',compact('users','istek_count','destek_count', 'user_count'));
+      return view('admin.index',compact('users','istek_count','destek_count', 'user_count','admin_count'));
     }
 
     public function istek_list()

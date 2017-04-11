@@ -10,7 +10,7 @@
 | and give it the controller to call when that URI is requested.
 |
 */
-session_start();
+
 
 
 //<==================Page Routes ==================>
@@ -105,8 +105,8 @@ Route::get('user/activation/{token}', 'Auth\AuthController@activateUser')->name(
 Route::get('/alfagen/login', 'AdminController@login');
 Route::post('/alfagen/postLogin', 'AdminController@postLogin');
 
-if (isset($_SESSION['admin'])) {
-  Route::group(['middleware' => 'admin'],function(){
+
+  Route::group(['middleware' => ['auth', 'admin']],function(){
     Route::get('/alfagen','AdminController@index');
     Route::get('/alfagen/logout', 'AdminController@logout');
     Route::get('/İstək-list','AdminController@istek_list');
@@ -116,6 +116,5 @@ if (isset($_SESSION['admin'])) {
     Route::get('/activate/{id}','AdminController@activate');
     Route::get('/deactivate/{id}','AdminController@deactivate');
     Route::get('admin/qarsiliqlar','AdminController@qarsiliq');
-  });
-}
+});
 //<=================Admin Routes ===========>

@@ -406,7 +406,7 @@
             <img src="{{url('/image/'.Auth::user()->avatar)}}" class="shoUploadedImg center-block" alt="Avatar">
           </div>
           <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <form action="{{url('/Tənzimləmələr')}}" method="post" enctype="multipart/form-data">
+            <form action="{{url('/tenzimlemeler')}}" method="post" enctype="multipart/form-data">
               {{csrf_field()}}
               <p>
                 <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">

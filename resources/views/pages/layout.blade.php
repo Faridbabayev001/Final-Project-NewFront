@@ -58,6 +58,9 @@
               <a href="#" data-toggle="dropdown" class="dropdown-toggle">Xoş gəldiniz, {{Auth::user()->name}} <span class="caret"></span></a>
               <ul class="dropdown-menu contact-profil-menu" role="menu">
                   <li><a href="/profilim"><img src="{{url('/image/'.Auth::user()->avatar)}}" class="center-block" alt="Avatar"/></a></li>
+                  @if (Auth::user()->isAdmin == 1)
+                    <li><a href="/alfagen"><i class="fa fa-adn" aria-hidden="true"></i> Admin panel</a></li>
+                  @endif
                   <li><a href="/profilim"><i class="fa fa-btn fa-user"></i> Profilim</a></li>
                   <li><a href="/isteklerim"><i class="fa fa-btn fa-map-marker"></i> İstəklərim</a></li>
                   <li><a href="/desteklerim"><i class="fa fa-btn fa-support"></i> Dəstəklərim</a></li>

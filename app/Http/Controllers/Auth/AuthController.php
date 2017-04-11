@@ -52,7 +52,7 @@ class AuthController extends Controller
      }
      public function showRegistrationForm()
      {
-       return redirect('/Qeydiyyat');
+       return redirect('/qeydiyyat');
      }
      //==========================END=====================================
      public function __construct(ActivationService $activationService)
@@ -69,7 +69,7 @@ class AuthController extends Controller
      */
     protected function validator(array $data)
     {
-        
+
 
         return Validator::make($data, [
           'username' => 'required|unique:users',
@@ -97,6 +97,7 @@ class AuthController extends Controller
           'city' => $data['city'],
           'email' => $data['email'],
           'avatar' => 'prof.png',
+          'isAdmin' => '0',
           'password' => bcrypt($data['password'])
         ]);
     }
@@ -135,7 +136,7 @@ class AuthController extends Controller
 
         $this->activationService->sendActivationMail($user);
 
-        return redirect('/Qeydiyyat')->with('status', 'Biz sizə aktivasiya linki yolladıq. Zəhmət olmasa Email adresinizi yoxlayın');
+        return redirect('/qeydiyyat')->with('status', 'Biz sizə aktivasiya linki yolladıq. Zəhmət olmasa Email adresinizi yoxlayın');
     }
 
     public function authenticated(Request $request, $user)

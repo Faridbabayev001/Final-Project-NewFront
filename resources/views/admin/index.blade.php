@@ -40,7 +40,7 @@
                     <div id="spark4" class="chart sparkline"></div>
                     <div class="data-info">
                         <div class="desc">Admin sayı</div>
-                        <div class="value"><span class="indicator indicator-negative mdi mdi-chevron-right"></span><span data-toggle="counter" data-end="1" class="number">0</span>
+                        <div class="value"><span class="indicator indicator-negative mdi mdi-chevron-right"></span><span data-toggle="counter" data-end="{{$admin_count}}" class="number">0</span>
                         </div>
                     </div>
                 </div>
