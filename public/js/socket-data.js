@@ -102,9 +102,9 @@
                 '</li>'
               );
               }
-              else {
-                $('.notification').append('<li><a href="#"><h4 class="text-center margin0">Bildirisiniz yoxdur</h4></a></li>');
-              }
+              // else {
+              //   $('.notification').append('<li><a href="#"><h4 class="text-center margin0">Bildirisiniz yoxdur</h4></a></li>');
+              // }
             }
             else if(value.qarsiliqs_user_id==data.id)
             {
@@ -123,10 +123,9 @@
                 '</li>'
               );
               }
-              else {
-                $('.notification').append('<li><a href="#"><h4 class="text-center margin0">Bildirisiniz yoxdur</h4></a></li>');
-              }
-              console.log(value.els_user_name);
+              // else {
+              //   $('.notification').append('<li><a href="#"><h4 class="text-center margin0">Bildirisiniz yoxdur</h4></a></li>');
+              // }
             }
       });
   });
