@@ -49,8 +49,60 @@
                                     <td style="color:red">Dəstək  </td>
                                   @endif
                                   <td>{{ $qarsiliq->user->name }}</td>
-                                  <td><a href="/single/{{ $qarsiliq->elan->id }}" target="_blank">{{ $qarsiliq->elan->title }}</a></td>
+                                  <td><a data-toggle="modal" data-target="#{{$qarsiliq->elan->id}}" href="#" target="_blank">{{ $qarsiliq->elan->title }}</a></td>
                                   <td>{{ $qarsiliq->elan->name}}</td>
+                                  <div id="{{$qarsiliq->elan->id}}" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                              <div class="modal-dialog modal-lg">
+                                <div class="modal-content">
+                                  <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="m odal" aria-label="Close">
+                                      <span aria-hidden="true">&times;</span>
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">{{$qarsiliq->elan->title}}</h4>
+                                  </div>
+                                  <div class="modal-body">
+                                    <ul class="list-group">
+                                      <li class="list-group-item"><b>Məlumat:</b> {{$qarsiliq->elan->about}}</li>
+                                      <li class="list-group-item"><b>Ad & Soyad:</b> {{$qarsiliq->elan->name}}</li>
+                                      <li class="list-group-item"><b>İstifadəçi Ad & Soyadı:</b> {{$qarsiliq->elan->user->name}}</li>
+                                      <li class="list-group-item"><b>Əlaqə nömrəsi:</b> {{$qarsiliq->elan->phone}}</li>
+                                      <li class="list-group-item"><b>Email:</b> {{$qarsiliq->elan->email}}</li>
+                                      <li class="list-group-item"><b>Təşkilat:</b> {{$qarsiliq->elan->org}}</li>
+                                      <li class="list-group-item"><b>Növ:</b> {{$qarsiliq->elan->nov}}</li>
+                                      <li class="list-group-item"><b>Deadline vaxtı:</b> {{$qarsiliq->elan->deadline}}</li>
+                                    </ul>
+                                    <hr>
+                                    <h3>Digər Şəkillər:</h3>
+                                    <div class="row">
+                                      @php
+                                        $isFirst = true;
+                                      @endphp
+                                      @foreach($qarsiliq->elan->shekiller as $imgName)
+                                        @if ($isFirst)
+                                          @php
+                                            $isFirst = false;
+                                            continue;
+                                          @endphp
+                                        @endif
+                                        <div class="col-lg-3">
+                                            <img src="{{url('/image/'.$imgName->imageName)}}" style="height:150px; cursor:pointer" class="admin-panel-other-photo img-responsive" alt="" />
+                                        </div>
+                                        @endforeach
+                                    </div>
+                                    <hr>
+                                    <h3>Əsas şəkil:</h3>
+                                    <div class="col-lg-12">
+                                      <img class="admin-panel-main-photo img-responsive" src="{{url('image/'.$qarsiliq->elan->shekiller[0]->imageName)}}" alt="" />
+                                    </div>
+                                    <hr>
+                                  </div>
+
+
+                                  <div class="modal-footer">
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
                                 </tr>
                             @endforeach
                           </tbody>

@@ -60,7 +60,7 @@
                     '<li>' +
                     '<a href="/Mesajlar/'+value.id+'">' +
                     '<img src="/image/' + value.avatar + '" class="img-responsive pull-left" alt="Notification image" />' +
-                    '<p>'+ '<span style="color:#0090D9;">' + value.name + ':</span> '+"<br>"+ value.message +'</p></a></li>'
+                    '<p>'+ '<span style="color:#0090D9;">' + value.name + ':</span> '+"<br>"+ String(value.message).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;') +'</p></a></li>'
                   );
             }
           })
@@ -142,10 +142,14 @@
     {
       e.preventDefault();
       // socketData(auth_user_id,receiver_id,elan_id);
-        data_single.message = $('.chat-footer-input').val();
-        socket.emit('send_message', data_single);
-        socket.emit('count', data);
-        $('.chat-footer-input').val("");
+      var message = $('.chat-footer-input').val();
+        data_single.message = message.trim();
+        if (data_single.message !== "")
+        {
+          socket.emit('send_message', data_single);
+          socket.emit('count', data);
+          $('.chat-footer-input').val("");
+        }
       return false;
     });
   }

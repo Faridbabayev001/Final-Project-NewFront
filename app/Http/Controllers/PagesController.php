@@ -113,8 +113,9 @@ class PagesController extends Controller
     public function single($slug)
     {
       $single = Elan::where('slug', $slug)->first();
-      $qarsiliqs = Qarsiliq::all();
-      $check = false;
+      if (isset($single)) {
+        $qarsiliqs = Qarsiliq::all();
+        $check = false;
       foreach ($qarsiliqs as $qarsiliq) {
         if (Auth::user()) {
           if (Auth::user()->id == $qarsiliq->user_id && $single->id == $qarsiliq->elan_id) {
@@ -128,7 +129,6 @@ class PagesController extends Controller
           break;
         }
       }
-      if ($single) {
           if ($single->status == 0) {
             return redirect('/');
           }
@@ -185,40 +185,15 @@ class PagesController extends Controller
       $Elan_all=Elan::all();
       $istek=Elan::whereRaw('`type_id` = 2 AND user_id = '. Auth::user()->id)->count();
       $destek=Elan::whereRaw('`type_id` = 1 AND user_id = '. Auth::user()->id)->count();
+      $noti_message = Qarsiliq::where('elan_id', '=', Auth::user()->id)
+                              ->orWhere('user_id', '=', Auth::user()->id)->get();
 
-      $noti_message = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
-                                ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-                                ->select('users.name','users.avatar','qarsiliqs.data','els.user_id as elan_userid',
-                                'qarsiliqs.created_at','els.title','els.type_id','qarsiliqs.description',
-                                'qarsiliqs.notification','qarsiliqs.user_id','qarsiliqs.id')
-                                ->where('els.user_id', '=', Auth::user()->id)
-                                ->orderBy('created_at', 'desc')
-                                ->get();
-
-      $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-                          ->join('users', 'users.id', '=', 'els.user_id')
-                          ->select('users.name','els.type_id','users.email',
-                          'qarsiliqs.user_id as qars_userid','users.city',
-                          'qarsiliqs.id','qarsiliqs.data','users.avatar','users.phone','els.location')
-                          ->where('qarsiliqs.user_id', '=', Auth::user()->id)
-                          ->get();
-
-      // data for my helps
-      $help = Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-                            ->join('users', 'users.id', '=', 'qarsiliqs.user_id')
-                            ->join('photos','els.id', '=', 'photos.els_id')
-                            ->select('qarsiliqs.id as qars_id','qarsiliqs.user_id','qarsiliqs.description',
-                            'els.title','photos.imageName','els.id as elan_id','els.about','els.type_id','qarsiliqs.data','qarsiliqs.data_status')
-                            ->where('qarsiliqs.user_id', '=' , Auth::user()->id)
-                            ->groupBy('qarsiliqs.elan_id')
-                            ->get();
-      // dd($help);
-      return view('pages.profil', compact('Elan_all','noti_message','data_join','istek','destek','help'));
+      return view('pages.profil', compact('Elan_all','noti_message','istek','destek'));
     }
 
 
     //<================= METHHOD FOR NOFICATION_SINGLE ================>
-    public function notication_single($id, Chat $chat, Qarsiliq $qarsiliq_table)
+    public function notication_single($id)
     {
       $notication_single = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
             ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
@@ -228,15 +203,14 @@ class PagesController extends Controller
                 ['qarsiliqs.id', '=', $id],
                 ['els.user_id', '=', Auth::user()->id]
             ])->get();
-
-        if ($notication_single)
+        if (isset($notication_single[0]))
         {
             foreach ($notication_single as $notication_single)
             {
                 $notication_single->status = 0;
                 $notication_single->update();
             }
-          return view('pages.notification_single', compact('notication_single', 'data_join', 'userId'));
+          return view('pages.notification_single', compact('notication_single'));
         }
         else
         {
@@ -450,14 +424,11 @@ class PagesController extends Controller
 
     public function message($id)
     {
-      $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
-                ->join('users', 'users.id', '=', 'els.user_id')
-                ->select('users.name','els.type_id','users.email','qarsiliqs.user_id','users.city','qarsiliqs.id','users.avatar','users.phone','els.location')
-                ->where([
-                      ['qarsiliqs.id', '=', $id],
-                      ['qarsiliqs.user_id', '=', Auth::user()->id]
+      $data_join=Qarsiliq::where([
+                      ['id', '=', $id],
+                      ['user_id', '=', Auth::user()->id]
                   ])->get();
-      if ($data_join) {
+      if (isset($data_join[0])) {
         foreach ($data_join as $data_join) {
           $data_join->data_status=0;
           $data_join->update();
@@ -550,6 +521,8 @@ class PagesController extends Controller
                         }
                         return view('pages.chat');
                       }
+                }else {
+                  return view('errors.503');
                 }
                     // chatin vaxti bitibse session yaradilir ki vaxti bitib
 

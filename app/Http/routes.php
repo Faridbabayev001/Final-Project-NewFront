@@ -12,7 +12,6 @@
 */
 
 
-
 //<==================Page Routes ==================>
 Route::get('/','PagesController@index');
 Route::get('/index','PagesController@index');
@@ -27,7 +26,7 @@ Route::get('/elan/{slug}','PagesController@single');
     Route::get('/profilim','PagesController@profil');
     Route::get('/tenzimlemeler','PagesController@profil');
     Route::post('/tenzimlemeler','PagesController@settings');
-    Route::get('/destekler','PagesController@profil');
+    Route::get('/desteklerim','PagesController@profil');
     Route::get('/isteklerim','PagesController@profil');
     });
 //<=================Page Routes End ================>
