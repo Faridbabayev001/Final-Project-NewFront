@@ -32,7 +32,7 @@ class GoogleController extends Controller
        $myEmail = $users->getEmail();
        Session::flash('user',$user);
        Session::flash('email',$myEmail);
-       return redirect('/Qeydiyyat');
+       return redirect('/qeydiyyat');
 
        // $user->token;
    }
