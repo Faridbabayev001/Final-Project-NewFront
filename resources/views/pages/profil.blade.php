@@ -364,7 +364,7 @@
                             @if($notification_message->elan->type_id==2)
                               <span class="special-istek">{{$notification_message->user->name}}</span>  adlı istifadəçi dəstəyinizi qəbul etdi !
                             @endif
-                            @if($data_joins->type_id==1)
+                            @if($notification_message->type_id==1)
                               <span class="special-destek">{{$notification_message->user->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
                             @endif
                           </h4>
