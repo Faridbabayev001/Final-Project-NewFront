@@ -33,7 +33,7 @@ class FacebookController extends Controller
 
        Session::flash('user',$user);
        Session::flash('email',$myEmail);
-       return redirect('/Qeydiyyat');
+       return redirect('/qeydiyyat');
 
 
        // $user->token;
