@@ -157,7 +157,7 @@ class PagesController extends Controller
     public function notification_count(Request $request,Qarsiliq $qarsiliq,$id)
     {
 
-      $qarsiliq_table = Qarsiliq::find($id);
+      $elan = Elan::find($id);
         $this->validate($request, [
             'description' => 'required',
         ]);
@@ -165,8 +165,11 @@ class PagesController extends Controller
         if ($qarsiliq->description='') {
             Session::flash('description_error' , "Boş mesaj gonderməyin !");
         }else{
-            Session::flash('description_destek' , "Dəstəyiniz uğurla  göndərildi. Qəbul olunduğu zaman sizə bildiriş göndəriləcək ");
-            Session::flash('description_istek' , "İstəyiniz uğurla  göndərildi. Qəbul olunduğu zaman sizə bildiriş göndəriləcək ");
+            if ($elan->type_id == 2) {
+              Session::flash('description_destek' , "Dəstəyiniz uğurla  göndərildi. Qəbul olunduğu zaman sizə bildiriş göndəriləcək ");
+            }else {
+              Session::flash('description_istek' , "İstəyiniz uğurla  göndərildi. Qəbul olunduğu zaman sizə bildiriş göndəriləcək ");
+            }
         }
 
         $qarsiliq->elan_id = $id;
@@ -530,24 +533,24 @@ class PagesController extends Controller
                             ])->get();
 
                     // chatin vaxti bitibse session yaradilir ki vaxti bitib
-              if (isset($chats[0])) {
+                    $elan = Elan::find($elan_id);
+                    if (isset($elan)) {
+                      if($elan->status == 0)
+                        {
+                          if ($elan->user_id == Auth::user()->id) {
+                          Session::flash('chatdead', 'Bu elana qoyulan vaxt bitdiyindən elan üzərindən əlaqə sona çatmışdır. Elanın vaxtın uzada bilərsiz');
 
-                    $elsId = $chats[0]->elan_id;
-                    $elan = Elan::where('id',$elsId)->get();
-                    if($elan[0]->status == 0)
-                      {
-                        if ($elan[0]->user_id == Auth::user()->id) {
-                        Session::flash('chatdead', 'Bu elana qoyulan vaxt bitdiyindən elan üzərindən əlaqə sona çatmışdır. Elanın vaxtın uzada bilərsiz');
+                          }else{
+                          Session::flash('chatdead', 'Bu elana qoyulan vaxt bitdiyindən elan üzərindən əlaqə sona çatmışdır.');
 
-                        }else{
-                        Session::flash('chatdead', 'Bu elana qoyulan vaxt bitdiyindən elan üzərindən əlaqə sona çatmışdır.');
-
+                          }
+                          return view('pages.chat');
                         }
-                        return view('pages.chat');
-                      }
-                }else {
-                  return view('errors.503');
-                }
+                    }else {
+                      return view('errors.503');
+                    }
+
+
                     // chatin vaxti bitibse session yaradilir ki vaxti bitib
 
 
