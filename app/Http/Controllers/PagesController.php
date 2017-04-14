@@ -185,10 +185,34 @@ class PagesController extends Controller
       $Elan_all=Elan::all();
       $istek=Elan::whereRaw('`type_id` = 2 AND user_id = '. Auth::user()->id)->count();
       $destek=Elan::whereRaw('`type_id` = 1 AND user_id = '. Auth::user()->id)->count();
-      $noti_message = Qarsiliq::where('elan_id', '=', Auth::user()->id)
-                              ->orWhere('user_id', '=', Auth::user()->id)->get();
+      $noti_message = Qarsiliq::join('users', 'users.id', '=', 'qarsiliqs.user_id')
+                                ->join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+                                ->select('users.name','users.avatar','qarsiliqs.data','els.user_id as elan_userid',
+                                'qarsiliqs.created_at','els.title','els.type_id','qarsiliqs.description',
+                                'qarsiliqs.notification','qarsiliqs.user_id','qarsiliqs.id')
+                                ->where('els.user_id', '=', Auth::user()->id)
+                                ->orderBy('created_at', 'desc')
+                                ->get();
 
-      return view('pages.profil', compact('Elan_all','noti_message','istek','destek'));
+      $data_join=Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+                          ->join('users', 'users.id', '=', 'els.user_id')
+                          ->select('users.name','els.type_id','users.email',
+                          'qarsiliqs.user_id as qars_userid','users.city',
+                          'qarsiliqs.id','qarsiliqs.data','users.avatar','users.phone','els.location')
+                          ->where('qarsiliqs.user_id', '=', Auth::user()->id)
+                          ->get();
+
+      // data for my helps
+      $help = Qarsiliq::join('els', 'els.id', '=', 'qarsiliqs.elan_id')
+                            ->join('users', 'users.id', '=', 'qarsiliqs.user_id')
+                            ->join('photos','els.id', '=', 'photos.els_id')
+                            ->select('qarsiliqs.id as qars_id','qarsiliqs.user_id','qarsiliqs.description',
+                            'els.title','photos.imageName','els.id as elan_id','els.about','els.type_id','qarsiliqs.data','qarsiliqs.data_status')
+                            ->where('qarsiliqs.user_id', '=' , Auth::user()->id)
+                            ->groupBy('qarsiliqs.elan_id')
+                            ->get();
+      // dd($help);
+      return view('pages.profil', compact('Elan_all','noti_message','data_join','istek','destek','help'));
     }
 
 

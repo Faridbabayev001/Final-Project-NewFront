@@ -213,9 +213,9 @@
                   </tr>
                 </thead>
               {{-- @endif --}}
-                    @foreach ($noti_message as $helps)
+                    @foreach ($help as $helps)
                       <tbody>
-                      @if ($helps->user_id == Auth::user()->id && $helps->elan->type_id == 2)
+                      @if ($helps->user_id == Auth::user()->id && $helps->type_id == 2)
                       <tr>
                           @php
                             $status = 'İmtina edilib';
@@ -227,9 +227,9 @@
                               }
                           @endphp
                           <td class="profil-status" title="{{$status}}"><i class="{{$status_icon}}"></i></td>
-                          <td>{{$helps->elan->title}}</td>
+                          <td>{{$helps->title}}</td>
                           <td class="profil-subText">{{substr($helps->description,0,100)}}...</td>
-                          <td class="profil-photo"><img src="{{url('/image/'.$helps->elan->shekiller[0]->imageName)}}" class="img-responsive" alt="News image"></td>
+                          <td class="profil-photo"><img src="{{url('/image/'.$helps->imageName)}}" class="img-responsive" alt="News image"></td>
                           {{-- <td class="profil-action">
                             <a href="{{url('/istek-edit/'.$helps->id)}}" class="btn action-edit"><i class="fa fa-pencil-square"></i></a>
                             <a href="#" data-toggle="modal" data-target="#{{$istekler->id}}" class="btn action-delete"><i class="fa fa-trash"></i></a>
@@ -279,9 +279,9 @@
                   </tr>
                 </thead>
               {{-- @endif --}}
-                    @foreach ($noti_message as $helps)
+                    @foreach ($help as $helps)
                       <tbody>
-                      @if ($helps->user_id == Auth::user()->id && $helps->elan->type_id == 1)
+                      @if ($helps->user_id == Auth::user()->id && $helps->type_id == 1)
                       <tr>
                           @php
                             $status = 'İmtina edilib';
@@ -293,9 +293,9 @@
                               }
                           @endphp
                           <td class="profil-status" title="{{$status}}"><i class="{{$status_icon}}"></i></td>
-                          <td>{{$helps->elan->title}}</td>
-                          <td class="profil-subText">{{substr($helps->elan->description,0,100)}}...</td>
-                          <td class="profil-photo"><img src="{{url('/image/'.$helps->elan->shekiller[0]->imageName)}}" class="img-responsive" alt="News image"></td>
+                          <td>{{$helps->title}}</td>
+                          <td class="profil-subText">{{substr($helps->description,0,100)}}...</td>
+                          <td class="profil-photo"><img src="{{url('/image/'.$helps->imageName)}}" class="img-responsive" alt="News image"></td>
                           {{-- <td class="profil-action">
                             <a href="{{url('/istek-edit/'.$helps->id)}}" class="btn action-edit"><i class="fa fa-pencil-square"></i></a>
                             <a href="#" data-toggle="modal" data-target="#{{$istekler->id}}" class="btn action-delete"><i class="fa fa-trash"></i></a>
@@ -335,17 +335,17 @@
               <h1>Bildirişiniz yoxdur</h1>
             @else --}}
               @foreach($noti_message as $notification_message)
-                @if($notification_message->elan->user_id==Auth::user()->id)
+                @if($notification_message->elan_userid==Auth::user()->id)
                 <div class="col-lg-12 padding0 notification-block">
                   <div class="col-lg-2">
-                    <img src="{{url('/image/'.$notification_message->user->avatar)}}">
+                    <img src="{{url('/image/'.$notification_message->avatar)}}">
                   </div>
                   <div class="col-lg-9">
                     <h4 class="profil-notification-title">
-                      @if($notification_message->elan->type_id==2)
-                        <span class="special-istek">{{$notification_message->user->name}}</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !
+                      @if($notification_message->type_id==2)
+                        <span class="special-istek">{{$notification_message->name}}</span> adlı istifadəçi istəyinizə dəstək vermək istəyir !
                       @elseif($notification_message->type_id==1)
-                        <span class="special-destek">{{$notification_message->user->name}}</span> adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
+                        <span class="special-destek">{{$notification_message->name}}</span> adlı istifadəçi dəstəyinizdən yararlanmaq istəyir !
                       @endif
                     </h4>
                     <p class="profil-notification-desc">{{$notification_message->description}}</p>
@@ -354,26 +354,30 @@
                     </div>
                   </div>
                 </div>
-              @elseif ($notification_message->user_id==Auth::user()->id && $notification_message->data == 1)
-                  <div class="col-lg-12 padding0 notification-block">
-                        <div class="col-lg-2">
-                            <img src="{{url('/image/'.$notification_message->user->avatar)}}">
-                        </div>
-                        <div class="col-lg-9">
-                          <h4 class="profil-notification-title">
-                            @if($notification_message->elan->type_id==2)
-                              <span class="special-istek">{{$notification_message->user->name}}</span>  adlı istifadəçi dəstəyinizi qəbul etdi !
-                            @endif
-                            @if($notification_message->type_id==1)
-                              <span class="special-destek">{{$notification_message->user->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
-                            @endif
-                          </h4>
-                          <p class="profil-notification-desc">{{$notification_message->description}}</p>
-                          <p class="profil-notification-full pull-right"><a href="{{url('/message/'.$notification_message->id)}}" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
-                        </div>
-                  </div>
                 @endif
               @endforeach
+
+              @foreach($data_join as $data_joins)
+                @if($data_joins->qars_userid==Auth::user()->id && $data_joins->data == 1)
+              <div class="col-lg-12 padding0 notification-block">
+                    <div class="col-lg-2">
+                        <img src="{{url('/image/'.$data_joins->avatar)}}">
+                    </div>
+                    <div class="col-lg-9">
+                      <h4 class="profil-notification-title">
+                        @if($data_joins->type_id==2)
+                          <span class="special-istek">{{$data_joins->name}}</span>  adlı istifadəçi dəstəyinizi qəbul etdi !
+                        @endif
+                        @if($data_joins->type_id==1)
+                          <span class="special-destek">{{$data_joins->name}}</span>  adlı istifadəçi istəyinizi qəbul etdi !
+                        @endif
+                      </h4>
+                      <p class="profil-notification-desc">{{$data_joins->description}}</p>
+                      <p class="profil-notification-full pull-right"><a href="{{url('/message/'.$data_joins->id)}}" class="btn zaa">Tam müraciətə bax<i class="fa fa-angle-double-right"></i></a></p>
+                    </div>
+              </div>
+            @endif
+            @endforeach
           </div>
           {{-- <================== NOTIFICATION PART END ==================> --}}
 
