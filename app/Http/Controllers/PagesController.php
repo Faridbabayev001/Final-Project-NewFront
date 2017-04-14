@@ -326,12 +326,12 @@ class PagesController extends Controller
           else
           {
               Session::flash('imageerror' , "Xahiş olunur şəkili düzgun yükləyəsiniz.");
-              return redirect('/Tənzimləmələr');
+              return redirect('/tenzimlemeler');
           }
 
       }
              Session::flash('added' , "Məlumatlarınız yeniləndi.");
-             return redirect('/Tənzimləmələr');
+             return redirect('/tenzimlemeler');
     }
 
     //<================= METHHOD FOR ABOUT US  ================>

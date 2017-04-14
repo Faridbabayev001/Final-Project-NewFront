@@ -113,7 +113,7 @@ function Mydata(data,count){
                '<div class="infoBubble-desc">' +
                "<p style='padding-right:9px'>"+about+" ...</p>"+
                '</div>' +
-               "<p class='pull-right '><a href='/single/"+data[i]['id']+"' class='btn infoBubble-button'>Ətraflı</a></p>"+
+               "<p class='pull-right '><a href='/elan/"+data[i]['slug']+"' class='btn infoBubble-button'>Ətraflı</a></p>"+
                '</div>' +
                '</div>',
                animation: google.maps.Animation.DROP,

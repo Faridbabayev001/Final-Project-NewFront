@@ -104,7 +104,7 @@
         <div id="InfoMap">
         </div>
       </div>
-        <div class="map-socket-section">
+        <div class="map-socket-section hidden-xs">
         </div>
     </div>
   </section>
