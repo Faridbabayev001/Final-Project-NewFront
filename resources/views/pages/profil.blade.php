@@ -208,7 +208,7 @@
                     <th>Şəkil</th>
                   </tr>
                 </thead>
-              
+
                   @foreach ($help as $helps)
                       <tbody>
                       @if ($helps->user_id == Auth::user()->id && $helps->type_id == 2)
@@ -216,7 +216,7 @@
                           @php
                             $status = 'İmtina edilib';
                             $status_icon = 'fa fa-times-circle-o fa-2x';
-                            if ($helps->data_status == 1)
+                            if ($helps->data == 1)
                              {
                                 $status = 'Qəbul olunub';
                                 $status_icon = 'fa fa-check-circle-o fa-2x';
@@ -226,7 +226,7 @@
                           <td>{{$helps->title}}</td>
                           <td class="profil-subText">{{substr($helps->description,0,100)}}...</td>
                           <td class="profil-photo"><img src="{{url('/image/'.$helps->imageName)}}" class="img-responsive" alt="News image"></td>
-                          
+
                       </tr>
                     </tbody>
                   @endif
@@ -234,8 +234,8 @@
             </table>
               @else
               <h1>Heç bir istəyə dəstək olmamısız</h1>
-              
-              
+
+
             @endif
             @else
               <h1>Heç bir istəyə dəstək olmamısız</h1>
@@ -268,7 +268,7 @@
                             @php
                               $status = 'İmtina edilib';
                               $status_icon = 'fa fa-times-circle-o fa-2x';
-                              if ($helps->data_status == 1)
+                              if ($helps->data == 1)
                                {
                                   $status = 'Qəbul olunub';
                                   $status_icon = 'fa fa-check-circle-o fa-2x';
@@ -278,17 +278,17 @@
                             <td>{{$helps->title}}</td>
                             <td class="profil-subText">{{substr($helps->description,0,100)}}...</td>
                             <td class="profil-photo"><img src="{{url('/image/'.$helps->imageName)}}" class="img-responsive" alt="News image"></td>
-                          
+
                         </tr>
                     </tbody>
-            
+
                        @endif
                     @endforeach
               </table>
                @else
               <h1>Heç bir dəstəyə istək verməmisiniz</h1>
-              
-              
+
+
             @endif
             @else
               <h1>Heç bir dəstəyə istək verməmisiniz</h1>
